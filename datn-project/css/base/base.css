@@ -22,11 +22,12 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Container chuẩn */
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.6rem;
-    width: 100%;
+    padding: 0 16px;
 }
 
 a {
