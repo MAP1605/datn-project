@@ -16,24 +16,17 @@ body {
     font-size: 1.6rem;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6rem;
-    color: #222;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--color-background);
     /* cuộn xuống mượt mà hơn */
     scroll-behavior: smooth;
 }
 
-:root {
-    --primary-color: #0447b5bf;
-    --primary-color-rgba: #0447b5de;
-    --white-color: #fff;
-    --black-color: #000;
-    --text-color: #333;
-    --border-color: #dbdbdb;
-    --star-gold-color: #ffbe1a;
-    --red-color-primary: #EE4D2D;
-
-    --color-muted: #777;
-    --color-bg: #f5f5f5;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    width: 100%;
 }
 
 a {
