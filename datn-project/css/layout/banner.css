@@ -31,8 +31,30 @@
 
 .banner__small img {
     width: 100%;
-    height: 100%;
+    height: calc((260px - 0.8rem) / 2);
     object-fit: cover;
     display: block;
     border-radius: 4px;
+}
+
+/* responsive */
+/* Tablet & Mobile: width <= 1023px */
+@media screen and (max-width: 1023px) {
+    .banner__wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .banner__big {
+        flex: 1;
+        height: auto;
+    }
+
+    .banner__big img {
+        height: auto;
+    }
+
+    .banner__small {
+        display: none;
+    }
 }
