@@ -1,0 +1,47 @@
+/* Reset nhẹ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6rem;
+    color: #222;
+    background-color: #fff;
+    /* cuộn xuống mượt mà hơn */
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color: #0447b5bf;
+    --primary-color-rgba: #0447b5de;
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --border-color: #dbdbdb;
+    --star-gold-color: #ffbe1a;
+    --red-color-primary: #EE4D2D;
+
+    --color-muted: #777;
+    --color-bg: #f5f5f5;
+}
+
+a {
+    text-decoration: none;
+    /* có màu giống thẻ cha  */
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
