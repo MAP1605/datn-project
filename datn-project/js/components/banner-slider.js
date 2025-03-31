@@ -1,3 +1,4 @@
+
 let currentIndex = 0;
 const slides = document.querySelectorAll('.banner__slide');
 
