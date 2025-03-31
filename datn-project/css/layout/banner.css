@@ -2,6 +2,10 @@
     margin-top: 3rem;
 }
 
+.container__banner {
+    background-color: var(--white-color);
+}
+
 .banner__wrapper {
     display: flex;
     gap: 0.8rem;
@@ -11,6 +15,7 @@
 .banner__big {
     flex: 2;
     height: 260px;
+    width: 100%;
 }
 
 .banner__big img {
@@ -27,6 +32,7 @@
     flex-direction: column;
     gap: 0.8rem;
     height: 260px;
+    width: 100%;
 }
 
 .banner__small img {
