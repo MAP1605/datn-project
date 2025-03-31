@@ -1,4 +1,4 @@
-/* Reset nhẹ */
+/* ========== RESET CSS ========== */
 *,
 *::before,
 *::after {
@@ -7,6 +7,19 @@
     padding: 0;
 }
 
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    /* có màu giống thẻ cha  */
+    color: inherit;
+}
+
+
+/* ========== BASE STYLES ========== */
 html {
     /* 1rem = 10px */
     font-size: 62.5%;
@@ -22,20 +35,9 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Container chuẩn */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 16px;
-}
-
-a {
-    text-decoration: none;
-    /* có màu giống thẻ cha  */
-    color: inherit;
-}
-
-ul {
-    list-style: none;
 }
