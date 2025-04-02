@@ -108,6 +108,32 @@
     vertical-align: middle;
 }
 
+/* Sản phẩm ẩn (ấn button xem thêm) */
+.product__item--hidden {
+    display: none;
+}
+
+.product__see-more-wrap {
+    margin: 3rem;
+    text-align: center;
+}
+
+.product__see-more-btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.product__see-more-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
 
 @media (max-width: 1023px) {
     .product__list {
