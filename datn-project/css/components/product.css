@@ -96,6 +96,14 @@
     font-size: 1.2rem;
     color: #666;
     padding-top: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.product__meta i {
+    font-size: 1.2rem;
+    color: gold;
+    margin-right: 0.3rem;
+    vertical-align: middle;
 }
 
 
