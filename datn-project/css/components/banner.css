@@ -4,7 +4,7 @@
 
 .container__banner {
     background-color: var(--white-color);
-    padding: 0;
+    padding: 2px 2px;
 }
 
 .banner__wrapper {
