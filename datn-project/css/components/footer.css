@@ -1,0 +1,128 @@
+.footer {
+    background-color: #fff;
+    padding: 4rem 2rem 2rem;
+    font-size: 1.4rem;
+    color: #333;
+    line-height: 1.6;
+    border-top: 1px solid #ddd;
+}
+
+/* ====== Dòng icon dịch vụ ====== */
+.footer__features {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.footer__feature-item {
+    flex: 1;
+    min-width: 120px;
+}
+
+.footer__feature-item img {
+    width: 40px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+/* ====== Thông tin chia 4 cột ====== */
+.footer__info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.footer__info h4 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+.footer__info p,
+.footer__info a {
+    font-size: 1.4rem;
+    color: #555;
+    margin-bottom: 0.6rem;
+    text-decoration: none;
+}
+
+.footer__info a:hover {
+    text-decoration: underline;
+}
+
+/* ====== Thanh toán & vận chuyển ====== */
+.footer__payment,
+.footer__shipping {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.footer__payment img,
+.footer__shipping img {
+    height: 24px;
+    object-fit: contain;
+}
+
+/* ====== Dòng chứng nhận (3 logo) ====== */
+.footer__cert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2rem 0;
+}
+
+.footer__cert img {
+    height: 40px;
+    object-fit: contain;
+}
+
+/* ====== Thông tin công ty cuối trang ====== */
+.footer__bottom {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #777;
+    padding-top: 2rem;
+    line-height: 1.8;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 1023px) {
+    .footer__info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__cert {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 739px) {
+    .footer__features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer__info {
+        grid-template-columns: 1fr;
+    }
+
+    .footer__cert {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer__payment,
+    .footer__shipping {
+        justify-content: center;
+    }
+}
