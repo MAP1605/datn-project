@@ -32,12 +32,15 @@
         <!-- End banner -->
 
         <!-- Start category (danh mục) -->
-        <div id="category">
+        <div id="category2">
+            <?php include 'category.php'; ?>
         </div>
         <!-- End category (danh mục) -->
 
         <!-- Start prodcut -->
-        <div id="product">
+        <!-- index.php -->
+        <div id="products">
+            <?php include 'product.php'; ?>
         </div>
         <!-- End prodcut -->
     </main>
