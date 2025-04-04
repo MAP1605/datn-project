@@ -1,29 +1,29 @@
 .footer {
-    background-color: #fff;
+    background-color: var(--white-color);
     padding: 4rem 2rem 2rem;
     font-size: 1.4rem;
-    color: #333;
+    color: var(--text-color);
     line-height: 1.6;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--white-color);
 }
 
 /* ====== Dòng icon dịch vụ ====== */
-.footer__features {
+.footer__policy {
     display: flex;
     justify-content: space-between;
     text-align: center;
     flex-wrap: wrap;
     gap: 2rem;
     padding-bottom: 3rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--white-color);
 }
 
-.footer__feature-item {
+.footer__policy-item {
     flex: 1;
     min-width: 120px;
 }
 
-.footer__feature-item img {
+.footer__policy-item img {
     width: 40px;
     height: auto;
     margin-bottom: 1rem;
@@ -32,7 +32,7 @@
 /* ====== Thông tin chia 4 cột ====== */
 .footer__info {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 2rem;
     padding: 3rem 0;
 }
@@ -51,37 +51,66 @@
     text-decoration: none;
 }
 
+.footer__col .footer__phone {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
 .footer__info a:hover {
     text-decoration: underline;
+}
+
+.footer__social {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.8rem;
+    font-size: 1.6rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer__social i {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+.footer__social:hover {
+    color: var(--primary-color);
 }
 
 /* ====== Thanh toán & vận chuyển ====== */
 .footer__payment,
 .footer__shipping {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    align-items: center;
+    margin-top: 0.8rem;
 }
 
 .footer__payment img,
 .footer__shipping img {
-    height: 24px;
+    width: 100%;
+    height: auto;
+    max-width: 65px;
     object-fit: contain;
 }
 
-/* ====== Dòng chứng nhận (3 logo) ====== */
-.footer__cert {
+/* ====== Dòng chứng nhận (4 logo) ====== */
+.footer__certs {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     padding: 2rem 0;
 }
 
-.footer__cert img {
+.footer__certs img {
     height: 40px;
     object-fit: contain;
 }
