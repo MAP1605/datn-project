@@ -5,5 +5,5 @@ loadHTML('#footer', 'components/footer.html');  // Gọi hàm, chèn footer
 
 loadHTML('#banner', 'components/banner.html');
 loadHTML('#category', 'components/category.html');
-loadHTML('#product', 'components/product.html');
+loadHTML('#products', 'components/product.php');
 

@@ -16,10 +16,10 @@ function setupShowMoreButton() {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Giả sử bạn load phần sản phẩm bằng fetch hay innerHTML
-  fetch("components/product.html")
+  fetch("components/product.php")
     .then(res => res.text())
     .then(html => {
-      document.querySelector("#product").innerHTML = html;
+      document.querySelector("#products").innerHTML = html;
       setupShowMoreButton(); // gọi sau khi nội dung đã được gán vào DOM
     });
 });
