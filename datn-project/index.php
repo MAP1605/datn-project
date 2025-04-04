@@ -37,7 +37,9 @@
         <!-- End category (danh mục) -->
 
         <!-- Start prodcut -->
+        <!-- index.php -->
         <div id="products">
+            <?php include 'product.php'; ?>
         </div>
         <!-- End prodcut -->
     </main>
