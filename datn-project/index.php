@@ -32,7 +32,8 @@
         <!-- End banner -->
 
         <!-- Start category (danh mục) -->
-        <div id="category">
+        <div id="category2">
+            <?php include 'category.php'; ?>
         </div>
         <!-- End category (danh mục) -->
 

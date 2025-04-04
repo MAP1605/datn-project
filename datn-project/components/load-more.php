@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $host = 'localhost';
 $user = 'root';
 $password = '';
@@ -13,11 +16,15 @@ if ($conn->connect_error) {
 $data = json_decode(file_get_contents("php://input"), true);
 $loaded = isset($data['loaded']) ? $data['loaded'] : [];
 
-// Tạo chuỗi ID để loại trừ
+// Chuyển danh sách ID thành chuỗi
 $idList = implode(",", array_map('intval', $loaded));
-$where = $idList ? "WHERE ID_San_Pham NOT IN ($idList)" : "";
 
-// Lấy 3 sản phẩm mới không trùng
+// Lọc sản phẩm "Đang bán" và loại ID đã hiển thị
+$where = $idList
+    ? "WHERE ID_San_Pham NOT IN ($idList) AND Trang_Thai_San_Pham = 'Đang bán'"
+    : "WHERE Trang_Thai_San_Pham = 'Đang bán'";
+
+// Truy vấn lấy sản phẩm
 $sql = "SELECT * FROM San_Pham $where ORDER BY RAND() LIMIT 3";
 $result = $conn->query($sql);
 
@@ -44,7 +51,7 @@ while ($row = $result->fetch_assoc()) {
         </div>
         <div class="product__meta">
             <span class="product__stars">⭐ <?php echo $row['So_Sao_Danh_Gia']; ?></span>
-            <span class="product__sold">Đã bán <?php echo $row['So_Luong_Da_Ban']; ?></span>
+            <span class="product__sold">Đã bán <?php echo $row['Da_Ban']; ?></span>
         </div>
     </div>
 <?php

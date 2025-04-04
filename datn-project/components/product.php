@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 // Lấy 40 sản phẩm ngẫu nhiên
-$sql = "SELECT * FROM San_Pham ORDER BY RAND() LIMIT 3";
+$sql = "SELECT * FROM San_Pham WHERE Trang_Thai_San_Pham = 'Đang bán' ORDER BY RAND() LIMIT 3";
 $result = $conn->query($sql);
 
 if (!$result) {
