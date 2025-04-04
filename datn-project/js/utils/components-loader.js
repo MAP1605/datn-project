@@ -5,3 +5,4 @@ loadHTML('#header', 'components/header.html');  // Gọi hàm, chèn header
 loadHTML('#banner', 'components/banner.html');
 loadHTML('#category', 'components/category.html');
 loadHTML('#product', 'components/product.html');
+loadHTML('#footer', 'components/footer.html');
