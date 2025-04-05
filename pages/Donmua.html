@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ho so nguoi dung</title>
+
+    <!-- CSS (main) -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- CSS (font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- JS: load component (header/banner/category/product/footer) -->
+    <script type="module" src="../js/utils/components-loader.js"></script>
+</head>
+
+<body>
+
+    <div id="header">
+
+    </div>
+    <div class="main">
+
+        <div class="container ">
+            <aside class="container container__sidebar">
+                <img src="img2/Screenshot 2025-02-13 154916.png" alt="" class="sidebar-img">
+                <nav>
+                    <ul>
+                        <li>
+                            <h1>Sửa hồ sơ </h1>
+                        </li>
+                        <li> <a href="Giaodiennguoidung.html"> Hồ sơ </a></li>
+                        <li> <a href="DiachiUse.html"> Địa chỉ </a></li>
+                        <li> <a href="doimatkhau.html"> Đổi mật khẩu</a></li>
+                        <li> <a href="Donmua.html">
+                                <H1>Đơn mua </H1>
+                            </a></li>
+                        <li> <a href="DanhGia.html"> Đã đánh giá</a></li>
+
+                </nav>
+
+            </aside>
+
+
+
+
+            <div class="from__orders">
+                <div class="orders__tabs">
+                    <span><button class="tab-button active" data-tab="all">Tất cả</button></span>
+                    <button class="tab-button" data-tab="choxacnhan">Chờ xác nhận</button>
+                    <button class="tab-button" data-tab="dangvanchuyen">Đang vận chuyển</button>
+                    <button class="tab-button" data-tab="hoanthanh">Hoàn thành</button>
+                    <button class="tab-button" data-tab="dahuy">Đã hủy</button>
+                </div>
+                <div class="tamthoi">
+                    <div class="order" data-status="hoanthanh">
+                        <div class="shop-info">
+                            <div class="shop-info--left">
+                            <span>Tên shop</span>
+                            <button>Chat</button>
+                            <button>Xem shop</button>
+                        </div>
+                            <div class="shop-info--right">
+                            <h4>Giao thành công</h4>
+                        </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="product">Ảnh</div>
+                            <div class="info">
+                                <p>Tên sản phẩm</p>
+
+                                <p>Số lượng</p>
+                                <p class="price">Giá</p>
+
+                            </div>
+
+                        </div>
+                        <div class="order-total">Thành tiền:</div>
+                        <div class="actions">
+                            <button id="openModalBtn">Đánh giá</button>
+                            <button id="">Yêu cầu trả hàng/Hoàn tiền</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="orders">
+                    <div class="order" data-status="dangvanchuyen">
+                        <div class="shop-info">
+                            <span>Tên shop</span>
+                            <button>Chat</button>
+                            <button>Xem shop</button>
+                            <h4>Đang giao hàng</h4>
+
+                        </div>
+                        <div class="order-details">
+                            <div class="product">Ảnh</div>
+                            <div class="info">
+                                <p>Tên sản phẩm</p>
+
+                                <p>Số lượng</p>
+                                <p class="price">Giá</p>
+
+                            </div>
+
+                        </div>
+                        <div class="order-total">Thành tiền:</div>
+                        
+                    </div>
+                </div>
+
+                <div class="orders">
+                    <div class="order" data-status="choxacnhan">
+                        <div class="shop-info">
+                            <span>Tên shop</span>
+                            <button>Chat</button>
+                            <button>Xem shop</button>
+                            <h4>Chờ xác nhận</h4>
+                        </div>
+                        <div class="order-details">
+                            <div class="product">Ảnh</div>
+                            <div class="info">
+                                <p>Tên sản phẩm</p>
+
+                                <p>Số lượng</p>
+                                <p class="price">Giá</p>
+                            </div>
+
+                        </div>
+                        <div class="order-total">Thành tiền:</div>
+                        
+                    </div>
+                </div>
+
+
+                <div class="orders">
+                    <div class="order" data-status="dahuy">
+                        <div class="shop-info">
+                            <span>Tên shop</span>
+                            <button>Chat</button>
+                            <button>Xem shop</button>
+                            <h4>Đã hủy đơn hàng</h4>
+                        </div>
+                        <div class="order-details">
+                            <div class="product">Ảnh</div>
+                            <div class="info">
+                                <p>Tên sản phẩm:A</p>
+
+                                <p>Số lượng:100</p>
+                                <p class="price">Giá</p>
+                            </div>
+
+                        </div>
+                        <div class="order-total">Thành tiền:</div>
+                        <div class="actions">
+                            <button>Mua lại</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="reviewModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
+
+                <div class="product-info">
+                    <div class="product-image">
+                        HÌNH ẢNH
+                    </div>
+                    <div class="product-details">
+                        <h3>Tên sản phẩm</h3>
+                        <div class="rating">
+                            <label>Chất lượng sản phẩm</label>
+                            <div class="stars" id="starContainer">
+                                <!-- 5 sao -->
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <textarea class="review-textarea"
+                    placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé!"></textarea>
+
+                <div class="images-section">
+                    <input type="file" id="imageInput" multiple style="display: none;" accept="image/*">
+                    <button class="add-image-btn" id="addImageBtn">Thêm hình ảnh</button>
+                    <div class="images-preview" id="imagesPreview"></div>
+                </div>
+
+                <button class="complete-btn" id="completeBtn">Hoàn Thành</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="footer"></div>
+    <script src="../js/components/Donmua.js"></script>
+</body>
+
+</html>

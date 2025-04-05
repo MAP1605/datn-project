@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ho so nguoi dung</title>
+    <!-- CSS (main) -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- CSS (font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- JS: load component (header/banner/category/product/footer) -->
+    <script type="module" src="../js/utils/components-loader.js"></script>
+
+</head>
+
+<body>
+
+    <div id="header">
+
+
+    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <img src="img2/Screenshot 2025-02-13 154916.png" alt="" class="Anhnguoidung">
+            <nav>
+                <ul>
+
+                    <li>
+                        <h1>Sửa hồ sơ </h1>
+                    </li>
+                    <a href=""></a>
+
+                    <li> <a href="Giaodiennguoidung.html"> Hồ sơ </a></li>
+                    <li> <a href="DiachiUse.html">
+                            <H1> Địa chỉ </H1>
+                        </a></li>
+                    <li> <a href="doimatkhau.html">Đổi mật khẩu</a></li>
+                    <li> <a href="Donmua.html"> Đơn mua</a></li>
+                    <li> <a href="DanhGia.html"> Đã đánh giá</a></li>
+
+                </ul>
+            </nav>
+
+        </aside>
+        <main class="content">
+            <!-- Khối đầu tiên có nút Thêm địa chỉ -->
+            <div class="from-use" id="address-container">
+                <div class="tabs">
+                    <h2>Địa chỉ của tôi</h2>
+                    <button id="openModalBtn">Thêm địa chỉ</button>
+                </div>
+
+                <!-- Các form khác nếu có, sẽ nằm sau -->
+
+
+
+            </div>
+
+        </main>
+    </div>
+
+    </div>
+    <!-- modal-->
+
+    <div id="storeOwnerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                Thêm địa chỉ
+            </div>
+            <div class="modal-body">
+                <form class="modal-from">
+                    <label>Địa chỉ</label>
+                    <input type="text" required placeholder="Nhập địa chỉ" id="Diachi" required>
+
+                    <label>Tên</label>
+                    <input type="text" required placeholder="Nhập tên" id="Ten" required>
+
+                    <label>Email</label>
+                    <input type="email" required placeholder="Nhập email" id="Email" required>
+
+                    <label>Số Điện Thoại</label>
+                    <input type="text" required placeholder="Nhập số điện thoại" id="SDT" required>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="Themdiachi" id="openModalBtn">Thêm địa chỉ</button>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+    </div>
+    <script src="../js/components/diachi.js"></script>
+</body>
+
+</html>
