@@ -33,7 +33,7 @@ $count = 0;
         <div class="product__list" id="product-list">
             <?php while ($row = $result->fetch_assoc()) {
                 $isHidden = $count >= 20 ? ' product__item--hidden' : '';
-                $base64Img = base64_encode($row['Anh_San_Pham']);
+                $base64Img = base64_encode($row['Anh_San_Pham1']);
             ?>
                 <div class="product__item<?php echo $isHidden; ?>" data-id="<?php echo $row['ID_San_Pham']; ?>">
                     <div class="product__img-wrap">

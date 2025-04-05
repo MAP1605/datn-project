@@ -29,7 +29,7 @@ $sql = "SELECT * FROM San_Pham $where ORDER BY RAND() LIMIT 3";
 $result = $conn->query($sql);
 
 while ($row = $result->fetch_assoc()) {
-    $img = base64_encode($row['Anh_San_Pham']);
+    $img = base64_encode($row['Anh_San_Pham1']);
 ?>
     <div class="product__item" data-id="<?php echo $row['ID_San_Pham']; ?>">
         <div class="product__img-wrap">
