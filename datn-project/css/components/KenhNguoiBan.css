@@ -1,0 +1,627 @@
+/* CONTAINER WRAPPER */
+.container-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+.container-sidebar {
+    width: 220px;
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+.container-sidebar ul {
+    list-style: none;
+}
+.container-sidebar li {
+    margin-bottom: 15px;
+}
+.container-sidebar a {
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    transition: 0.2s ease;
+    font-size: 22px;
+}
+.container-sidebar a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+.container-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f9f9f9;
+}
+
+/* TAB CHUNG */
+.tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s ease;
+    font-weight: 500;
+}
+.tab:hover {
+    color: #ee4d2d;
+    border-color: #ee4d2d;
+}
+.tab.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+/* SECTION ĐƠN HÀNG */
+#order-section {
+    padding: 30px;
+}
+.order-main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+.order-tabs {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+.order-table th, .order-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.order-table th {
+    background-color: #f1f1f1;
+}
+.status-completed {
+    background-color: green;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.btn-view-order-detail {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-view-order-detail:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* SECTION SẢN PHẨM */
+product-section {
+    padding: 30px;
+}
+.product-tabs {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+.btn-add-product {
+    margin-left: auto;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-add-product:hover {
+    background-color: #0056b3;
+}
+.search-bar {
+    text-align: right;
+    margin-bottom: 15px;
+}
+.input-search {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+}
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+.product-table th, .product-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.product-table th {
+    background-color: #f1f1f1;
+}
+.status-active {
+    background-color: limegreen;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.status-blocked {
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.icon {
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 5px;
+}
+.icon:hover {
+    color: #ee4d2d;
+}
+
+/* FORM THÊM / CHI TIẾT / SỬA */
+.Container-ka, .Container-Chitiet, .Container-sua {
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+.Container-ka h2, .Container-Chitiet h2, .Container-sua h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.from-group-ka, .sua-group {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+.from-group-ka label, .sua-group label {
+    width: 180px;
+    font-weight: bold;
+    margin-right: 20px;
+    color: #333;
+    text-align: right;
+    margin-top: 10px;
+}
+.from-group-ka input[type="text"],
+.from-group-ka textarea,
+.sua-group input[type="text"],
+.sua-group textarea {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: #fff;
+}
+.from-group-ka textarea, .sua-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+.buttons-ka {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+.Submit, .sua-submit {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+.Submit:hover, .sua-submit:hover {
+    background-color: #0056b3;
+}
+.container-sidebar a {
+  color: slategray;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.container-sidebar a.active-link {
+  color: blue !important;
+  font-weight: bold;
+}
+
+/* Cố định màu đen cho các mục cha */
+.container-sidebar a.static-black {
+  color: black !important;
+  font-weight: bold;
+  cursor: default;
+}
+
+
+
+/* ========== DOANH THU - GIAO DIỆN ========== */
+#statistic-section {
+    padding: 30px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  /* Tổng quan */
+  .overview-box {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .overview-item {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .overview-item h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .overview-item p {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  /* Chi tiết doanh thu */
+  .statistic-detail {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .statistic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .statistic-header .tab {
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+  }
+  
+  .statistic-header .tab.active {
+    color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .statistic-header .search-input {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-width: 240px;
+  }
+  
+  /* Bảng thống kê */
+  .statistic-table-container {
+    overflow-x: auto;
+  }
+  
+  .statistic-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .statistic-table th,
+  .statistic-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  .statistic-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  .order-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .order-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    background-color: #eee;
+    border-radius: 4px;
+  }
+  
+  .btn-copy {
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-copy:hover {
+    background-color: #0056b3;
+  }
+
+/* ========== CONTAINER THỐNG KÊ - ĐÃ THANH TOÁN ========== */
+.statistic-paid-container {
+    padding: 30px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 40px auto;
+    max-width: 1300px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    font-family: Arial, sans-serif;
+  }
+  
+  .statistic-paid-container h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .statistic-tabs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    position: relative;
+  }
+  
+  .statistic-tabs .tab {
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .statistic-tabs .tab:last-child {
+    border-right: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .statistic-tabs .tab.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .statistic-tabs .btn-export {
+    margin-left: auto;
+    padding: 10px 25px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+  
+  .statistic-tabs .btn-export:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .statistic-table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .statistic-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .statistic-table th, .statistic-table td {
+    padding: 16px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+  
+  .statistic-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .order-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .order-info img {
+    width: 60px;
+    height: 60px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    object-fit: cover;
+  }
+  
+  .order-code {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .order-user {
+    font-size: 14px;
+    color: #666;
+  }
+
+/* ===== Ví Giao Diện ===== */
+.wallet-container {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 1000px;
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    font-family: Arial, sans-serif;
+  }
+  
+  .wallet-overview h3,
+  .wallet-transactions h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  /* Tổng quan */
+  .wallet-header {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .wallet-balance, .wallet-bank {
+    width: 48%;
+  }
+  
+  .wallet-balance p,
+  .wallet-bank p {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .wallet-balance h2 {
+    font-size: 22px;
+    margin: 8px 0 12px;
+    color: #000;
+  }
+  
+  .btn-withdraw,
+  .btn-add-bank {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  
+  .btn-withdraw:hover,
+  .btn-add-bank:hover {
+    background-color: #eee;
+  }
+  
+  /* Giao dịch */
+  .wallet-transactions-header {
+    margin-bottom: 10px;
+  }
+  
+  .wallet-tabs {
+    display: flex;
+    margin: 15px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .wallet-tab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .wallet-tab.active {
+    font-weight: bold;
+    border-bottom: 3px solid #000;
+  }
+  
+  .wallet-search {
+    text-align: right;
+    margin-bottom: 15px;
+  }
+  
+  .wallet-search input {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+  }
+  
+  /* Table */
+  .wallet-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .wallet-table th,
+  .wallet-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .wallet-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  .hidden {
+    display: none !important;
+  }
+  
+  .img-box-ka {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+  }
+  
+  .img-box-ka:hover {
+    border-color: #0447b5bf;
+  }
+  
+  .img-box-ka img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .img-text {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+  }
+  

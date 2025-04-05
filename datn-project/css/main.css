@@ -6,3 +6,7 @@
 @import url(./components/product.css);
 @import url(./components/footer.css);
 @import url(./components/product-detail.css);
+
+/* Seller channel */
+@import url(./components/dangky.css);
+@import url(./components/KenhNguoiBan.css);
