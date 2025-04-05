@@ -289,41 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
     formEdit.classList.add("hidden");
   });
 });
-// chi tiết đơn hàng
-document.addEventListener("DOMContentLoaded", function () {
-  const detailButtons = document.querySelectorAll(".btn-view-order-detail"); // nút Chi tiết
-  const detailContainer = document.querySelector(".Container-Chitiet");     // phần chi tiết
-  const orderSection = document.getElementById("order-section");            // phần bảng đơn hàng
-  const btnQuayLai = document.querySelector(".Container-Chitiet .Submit");  // nút Quay lại
-
-  detailButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      // Ẩn bảng danh sách đơn hàng
-      if (orderSection) orderSection.classList.add("hidden");
-
-      // Hiện chi tiết
-      detailContainer.classList.remove("hidden");
-
-      // Cuộn xuống phần chi tiết
-      window.scrollTo({ top: detailContainer.offsetTop - 100, behavior: "smooth" });
-    });
-  });
-
-  // Khi bấm "Quay lại"
-  if (btnQuayLai) {
-    btnQuayLai.addEventListener("click", function () {
-      // Hiện lại bảng đơn hàng
-      if (orderSection) orderSection.classList.remove("hidden");
-
-      // Ẩn phần chi tiết
-      detailContainer.classList.add("hidden");
-
-      // Cuộn lên đầu bảng
-      window.scrollTo({ top: orderSection.offsetTop - 100, behavior: "smooth" });
-    });
-  }
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll(".statistic-header .tab");
   const rows = document.querySelectorAll(".statistic-table tbody tr");
@@ -511,6 +476,83 @@ document.addEventListener("DOMContentLoaded", function () {
         coverImageBox.querySelector(".img-text").style.display = "none";
       };
       reader.readAsDataURL(file);
+    }
+  });
+});
+// Khu chi tiết sản phẩm
+document.addEventListener("DOMContentLoaded", function () {
+  const productList = document.getElementById("product-list");
+  const detailSection = document.querySelector(".Container-Chitiet");
+  const productSection = document.getElementById("product-section");
+  const backBtn = document.querySelector(".btn-back-product");
+
+  // Khi click vào tên sản phẩm
+  productList.addEventListener("click", function (e) {
+    const clicked = e.target;
+    if (clicked.classList.contains("product-name")) {
+      const row = clicked.closest("tr");
+
+      const productName = row.getAttribute("data-name") || clicked.textContent;
+      const productId = row.getAttribute("data-row-id") || "SP001";
+
+      // Gán dữ liệu
+      document.querySelector(".Container-Chitiet input[readonly]").value = productId;
+      document.querySelector(".Container-Chitiet textarea").value = "Chi tiết sản phẩm: " + productName;
+
+      // Chuyển view
+      productSection.classList.add("hidden");
+      detailSection.classList.remove("hidden");
+      window.scrollTo({ top: detailSection.offsetTop - 100, behavior: "smooth" });
+    }
+  });
+
+  // Khi click nút quay lại
+  if (backBtn) {
+    backBtn.addEventListener("click", function () {
+      detailSection.classList.add("hidden");
+      productSection.classList.remove("hidden");
+      window.scrollTo({ top: productSection.offsetTop - 100, behavior: "smooth" });
+    });
+  }
+});
+// chi tiết đơn hàng
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("order-detail-modal");
+  const closeBtns = document.querySelectorAll(".close-order-modal");
+  const viewDetailBtns = document.querySelectorAll(".btn-view-order-detail");
+
+  viewDetailBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const row = btn.closest("tr");
+
+      // Lấy dữ liệu từ bảng
+      const orderId = row.children[1].textContent;
+      const status = row.children[2].textContent;
+      const date = row.children[3].textContent;
+      const total = row.children[4].textContent;
+
+      // Gán dữ liệu vào modal
+      modal.querySelector(".order-id").textContent = orderId;
+      modal.querySelector(".order-status").textContent = status;
+      modal.querySelector(".order-date").textContent = date;
+      modal.querySelector(".order-total").textContent = total;
+
+      // Hiện modal
+      modal.style.display = "block";
+    });
+  });
+
+  // Đóng modal khi ấn vào nút "×" hoặc nút "Đóng"
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+  });
+
+  // Đóng khi click ra ngoài
+  window.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      modal.style.display = "none";
     }
   });
 });
