@@ -20,191 +20,139 @@
 
 <body>
 
-    <div id="header">
-
-    </div>
+    <div id="header"></div>
+    
     <div class="main">
-
-        <div class="container ">
-            <aside class="container container__sidebar">
-                <img src="img2/Screenshot 2025-02-13 154916.png" alt="" class="sidebar-img">
-                <nav>
-                    <ul>
-                        <li>
-                            <h1>Sửa hồ sơ </h1>
-                        </li>
-                        <li> <a href="Giaodiennguoidung.html"> Hồ sơ </a></li>
-                        <li> <a href="DiachiUse.html"> Địa chỉ </a></li>
-                        <li> <a href="doimatkhau.html"> Đổi mật khẩu</a></li>
-                        <li> <a href="Donmua.html">
-                                <H1>Đơn mua </H1>
-                            </a></li>
-                        <li> <a href="DanhGia.html"> Đã đánh giá</a></li>
-
-                </nav>
-
-            </aside>
-
-
-
-
-            <div class="from__orders">
-                <div class="orders__tabs">
-                    <span><button class="tab-button active" data-tab="all">Tất cả</button></span>
-                    <button class="tab-button" data-tab="choxacnhan">Chờ xác nhận</button>
-                    <button class="tab-button" data-tab="dangvanchuyen">Đang vận chuyển</button>
-                    <button class="tab-button" data-tab="hoanthanh">Hoàn thành</button>
-                    <button class="tab-button" data-tab="dahuy">Đã hủy</button>
-                </div>
-                <div class="tamthoi">
-                    <div class="order" data-status="hoanthanh">
-                        <div class="shop-info">
-                            <div class="shop-info--left">
+        <div class="container">
+            <div class="user-main user-main--responsive">
+                <div class="user-main__container">
+                  <aside class="user-main__sidebar">
+                    <img src="img2/Screenshot 2025-02-13 154916.png" alt="Avatar" class="user-main__avatar">
+                    <nav class="user-main__nav">
+                      <ul class="user-main__nav-list">
+                        <li><h1 class="user-main__nav-title">Sửa hồ sơ</h1></li>
+                        <li><a class="user-main__nav-link" href="Giaodiennguoidung.html">Hồ sơ</a></li>
+                        <li><a class="user-main__nav-link" href="DiachiUse.html">Địa chỉ</a></li>
+                        <li><a class="user-main__nav-link" href="doimatkhau.html">Đổi mật khẩu</a></li>
+                        <li><a class="user-main__nav-link" href="Donmua.html">Đơn mua</a></li>
+                        <li><a class="user-main__nav-link" href="DanhGia.html">Đã đánh giá</a></li>
+                      </ul>
+                    </nav>
+                  </aside>
+              
+                  <div class="user-orders">
+                    <div class="user-orders__tabs" role="tablist">
+                      <button class="user-orders__tab-btn user-orders__tab-btn--active" data-tab="all">Tất cả</button>
+                      <button class="user-orders__tab-btn" data-tab="choxacnhan">Chờ xác nhận</button>
+                      <button class="user-orders__tab-btn" data-tab="dangvanchuyen">Đang vận chuyển</button>
+                      <button class="user-orders__tab-btn" data-tab="hoanthanh">Hoàn thành</button>
+                      <button class="user-orders__tab-btn" data-tab="dahuy">Đã hủy</button>
+                    </div>
+              
+                    <div class="user-orders__list">
+                      <div class="user-orders__item" data-status="hoanthanh">
+                        <div class="user-orders__shop">
+                          <div class="user-orders__shop-left">
                             <span>Tên shop</span>
                             <button>Chat</button>
                             <button>Xem shop</button>
-                        </div>
-                            <div class="shop-info--right">
+                          </div>
+                          <div class="user-orders__shop-right">
                             <h4>Giao thành công</h4>
+                          </div>
                         </div>
+                        <div class="user-orders__details">
+                          <div class="user-orders__product-img">Ảnh</div>
+                          <div class="user-orders__product-info">
+                            <p>Tên sản phẩm</p>
+                            <p>Số lượng</p>
+                            <p class="user-orders__price">Giá</p>
+                          </div>
                         </div>
-                        <div class="order-details">
-                            <div class="product">Ảnh</div>
-                            <div class="info">
-                                <p>Tên sản phẩm</p>
-
-                                <p>Số lượng</p>
-                                <p class="price">Giá</p>
-
-                            </div>
-
+                        <div class="user-orders__total">Thành tiền:</div>
+                        <div class="user-orders__actions">
+                          <button>Đánh giá</button>
+                          <button>Yêu cầu trả hàng/Hoàn tiền</button>
                         </div>
-                        <div class="order-total">Thành tiền:</div>
-                        <div class="actions">
-                            <button id="openModalBtn">Đánh giá</button>
-                            <button id="">Yêu cầu trả hàng/Hoàn tiền</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="orders">
-                    <div class="order" data-status="dangvanchuyen">
-                        <div class="shop-info">
+                      </div>
+              
+                      <div class="user-orders__item" data-status="dangvanchuyen">
+                        <div class="user-orders__shop">
+                          <div class="user-orders__shop-left">
                             <span>Tên shop</span>
                             <button>Chat</button>
                             <button>Xem shop</button>
+                          </div>
+                          <div class="user-orders__shop-right">
                             <h4>Đang giao hàng</h4>
-
+                          </div>
                         </div>
-                        <div class="order-details">
-                            <div class="product">Ảnh</div>
-                            <div class="info">
-                                <p>Tên sản phẩm</p>
-
-                                <p>Số lượng</p>
-                                <p class="price">Giá</p>
-
-                            </div>
-
+                        <div class="user-orders__details">
+                          <div class="user-orders__product-img">Ảnh</div>
+                          <div class="user-orders__product-info">
+                            <p>Tên sản phẩm</p>
+                            <p>Số lượng</p>
+                            <p class="user-orders__price">Giá</p>
+                          </div>
                         </div>
-                        <div class="order-total">Thành tiền:</div>
-                        
-                    </div>
-                </div>
-
-                <div class="orders">
-                    <div class="order" data-status="choxacnhan">
-                        <div class="shop-info">
+                        <div class="user-orders__total">Thành tiền:</div>
+                      </div>
+              
+                      <div class="user-orders__item" data-status="choxacnhan">
+                        <div class="user-orders__shop">
+                          <div class="user-orders__shop-left">
                             <span>Tên shop</span>
                             <button>Chat</button>
                             <button>Xem shop</button>
+                          </div>
+                          <div class="user-orders__shop-right">
                             <h4>Chờ xác nhận</h4>
+                          </div>
                         </div>
-                        <div class="order-details">
-                            <div class="product">Ảnh</div>
-                            <div class="info">
-                                <p>Tên sản phẩm</p>
-
-                                <p>Số lượng</p>
-                                <p class="price">Giá</p>
-                            </div>
-
+                        <div class="user-orders__details">
+                          <div class="user-orders__product-img">Ảnh</div>
+                          <div class="user-orders__product-info">
+                            <p>Tên sản phẩm</p>
+                            <p>Số lượng</p>
+                            <p class="user-orders__price">Giá</p>
+                          </div>
                         </div>
-                        <div class="order-total">Thành tiền:</div>
-                        
-                    </div>
-                </div>
-
-
-                <div class="orders">
-                    <div class="order" data-status="dahuy">
-                        <div class="shop-info">
+                        <div class="user-orders__total">Thành tiền:</div>
+                      </div>
+              
+                      <div class="user-orders__item" data-status="dahuy">
+                        <div class="user-orders__shop">
+                          <div class="user-orders__shop-left">
                             <span>Tên shop</span>
                             <button>Chat</button>
                             <button>Xem shop</button>
+                          </div>
+                          <div class="user-orders__shop-right">
                             <h4>Đã hủy đơn hàng</h4>
+                          </div>
                         </div>
-                        <div class="order-details">
-                            <div class="product">Ảnh</div>
-                            <div class="info">
-                                <p>Tên sản phẩm:A</p>
-
-                                <p>Số lượng:100</p>
-                                <p class="price">Giá</p>
-                            </div>
-
+                        <div class="user-orders__details">
+                          <div class="user-orders__product-img">Ảnh</div>
+                          <div class="user-orders__product-info">
+                            <p>Tên sản phẩm: A</p>
+                            <p>Số lượng: 100</p>
+                            <p class="user-orders__price">Giá</p>
+                          </div>
                         </div>
-                        <div class="order-total">Thành tiền:</div>
-                        <div class="actions">
-                            <button>Mua lại</button>
-
+                        <div class="user-orders__total">Thành tiền:</div>
+                        <div class="user-orders__actions">
+                          <button>Mua lại</button>
                         </div>
+                      </div>
+              
                     </div>
+                  </div>
                 </div>
-            </div>
-
+              </div>
+              
         </div>
-
-        <div id="reviewModal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="closeModal">&times;</span>
-                <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
-
-                <div class="product-info">
-                    <div class="product-image">
-                        HÌNH ẢNH
-                    </div>
-                    <div class="product-details">
-                        <h3>Tên sản phẩm</h3>
-                        <div class="rating">
-                            <label>Chất lượng sản phẩm</label>
-                            <div class="stars" id="starContainer">
-                                <!-- 5 sao -->
-                                <span class="star" data-value="1">&#9733;</span>
-                                <span class="star" data-value="2">&#9733;</span>
-                                <span class="star" data-value="3">&#9733;</span>
-                                <span class="star" data-value="4">&#9733;</span>
-                                <span class="star" data-value="5">&#9733;</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <textarea class="review-textarea"
-                    placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé!"></textarea>
-
-                <div class="images-section">
-                    <input type="file" id="imageInput" multiple style="display: none;" accept="image/*">
-                    <button class="add-image-btn" id="addImageBtn">Thêm hình ảnh</button>
-                    <div class="images-preview" id="imagesPreview"></div>
-                </div>
-
-                <button class="complete-btn" id="completeBtn">Hoàn Thành</button>
-            </div>
-
-        </div>
-
-    </div>
+      </div>
+      
     <div id="footer"></div>
     <script src="../js/components/Donmua.js"></script>
 </body>

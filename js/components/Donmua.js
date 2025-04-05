@@ -1,126 +1,105 @@
-// Lấy tất cả nút tab và các đơn hàng
-const tabButtons = document.querySelectorAll('.tab-button');
-const orders = document.querySelectorAll('.order');
+const tabButtons = document.querySelectorAll('.user-orders__tab-btn');
+const orderItems = document.querySelectorAll('.user-orders__item');
 
-// Lặp qua từng nút tab
 tabButtons.forEach(button => {
   button.addEventListener('click', () => {
-    // Xóa class 'active' khỏi tất cả nút
-    tabButtons.forEach(btn => btn.classList.remove('active'));
-    // Thêm class 'active' cho nút vừa bấm
-    button.classList.add('active');
-    
-    // Lấy giá trị trạng thái từ data-tab
-    const filterStatus = button.getAttribute('data-tab');
-    
-    // Lọc đơn hàng
-    orders.forEach(order => {
-      // Nếu bấm "Tất cả" hoặc order.status khớp với filterStatus thì hiển thị
-      if (filterStatus === 'all' || order.getAttribute('data-status') === filterStatus) {
-        order.style.display = 'block';
-      } else {
-        order.style.display = 'none';
-      }
+    tabButtons.forEach(btn => btn.classList.remove('user-orders__tab-btn--active'));
+    button.classList.add('user-orders__tab-btn--active');
+
+    const status = button.getAttribute('data-tab');
+    orderItems.forEach(item => {
+      const itemStatus = item.getAttribute('data-status');
+      item.style.display = (status === 'all' || status === itemStatus) ? 'block' : 'none';
     });
   });
 });
-   // Lấy các phần tử
-   const openModalBtn = document.getElementById('openModalBtn');
-   const reviewModal = document.getElementById('reviewModal');
-   const closeModal = document.getElementById('closeModal');
-   const addImageBtn = document.getElementById('addImageBtn');
-   const imageInput = document.getElementById('imageInput');
-   const imagesPreview = document.getElementById('imagesPreview');
-   const completeBtn = document.getElementById('completeBtn');
 
-   // Mở modal
-   openModalBtn.addEventListener('click', () => {
-       reviewModal.style.display = 'block';
-   });
+// Modal đánh giá
+const reviewModal = document.getElementById('reviewModal');
+const closeModal = document.getElementById('closeModal');
+const addImageBtn = document.getElementById('addImageBtn');
+const imageInput = document.getElementById('imageInput');
+const imagesPreview = document.getElementById('imagesPreview');
+const completeBtn = document.getElementById('completeBtn');
 
-   // Đóng modal
-   closeModal.addEventListener('click', () => {
-       reviewModal.style.display = 'none';
-       resetModal();
-   });
+// Mở modal với tất cả nút "Đánh giá"
+document.querySelectorAll('#openModalBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    reviewModal.style.display = 'block';
+  });
+});
 
-   // Đóng modal khi click bên ngoài nội dung
-   window.addEventListener('click', (e) => {
-       if (e.target === reviewModal) {
-           reviewModal.style.display = 'none';
-           resetModal();
-       }
-   });
+closeModal.addEventListener('click', () => {
+  reviewModal.style.display = 'none';
+  resetModal();
+});
 
-   // Xử lý sao
-   const starContainer = document.getElementById('starContainer');
-   let currentRating = 0;
-   starContainer.addEventListener('click', (e) => {
-       if (e.target.classList.contains('star')) {
-           currentRating = e.target.getAttribute('data-value');
-           updateStarColors(currentRating);
-       }
-   });
-   // Di chuột (hover) - hiệu ứng tạm
-   starContainer.addEventListener('mouseover', (e) => {
-       if (e.target.classList.contains('star')) {
-           const hoverValue = e.target.getAttribute('data-value');
-           updateStarColors(hoverValue);
-       }
-   });
-   // Khi rời chuột khỏi vùng sao
-   starContainer.addEventListener('mouseout', () => {
-       updateStarColors(currentRating);
-   });
+window.addEventListener('click', (e) => {
+  if (e.target === reviewModal) {
+    reviewModal.style.display = 'none';
+    resetModal();
+  }
+});
 
-   function updateStarColors(rating) {
-       const stars = starContainer.querySelectorAll('.star');
-       stars.forEach(star => {
-           const value = star.getAttribute('data-value');
-           if (value <= rating) {
-               star.classList.add('selected');
-           } else {
-               star.classList.remove('selected');
-           }
-       });
-   }
+// Star rating
+const starContainer = document.getElementById('starContainer');
+let currentRating = 0;
 
-   // Thêm hình ảnh
-   addImageBtn.addEventListener('click', () => {
-       imageInput.click(); // Kích hoạt input file ẩn
-   });
-   imageInput.addEventListener('change', () => {
-       // Xóa preview cũ
-       imagesPreview.innerHTML = '';
-       // Lấy danh sách file
-       const files = imageInput.files;
-       for (let i = 0; i < files.length; i++) {
-           const file = files[i];
-           const reader = new FileReader();
-           reader.onload = function (e) {
-               const img = document.createElement('img');
-               img.src = e.target.result;
-               imagesPreview.appendChild(img);
-           }
-           reader.readAsDataURL(file);
-       }
-   });
+starContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('star')) {
+    currentRating = e.target.getAttribute('data-value');
+    updateStarColors(currentRating);
+  }
+});
 
-   // Nút hoàn thành
-   completeBtn.addEventListener('click', () => {
-       alert('Bạn đã hoàn thành đánh giá!');
-       reviewModal.style.display = 'none';
-       resetModal();
-   });
+starContainer.addEventListener('mouseover', (e) => {
+  if (e.target.classList.contains('star')) {
+    const hoverValue = e.target.getAttribute('data-value');
+    updateStarColors(hoverValue);
+  }
+});
 
-   // Hàm reset modal (nếu cần)
-   function resetModal() {
-       // Xóa chọn sao
-       currentRating = 0;
-       updateStarColors(0);
-       // Xóa ảnh
-       imagesPreview.innerHTML = '';
-       imageInput.value = '';
-       // Xóa nội dung textarea
-       document.querySelector('.review-textarea').value = '';
-   }
+starContainer.addEventListener('mouseout', () => {
+  updateStarColors(currentRating);
+});
+
+function updateStarColors(rating) {
+  const stars = starContainer.querySelectorAll('.star');
+  stars.forEach(star => {
+    const value = star.getAttribute('data-value');
+    star.classList.toggle('selected', value <= rating);
+  });
+}
+
+// Ảnh upload preview
+addImageBtn.addEventListener('click', () => {
+  imageInput.click();
+});
+
+imageInput.addEventListener('change', () => {
+  imagesPreview.innerHTML = '';
+  const files = imageInput.files;
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      imagesPreview.appendChild(img);
+    }
+    reader.readAsDataURL(files[i]);
+  }
+});
+
+completeBtn.addEventListener('click', () => {
+  alert('Bạn đã hoàn thành đánh giá!');
+  reviewModal.style.display = 'none';
+  resetModal();
+});
+
+function resetModal() {
+  currentRating = 0;
+  updateStarColors(0);
+  imagesPreview.innerHTML = '';
+  imageInput.value = '';
+  document.querySelector('.review-textarea').value = '';
+}
