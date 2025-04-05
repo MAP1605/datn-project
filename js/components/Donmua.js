@@ -14,34 +14,24 @@ tabButtons.forEach(button => {
   });
 });
 
-// Modal đánh giá
-const reviewModal = document.getElementById('reviewModal');
-const closeModal = document.getElementById('closeModal');
-const addImageBtn = document.getElementById('addImageBtn');
-const imageInput = document.getElementById('imageInput');
-const imagesPreview = document.getElementById('imagesPreview');
-const completeBtn = document.getElementById('completeBtn');
-
-// Mở modal với tất cả nút "Đánh giá"
-document.querySelectorAll('#openModalBtn').forEach(btn => {
+document.querySelectorAll('.openModalBtn').forEach(btn => {
   btn.addEventListener('click', () => {
-    reviewModal.style.display = 'block';
+    document.getElementById('reviewModal').style.display = 'block';
   });
 });
 
-closeModal.addEventListener('click', () => {
-  reviewModal.style.display = 'none';
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('reviewModal').style.display = 'none';
   resetModal();
 });
 
 window.addEventListener('click', (e) => {
-  if (e.target === reviewModal) {
-    reviewModal.style.display = 'none';
+  if (e.target === document.getElementById('reviewModal')) {
+    document.getElementById('reviewModal').style.display = 'none';
     resetModal();
   }
 });
 
-// Star rating
 const starContainer = document.getElementById('starContainer');
 let currentRating = 0;
 
@@ -54,8 +44,7 @@ starContainer.addEventListener('click', (e) => {
 
 starContainer.addEventListener('mouseover', (e) => {
   if (e.target.classList.contains('star')) {
-    const hoverValue = e.target.getAttribute('data-value');
-    updateStarColors(hoverValue);
+    updateStarColors(e.target.getAttribute('data-value'));
   }
 });
 
@@ -71,28 +60,30 @@ function updateStarColors(rating) {
   });
 }
 
-// Ảnh upload preview
-addImageBtn.addEventListener('click', () => {
-  imageInput.click();
-});
+const addImageBtn = document.getElementById('addImageBtn');
+const imageInput = document.getElementById('imageInput');
+const imagesPreview = document.getElementById('imagesPreview');
+
+addImageBtn.addEventListener('click', () => imageInput.click());
 
 imageInput.addEventListener('change', () => {
   imagesPreview.innerHTML = '';
   const files = imageInput.files;
-  for (let i = 0; i < files.length; i++) {
+  Array.from(files).forEach(file => {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = (e) => {
       const img = document.createElement('img');
       img.src = e.target.result;
+      img.classList.add('modal__preview-img');
       imagesPreview.appendChild(img);
-    }
-    reader.readAsDataURL(files[i]);
-  }
+    };
+    reader.readAsDataURL(file);
+  });
 });
 
-completeBtn.addEventListener('click', () => {
+document.getElementById('completeBtn').addEventListener('click', () => {
   alert('Bạn đã hoàn thành đánh giá!');
-  reviewModal.style.display = 'none';
+  document.getElementById('reviewModal').style.display = 'none';
   resetModal();
 });
 

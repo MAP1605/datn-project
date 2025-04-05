@@ -1,4 +1,59 @@
 
+/* Sidebar */
+.user-main--change-password{
+  display: flex;
+  padding: 20px 0;
+  width: 100%;
+
+}
+.user-main__sidebar {
+  width: 290px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.user-main__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.user-main__nav-list li {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.user-main__nav-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.user-main__nav-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  display: block;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.user-main__nav-link:hover {
+  background-color: #e0f0ff;
+  color: #0077cc;
+}
+
+
+
+
+/* 
 
 
 
@@ -8,30 +63,8 @@
     padding: 20px;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
 
-}
-nav ul li{
-    margin: 25px 0;
 
-    text-decoration-style: none;
-    color: #333;
-    font-weight: bold;
-
-}
-.Anhnguoidung{
-
-    
-    background-image: 100%;
-   
-}
-nav ul li a{
-    text-decoration: double;
-    list-style: none;
-    color: #333;
-}
 .content{
     width: 70%;
 }
@@ -84,7 +117,7 @@ padding: 5px;
 
 
 
-/*model*/
+
 
 #openModalBtn {
     padding: 10px 20px;
@@ -99,9 +132,9 @@ padding: 5px;
     background: #2980b9;
   }
   
-  /* Modal */
+
   .modal {
-    display: none; /* Ẩn modal theo mặc định */
+    display: none; 
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -109,13 +142,13 @@ padding: 5px;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Màu nền đen với độ mờ */
+    background-color: rgba(0, 0, 0, 0.4); 
   }
   
-  /* Nội dung modal */
+
   .modal-content {
     background-color: #fff;
-    margin: 15% auto; /* Căn giữa theo chiều dọc */
+    margin: 15% auto;
     height: auto;
     padding: 20px;
     border: 1px solid #888;
@@ -131,7 +164,7 @@ padding: 5px;
     height: 100%;
     width: 100%;
   }
-  /* Nút đóng modal (dấu ×) */
+ 
   .close {
     color: #aaa;
     float: right;
@@ -144,7 +177,7 @@ padding: 5px;
     color: #000;
   }
   
-  /* Modal header, body, footer */
+
   .modal-header {
     font-size: 24px;
     margin-bottom: 10px;
@@ -165,4 +198,4 @@ padding: 5px;
   }
 
 
-
+ */

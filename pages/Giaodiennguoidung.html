@@ -5,84 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ho so nguoi dung</title>
-      
-     <!-- CSS (main) -->
-     <link rel="stylesheet" href="../css/main.css">
-     <!-- CSS (font) -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-     <!-- CSS (icon) -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-     <!-- JS: load component (header/banner/category/product/footer) -->
-     <script type="module" src="../js/utils/components-loader.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   
 </head>
 
 <body>
-<div id="header"></div>
+    <div id="header"></div>
+    <div class="main">
+        <div class="container">
+            <div class="user-main user-main--my_interface">
+                <div class="user-main__container">
+                    <aside class="sidebar">
+                        <img src="img2/Screenshot 2025-02-13 154916.png" alt="Avatar" class="sidebar__avatar">
+                        <nav class="sidebar__nav">
+                            <ul class="sidebar__list">
+                                <li class="sidebar__item">
+                                    <h1 class="sidebar__title">Sửa hồ sơ</h1>
+                                </li>
+                                <li class="sidebar__item"><a class="sidebar__link" href="Giaodiennguoidung.html">Hồ
+                                        sơ</a>
+                                </li>
+                                <li class="sidebar__item"><a class="sidebar__link" href="DiachiUse.html">Địa chỉ</a>
+                                </li>
+                                <li class="sidebar__item"><a class="sidebar__link" href="doimatkhau.html">Đổi mật
+                                        khẩu</a>
+                                </li>
+                                <li class="sidebar__item"><a class="sidebar__link" href="Donmua.html">Đơn mua</a></li>
+                                <li class="sidebar__item"><a class="sidebar__link" href="DanhGia.html">Đã đánh giá</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
 
-    <div class="container">
-        <aside class="sidebar">
-            <img src="img2/Screenshot 2025-02-13 154916.png" alt="" class="Anhnguoidung">
-            <nav>
-                <ul>
+                    <main class="content">
+                        <div class="profile">
+                            <form class="profile__form">
+                                <h2 class="profile__heading">Hồ sơ của tôi</h2>
 
-                    <li><h1>Sửa hồ sơ </h1> </li>
-                    <a href=""></a>
-                    <li></li>
-                    <li> <a href="Giaodiennguoidung.html"> <H1>Hồ sơ </H1></a></li>
-                    <li> <a href="DiachiUse.html"> Địa chỉ </a></li>
-                    <li> <a href="doimatkhau.html"> Đổi mật khẩu</a></li>
-                    <li> <a href="Donmua.html"> Đơn mua</a></li>
-                    <li> <a href="DanhGia.html"> Đã đánh giá</a></li>
-                
-                </ul>
-            </nav>
+                                <label class="profile__label">Tên đăng nhập</label>
+                                <input class="profile__input" type="text">
 
-        </aside>
-        <main class="content">
+                                <label class="profile__label">Tên</label>
+                                <input class="profile__input" type="text">
 
-            <div class="from-use">
-                <form>
-                    <h2>Hồ sơ của tôi</h2>
-                    <label>Tên đăng nhập</label>
-                    <input type="text">
+                                <label class="profile__label">Email</label>
+                                <input class="profile__input" type="email">
 
-                    <label>Tên</label>
-                    <input type="text">
+                                <label class="profile__label">Số điện thoại</label>
+                                <input class="profile__input" type="tel">
 
-                    <label>Email</label>
-                    <input type="email">
+                                <div class="profile__gender">
+                                    <label class="profile__label">Giới tính</label>
+                                    <input type="radio" name="gender"> Nam
+                                    <input type="radio" name="gender"> Nữ
+                                    <input type="radio" name="gender"> Khác
+                                </div>
 
-                    <label>Số điện thoại</label>
-                    <input type="tel">
+                                <label class="profile__label">Ngày sinh</label>
+                                <input class="profile__input" type="date" value="">
+                                <div class="profile__buttonsave">
+                                
+                                    <button class="profile__submit" type="submit">Lưu</button>
+                                </div>
+                            </form>
 
-                    <div class="Gioitinh">
-                        <label>Giới tính
-                            <input type="radio" name="gender"> Nam
-                            <input type="radio" name="gender"> Nữ
-                            <input type="radio" name="gender"> Khác
-                    </div>
-                    <label>Ngày sinh</label>
-                    <input type="date" value="">
-                    </label>
-
-                    <button type="submit">Lưu</button>
-                </form>
-
-                <div class="profile-image">
-                    <p><img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện">
-                    </p>
-                    <button id="chooseBtn">Chọn ảnh</button>
-    <!-- Input file được ẩn đi -->
-    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                            <div class="profile__image-section">
+                                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện"
+                                    class="profile__avatar">
+                                <button class="profile__choose-btn" id="chooseBtn">Chọn ảnh</button>
+                                <input type="file" id="imageInput" accept="image/*" hidden>
+                            </div>
+                        </div>
+                    </main>
                 </div>
-        </main>
-    </div>
-
+            </div>
+        </div>
     </div>
     <div id="footer"></div>
     <script src="../js/components/Giaodiennguoidung.js"></script>
+    <script type="module" src="../js/utils/components-loader-pages.js"></script>
 </body>
 
 </html>

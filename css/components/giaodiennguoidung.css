@@ -1,125 +1,184 @@
+/* ========== GIAO DIỆN HỒ SƠ NGƯỜI DÙNG ========== */
 
-
-
-.sidebar {
-    width: 20%;
-    background: #e0e0e0;
+.user-main--my_interface {
+    padding: 20px 0;
+    background-color: #f5f5f5;
+    min-height: 600px;
+  }
+  
+  .user-main__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+    gap: 40px;
+  }
+  
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width: 220px;
     padding: 20px;
-}
-
-nav ul {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: fit-content;
+  }
+  
+  .sidebar__avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  
+  .sidebar__nav-list {
     list-style: none;
     padding: 0;
-
-}
-nav ul li{
-    margin: 25px 0;
-
-    text-decoration-style: none;
-    color: #333;
-    font-weight: bold;
-
-}
-.Anhnguoidung{
-
-    
-    background-image: 100%;
-   
-}
-nav ul li a{
-    text-decoration: double;
-    list-style: none;
-    color: #333;
-}
-
-.content {
-    width: 100%;
-   justify-content: center;
-    padding: 40px;
-
-}
-.content h2{
- 
-    border-bottom: 1px solid #ccc;
-}
-
-.content p{
-    text-align: end;
-}
-.from-use{
+  }
   
-    height: 600px;
-    width: 1300px;
-    display: flex;
-    margin: 70px;
-    
-}
-form {
- 
-    display: flex;   
-     flex-direction: column;
-    height: 100%;
-    margin: auto;
-    background: #fff;
-    width: 900px;
-    
+  .sidebar__item {
+    margin-bottom: 15px;
+  }
   
- 
-} 
-label {
-    margin-top: 20px;
-    font-weight: bold;
-}
-input {
-    padding: 8px;
- 
+  .sidebar__title {
+    font-size: 16px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-.Gioitinh{
-    margin-top: 20px;
-
-}
-.content form  button {
-    background-color: #6520c6;
-    margin-top: 30px;
-    height: 30px;
-    border-radius: 5px;
-    color: #e0e0e0;
-    font-size: 18px;
-
-    }
-    .profile-image {
-        
-   
-        justify-content: end;
-        flex-direction: column;
-       align-content: center;
-       padding-bottom: 70px;
-       margin-right:39px ;
-
-      }
-    .profile-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        display: block;
-      
-      }
-      .profile-image button {
-        margin-top: 10px;
-        padding: 6px 12px;
-        background: #3498db;
-        width: 200px;
-        border: none;
-        color: #fff;
-        border-radius: 4px;
-        
-      }
+    text-align: center;
+  }
   
-      .profile-image button:hover {
-        background: #2980b9;
-      }
- 
+  .sidebar__link {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  .sidebar__link:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+  }
+  
+  /* ========== CONTENT PROFILE ========== */
+  .content {
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .profile {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    
+  }
+  
+  .profile__form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile__heading {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .profile__label {
+    margin: 10px 0 5px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .profile__input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .profile__gender {
+    margin: 10px 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+  }
+  
+  .profile__buttonsave {
+    margin-top: 20px;
+  }
+  
+  .profile__submit {
+    padding: 10px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .profile__submit:hover {
+    background-color: #554ee2;
+  }
+  
+  .profile__image-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile__avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+  }
+  
+  .profile__choose-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .profile__choose-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .user-main__container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .profile {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .content {
+      max-width: 100%;
+    }
+  }
+  

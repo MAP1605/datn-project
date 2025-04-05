@@ -5,72 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ho so nguoi dung</title>
-   
-     <!-- CSS (main) -->
-     <link rel="stylesheet" href="../css/main.css">
-     <!-- CSS (font) -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-     <!-- CSS (icon) -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-     <!-- JS: load component (header/banner/category/product/footer) -->
-     <script type="module" src="../js/utils/components-loader.js"></script>
+
+    <!-- CSS (main) -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- CSS (font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
     <div id="header">
-       
-    </div>
-
-
-    <div class="container">
-        <aside class="sidebar">
-            <img src="img2/Screenshot 2025-02-13 154916.png" alt="" class="Anhnguoidung">
-            <nav>
-                <ul>
-
-                    <li>
-                        <h1>Sửa hồ sơ </h1>
-                    </li>
-                    <a href=""></a>
-                    <li></li>
-                    <li> <a href="Giaodiennguoidung.html">
-                            Hồ sơ 
-                        </a></li>
-                    <li> <a href="DiachiUse.html"> Địa chỉ </a></li>
-                    
-                    <li> <a href="doimatkhau.html"> <h1>Đổi mật khẩu</h1></a></li>
-                    <li> <a href="Donmua.html"> Đơn mua</a></li>
-                    <li> <a href="DanhGia.html"> Đã đánh giá</a></li>
-
-                </ul>
-            </nav>
-
-        </aside>
-        <main class="content">
-
-            <div class="from-use">
-                <form>
-                    <h2>Đổi mật khẩu</h2>
-                    <label>Mật khẩu cũ></label>
-                    <input type="text">
-
-                    <label>Mật khẩu Mới</label>
-                    <input type="text">
-
-                    <label>Nhập lại mật khẩu mới</label>
-                    <input type="email">
-                    <button id="Xacnhan">Xác nhận</button>
-
-                    
-        </main>
-    </div>
 
     </div>
+    <div class="main">
+        <div class="container">
+            <div class="user-main user-main--change-password">
+            <aside class="user-main__sidebar">
+                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Avatar" class="user-main__sidebar-avatar">
+                <nav class="user-main__nav">
+                    <ul class="user-main__nav-list">
+                        <li>
+                            <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
+                        </li>
+                        <li><a class="user-main__nav-link" href="Giaodiennguoidung.html">Hồ sơ</a></li>
+                        <li><a class="user-main__nav-link" href="DiachiUse.html">Địa chỉ</a></li>
+                        <li><a class="user-main__nav-link" href="doimatkhau.html">Đổi mật khẩu</a></li>
+                        <li><a class="user-main__nav-link" href="Donmua.html">Đơn mua</a></li>
+                        <li><a class="user-main__nav-link" href="DanhGia.html">Đã đánh giá</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="user-main__content">
+                <div class="user-main__form-wrapper">
+                    <form class="profile__form">
+                        <h2 class="profile__heading">Đổi mật khẩu</h2>
+
+                        <label class="profile__label">Mật khẩu cũ</label>
+                        <input class="profile__input" type="password">
+
+                        <label class="profile__label">Mật khẩu mới</label>
+                        <input class="profile__input" type="password">
+
+                        <label class="profile__label">Nhập lại mật khẩu</label>
+                        <input class="profile__input" type="password">
+
+                        <div class="profile__button-save">
+                            <button class="profile__submit" type="submit">Chấp nhận thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
     <div id="footer"></div>
-
+    <script type="module" src="../js/utils/components-loader-pages.js"></script>
 </body>
 
 </html>
