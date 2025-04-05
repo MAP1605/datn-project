@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addBtn.addEventListener('click', function () {
       // Tạo khối mới với class "from-use"
       const newAddressForm = document.createElement('from');
-      newAddressForm.classList.add('.fromthongtin');
+      newAddressForm.classList.add('.from-use__tabs');
 
       const Diachi = document.getElementById('Diachi').value;
       const ten = document.getElementById('Ten').value;
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Nội dung HTML của form mới (bạn có thể tùy chỉnh lại)
      
       newAddressForm.innerHTML = `
-          <form class="fromthongtin">
+          <form class="ModelInfo">
           <p><Strong>Địa chỉ nhà:</Strong> ${Diachi}</p>
                     <p><strong>Tên:</strong>${ten}</p>
                     <p><strong>Email</strong> ${Email}</p>
