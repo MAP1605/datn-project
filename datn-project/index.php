@@ -14,6 +14,9 @@
     <!-- CSS (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <!-- logo ở tên miền -->
+    <link rel="icon" type="image/png" href="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" sizes="16x16">
+
 
 </head>
 
@@ -38,7 +41,6 @@
         <!-- End category (danh mục) -->
 
         <!-- Start prodcut -->
-        <!-- index.php -->
         <div id="products">
             <?php include 'product.php'; ?>
         </div>
@@ -46,11 +48,11 @@
     </main>
 
     <!-- Start footer -->
-    <div id="footer">
-    </div>
+    <footer id="footer">
+    </footer>
     <!-- End footer -->
 
-    <!-- <script type="module" src="./js/pages/home.js"></script> -->
+    <!-- JS: load component (header/banner/category/product/footer) -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader.js"></script>
     <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
 </body>
