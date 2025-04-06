@@ -28,7 +28,7 @@ if ($result->num_rows === 0) {
 ?>
 
 <!-- Start category (danh mục) -->
-<section class="category">
+<section class="category2">
     <div class="container container__category">
         <h2 class="category__title">Danh mục</h2>
         <div class="category__list-wrapper">
