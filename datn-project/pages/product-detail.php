@@ -57,6 +57,28 @@ $soSanPham = 0;
 if ($resultCount && $row = $resultCount->fetch_assoc()) {
     $soSanPham = $row['SoSanPham'];
 }
+
+$sqlChiTietSanPham = "
+    SELECT 
+        sp.*,
+        dm.Ten_Danh_Muc,
+        dc.Tinh_Thanh_Pho,
+        ctsp.Tinh_Trang,
+        ctsp.Han_Bao_Hanh,
+        ctsp.Loai_Bao_Hanh,
+        ctsp.Mo_Ta_Chi_Tiet
+    FROM San_Pham sp
+    LEFT JOIN Chi_Tiet_San_Pham ctsp ON sp.ID_San_Pham = ctsp.ID_San_Pham
+    LEFT JOIN Danh_Muc dm ON sp.ID_Danh_Muc = dm.ID_Danh_Muc
+    LEFT JOIN Nguoi_Ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban
+    LEFT JOIN Dia_Chi_Nhan_Hang dc ON nb.ID_Nguoi_Mua = dc.ID_Nguoi_Mua
+    WHERE sp.ID_San_Pham = $id
+";
+$result = $conn->query($sqlChiTietSanPham);
+if (!$result || $result->num_rows == 0) {
+    die("❌ Không tìm thấy sản phẩm");
+}
+$product = $result->fetch_assoc();
 ?>
 
 
@@ -203,25 +225,45 @@ if ($resultCount && $row = $resultCount->fetch_assoc()) {
                     <h2 class="product-detail__title">Chi tiết sản phẩm</h2>
                     <ul class="product-detail__info-list">
                         <li class="product-detail__info-item">
-                            Danh Mục <span class="product-detail__info-value">Shopee &gt; Điện thoại</span>
+                            Danh Mục <span class="product-detail__info-value">
+                                <?php echo htmlspecialchars($product['Ten_Danh_Muc']); ?>
+                            </span>
                         </li>
                         <li class="product-detail__info-item">
-                            Số lượng hàng khuyến mãi <span class="product-detail__info-value">64</span>
+                            Kho <span class="product-detail__info-value">
+                                <?php echo (int)$product['So_Luong_Ton']; ?>
+                            </span>
                         </li>
+
+                        <?php if (!empty($product['Loai_Bao_Hanh'])): ?>
+                            <li class="product-detail__info-item">
+                                Loại bảo hành <span class="product-detail__info-value">
+                                    <?php echo htmlspecialchars($product['Loai_Bao_Hanh']); ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (!empty($product['Han_Bao_Hanh'])): ?>
+                            <li class="product-detail__info-item">
+                                Hạn bảo hành <span class="product-detail__info-value">
+                                    <?php echo htmlspecialchars($product['Han_Bao_Hanh']); ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (!empty($product['Tinh_Trang'])): ?>
+                            <li class="product-detail__info-item">
+                                Tình trạng <span class="product-detail__info-value">
+                                    <?php echo htmlspecialchars($product['Tinh_Trang']); ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+
+
                         <li class="product-detail__info-item">
-                            Số sản phẩm còn lại <span class="product-detail__info-value">307</span>
-                        </li>
-                        <li class="product-detail__info-item">
-                            Loại bảo hành <span class="product-detail__info-value">Bảo hành nhà sản xuất</span>
-                        </li>
-                        <li class="product-detail__info-item">
-                            Hạn bảo hành <span class="product-detail__info-value">12 tháng</span>
-                        </li>
-                        <li class="product-detail__info-item">
-                            Tình trạng <span class="product-detail__info-value">Mới</span>
-                        </li>
-                        <li class="product-detail__info-item">
-                            Gửi từ <span class="product-detail__info-value">Hà Nội</span>
+                            Gửi từ <span class="product-detail__info-value">
+                                <?php echo htmlspecialchars($product['Tinh_Thanh_Pho']); ?>
+                            </span>
                         </li>
                     </ul>
                 </section>
@@ -230,66 +272,12 @@ if ($resultCount && $row = $resultCount->fetch_assoc()) {
                 <section class="detail__section product-detail__section">
                     <h2 class="product-detail__title">Mô tả sản phẩm</h2>
                     <div class="product-detail__description">
-                        <p>- Hệ thống Siêu thị Viettel Store cam kết cung cấp các sản phẩm chính hãng tới người tiêu
-                            dùng (TẤT CẢ SẢN
-                            PHẨM ĐỀU NGUYÊN SEAL).</p>
-                        <p>- Hỗ trợ xuất hóa đơn VAT (Quý khách hàng vui lòng để lại email đặt hàng để nhận hóa đơn điện
-                            tử).</p>
-                        <p>- Tất cả các gói hàng Viettel Store gửi tới Quý khách hàng đều được dán tem niêm phong trên
-                            kiện hàng. Quý
-                            khách hàng lưu ý dấu hiệu của tem niêm phong trên kiện hàng trước khi nhận hàng.</p>
-                        <p>- Khách hàng vui lòng chụp/ quay lại lúc nhận/ bóc sản phẩm để đảm bảo quyền lợi về bảo hành,
-                            đổi trả sản
-                            phẩm.</p>
-                        <p>- Viettel nhận bảo hành sản phẩm tại tất cả siêu thị Viettel Store đang kinh doanh trên toàn
-                            quốc. Không hỗ
-                            trợ Quý khách hàng trả lại sản phẩm khi đã bóc tem niêm phong gói hàng, bóc seal sản phẩm,
-                            đã qua sử dụng.
-                        </p>
-
-                        <p><strong>iPhone 13</strong> – Hệ thống camera kép tiên tiến nhất từng có trên iPhone. Chip A15
-                            Bionic thần
-                            tốc. Thời lượng pin dài hơn. Thiết kế bền bỉ. Mạng 5G siêu nhanh. Màn hình Super Retina XDR
-                            sáng hơn.</p>
-
-                        <p><strong>Tính năng nổi bật</strong></p>
-                        <ul>
-                            <li>Màn hình Super Retina XDR 6.1 inch</li>
-                            <li>Chế độ Điện Ảnh tự động thay đổi tiêu cự trong video</li>
-                            <li>Camera kép 12MP: Wide & Ultra Wide, HDR thế hệ 4, quay video Dolby Vision 4K</li>
-                            <li>Camera trước TrueDepth 12MP, quay video HDR Dolby Vision 4K</li>
-                            <li>Chip A15 Bionic cho hiệu năng vượt trội</li>
-                            <li>Thời gian xem video: lên đến 19 giờ</li>
-                            <li>Thiết kế bền bỉ với Ceramic Shield</li>
-                            <li>Chống nước IP68</li>
-                            <li>5G tốc độ cao</li>
-                            <li>iOS 15 với nhiều tính năng mới</li>
-                        </ul>
-
-                        <p><strong>Pháp lý:</strong></p>
-                        <ul>
-                            <li>(1) 5G chỉ khả dụng ở một số khu vực, cần gói cước dữ liệu.</li>
-                            <li>(2) Màn hình 6.06 inch tính theo đường chéo. Diện tích hiển thị thực tế nhỏ hơn.</li>
-                            <li>(3) Thời lượng pin có thể thay đổi tùy cách sử dụng.</li>
-                            <li>(4) IP68 – không bảo hành sản phẩm bị thấm nước.</li>
-                            <li>(5) Một số tính năng có thể không hỗ trợ tại Việt Nam.</li>
-                        </ul>
-
-                        <p><strong>Bộ sản phẩm bao gồm:</strong></p>
-                        <ul>
-                            <li>Điện thoại</li>
-                            <li>Dây sạc</li>
-                            <li>Hướng dẫn sử dụng – Bảo hành điện tử 12 tháng</li>
-                        </ul>
-
-                        <p><strong>Thông tin bảo hành:</strong> Bảo hành 12 tháng từ ngày kích hoạt sản phẩm.</p>
-                        <p><strong>Kích hoạt bảo hành:</strong></p>
-                        <ol>
-                            <li>Truy cập đường link nhà sản xuất</li>
-                            <li>Chọn sản phẩm</li>
-                            <li>Nhập Apple ID và mật khẩu</li>
-                        </ol>
-                        <p>Sau khi hoàn tất, hệ thống sẽ hiển thị trung tâm bảo hành gần nhất.</p>
+                        <?php
+                        $raw = $product['Mo_Ta_Chi_Tiet'] ?? '';
+                        // Chuyển \n\n thành <p>, \n thường thành <br>
+                        $converted = nl2br(htmlspecialchars($raw));
+                        echo "<p>$converted</p>";
+                        ?>
                     </div>
                 </section>
 
