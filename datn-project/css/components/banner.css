@@ -36,10 +36,10 @@
     width: 100%;
 }
 
-.banner__small img {
+.banner__small .banner__img {
     width: 100%;
     height: calc((260px - 0.8rem) / 2);
-    object-fit: contain;
+    object-fit: cover;
     display: block;
     border-radius: 4px;
 }
