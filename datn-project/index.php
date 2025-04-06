@@ -13,20 +13,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- CSS (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <!-- logo ở tên miền -->
     <link rel="icon" type="image/png" href="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" sizes="16x16">
+
 
 </head>
 
 <body>
     <!-- Start header -->
     <header id="header">
+
     </header>
     <!-- End header -->
 
     <main>
         <!-- Start banner -->
         <div id="banner">
+
         </div>
         <!-- End banner -->
 

@@ -2,22 +2,29 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Kết nối CSDL trực tiếp
+// Kết nối CSDL
 $host = 'localhost';
 $user = 'root';
 $password = '';
 $dbname = 'DATN';
 
 $conn = new mysqli($host, $user, $password, $dbname);
-
 if ($conn->connect_error) {
     die("❌ Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Lấy 40 sản phẩm ngẫu nhiên
-$sql = "SELECT * FROM San_Pham WHERE Trang_Thai_San_Pham = 'Đang bán' ORDER BY RAND() LIMIT 3";
-$result = $conn->query($sql);
+// Xử lý danh sách ID đã tải (cho load-more)
+$data = json_decode(file_get_contents("php://input"), true);
+$loaded = isset($data['loaded']) ? $data['loaded'] : [];
+$idList = implode(",", array_map('intval', $loaded));
 
+$where = "WHERE Trang_Thai_San_Pham = 'Đang bán'";
+if (!empty($idList)) {
+    $where .= " AND ID_San_Pham NOT IN ($idList)";
+}
+
+$sql = "SELECT * FROM San_Pham $where ORDER BY RAND() LIMIT 3";
+$result = $conn->query($sql);
 if (!$result) {
     die("❌ Lỗi truy vấn: " . $conn->error);
 }
@@ -34,8 +41,10 @@ $count = 0;
             <?php while ($row = $result->fetch_assoc()) {
                 $isHidden = $count >= 20 ? ' product__item--hidden' : '';
                 $base64Img = base64_encode($row['Anh_San_Pham1']);
+                $id = $row['ID_San_Pham'];
             ?>
-                <div class="product__item<?php echo $isHidden; ?>" data-id="<?php echo $row['ID_San_Pham']; ?>">
+                <!-- là đường dẫn tùy vào mỗi máy thường là /datn-project/datn-project/pages/product-detail.php nếu clone thẳng vào file htdocs -->
+                <a href="/GitClone/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="product__item" data-id="<?php echo $id; ?>">
                     <div class="product__img-wrap">
                         <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="product__img" />
                         <span class="product__discount-tag">
@@ -58,9 +67,9 @@ $count = 0;
                         <span class="product__stars"> ⭐ <?php echo $row['So_Sao_Danh_Gia']; ?></span>
                         <span class="product__sold">Đã bán <?php echo $row['Da_Ban']; ?></span>
                     </div>
-                </div>
+                </a>
 
-                <div class="product__item product__item--hidden<?php echo $isHidden; ?>">
+                <a href="./pages/product-detail.php?id=<?php echo $id; ?>" class="product__item product__item--hidden<?php echo $isHidden; ?>" data-id="<?php echo $id; ?>">
                     <div class="product__img-wrap">
                         <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="product__img" />
                         <span class="product__discount-tag">
@@ -83,7 +92,7 @@ $count = 0;
                         <span class="product__stars"> ⭐ <?php echo $row['So_Sao_Danh_Gia']; ?></span>
                         <span class="product__sold">Đã bán <?php echo $row['Da_Ban']; ?></span>
                     </div>
-                </div>
+                </a>
             <?php $count++;
             } ?>
         </div>
