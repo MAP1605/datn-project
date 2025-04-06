@@ -33,16 +33,30 @@
                     <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
                 </button>
             </div>
-            <!-- Mini giỏ hàng trong header -->
+            <!-- Giỏ hàng -->
             <div class="header__cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <div class="header__cart-count">0</div>
+                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+                <span class="header__cart-count">0</span>
+
                 <div class="header__cart-dropdown">
-                    <h4>Sản phẩm mới thêm</h4>
-                    <ul class="header__cart-list" id="cartItemsList">
-                        <!-- Sản phẩm thêm vào sẽ xuất hiện ở đây -->
+                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
+                    <ul class="header__cart-list">
+                        <!-- Các sản phẩm sẽ được thêm bằng JavaScript -->
+                        <!-- Ví dụ mẫu:
+                  <li class="header__cart-item">
+                    <img src="assets/image/product1.jpg" alt="Sản phẩm" class="header__cart-img">
+                    <div class="header__cart-info">
+                      <h5 class="header__cart-name">Tên sản phẩm</h5>
+                      <span class="header__cart-price">₫100.000</span>
+                    </div>
+                    <button class="header__cart-remove">×</button>
+                  </li>
+                  -->
                     </ul>
-                    <a href="./cart.html" class="header__cart-link">Xem giỏ hàng</a>
+                    <div class="header__cart-footer">
+                        <span class="header__cart-total">Tổng: <b>₫0</b></span>
+                        <a href="cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                    </div>
                 </div>
             </div>
 
