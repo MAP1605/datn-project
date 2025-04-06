@@ -22,12 +22,14 @@
 <body>
     <!-- Start header -->
     <header id="header">
+
     </header>
     <!-- End header -->
 
     <main>
         <!-- Start banner -->
         <div id="banner">
+
         </div>
         <!-- End banner -->
 
