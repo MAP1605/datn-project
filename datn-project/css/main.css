@@ -6,3 +6,10 @@
 @import url(./components/product.css);
 @import url(./components/footer.css);
 @import url(./components/product-detail.css);
+
+
+/* my-accout*/
+@import url(./components/DiachiUse.css);
+@import url(./components/doimatkhau.css);
+@import url(./components/donmua.css);
+@import url(./components/giaodiennguoidung.css);
