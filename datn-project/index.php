@@ -6,15 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PearNK - Trang chủ</title>
     <!-- CSS (main) -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/datn-project/datn-project/css/main.css">
     <!-- CSS (font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- CSS (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- JS: load component (header/banner/category/product/footer) -->
-    <script type="module" src="js/utils/components-loader.js"></script>
 
 
 </head>
@@ -52,7 +50,9 @@
     </div>
     <!-- End footer -->
 
-    <script type="module" src="js/pages/home.js"></script>
+    <!-- <script type="module" src="./js/pages/home.js"></script> -->
+    <script type="module" src="/datn-project/datn-project/js/utils/components-loader.js"></script>
+    <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
 </body>
 
 </html>

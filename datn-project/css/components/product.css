@@ -27,7 +27,6 @@
 }
 
 .product__item {
-    display: block;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 4px;
     padding: 1rem;
