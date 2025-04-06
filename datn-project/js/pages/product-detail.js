@@ -237,6 +237,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const average = (totalScore / reviews.length).toFixed(1);
     if (reviewScoreElement) reviewScoreElement.textContent = `${average} trên 5`;
 
+    // ✅ THÊM PHẦN NÀY: cập nhật lên phần meta ở trên
+    const ratingTop = document.getElementById("productRating");
+    const reviewTop = document.getElementById("productTotalReview");
+
+    if (ratingTop) ratingTop.innerHTML = `<i class="fa-solid fa-star"></i> ${average}`;
+    if (reviewTop) reviewTop.textContent = `${formatCount(reviews.length)} đánh giá`;
+
+    // Format dạng 3.8k
+    function formatCount(n) {
+      return n >= 1000 ? (n / 1000).toFixed(1).replace('.0', '') + 'k' : n;
+    }
+
     // Cập nhật phần sao động
     if (starElement) {
       const fullStars = Math.floor(average);
