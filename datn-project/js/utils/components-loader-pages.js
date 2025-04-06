@@ -12,5 +12,5 @@ const basePath = location.pathname.includes('/pages/') ? '../components/' : 'com
 
 // Load header và footer
 loadComponent('header', `${basePath}header.html`);
-loadComponent('product', `${basePath}product.html`);
+loadComponent('product', `${basePath}product.php`);
 loadComponent('footer', `${basePath}footer.html`);
