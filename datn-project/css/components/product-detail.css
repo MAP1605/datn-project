@@ -47,8 +47,10 @@
     transition: border 0.3s ease;
 }
 
-.detail__media-thumbs img:hover {
-    border-color: var(--primary-color);
+.detail__media-thumbs img.active {
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
 .product-detail__info {
@@ -154,6 +156,72 @@
 .detail__btn--cart:hover {
     background: var(--primary-color);
     color: #fff;
+}
+
+/* Popup thêm giỏ hàng */
+/* .cart-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #0002;
+    display: none;
+    z-index: 999;
+    text-align: center;
+    animation: fade 0.3s ease;
+}
+
+.cart-popup i {
+    color: green;
+    font-size: 24px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+} */
+
+/* --------------------------- */
+.popup-cart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    opacity: 0;
+    transition: 0.9s ease;
+    pointer-events: none;
+}
+
+.popup-cart.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.popup-cart i {
+    color: green;
+    font-size: 20px;
 }
 
 .detail__btn--wishlist {
@@ -717,35 +785,66 @@
     }
 }
 
-.image-popup-overlay {
+/* ------------ */
+/* Popup overlay */
+.popup-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.85);
-    display: flex;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
 
-.image-popup-overlay img {
-    width: auto;
+/* Popup content container */
+.popup-content {
+    position: relative;
     max-width: 90vw;
     max-height: 90vh;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    animation: zoomIn 0.3s ease-in-out;
-    cursor: zoom-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes zoomIn {
-    from {
-        transform: scale(0.6);
-        opacity: 0.2;
-    }
+/* Ảnh lớn trong popup */
+.popup-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
 
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+/* Nút trái/phải */
+.popup-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    color: var(--white-color);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    z-index: 10;
+}
+
+.popup-btn.prev {
+    left: -8rem;
+}
+
+.popup-btn.next {
+    right: -8rem;
+}
+
+.popup-btn:hover {
+    color: var(--primary-color, #007aff);
+}
+
+
+.popup__btn:focus {
+    outline: none;
+    box-shadow: none;
 }

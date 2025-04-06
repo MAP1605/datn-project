@@ -33,11 +33,19 @@
                     <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
                 </button>
             </div>
+            <!-- Mini giỏ hàng trong header -->
             <div class="header__cart">
-                <a href="" class="header__cart-icon">
-                    <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-                </a>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="header__cart-count">0</div>
+                <div class="header__cart-dropdown">
+                    <h4>Sản phẩm mới thêm</h4>
+                    <ul class="header__cart-list" id="cartItemsList">
+                        <!-- Sản phẩm thêm vào sẽ xuất hiện ở đây -->
+                    </ul>
+                    <a href="./cart.html" class="header__cart-link">Xem giỏ hàng</a>
+                </div>
             </div>
+
         </div>
     </div>
 </header>
