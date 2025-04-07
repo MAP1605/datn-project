@@ -1,13 +1,11 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const chooseBtn = document.getElementById('chooseBtn');
   const imageInput = document.getElementById('imageInput');
   const avatarPreview = document.getElementById('avatarPreview');
   const saveBtn = document.getElementById('saveProfileBtn');
+
   let selectedAvatarBase64 = '';
 
-  // 1. Khi chọn ảnh => preview + lưu tạm base64
   chooseBtn.addEventListener('click', () => imageInput.click());
 
   imageInput.addEventListener('change', () => {
@@ -16,26 +14,56 @@ document.addEventListener('DOMContentLoaded', function () {
       const reader = new FileReader();
       reader.onload = function (e) {
         avatarPreview.src = e.target.result;
-        selectedAvatarBase64 = e.target.result; // lưu base64
+        selectedAvatarBase64 = e.target.result;
       };
       reader.readAsDataURL(file);
     }
   });
 
-  // 2. Khi ấn "Lưu" => lưu base64 vào localStorage
   saveBtn.addEventListener('click', function (e) {
-    e.preventDefault(); // Không reload trang
-    if (selectedAvatarBase64) {
-      localStorage.setItem('userAvatar', selectedAvatarBase64);
-      alert('Đã lưu ảnh đại diện!');
-    } else {
-      alert('Bạn chưa chọn ảnh mới.');
+    e.preventDefault();
+
+    const username = document.querySelector('.profile__input[type="text"]').value;
+    const name = document.querySelectorAll('.profile__input[type="text"]')[1].value;
+    const email = document.querySelector('.profile__input[type="email"]').value;
+    const phone = document.querySelector('.profile__input[type="tel"]').value;
+
+    // Validate email and phone
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(\+84|0)\d{9,10}$/;
+
+    if (!emailRegex.test(email)) {
+      alert('Email không đúng định dạng!');
+      return;
     }
+
+    if (!phoneRegex.test(phone)) {
+      alert('Số điện thoại không đúng định dạng!');
+      return;
+    }
+
+    const profileData = {
+      username,
+      name,
+      email,
+      phone,
+      avatar: selectedAvatarBase64
+    };
+
+    localStorage.setItem('userProfile', JSON.stringify(profileData));
+    alert('Thông tin hồ sơ đã được lưu thành công!');
   });
 
-  // 3. Khi load lại trang => lấy ảnh đã lưu
-  const savedAvatar = localStorage.getItem('userAvatar');
-  if (savedAvatar) {
-    avatarPreview.src = savedAvatar;
+  const savedProfile = JSON.parse(localStorage.getItem('userProfile'));
+
+  if (savedProfile) {
+    document.querySelector('.profile__input[type="text"]').value = savedProfile.username;
+    document.querySelectorAll('.profile__input[type="text"]')[1].value = savedProfile.name;
+    document.querySelector('.profile__input[type="email"]').value = savedProfile.email;
+    document.querySelector('.profile__input[type="tel"]').value = savedProfile.phone;
+
+    if (savedProfile.avatar) {
+      avatarPreview.src = savedProfile.avatar;
+    }
   }
 });
