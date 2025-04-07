@@ -177,9 +177,9 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
 
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
-                            <button class="product-detail__qty-btn">-</button>
-                            <input type="text" value="1" class="product-detail__qty-input" />
-                            <button class="product-detail__qty-btn">+</button>
+                            <button class="product-detail__qty-btn" data-type="minus">-</button>
+                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?php echo $product['So_Luong_Ton']; ?>" />
+                            <button class="product-detail__qty-btn" data-type="plus">+</button>
                             <span class="product-detail__stock">
                                 <?php echo $product['So_Luong_Ton']; ?> sản phẩm có sẵn
                             </span>
