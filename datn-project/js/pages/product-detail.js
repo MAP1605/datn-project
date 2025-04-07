@@ -271,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderReviews();
 });
 
+
 // Button thêm vào giỏ hàng và hiển thị giỏ hàng
 document.addEventListener("DOMContentLoaded", () => {
   const addToCartBtn = document.querySelector(".detail__btn--cart");
