@@ -20,7 +20,7 @@ function setupShowMoreButton() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("components/product.html")
+  fetch("/datn-project/components/product.html")
     .then(res => res.text())
     .then(html => {
       document.querySelector("#product").innerHTML = html;

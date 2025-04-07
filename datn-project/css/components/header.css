@@ -121,9 +121,14 @@
 }
 
 /* Dropdown giỏ hàng */
+.header__cart {
+    position: relative;
+}
+
 .header__cart-dropdown {
     position: absolute;
-    top: 110%;
+    top: calc(100% + 10px);
+    /* tạo khoảng cách giữa icon và dropdown */
     right: 0;
     width: 400px;
     background-color: #fff;
@@ -135,6 +140,19 @@
     flex-direction: column;
 }
 
+/* 👇 phần cầu nối giữa icon và dropdown */
+.header__cart::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 20px;
+    /* tăng hoặc giảm tùy */
+    z-index: 5;
+}
+
+/* Khi hover vào cart hoặc cầu nối → hiện dropdown */
 .header__cart:hover .header__cart-dropdown {
     display: flex;
 }
@@ -225,6 +243,13 @@
 .header__cart-btn:hover {
     background-color: var(--primary-color-rgba);
 
+}
+
+.header__cart-quantity {
+    font-size: 13px;
+    color: var(---black-color);
+    display: block;
+    margin-top: 4px;
 }
 
 /* Responsive */
