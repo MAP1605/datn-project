@@ -388,24 +388,34 @@
 
 /* Mô tả sản phẩm */
 .product-detail__description {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    /* Đổi từ 1.4 -> 1.5 để dễ đọc hơn */
     line-height: 1.8;
+    /* Giãn dòng tốt hơn */
     color: #333;
+    white-space: normal;
+    word-break: break-word;
+    /* Tránh vỡ layout nếu có từ dài */
 }
 
 .product-detail__description p {
-    margin-bottom: 10px;
+    margin-bottom: 1.6rem;
+    /* Tăng nhẹ khoảng cách giữa đoạn */
+    line-height: 1.8;
 }
 
 .product-detail__description ul,
 .product-detail__description ol {
-    padding-left: 20px;
-    margin-bottom: 10px;
+    padding-left: 2rem;
+    /* Canh trái rõ ràng hơn */
+    margin-bottom: 1.2rem;
 }
 
 .product-detail__description li {
-    margin-bottom: 6px;
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
 }
+
 
 
 /* === Review Section === */
