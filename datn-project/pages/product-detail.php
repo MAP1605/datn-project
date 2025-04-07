@@ -89,6 +89,17 @@ $sqlReview = "
     ORDER BY dg.Ngay_Danh_Gia DESC
 ";
 $resultReview = $conn->query($sqlReview);
+
+$sqlCapNhatSaoDB = "SELECT AVG(So_Sao) AS avg_rating FROM Danh_Gia_San_Pham WHERE ID_San_Pham = $id";
+$resultAvg = $conn->query($sqlCapNhatSaoDB);
+
+if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
+    $avgRating = round($rowAvg['avg_rating'], 1); // Làm tròn 1 chữ số thập phân
+
+    // Cập nhật lại cột So_Sao_Danh_Gia trong bảng San_Pham
+    $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
+    $conn->query($sqlUpdate);
+}
 ?>
 
 <!DOCTYPE html>
@@ -147,7 +158,9 @@ $resultReview = $conn->query($sqlReview);
 
                         <div class="product-detail__meta">
                             <div class="product-detail__rating">
-                                <span id="productRating"><i class="fa-solid fa-star"></i> <?php echo $product['So_Sao_Danh_Gia']; ?></span>
+                                <span id="productRating">
+                                    <i class="fa-solid fa-star"></i> <?php echo $product['So_Sao_Danh_Gia']; ?>
+                                </span>
                             </div>
                             <div id="productTotalReview" class="product-detail__review"></div>
                             <div class="product-detail__sold"><?php echo $product['Da_Ban']; ?> đã bán</div>
@@ -320,6 +333,9 @@ $resultReview = $conn->query($sqlReview);
 
 
                     <!-- Danh sách đánh giá -->
+                    <?php if (!empty($review['Anh_Danh_Gia1'])): ?>
+                        <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia1']); ?>" alt="ảnh đánh giá">
+                    <?php endif; ?>
                     <div class="review__list" id="review__list">
                         <!-- review item (có bl + ảnh)-->
                         <div class="review__list">
@@ -328,21 +344,25 @@ $resultReview = $conn->query($sqlReview);
                                     data-rating="<?php echo $review['So_Sao']; ?>"
                                     data-has-comment="<?php echo !empty($review['Binh_Luan']) ? 'true' : 'false'; ?>"
                                     data-has-image="<?php echo (!empty($review['Anh_Danh_Gia1']) || !empty($review['Anh_Danh_Gia2']) || !empty($review['Anh_Danh_Gia3'])) ? 'true' : 'false'; ?>">
+
                                     <div class="review__user">
                                         <span class="review__user-name"><?php echo htmlspecialchars($review['Ho_Ten']); ?></span>
                                         <span class="review__star"><?php echo str_repeat("★", $review['So_Sao']); ?></span>
                                     </div>
+
                                     <div class="review__date"><?php echo $review['Ngay_Danh_Gia']; ?></div>
+
                                     <p class="review__content"><?php echo nl2br(htmlspecialchars($review['Binh_Luan'])); ?></p>
+
                                     <div class="review__images">
                                         <?php if (!empty($review['Anh_Danh_Gia1'])): ?>
-                                            <img src="<?php echo htmlspecialchars($review['Anh_Danh_Gia1']); ?>" alt="ảnh đánh giá">
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia1']); ?>" alt="ảnh đánh giá">
                                         <?php endif; ?>
                                         <?php if (!empty($review['Anh_Danh_Gia2'])): ?>
-                                            <img src="<?php echo htmlspecialchars($review['Anh_Danh_Gia2']); ?>" alt="ảnh đánh giá">
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia2']); ?>" alt="ảnh đánh giá">
                                         <?php endif; ?>
                                         <?php if (!empty($review['Anh_Danh_Gia3'])): ?>
-                                            <img src="<?php echo htmlspecialchars($review['Anh_Danh_Gia3']); ?>" alt="ảnh đánh giá">
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia3']); ?>" alt="ảnh đánh giá">
                                         <?php endif; ?>
                                     </div>
                                 </div>
