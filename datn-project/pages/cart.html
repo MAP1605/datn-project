@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PearNK - Giỏ hàng</title>
+
+    <!-- CSS chính -->
+    <link rel="stylesheet" href="/datn-project/css/main.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- logo ở tên miền -->
+    <link rel="icon" type="image/png" href="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
+</head>
+
+<body>
+    <!-- Header dùng chung -->
+    <div id="header"></div>
+
+    <main>
+        <div class="container">
+            <div class="cart container">
+
+                <div class="cart__table">
+                    <div class="cart__header">
+                        <div class="cart__col cart__col--checkbox">
+                            <input type="checkbox" id="selectAll" />
+                        </div>
+                        <div class="cart__col cart__col--product">Sản phẩm</div>
+                        <div class="cart__col cart__col--price">Đơn giá</div>
+                        <div class="cart__col cart__col--quantity">Số lượng</div>
+                        <div class="cart__col cart__col--total">Số tiền</div>
+                        <div class="cart__col cart__col--action">Thao tác</div>
+                    </div>
+
+                    <div class="cart__body" id="cartBody">
+                        <!-- Các sản phẩm sẽ được render tại đây bằng JS -->
+                    </div>
+                </div>
+
+                <div class="cart__footer">
+                    <div class="cart__footer-left">
+                        <input type="checkbox" id="selectAllBottom" />
+                        <label for="selectAllBottom">Chọn tất cả</label>
+                        <button class="cart__btn cart__btn--delete">Xoá</button>
+                    </div>
+                    <div class="cart__footer-right">
+                        <span class="cart__total-label">Tổng cộng:</span>
+                        <span class="cart__total-price" id="cartTotal">0₫</span>
+                        <button class="cart__btn cart__btn--checkout">Mua hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer dùng chung -->
+    <div id="footer"></div>
+
+    <!-- JS: load component header/footer  -->
+    <script type="module" src="/datn-project/js/utils/components-loader-pages.js"></script>
+    <script type="module" src="/datn-project/js/pages/cart.js"></script>
+</body>
+
+</html>
