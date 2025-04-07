@@ -1,110 +1,82 @@
-// Không còn localStorage nữa
-let cartItems = [];
+// File: js/pages/cart.js
+document.addEventListener('DOMContentLoaded', () => {
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-function updateCartUI() {
-    const cartList = document.querySelector('.header__cart-list');
-    const cartCount = document.querySelector('.header__cart-count');
-    const cartTotal = document.querySelector('.header__cart-total b');
+    const cartBody = document.getElementById('cartBody');
+    const cartTotal = document.getElementById('cartTotal');
 
-    if (!cartList || !cartCount || !cartTotal) return;
+    function renderCart() {
+        cartBody.innerHTML = '';
+        let total = 0;
 
-    cartList.innerHTML = '';
-    let total = 0;
-    let totalQuantity = 0;
+        cartItems.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
 
-    cartItems.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.className = 'header__cart-item';
-        li.innerHTML = `
-            <img src="${item.image}" class="header__cart-img" alt="${item.name}">
-            <div class="header__cart-info">
-                <h5 class="header__cart-name">${item.name}</h5>
-                <span class="header__cart-price">₫${item.price.toLocaleString()}</span>
-                <span class="header__cart-quantity">Số lượng: ${item.quantity}</span>
-            </div>
-            <button class="header__cart-remove" data-index="${index}">&times;</button>
-        `;
-        cartList.appendChild(li);
-        total += item.price * item.quantity;
-        totalQuantity += item.quantity;
+            const row = document.createElement('div');
+            row.className = 'cart__item';
+            row.innerHTML = `
+        <div class="cart__col cart__col--checkbox">
+          <input type="checkbox" class="cart__checkbox" data-index="${index}" checked />
+        </div>
+        <div class="cart__col cart__col--product">
+          <img src="${item.image}" class="cart__product-img" alt="${item.name}" />
+          <span class="cart__product-name">${item.name}</span>
+        </div>
+        <div class="cart__col cart__col--price">₫${item.price.toLocaleString()}</div>
+        <div class="cart__col cart__col--quantity">
+          <div class="cart__quantity-control">
+            <button class="cart__quantity-btn" data-type="minus" data-index="${index}">-</button>
+            <input type="text" class="cart__quantity-input" value="${item.quantity}" data-index="${index}" />
+            <button class="cart__quantity-btn" data-type="plus" data-index="${index}">+</button>
+          </div>
+        </div>
+        <div class="cart__col cart__col--total">₫${itemTotal.toLocaleString()}</div>
+        <div class="cart__col cart__col--action">
+          <button class="cart__btn--delete-single" data-index="${index}">Xoá</button>
+        </div>
+      `;
+
+            cartBody.appendChild(row);
+        });
+
+        cartTotal.textContent = `₫${total.toLocaleString()}`;
+    }
+
+    // Cộng/trừ
+    cartBody.addEventListener('click', (e) => {
+        const type = e.target.dataset.type;
+        const index = e.target.dataset.index;
+
+        if (type && index !== undefined) {
+            const item = cartItems[index];
+            if (type === 'plus') item.quantity++;
+            if (type === 'minus' && item.quantity > 1) item.quantity--;
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            renderCart();
+        }
+
+        // Xoá
+        if (e.target.classList.contains('cart__btn--delete-single')) {
+            const index = e.target.dataset.index;
+            cartItems.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            renderCart();
+        }
     });
 
-    cartCount.textContent = totalQuantity;
-    cartTotal.textContent = `₫${total.toLocaleString()}`;
-}
-
-function showCartPopup() {
-    const popup = document.getElementById('popupCart');
-    if (!popup) return;
-
-    popup.classList.add('active');
-    setTimeout(() => popup.classList.remove('active'), 2000);
-}
-
-function showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-
-    toast.textContent = message;
-
-    switch (type) {
-        case 'success':
-            toast.style.backgroundColor = '#28a745';
-            break;
-        case 'error':
-            toast.style.backgroundColor = '#dc3545';
-            break;
-        default:
-            toast.style.backgroundColor = '#333';
-    }
-
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
-document.addEventListener('click', function (e) {
-    if (e.target.closest('.detail__btn--cart')) {
-        const name = document.querySelector('.product-detail__name')?.textContent.trim();
-        const priceText = document.querySelector('.product-detail__price-new')?.textContent.trim();
-        const image = document.querySelector('.detail__media-main')?.getAttribute('src');
-        const quantityInput = document.querySelector('.product-detail__qty-input');
-        const quantity = parseInt(quantityInput?.value || 1);
-        const stockText = document.querySelector('.product-detail__stock')?.textContent.trim();
-        const stock = parseInt(stockText?.match(/\d+/)?.[0] || 0);
-
-        if (!name || !priceText || !image || !quantity || quantity <= 0) {
-            showToast('Thiếu thông tin sản phẩm hoặc số lượng không hợp lệ!', 'error');
-            return;
+    // Nhập trực tiếp
+    cartBody.addEventListener('input', (e) => {
+        if (e.target.classList.contains('cart__quantity-input')) {
+            const index = e.target.dataset.index;
+            let value = parseInt(e.target.value);
+            if (!isNaN(value) && value > 0) {
+                cartItems[index].quantity = value;
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+                renderCart();
+            }
         }
+    });
 
-        const price = parseInt(priceText.replace(/[^\d]/g, ''));
-        const existing = cartItems.find(item => item.name === name);
-        const currentInCart = existing ? existing.quantity : 0;
-        const totalAfterAdd = currentInCart + quantity;
-
-        if (totalAfterAdd > stock) {
-            showToast(`Không thể thêm ${quantity} sản phẩm! Chỉ còn ${stock - currentInCart} sản phẩm có sẵn.`, 'error');
-            return;
-        }
-
-        if (existing) {
-            existing.quantity += quantity;
-        } else {
-            const product = { name, price, image, quantity };
-            cartItems.push(product);
-        }
-
-        updateCartUI();
-        showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
-        // showCartPopup();
-    }
-
-    if (e.target.classList.contains('header__cart-remove')) {
-        const index = e.target.dataset.index;
-        cartItems.splice(index, 1);
-        updateCartUI();
-        showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'info');
-    }
+    renderCart();
 });
-
-updateCartUI(); // Gọi khi mở trang
