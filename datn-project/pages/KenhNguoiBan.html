@@ -175,12 +175,12 @@
                   <tbody  id="product-list">
                     <tr data-status="Đang bán" data-name="Điện thoại A" data-row-id="1"  >
                       <td><input type="checkbox"></td>
-                      <td class="product-name clickable"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="hình ảnh " class="product-list_img" width="80px"></td>
-                      <td class="product-name clickable">Điện thoại A</td>
-                      <td class="product-name clickable">100</td>
-                      <td class="product-name clickable">5.000.000đ</td>
-                      <td class="product-name clickable">50</td>
-                      <td class="product-name clickable"><span class="status-active">Đang bán</span></td>
+                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="hình ảnh " class="product-list_img" width="80px"></td>
+                      <td class="btn-chi-tiet-san-pham">Điện thoại A</td>
+                      <td class="btn-chi-tiet-san-pham">100</td>
+                      <td class="btn-chi-tiet-san-pham">5.000.000đ</td>
+                      <td class="btn-chi-tiet-san-pham">50</td>
+                      <td class="btn-chi-tiet-san-pham"><span class="status-active">Đang bán</span></td>
                       <td>
                         <span class="icon btn-delete-product">🗑</span>
                         <span class="icon btn-edit-product">🛠</span>
@@ -337,44 +337,51 @@
                 </div>
                 
                 <!-- khu vực chi tiết sản phẩm -->
-                <div class="Container-Chitiet hidden">
-                  <h2>Chi tiết sản phẩm</h2>
-                  <hr>
-                <br>
-                  <div class="from-group-ka">
-                    <label>Mã sản phẩm:</label>
-                    <input type="text" value="SP001" readonly>
+                <!-- Modal chi tiết sản phẩm -->
+                  <div class="modal-overlay hidden"></div>
+                  <div class="modal modal-product-detail hidden">
+                    <div class="modal-content">
+                      <h2>Chi tiết sản phẩm</h2>
+                      <hr><br>
+
+                      <div class="from-group-ka">
+                        <label>Mã sản phẩm:</label>
+                        <input type="text" value="SP001" readonly>
+                      </div>
+
+                      <div class="from-group-ka">
+                        <label>Tên sản phẩm:</label>
+                        <input type="text" value="Điện thoại XYZ">
+                      </div>
+
+                      <div class="from-group-ka">
+                        <label>Tổng số lượng kho:</label>
+                        <input type="text" value="100">
+                      </div>
+
+                      <div class="from-group-ka">
+                        <label>Thương hiệu:</label>
+                        <input type="text" value="No brand">
+                      </div>
+
+                      <hr>
+
+                      <div class="from-group-ka">
+                        <label>Xuất xứ:</label>
+                        <span>Việt Nam</span>
+                      </div>
+
+                      <div class="from-group-ka">
+                        <label>Mô tả sản phẩm:</label>
+                        <textarea disabled>Đây là sản phẩm test mô tả...</textarea>
+                      </div>
+
+                      <div class="buttons-ka">
+                        <button class="Submit btn-back-product">Quay lại</button>
+                      </div>
+                    </div>
                   </div>
-                
-                  <div class="from-group-ka">
-                    <label>Tên sản phẩm:</label>
-                    <input type="text" value="Điện thoại XYZ">
-                  </div>
-                
-                  <div class="from-group-ka">
-                    <label>Tổng số lượng kho:</label>
-                    <input type="text" value="100">
-                  </div>
-                
-                  <div class="from-group-ka">
-                    <label>Thương hiệu:</label>
-                    <input type="text" value="No brand">
-                  </div>
-                  <hr>      
-                  <div class="from-group-ka">
-                    <label>Xuất xứ:</label>
-                    <span>Việt Nam</span>
-                  </div>
-                
-                  <div class="from-group-ka">
-                    <label>Mô tả sản phẩm:</label>
-                    <textarea disabled>Đây là sản phẩm test mô tả...</textarea>
-                  </div>
-                
-                  <div class="buttons-ka">
-                    <button class="Submit btn-back-product">Quay lại</button>
-                  </div>
-                </div>
+
                 <!-- Tổng quan doanh thu -->
                 <div class="doanhthu-section hidden">
                   <div class="overview-box">

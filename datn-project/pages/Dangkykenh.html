@@ -3,131 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dangky.css">
+        <!-- CSS (main) -->
+        <link rel="stylesheet" href="../css/main.css" />
+        <!-- CSS (font) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+          rel="stylesheet"
+        />
+    
+        <!-- CSS (icon) -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
 
-    <title>Đăng Nhập</title>
+    <title>Kênh người bán</title>
 </head>
 <body>
-    <header class="header">
-        <div class="container d-flex justify-between align-center" style="height: 100%;">
-          <div class="logo d-flex align-center">
-            <img src="img/logo-removebg-preview.png" alt="Logo" width="100px">
-            <span>Đăng nhập</span>
+  <div id="header"></div>
+
+  <main>
+    <div class="container">
+      <!-- đăng ký kênh nguời bán  -->
+      <form class="seller-register__form">
+        <div class="seller-register__form-box">
+          <h2 class="seller-register__title">Đăng ký người bán</h2>
+      
+          <!-- Tên shop -->
+          <div class="seller-register__form-group">
+            <label for="shop-name" class="seller-register__label">
+              <span class="seller-register__label--required">*</span>
+              Tên Shop
+            </label>
+            <input type="text" id="shop-name" class="seller-register__input" placeholder="Nhập tên shop" />
           </div>
-          <div class="help">
-            <a href="#">Bạn cần giúp đỡ?</a>
+      
+          <!-- Địa chỉ lấy hàng -->
+          <div class="seller-register__form-group">
+            <label for="shop-address" class="seller-register__label">
+              <span class="seller-register__label--required">*</span>
+              Địa chỉ lấy hàng
+            </label>
+            <input type="text" id="shop-address" class="seller-register__input" placeholder="Nhập địa chỉ" />
           </div>
-        </div>
-      </header>
-    
-      <div class="container-shopee d-flex align-center justify-center">
-        <div class="left-section text-center">
-          <img src="img/logo-removebg-preview.png" alt="Logo" width="400px">
-          <p>Nền tảng thương mại điện tử<br> yêu thích ở Đông Nam Á & Đài Loan</p>
-        </div>
-        <div class="right-section d-flex justify-center">
-          <div class="register-box">
-            <h2 style="color: black;">Đăng nhập</h2>
-            <input type="text" placeholder="Email/Số điện thoại" class="input-phone">
-            <input type="text" placeholder="Nhập mật khẩu" class="input-password">
-            <button class="btn">TIẾP THEO</button>
-    
-            <div class="divider">HOẶC</div>
-    
-            <div class="social-login">
-              <a href="https://www.facebook.com/" class="btn-facebook">
-                <img src="img/facebook.png"> Facebook
-              </a>
-              <a href="https://www.google.com.vn/" class="btn-google">
-                <img src="img/google.png"> Google
-              </a>
-            </div>
-    
-            <p class="terms">
-              Bằng việc đăng kí, bạn đã đồng ý với Shopee về
-              <a href="#">Điều khoản dịch vụ</a> &
-              <a href="#">Chính sách bảo mật</a>
-            </p>
-    
-            <p class="login-link">Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p>
+      
+          <!-- Email -->
+          <div class="seller-register__form-group">
+            <label for="shop-email" class="seller-register__label">
+              <span class="seller-register__label--required">*</span>
+              Email
+            </label>
+            <input type="email" id="shop-email" class="seller-register__input" value="abc@gmail.com" readonly />
           </div>
-        </div>
-      </div>
-    
-      <footer>
-        <div class="footer-main container">
-          <div class="freat d-flex justify-around flex-wrap">
-            <div class="freat-item">
-              <img src="img/Mokup/Chuyển phát nhanh.jpg" alt="Chuyển phát nhanh" width="80px">
-              <p>Chuyển phát nhanh</p>
-            </div>
-            <div class="freat-item">
-              <img src="img/Mokup/Chất lượng sản phẩm.jpg" alt="Chất lượng sản phẩm" width="80px">
-              <p>Chất lượng sản phẩm</p>
-            </div>
-            <div class="freat-item">
-              <img src="img/Mokup/Giảm giá trực tuyến.jpg" alt="Giảm giá trực tuyến" width="80px">
-              <p>Giảm giá trực tuyến</p>
-            </div>
-            <div class="freat-item">
-              <img src="img/Mokup/Hỗ trợ người dùng.jpg" alt="Hỗ trợ người dùng" width="80px">
-              <p>Hỗ trợ người dùng</p>
-            </div>
-            <div class="freat-item">
-              <img src="img/Mokup/Thanh toán an toàn.jpg" alt="Thanh toán an toàn" width="80px">
-              <p>Thanh toán an toàn</p>
-            </div>
+
+      
+          <!-- CCCD -->
+          <div class="seller-register__form-group">
+            <label for="shop-cccd" class="seller-register__label">
+              <span class="seller-register__label--required">*</span>
+              Số CCCD
+            </label>
+            <input type="text" id="shop-cccd" class="seller-register__input" placeholder="Nhập số CCCD" />
           </div>
-    
-          <div class="footer-info d-flex justify-between flex-wrap">
-            <div class="freat-section">
-              <h3>Địa chỉ</h3>
-              <p>Bạn có câu hỏi? Gọi cho chúng tao</p>
-              <p class="phone">+84 388 215 661</p>
-              <p>Trịnh Văn Bô Nam Từ Liêm Hà Nội</p>
-              <p>daileocuteo@gmail.com</p>
-              <p>daintth03468@fpt.edu.vn</p>
-            </div>
-            <div class="freat-section">
-              <h3>Thông tin</h3>
-              <p>Về chúng tôi</p>
-              <p>Thông tin vận chuyển</p>
-              <p>Gửi hỗ trợ</p>
-            </div>
-            <div class="freat-section">
-              <h3>Theo dõi</h3>
-              <p>Facebook</p>
-              <p>Instargram</p>
-            </div>
-            <div class="freat-section">
-              <h3>Thanh toán</h3>
-              <div class="payment-methods">
-                <img src="img/Mokup/Thanh toán/Visa.jpg" alt="visa">
-                <img src="img/Mokup/Thanh toán/PayPal.jpg" alt="paypal">
-                <img src="img/Mokup/Thanh toán/MasterCard.jpg" alt="mastercard">
-                <img src="img/Mokup/Thanh toán/Momo.jpg" alt="momo">
-              </div>
-            </div>
-            <div class="freat-section">
-              <h3>Đơn vị vận chuyển</h3>
-              <div class="shipping-methods">
-                <img src="img/Mokup/Đơn vị vận chuyển/J&T.jpg" alt="J&T">
-                <img src="img/Mokup/Đơn vị vận chuyển/Ninja.jpg" alt="Ninja">
-                <img src="img/Mokup/Đơn vị vận chuyển/Grab.jpg" alt="Grab">
-              </div>
-            </div>
+      
+          <!-- Số điện thoại -->
+          <div class="seller-register__form-group">
+            <label for="shop-phone" class="seller-register__label">
+              <span class="seller-register__label--required">*</span>
+              Số điện thoại
+            </label>
+            <input type="text" id="shop-phone" class="seller-register__input" value="0123456789" readonly/>
           </div>
-    
-          <div class="freat-day text-center">
-            <img src="img/Mokup/Tem kiểm duyệt/Đã đăng ký.jpg" alt="Đã đăng ký" width="100px">
-            <img src="img/Mokup/Tem kiểm duyệt/Đã thông báo.jpg" alt="Đã thông báo" width="100px">
-            <img src="img/Mokup/Tem kiểm duyệt/Nói không với hàng giả.jpg" alt="No Fake" width="50px">
-            <p>Công ty TNHH Hội Người Khôn</p>
-            <p>Địa chỉ: Tòa nhà FPT Polytechnic Nam Từ Liêm Hà Nội, Việt Nam</p>
-            <p>Chịu trách nghiệm quản lý nội dung: Dũng Tiến Hà Đại Ngọc Anh</p>
-            <p>&copy;2025 - Bản quyền thuộc về công ty TNHH Hội Người Khôn</p>
+      
+          <!-- Nút -->
+          <div class="seller-register__button-group">
+            <button type="button" class="seller-register__button seller-register__button--save">Lưu</button>
+            <button type="submit" class="seller-register__button seller-register__button--next">Tiếp theo</button>
           </div>
         </div>
-      </footer>
+      </form>
+      
+      
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script type="module" src="../js/utils/components-loader-pages.js"></script>
+  <script type="module" src="../js/components/Dangkykenh.js"></script>
+
 </body>
 </html>

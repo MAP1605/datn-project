@@ -104,28 +104,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // lọc của phần tất cả sản phẩm 
 document.addEventListener("DOMContentLoaded", function () {
-  const productTabs = document.querySelectorAll(".product-tabs .tab");
-  const productRows = document.querySelectorAll("#product-list tr");
+  const tabs = document.querySelectorAll(".product-filter__tab");
 
-  productTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      // Bỏ class active cũ, thêm mới
-      productTabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
+  tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+          // Xóa class active ở tất cả tab
+          tabs.forEach((t) => t.classList.remove("active"));
 
-      const selected = tab.getAttribute("data-filter");
+          // Thêm active vào tab được click
+          tab.classList.add("active");
 
-      productRows.forEach(row => {
-        const status = row.getAttribute("data-status");
-        if (selected === "Tất cả sản phẩm" || status === selected) {
-          row.style.display = "";
-        } else {
-          row.style.display = "none";
-        }
+          // Lấy trạng thái lọc từ tab được chọn
+          const filterStatus = tab.textContent.trim();
+
+          // Lọc sản phẩm tương ứng
+          filterProducts(filterStatus);
       });
-    });
   });
+
+  function filterProducts(status) {
+      const rows = document.querySelectorAll(".product-row"); // mỗi dòng sản phẩm có class này
+
+      rows.forEach((row) => {
+          const productStatus = row.getAttribute("data-status"); // ví dụ: "Đang bán", "Ngừng bán", "Ăn gậy"
+
+          if (status === "Tất cả sản phẩm" || productStatus === status) {
+              row.style.display = "";
+          } else {
+              row.style.display = "none";
+          }
+      });
+  }
 });
+
 //tìm kiếm
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.querySelector(".input-search");
@@ -479,42 +490,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-// Khu chi tiết sản phẩm
-document.addEventListener("DOMContentLoaded", function () {
-  const productList = document.getElementById("product-list");
-  const detailSection = document.querySelector(".Container-Chitiet");
-  const productSection = document.getElementById("product-section");
-  const backBtn = document.querySelector(".btn-back-product");
+// khu chi tiết sản phẩm
 
-  // Khi click vào tên sản phẩm
-  productList.addEventListener("click", function (e) {
-    const clicked = e.target;
-    if (clicked.classList.contains("product-name")) {
-      const row = clicked.closest("tr");
-
-      const productName = row.getAttribute("data-name") || clicked.textContent;
-      const productId = row.getAttribute("data-row-id") || "SP001";
-
-      // Gán dữ liệu
-      document.querySelector(".Container-Chitiet input[readonly]").value = productId;
-      document.querySelector(".Container-Chitiet textarea").value = "Chi tiết sản phẩm: " + productName;
-
-      // Chuyển view
-      productSection.classList.add("hidden");
-      detailSection.classList.remove("hidden");
-      window.scrollTo({ top: detailSection.offsetTop - 100, behavior: "smooth" });
-    }
-  });
-
-  // Khi click nút quay lại
-  if (backBtn) {
-    backBtn.addEventListener("click", function () {
-      detailSection.classList.add("hidden");
-      productSection.classList.remove("hidden");
-      window.scrollTo({ top: productSection.offsetTop - 100, behavior: "smooth" });
-    });
-  }
-});
 // chi tiết đơn hàng
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("order-detail-modal");
@@ -555,4 +532,26 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.style.display = "none";
     }
   });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btnChiTietSanPham = document.querySelectorAll(".btn-chi-tiet-san-pham"); // nút mở modal
+  const modal = document.querySelector(".modal-product-detail");
+  const overlay = document.querySelector(".modal-overlay");
+  const btnClose = document.querySelector(".btn-back-product");
+
+  btnChiTietSanPham.forEach(btn => {
+    btn.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      overlay.classList.remove("hidden");
+    });
+  });
+
+  overlay.addEventListener("click", closeModal);
+  btnClose.addEventListener("click", closeModal);
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+  }
 });
