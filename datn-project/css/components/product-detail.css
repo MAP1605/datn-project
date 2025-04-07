@@ -158,43 +158,8 @@
     color: #fff;
 }
 
-/* Popup thêm giỏ hàng */
-/* .cart-popup {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #0002;
-    display: none;
-    z-index: 999;
-    text-align: center;
-    animation: fade 0.3s ease;
-}
-
-.cart-popup i {
-    color: green;
-    font-size: 24px;
-    display: block;
-    margin-bottom: 10px;
-}
-
-@keyframes fade {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -20%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
-} */
-
-/* --------------------------- */
-.popup-cart {
+/* thông báo giỏ hàng */
+/* .popup-cart {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -222,6 +187,31 @@
 .popup-cart i {
     color: green;
     font-size: 20px;
+} */
+
+.popup-cart {
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.popup-cart.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
 .detail__btn--wishlist {
@@ -857,4 +847,30 @@
 .popup__btn:focus {
     outline: none;
     box-shadow: none;
+}
+
+
+/* thông báo chung */
+.toast {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10000;
+    max-width: 80%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1.05);
 }
