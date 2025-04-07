@@ -390,7 +390,12 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
-        <div id="products"></div>
+        <section class="products">
+            <div class="container container__product">
+                <h2 class="product__title">Có thể bạn cũng thích</h2>
+                <?php include '../components/product__product-detail.php'; ?>
+            </div>
+        </section>
     </div>
 
     <!-- Start footer -->
