@@ -9,42 +9,44 @@
     <!-- CSS (font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"  rel="stylesheet"/>
 
     <!-- CSS (icon) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
       </head>
-      <body>
+      <>
         <div id="header">
         </div>
-        <>
+
           <div class="container">
-            <div class="container-wrapper">
+
+            <div class="seller-layout">
+
               <!-- Sidebar bên trái -->
-              <div class="container-sidebar">
-                <ul>
-                  <li><a href="#" id="link-orders" class="static-black">Quản lý đơn hàng</a></li>
-                  <li><a href="#" id="link-all-orders">Tất cả đơn hàng</a></li>
-                  <li><a href="#" id="link-products" class="static-black">Quản lý sản phẩm</a></li>
-                  <li><a href="#" id="link-all-products">Tất cả sản phẩm</a></li>
-                  <li><a href="#" id="link-add-product">Thêm sản phẩm</a></li>
-                  <li><a href="#" id="link-vin" class="static-black">Thống kê</a></li>
-                  <li><a href="#" id="link-all-vin">Doanh thu</a></li>
-                  <li><a href="#" id="link-add-vin">Ví</a></li>
-                </ul>              
-              </div>
+              <aside class="seller-sidebar">
+                <ul class="seller-sidebar__menu">
+                  <li class="seller-sidebar__section">
+                    <p class="seller-sidebar__title">Quản lý đơn hàng</p>
+                    <a href="#" id="link-all-orders" class="seller-sidebar__link">Tất cả đơn hàng</a>
+                  </li>
+                  <li class="seller-sidebar__section">
+                    <p class="seller-sidebar__title">Quản lý sản phẩm</p>
+                    <a href="#" id="link-all-products" class="seller-sidebar__link">Tất cả sản phẩm</a>
+                    <a href="#" id="link-add-product" class="seller-sidebar__link">Thêm sản phẩm</a>
+                  </li>
+                  <li class="seller-sidebar__section">
+                    <p class="seller-sidebar__title">Thống kê</p>
+                    <a href="#" id="link-all-vin" class="seller-sidebar__link">Doanh thu</a>
+                    <a href="#" id="link-add-vin" class="seller-sidebar__link">Ví</a>
+                  </li>
+                </ul>
+              </aside>
+              
+              <main class="seller-main">
             
-              <!-- Nội dung bên phải -->
-              <div class="container-content">
+                <div class="container-content">
                  <!-- MODAL CHI TIẾT ĐƠN HÀNG -->
-                <div id="order-detail-modal"class="modal">
+                  <div id="order-detail-modal"class="modal">
                   <div class="modal-content">
                     <span class="close close-order-modal">&times;</span>
                     <h2>Chi tiết đơn hàng</h2>
@@ -145,12 +147,14 @@
                       </table>
                     </div>
                   </div>
-                <!-- PHẦN SẢN PHẨM -->
+
+
+                <!-- PHẦN TẤT CẢ SẢN PHẨM -->
                 <div id="product-section" class="hidden">
                 <div class="section">
                   <div class="product-tabs">
                     <div class="tab active" data-filter="Tất cả sản phẩm">Tất cả sản phẩm</div>
-                    <div class="tab" data-filter="Hoạt động">Đang bán</div>
+                    <div class="tab" data-filter="Đang bán">Đang bán</div>
                     <div class="tab" data-filter="Ăn gậy">Ăn gậy</div>
                     <div class="tab" data-filter="Ngừng bán">Ngừng bán</div>
                     <button class="btn-add-product">  Thêm mới</button>
@@ -173,7 +177,7 @@
                     </tr>
                   </thead>
                   <tbody  id="product-list">
-                    <tr data-status="Đang bán" data-name="Điện thoại A" data-row-id="1"  >
+                    <tr class="product-row" data-status="Đang bán">
                       <td><input type="checkbox"></td>
                       <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="hình ảnh " class="product-list_img" width="80px"></td>
                       <td class="btn-chi-tiet-san-pham">Điện thoại A</td>
@@ -186,27 +190,27 @@
                         <span class="icon btn-edit-product">🛠</span>
                       </td>
                     </tr>
-                    <tr data-status="Ăn gậy" data-name="Điện thoại B" data-row-id="2">
+                    <tr class="product-row" data-status="Ăn gậy">
                       <td><input type="checkbox"></td>
-                      <td class="product-name clickable"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                      <td class="product-name clickable">Điện thoại B</td>
-                      <td class="product-name clickable">50</td>
-                      <td class="product-name clickable"> 3.000.000đ</td>
-                      <td class="product-name clickable">20</td>
-                      <td class="product-name clickable"><span class="status-blocked">Ăn gậy</span></td>
+                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
+                      <td class="btn-chi-tiet-san-pham">Điện thoại B</td>
+                      <td class="btn-chi-tiet-san-pham">50</td>
+                      <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
+                      <td class="btn-chi-tiet-san-pham">20</td>
+                      <td class="btn-chi-tiet-san-pham"><span class="status-blocked">Ăn gậy</span></td>
                       <td>
                         <span class="icon btn-delete-product">🗑</span>
                         <span class="icon btn-edit-product">🛠</span>
                       </td>
                     </tr>
-                    <tr data-status="Ngừng bán" data-name="Điện thoại C" data-row-id="3">
+                    <tr class="product-row" data-status="Ngừng bán">
                       <td><input type="checkbox"></td>
-                      <td class="product-name clickable"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                      <td class="product-name clickable">Điện thoại C</td>
-                      <td class="product-name clickable">50</td>
-                      <td class="product-name clickable"> 3.000.000đ</td>
-                      <td class="product-name clickable">20</td>
-                      <td class="product-name clickable"><span class="status-Stop_selling">Ngừng bán</span></td>
+                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
+                      <td class="btn-chi-tiet-san-pham">Điện thoại C</td>
+                      <td class="btn-chi-tiet-san-pham">50</td>
+                      <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
+                      <td class="btn-chi-tiet-san-pham">20</td>
+                      <td class="btn-chi-tiet-san-pham"><span class="status-Stop_selling">Ngừng bán</span></td>
                       <td>
                         <span class="icon btn-delete-product">🗑</span>
                         <span class="icon btn-edit-product">🛠</span>
@@ -231,22 +235,26 @@
                             <span class="img-text">Hình ảnh sản phẩm</span>
                           </div>
                         </div>
+
+
                         <div class="from-group-ka">
                           <label>Hình ảnh sản phẩm:</label>
-                          <div class="img-box-ka" id="product-image-box">
-                            <input type="file"   accept="image/*" id="product-image-input" style="display: none;">
-                            <img id="product-image-preview" style="max-width: 100%; display: none;" />
+                          <div class="img-box-ka product-image-box">
+                            <input type="file" accept="image/*" class="product-image-input" style="display: none;">
+                            <img class="product-image-preview" style="max-width: 100%; display: none;" />
                             <span class="img-text">Hình ảnh sản phẩm</span>
                           </div>
                         </div>
+                        
                         <div class="from-group-ka">
                           <label>Hình ảnh sản phẩm:</label>
-                          <div class="img-box-ka" id="product-image-box">
-                            <input type="file"   accept="image/*" id="product-image-input" style="display: none;">
-                            <img id="product-image-preview" style="max-width: 100%; display: none;" />
+                          <div class="img-box-ka product-image-box">
+                            <input type="file" accept="image/*" class="product-image-input" style="display: none;">
+                            <img class="product-image-preview" style="max-width: 100%; display: none;" />
                             <span class="img-text">Hình ảnh sản phẩm</span>
                           </div>
                         </div>
+                        
                         
                         <div class="from-group-ka">
                           <label>Ảnh bìa:</label>
@@ -261,11 +269,50 @@
                           <label>Tên sản phẩm:</label>
                           <input type="text" id="product-name">
                         </div>
-                
+                        
                         <div class="from-group-ka">
-                          <label>Danh mục:</label>
-                          <input type="text" id="product-category">
+                          <label>Giá gốc:</label>
+                          <input type="text" id="product-name">
                         </div>
+                        
+                        <div class="from-group-ka">
+                          <label>Giá bán:</label>
+                          <input type="text" id="product-name">
+                        </div>
+
+                        <div class="from-group-ka">
+                          <label>Số lượng tồn:</label>
+                          <input type="text" id="product-name">
+                        </div>
+
+                        <div class="from-group-ka">
+                          <label>Tình trạng:</label>
+                          <input type="text" id="product-name">
+                        </div>
+
+                        <div class="from-group-ka">
+                          <label>hạn bảo hàng:</label>
+                          <input type="text" id="product-name">
+                        </div>
+
+                        <div class="from-group-ka">
+                          <label>Loại bảo hành:</label>
+                          <input type="text" id="product-name">
+                        </div>
+                        
+                        <div class="from-group-ka">
+                          <label for="product-category">Danh mục:</label>
+                          <select id="product-category" class="product-form__select">
+                            <option value="">-- Chọn danh mục --</option>
+                            <option value="dien-thoai">Điện thoại</option>
+                            <option value="may-tinh">Máy tính</option>
+                            <option value="thoi-trang">Thời trang</option>
+                            <option value="do-gia-dung">Đồ gia dụng</option>
+                            <option value="sach">Sách</option>
+                            <!-- Thêm danh mục khác nếu cần -->
+                          </select>
+                        </div>
+                        
                 
                         <div class="from-group-ka">
                           <label>Mô tả sản phẩm:</label>
@@ -336,51 +383,62 @@
                   </form>
                 </div>
                 
-                <!-- khu vực chi tiết sản phẩm -->
-                <!-- Modal chi tiết sản phẩm -->
-                  <div class="modal-overlay hidden"></div>
-                  <div class="modal modal-product-detail hidden">
-                    <div class="modal-content">
-                      <h2>Chi tiết sản phẩm</h2>
-                      <hr><br>
-
-                      <div class="from-group-ka">
-                        <label>Mã sản phẩm:</label>
-                        <input type="text" value="SP001" readonly>
-                      </div>
-
-                      <div class="from-group-ka">
-                        <label>Tên sản phẩm:</label>
-                        <input type="text" value="Điện thoại XYZ">
-                      </div>
-
-                      <div class="from-group-ka">
-                        <label>Tổng số lượng kho:</label>
-                        <input type="text" value="100">
-                      </div>
-
-                      <div class="from-group-ka">
-                        <label>Thương hiệu:</label>
-                        <input type="text" value="No brand">
-                      </div>
-
-                      <hr>
-
-                      <div class="from-group-ka">
-                        <label>Xuất xứ:</label>
-                        <span>Việt Nam</span>
-                      </div>
-
-                      <div class="from-group-ka">
-                        <label>Mô tả sản phẩm:</label>
-                        <textarea disabled>Đây là sản phẩm test mô tả...</textarea>
-                      </div>
-
-                      <div class="buttons-ka">
-                        <button class="Submit btn-back-product">Quay lại</button>
-                      </div>
+                <!-- MODAL chi tiết sản phẩm  -->
+                <div id="product-detail-modal" class="product-detail-modal modal">
+                  <div class="product-detail-modal__content modal-content">
+                    <span class="product-detail-modal__close">&times;</span>
+                    <h2 class="product-detail-modal__title">Chi tiết sản phẩm</h2>
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="product-detail-modal__info">
+                      <p><strong>Mã sản phẩm:</strong> <span class="product-detail-modal__id">SP001</span></p>
+                      <br>
+                      <p><strong>Tên sản phẩm:</strong> <span class="product-detail-modal__name">Điện thoại XYZ</span></p>
+                      <br>
+                      <p><strong>Giá gốc:</strong> <span class="product-detail-modal__name">3M</span></p>
+                      <br>
+                      <p><strong>Số lượng tồn:</strong> <span class="product-detail-modal__name">100</span></p>
+                      <br>
+                      <p><strong>Thương hiệu:</strong> <span class="product-detail-modal__brand">No brand</span></p>
+                      <br>
+                      <p><strong>Xuất xứ:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
+                      <br>
+                      <p><strong>Tình trạng:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
+                      <br>
+                      <p><strong>Hạn bảo hàng:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
+                      <br>
+                      <p><strong>Loại bảo hành:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
+                      <br>
+                      <p><strong>Tổng kho:</strong> <span class="product-detail-modal__stock">100</span></p>
+                      <br>
+                      <p><strong>Giá bán:</strong> <span class="product-detail-modal__price">5.000.000đ</span></p>
+                      <br>
+                    </div>
+                
+                    <hr>
+                    <br>
+                    <div class="product-detail-modal__description">
+                      <h3>Mô tả sản phẩm</h3>
+                      <p>Đây là sản phẩm test mô tả, rất chất lượng và hot trend hiện nay...</p>
+                    </div>
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="product-detail-modal__images">
+                      <h3>Hình ảnh</h3>
+                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
+                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
+                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
+                    </div>
+                
+                    <div class="product-detail-modal__actions">
+                      <button class="product-detail-modal__button product-detail-modal__button--close">Đóng</button>
                     </div>
                   </div>
+                </div>
+                
+
 
                 <!-- Tổng quan doanh thu -->
                 <div class="doanhthu-section hidden">
@@ -424,9 +482,9 @@
                         <tr>
                           <td>
                             <div class="order-info">
-                              <img src="img/BCS.jpg" alt="Ảnh đơn hàng" class="order-img">
+                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
                               <div>
-                                <div>Bao cao su <button class="btn-copy">Khách lâu năm</button></div>
+                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
                                 <div>Đào Việt Cường</div>
                               </div>
                             </div>
@@ -438,9 +496,9 @@
                         <tr>
                           <td>
                             <div class="order-info">
-                              <img src="img/Loramen.jpg" alt="Ảnh đơn hàng" class="order-img">
+                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
                               <div>
-                                <div>Loramen<button class="btn-copy">Khách quen</button></div>
+                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
                                 <div>Nguyễn Trọng Đại</div>
                               </div>
                             </div>
@@ -452,9 +510,9 @@
                         <tr>
                           <td>
                             <div class="order-info">
-                              <img src="img/Matuy.jpg" alt="Ảnh đơn hàng" class="order-img">
+                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
                               <div>
-                                <div>Ma tué <button class="btn-copy">Khách mới</button></div>
+                                <div>Mã đơn hàng <button class="btn-copy">coby</button></div>
                                 <div>Phan Thế Dũng </div>
                               </div>
                             </div>
@@ -466,9 +524,9 @@
                         <tr>
                           <td>
                             <div class="order-info">
-                              <img src="img/laptop.jpg" alt="Ảnh đơn hàng" class="order-img">
+                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
                               <div>
-                                <div>Laptop<button class="btn-copy">Khách mới</button></div>
+                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
                                 <div>Nguyễn Quang Hà</div>
                               </div>
                             </div>
@@ -509,9 +567,7 @@
   
                     <!-- Tabs chuyển trạng thái -->
                     <div class="wallet-tabs">
-                      <button class="wallet-tab active" data-tab="tatca">Tất cả</button>
                       <button class="wallet-tab" data-tab="hoanthanh">Hoàn thành</button>
-                      <button class="wallet-tab" data-tab="dangxuly">Đang xử lý</button>
                     </div>
   
                     <!-- Tìm kiếm -->
@@ -540,15 +596,14 @@
                             <td>Hoàn thành</td>
                           </tr>
                           <!-- Có thể thêm nhiều dòng giao dịch -->
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-            </div>
-            </div>
-            </div>
-          </div>
-        </main>             
+                         </tbody>
+                        </table>
+                       </div>
+                      </div>
+                        </div>
+                      </div>
+                      </div>
+                    </main>             
           <script type="module" src="../js/utils/components-loader-pages.js"></script>
           <script type="module" src="../js/components/KenhNguoiBan.js"></script>
       </body>

@@ -104,38 +104,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // lọc của phần tất cả sản phẩm 
 document.addEventListener("DOMContentLoaded", function () {
-  const tabs = document.querySelectorAll(".product-filter__tab");
+  const tabs = document.querySelectorAll(".tab");
+  const productRows = document.querySelectorAll(".product-row");
 
-  tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-          // Xóa class active ở tất cả tab
-          tabs.forEach((t) => t.classList.remove("active"));
+  // Nếu không có tab nào hoặc không có sản phẩm, thoát
+  if (!tabs.length || !productRows.length) return;
 
-          // Thêm active vào tab được click
-          tab.classList.add("active");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function () {
+      const selectedFilter = tab.getAttribute("data-filter");
 
-          // Lấy trạng thái lọc từ tab được chọn
-          const filterStatus = tab.textContent.trim();
+      // Thêm 'active' cho tab đang chọn
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
 
-          // Lọc sản phẩm tương ứng
-          filterProducts(filterStatus);
+      // Lọc sản phẩm theo trạng thái
+      productRows.forEach(row => {
+        const status = row.getAttribute("data-status")?.trim();
+
+        if (selectedFilter === "Tất cả sản phẩm") {
+          row.style.display = "";
+        } else {
+          row.style.display = (status === selectedFilter) ? "" : "none";
+        }
       });
+    });
   });
-
-  function filterProducts(status) {
-      const rows = document.querySelectorAll(".product-row"); // mỗi dòng sản phẩm có class này
-
-      rows.forEach((row) => {
-          const productStatus = row.getAttribute("data-status"); // ví dụ: "Đang bán", "Ngừng bán", "Ăn gậy"
-
-          if (status === "Tất cả sản phẩm" || productStatus === status) {
-              row.style.display = "";
-          } else {
-              row.style.display = "none";
-          }
-      });
-  }
 });
+
+
 
 //tìm kiếm
 document.addEventListener("DOMContentLoaded", function () {
@@ -442,8 +439,10 @@ function updateTotalAllAmount() {
     totalElement.textContent = formatCurrency(total);
   }
 }
-
 document.addEventListener("DOMContentLoaded", updateTotalAllAmount);
+
+
+
 // hình ảnh của phần thêm sản phẩm 
 document.addEventListener("DOMContentLoaded", function () {
   // Ảnh sản phẩm
@@ -491,6 +490,57 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 // khu chi tiết sản phẩm
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("product-detail-modal");
+  const overlay = document.querySelector(".modal-overlay");
+
+  const openButtons = document.querySelectorAll(".btn-chi-tiet-san-pham");
+  const closeButtons = document.querySelectorAll(
+    ".product-detail-modal__close, .product-detail-modal__button--close"
+  );
+
+  openButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const row = btn.closest("tr");
+
+      // Lấy dữ liệu từ hàng sản phẩm
+      const name = row.querySelector("td:nth-child(3)").textContent;
+      const stock = row.querySelector("td:nth-child(4)").textContent;
+      const price = row.querySelector("td:nth-child(5)").textContent;
+      const brand = "No brand";
+      const origin = "Việt Nam";
+      const id = "SP001";
+
+      // Gán vào modal
+      modal.querySelector(".product-detail-modal__id").textContent = id;
+      modal.querySelector(".product-detail-modal__name").textContent = name;
+      modal.querySelector(".product-detail-modal__stock").textContent = stock;
+      modal.querySelector(".product-detail-modal__price").textContent = price;
+      modal.querySelector(".product-detail-modal__brand").textContent = brand;
+      modal.querySelector(".product-detail-modal__origin").textContent = origin;
+
+      // Mở modal
+      modal.style.display = "block";
+      overlay.classList.remove("hidden");
+    });
+  });
+
+  // Đóng modal khi bấm nút close hoặc ×
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.style.display = "none";
+      overlay.classList.add("hidden");
+    });
+  });
+
+  // Đóng modal khi click ra ngoài
+  window.addEventListener("click", function (e) {
+    if (e.target === overlay) {
+      modal.style.display = "none";
+      overlay.classList.add("hidden");
+    }
+  });
+});
 
 // chi tiết đơn hàng
 document.addEventListener("DOMContentLoaded", function () {
@@ -555,3 +605,113 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("hidden");
   }
 });
+
+// thêm sản phẩm
+document.addEventListener("DOMContentLoaded", function () {
+  const submitBtn = document.querySelector(".product-form-ka .Submit");
+  const productList = document.getElementById("product-list");
+
+  // Hàm kiểm tra xem chuỗi có phải số dương không
+  function isPositiveNumber(value) {
+    return /^\d+(\.\d{1,2})?$/.test(value);
+  }
+
+  // Hàm kiểm tra xem chuỗi có phải chỉ chứa chữ cái
+  function isLettersOnly(value) {
+    return /^[\p{L}\s]+$/u.test(value); // hỗ trợ tiếng Việt và dấu cách
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener("click", function () {
+      const name = document.getElementById("product-name").value.trim();
+      const price = document.getElementById("product-price").value.trim();
+      const stock = document.getElementById("product-stock").value.trim();
+      const brand = document.getElementById("product-brand").value.trim();
+      const origin = document.getElementById("product-origin").value.trim();
+      const category = document.getElementById("product-category").value;
+      const imageSrc = "../assets/images/logo/CuongDao__Logo-PEARNK.png";
+
+      // Kiểm tra dữ liệu hợp lệ
+      if (!name || !price || !stock || !brand || !origin || !category) {
+        alert("Vui lòng điền đầy đủ thông tin sản phẩm!");
+        return;
+      }
+
+      if (!isPositiveNumber(price)) {
+        alert("Giá phải là số hợp lệ!");
+        return;
+      }
+
+      if (!isPositiveNumber(stock)) {
+        alert("Số lượng phải là số hợp lệ!");
+        return;
+      }
+
+      if (!isLettersOnly(brand)) {
+        alert("Thương hiệu chỉ được chứa chữ cái!");
+        return;
+      }
+
+      if (!isLettersOnly(origin)) {
+        alert("Xuất xứ chỉ được chứa chữ cái!");
+        return;
+      }
+
+      // Thêm sản phẩm mới vào bảng
+      const newRow = document.createElement("tr");
+      newRow.className = "product-row";
+      newRow.setAttribute("data-status", "Đang bán");
+      newRow.innerHTML = `
+        <td><input type="checkbox"></td>
+        <td class="btn-chi-tiet-san-pham"><img src="${imageSrc}" class="product-list_img" alt="Hình ảnh" width="80px"></td>
+        <td class="btn-chi-tiet-san-pham">${name}</td>
+        <td class="btn-chi-tiet-san-pham">${stock}</td>
+        <td class="btn-chi-tiet-san-pham">${price}</td>
+        <td class="btn-chi-tiet-san-pham">0</td>
+        <td class="btn-chi-tiet-san-pham"><span class="status-active">Đang bán</span></td>
+        <td>
+          <span class="icon btn-delete-product">🗑</span>
+          <span class="icon btn-edit-product">🛠</span>
+        </td>
+      `;
+      productList.appendChild(newRow);
+      alert("✅ Đã thêm sản phẩm thành công!");
+
+      // Reset form (trừ input file)
+      document.querySelectorAll(".product-form-ka input, .product-form-ka textarea, .product-form-ka select").forEach(input => {
+        if (input.type !== "file") input.value = "";
+      });
+
+      // Ẩn form thêm - hiện lại bảng sản phẩm
+      document.querySelector(".product-form-ka").classList.add("hidden");
+      document.getElementById("product-section").classList.remove("hidden");
+    });
+  }
+});
+
+// Preview multiple product images
+document.querySelectorAll(".product-image-box").forEach((box) => {
+  const input = box.querySelector(".product-image-input");
+  const preview = box.querySelector(".product-image-preview");
+  const span = box.querySelector(".img-text");
+
+  box.addEventListener("click", () => input.click());
+
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = "block";
+        span.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+
+
+
+// sửa phần sản phẩm
+ 

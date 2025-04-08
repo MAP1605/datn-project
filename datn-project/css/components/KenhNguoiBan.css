@@ -1,4 +1,5 @@
 /* CONTAINER WRAPPER */
+/* MỤC LỤC CỦA SELLER  */
 .container-wrapper {
   display: flex;
   min-height: 100vh;
@@ -31,6 +32,84 @@
   padding: 30px;
   background-color: #f9f9f9;
 }
+/* bản chỉnh sửa chính chuẩn đúng BEM của mục */
+/* Layout chính */
+.seller-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Sidebar trái */
+.seller-sidebar {
+  width: 180px;
+  background-color: #fff;
+  padding: 20px 10px;
+  border-right: 1px solid #ddd;
+  font-family: 'Roboto', sans-serif;
+}
+
+.seller-sidebar__menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seller-sidebar__section {
+  margin-bottom: 20px;
+}
+
+.seller-sidebar__title {
+  font-weight: bold;
+  font-size: 19px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.seller-sidebar__link {
+  display: block;
+  padding: 4px 0 4px 10px;
+  font-size: 16px;
+  color: #666;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.seller-sidebar__link:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* Nội dung bên phải */
+.seller-main {
+  flex: 1;
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+
+
+/* SỬA LỖI LAYOUT BẢNG TẤT CẢ SẢN PHẨM VÀ TẤT CẢ ĐƠN HÀNG */
+.order-table, .product-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.order-table th, .order-table td,
+.product-table th, .product-table td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-table th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+}
+
 
 /* TAB CHUNG */
 .tab {
@@ -868,6 +947,251 @@ cursor: default;
   border-radius: 8px;
 }
 
+.hidden {
+  display: none;
+}
+
+/* Phần overlay (nền mờ) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+/* Nội dung modal */
+.product-detail-modal__content {
+  position: relative;
+  padding: 20px;
+}
+
+/* Nút đóng "×" */
+.product-detail-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+/* Tiêu đề */
+.product-detail-modal__title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+
+
+/* Ảnh */
+.product-detail-modal__images img {
+  width: 90px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Nút đóng */
+.product-detail-modal__button {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.product-detail-modal__button:hover {
+  background-color: #0056b3;
+}
+
+/* sửa sản phẩm  */
+
+.product-detail-view {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  width: 500px;
+  margin: auto;
+}
+
+.product-detail-view__title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-detail-view__group {
+  margin-bottom: 15px;
+}
+
+.product-detail-view__label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-detail-view__input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.product-detail-view__actions {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.product-detail-view__button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-detail-view__button--close {
+  background-color: #007bff;
+  color: white;
+}
+
+/* ===== OVERLAY NỀN MỜ ===== */
+.product-edit-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+/* ===== MODAL CHÍNH ===== */
+.product-edit-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  max-width: 95%;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn modal */
+.product-edit-modal.hidden,
+.product-edit-modal__overlay.hidden {
+  display: none;
+}
+
+/* ===== NỘI DUNG MODAL ===== */
+.product-edit-modal__content {
+  padding: 30px 25px;
+  position: relative;
+}
+
+/* ===== NÚT ĐÓNG (×) ===== */
+.product-edit-modal__close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.product-edit-modal__close:hover {
+  color: #e74c3c;
+}
+
+/* ===== TIÊU ĐỀ ===== */
+.product-edit-modal__title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+/* ===== NHÓM INPUT ===== */
+.product-edit-modal__group {
+  margin-bottom: 18px;
+}
+
+.product-edit-modal__label {
+  display: block;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.product-edit-modal__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  outline: none;
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.product-edit-modal__input:focus {
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+/* ===== NÚT HÀNH ĐỘNG ===== */
+.product-edit-modal__actions {
+  text-align: right;
+  margin-top: 25px;
+}
+
+.product-edit-modal__button {
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s;
+}
+
+/* Nút Hủy */
+.product-edit-modal__button--cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.product-edit-modal__button--cancel:hover {
+  background-color: #d0d0d0;
+}
+
+/* Nút Cập nhật */
+.product-edit-modal__button--update {
+  background-color: #007bff;
+  color: white;
+}
+
+.product-edit-modal__button--update:hover {
+  background-color: #0056b3;
+}
 .hidden {
   display: none;
 }
