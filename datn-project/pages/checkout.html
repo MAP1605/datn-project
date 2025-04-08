@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PearNK - Thanh toán</title>
+    <!-- CSS (main) -->
+    <link rel="stylesheet" href="/datn-project/css/main.css">
+    <!-- CSS (font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS (icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- logo ở tên miền -->
+    <link rel="icon" type="image/png" href="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
+
+</head>
+
+<body>
+    <!-- Start header -->
+    <header id="header">
+    </header>
+    <!-- End header -->
+
+    <main>
+        <div class="checkout-container">
+            <!-- Địa chỉ nhận hàng -->
+            <section class="checkout-address">
+                <div class="checkout-address__title">Địa chỉ nhận hàng</div>
+                <div class="checkout-address__info">
+                    <strong>Đào Việt Cường</strong> &nbsp; (+84) 868897782 <br />
+                    Số nhà 9 liên kề 23 khu đô thị La Khê Hà Đông, Phường La Khê, Hà Đông, Hà Nội
+                </div>
+            </section>
+
+            <!-- Danh sách sản phẩm -->
+            <section class="checkout-products">
+                <div class="checkout-products__header">
+                    <div class="col col--product">Sản phẩm</div>
+                    <div class="col col--price">Đơn giá</div>
+                    <div class="col col--qty">Số lượng</div>
+                    <div class="col col--total">Thành tiền</div>
+                </div>
+                <div class="checkout-products__item">
+                    <div class="col col--product">
+                        <img src="/datn-project/assets/images/product__detail/detail__media-1.1.webp" alt="Macbook" />
+                        <span>Macbook Air M3 2024</span>
+                    </div>
+                    <div class="col col--price">27.290.000đ</div>
+                    <div class="col col--qty">1</div>
+                    <div class="col col--total">27.290.000đ</div>
+                </div>
+                <div class="checkout-products__item">
+                    <div class="col col--product">
+                        <img src="/datn-project/assets/images/product__detail/detail__media-1.webp" alt="iPhone" />
+                        <span>iPhone 13 Chính hãng VN/A</span>
+                    </div>
+                    <div class="col col--price">12.385.000đ</div>
+                    <div class="col col--qty">7</div>
+                    <div class="col col--total">86.695.000đ</div>
+                </div>
+            </section>
+
+            <!-- Tổng tiền -->
+            <section class="checkout-summary">
+                <div class="checkout-summary__row">
+                    <span>Tổng tiền hàng:</span>
+                    <strong>113.985.000đ</strong>
+                </div>
+                <div class="checkout-summary__row">
+                    <span>Phí vận chuyển:</span>
+                    <strong>25.000đ</strong>
+                </div>
+                <div class="checkout-summary__row checkout-summary__total">
+                    <span>Tổng thanh toán:</span>
+                    <strong>114.010.000đ</strong>
+                </div>
+            </section>
+
+            <!-- Phương thức thanh toán -->
+            <section class="checkout-method">
+                <h3>Phương thức thanh toán</h3>
+                <label><input type="radio" name="payment" checked /> Thanh toán khi nhận hàng</label><br />
+                <!-- <label><input type="radio" name="payment" /> Thẻ ATM / Visa / Momo</label> -->
+            </section>
+
+            <!-- Nút đặt hàng -->
+            <section class="checkout-action">
+                <button class="checkout-action__btn">Đặt hàng</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Start footer -->
+    <footer id="footer">
+    </footer>
+    <!-- End footer -->
+
+    <!-- JS: load component header/footer -->
+    <script type="module" src="/datn-project/js/utils/components-loader-pages.js"></script>
+
+    <script type="module" src="/datn-project/js/pages/cart-items.js"></script>
+    <script type="module" src="/datn-project/js/pages/cart.js"></script>
+
+    <!-- js cho product-detail -->
+    <script type="module" src="/datn-project/js/pages/product-detail.js"></script>
+
+    <script type="module" src="/datn-project/js/pages/checkout.js"></script>
+
+</body>
+
+</html>
