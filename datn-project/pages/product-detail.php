@@ -100,7 +100,79 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
     $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
     $conn->query($sqlUpdate);
 }
+
+
+if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+    $_SESSION['ID_Nguoi_Mua'] = 1;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
+
+
+    $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
+    $id_chi_tiet = intval($_POST['id_san_pham']); // thực chất là ID_Chi_Tiet_San_Pham
+    $so_luong = intval($_POST['so_luong']);
+
+    // ✅ Lấy ID_San_Pham từ Chi_Tiet_San_Pham (bắt buộc)
+    $stmt = $conn->prepare("SELECT ID_San_Pham FROM Chi_Tiet_San_Pham WHERE ID_Chi_Tiet_San_Pham = ?");
+    $stmt->bind_param("i", $id_chi_tiet);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if (!$row = $result->fetch_assoc()) {
+        die("❌ Không tìm thấy sản phẩm phù hợp.");
+    }
+    $id_san_pham = $row['ID_San_Pham'];
+
+    // ✅ Kiểm tra xem sản phẩm chi tiết đã có trong giỏ chưa
+    $stmt = $conn->prepare("
+        SELECT gh.ID_Gio_Hang 
+        FROM Gio_Hang gh
+        JOIN Chi_Tiet_Gio_Hang ctgh ON gh.ID_Gio_Hang = ctgh.ID_Gio_Hang
+        WHERE gh.ID_Nguoi_Mua = ? 
+          AND gh.ID_San_Pham = ? 
+          AND ctgh.ID_Chi_Tiet_San_Pham = ?
+    ");
+    $stmt->bind_param("iii", $id_nguoi_mua, $id_san_pham, $id_chi_tiet);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        // ✅ Đã có → cập nhật số lượng (dùng $so_luong em chọn!)
+        $id_gio_hang = $row['ID_Gio_Hang'];
+        $stmt = $conn->prepare("
+            UPDATE Chi_Tiet_Gio_Hang 
+            SET So_Luong = So_Luong + ? 
+            WHERE ID_Gio_Hang = ? AND ID_Chi_Tiet_San_Pham = ?
+        ");
+        $stmt->bind_param("iii", $so_luong, $id_gio_hang, $id_chi_tiet);
+        $stmt->execute();
+    } else {
+        // ✅ Chưa có → tạo giỏ hàng và chi tiết
+        $stmt = $conn->prepare("
+            INSERT INTO Gio_Hang (ID_Nguoi_Mua, ID_San_Pham) 
+            VALUES (?, ?)
+        ");
+        $stmt->bind_param("ii", $id_nguoi_mua, $id_san_pham);
+        $stmt->execute();
+        $id_gio_hang = $conn->insert_id;
+
+        // ✅ Dùng đúng $so_luong truyền lên
+        $stmt = $conn->prepare("
+            INSERT INTO Chi_Tiet_Gio_Hang (ID_Gio_Hang, ID_Chi_Tiet_San_Pham, So_Luong) 
+            VALUES (?, ?, ?)
+        ");
+        $stmt->bind_param("iii", $id_gio_hang, $id_chi_tiet, $so_luong);
+        $stmt->execute();
+    }
+
+    // ✅ Quay lại trang chi tiết, giữ lại ID sản phẩm chính
+    header("Location: product-detail.php?id=" . $id_san_pham . "&success=1");
+    exit;
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -175,21 +247,29 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
                             </span>
                         </div>
 
+                        <!-- Số lượng -->
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
-                            <button class="product-detail__qty-btn" data-type="minus">-</button>
-                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?php echo $product['So_Luong_Ton']; ?>" />
-                            <button class="product-detail__qty-btn" data-type="plus">+</button>
-                            <span class="product-detail__stock">
-                                <?php echo $product['So_Luong_Ton']; ?> sản phẩm có sẵn
-                            </span>
+                            <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
+                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
+                            <span class="product-detail__stock"><?= $product['So_Luong_Ton'] ?> sản phẩm có sẵn</span>
                         </div>
 
                         <div class="product-detail__actions">
-                            <button class="product-detail__btn detail__btn--cart">
+                            <button id="addToCartBtn" class="product-detail__btn detail__btn--cart"
+                                data-id="<?= $id ?>"
+                                data-url="add-to-cart.php">
                                 <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                             </button>
-                            <button class="product-detail__btn detail__btn--buy">Mua ngay</button>
+
+                            <!-- Popup -->
+                            <div class="popup-cart" id="popupCart">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Sản phẩm đã được thêm vào Giỏ hàng</span>
+                            </div>
+
+                            <button type="button" class="product-detail__btn detail__btn--buy">Mua ngay</button>
                         </div>
                     </div>
                 </div>
@@ -408,6 +488,16 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
     <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
 
 
+    <!-- Thông báo -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Icon giỏ hàng -->
+    <div class="header__cart">
+        <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+        <span class="header__cart-count">0</span> <!-- ✔ Phải có -->
+        <div class="header__cart-total"><b>₫0</b></div> <!-- ✔ Phải có -->
+        <ul class="header__cart-list"></ul> <!-- ✔ Phải có -->
+    </div>
 
     <!-- Popup ảnh -->
     <div class="popup-overlay" id="popupOverlay">
@@ -420,6 +510,8 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
 
     <!-- js cho product-detail -->
     <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+
+    <script type="module" src="/datn-project/datn-project/js/pages/cart-items.js"></script>
 
 </body>
 
