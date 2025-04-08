@@ -87,9 +87,10 @@ document.addEventListener('click', function (e) {
         if (existing) {
             existing.quantity += quantity;
         } else {
-            const product = { name, price, image, quantity };
+            const product = { name, price, image, quantity, stock }; // ✅ thêm stock
             cartItems.push(product);
         }
+
 
         updateCartUI();
         showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
@@ -100,9 +101,12 @@ document.addEventListener('click', function (e) {
         const index = e.target.dataset.index;
         cartItems.splice(index, 1);
         updateCartUI();
-        showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'info');
+        showToast('Đã xóa sản phẩm khỏi giỏ hàng', 'error');
     }
 });
 
 // Gọi khi trang load để hiển thị đúng giỏ hàng trên header
-updateCartUI();
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartUI();
+});
+

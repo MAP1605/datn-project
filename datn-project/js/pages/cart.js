@@ -1,3 +1,5 @@
+// ✅ CART.JS HOÀN CHỈNH
+// Gắn file này vào cart.html để xử lý hiển thị, tăng giảm, xoá sản phẩm, tính tổng tiền, validate input...
 document.addEventListener('DOMContentLoaded', () => {
   let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -7,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectAllBottom = document.getElementById('selectAllBottom');
   const deleteSelectedBtn = document.querySelector('.cart__btn--delete');
 
+  // ========== RENDER UI ==========
   function renderCart() {
     cartBody.innerHTML = '';
 
@@ -45,26 +48,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartTotal();
   }
 
+  // ========== TÍNH TỔNG ==========
   function updateCartTotal() {
     const itemCheckboxes = cartBody.querySelectorAll('.cart__checkbox');
     let total = 0;
-
-    itemCheckboxes.forEach((cb) => {
+    itemCheckboxes.forEach(cb => {
       if (cb.checked) {
         const index = parseInt(cb.dataset.index);
-        const item = cartItems[index];
-        total += item.price * item.quantity;
+        total += cartItems[index].price * cartItems[index].quantity;
       }
     });
-
     cartTotal.textContent = `₫${total.toLocaleString()}`;
   }
 
+  // ========== CHECKBOX ==========
   function bindCheckboxEvents() {
-    const itemCheckboxes = cartBody.querySelectorAll('.cart__checkbox');
-
-    itemCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
+    const checkboxes = cartBody.querySelectorAll('.cart__checkbox');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
         updateSelectAllStatus();
         updateCartTotal();
       });
@@ -72,13 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSelectAllStatus() {
-    const itemCheckboxes = cartBody.querySelectorAll('.cart__checkbox');
-    const allChecked = [...itemCheckboxes].every(cb => cb.checked);
-    const noneChecked = [...itemCheckboxes].every(cb => !cb.checked);
-
-    selectAllTop.checked = allChecked && itemCheckboxes.length > 0;
-    selectAllBottom.checked = allChecked && itemCheckboxes.length > 0;
-
+    const checkboxes = cartBody.querySelectorAll('.cart__checkbox');
+    const allChecked = [...checkboxes].every(cb => cb.checked);
+    const noneChecked = [...checkboxes].every(cb => !cb.checked);
+    selectAllTop.checked = allChecked && checkboxes.length > 0;
+    selectAllBottom.checked = allChecked && checkboxes.length > 0;
     if (noneChecked) {
       selectAllTop.checked = false;
       selectAllBottom.checked = false;
@@ -86,96 +85,105 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleSelectAll(checked) {
-    const itemCheckboxes = cartBody.querySelectorAll('.cart__checkbox');
-    itemCheckboxes.forEach(cb => cb.checked = checked);
+    const checkboxes = cartBody.querySelectorAll('.cart__checkbox');
+    checkboxes.forEach(cb => cb.checked = checked);
     updateCartTotal();
   }
 
-  selectAllTop.addEventListener('change', function () {
-    handleSelectAll(this.checked);
-    selectAllBottom.checked = this.checked;
+  selectAllTop.addEventListener('change', () => {
+    handleSelectAll(selectAllTop.checked);
+    selectAllBottom.checked = selectAllTop.checked;
   });
 
-  selectAllBottom.addEventListener('change', function () {
-    handleSelectAll(this.checked);
-    selectAllTop.checked = this.checked;
+  selectAllBottom.addEventListener('change', () => {
+    handleSelectAll(selectAllBottom.checked);
+    selectAllTop.checked = selectAllBottom.checked;
   });
 
-  deleteSelectedBtn.addEventListener('click', function () {
-    const selectedCheckboxes = cartBody.querySelectorAll('.cart__checkbox:checked');
-    if (selectedCheckboxes.length === 0) {
-      showToast('Vui lòng chọn sản phẩm để xoá!');
+  // ========== XOÁ TỪNG SẢN PHẨM ==========
+  cartBody.addEventListener('click', (e) => {
+    const type = e.target.dataset.type;
+    const index = e.target.dataset.index;
+
+    if (e.target.classList.contains('cart__btn--delete-single')) {
+      cartItems.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      renderCart();
+      showToast('Xoá sản phẩm thành công!');
       return;
     }
+
+    if (type && index !== undefined) {
+      const item = cartItems[index];
+
+      if (type === 'plus') {
+        if (item.quantity < item.stock) {
+          item.quantity++;
+        } else {
+          showToast(`Chỉ còn ${item.stock} sản phẩm có sẵn`, 'error');
+        }
+      }
+
+      if (type === 'minus') {
+        if (item.quantity > 1) item.quantity--;
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      renderCart();
+    }
+  });
+
+  // ========== XOÁ NHIỀU SẢN PHẨM ==========
+  deleteSelectedBtn.addEventListener('click', () => {
+    const selected = cartBody.querySelectorAll('.cart__checkbox:checked');
+    if (selected.length === 0) return showToast('Vui lòng chọn sản phẩm để xoá!');
 
     const modal = document.getElementById('cart-confirm-modal');
     modal.style.display = 'flex';
 
-    const btnYes = document.getElementById('confirmYes');
-    const btnNo = document.getElementById('confirmNo');
-
-    btnYes.onclick = () => {
-      const indexesToDelete = [...selectedCheckboxes].map(cb => parseInt(cb.dataset.index));
-      cartItems = cartItems.filter((_, idx) => !indexesToDelete.includes(idx));
+    document.getElementById('confirmYes').onclick = () => {
+      const indexes = [...selected].map(cb => +cb.dataset.index);
+      cartItems = cartItems.filter((_, i) => !indexes.includes(i));
       localStorage.setItem('cart', JSON.stringify(cartItems));
       renderCart();
       showToast('Xoá tất cả sản phẩm thành công!');
       modal.style.display = 'none';
     };
 
-    btnNo.onclick = () => {
+    document.getElementById('confirmNo').onclick = () => {
       modal.style.display = 'none';
     };
   });
 
-
-
-  cartBody.addEventListener('click', (e) => {
-    const type = e.target.dataset.type;
-    const index = e.target.dataset.index;
-
-    if (type && index !== undefined) {
-      const item = cartItems[index];
-      if (type === 'plus') item.quantity++;
-      if (type === 'minus' && item.quantity > 1) item.quantity--;
-      localStorage.setItem('cart', JSON.stringify(cartItems));
-      renderCart();
-    }
-
-    if (e.target.classList.contains('cart__btn--delete-single')) {
-      const index = e.target.dataset.index;
-      cartItems.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cartItems));
-      renderCart();
-      showToast('Xoá sản phẩm thành công!');
-    }
-  });
-
+  // ========== NHẬP TRỰC TIẾP ==========
   cartBody.addEventListener('input', (e) => {
     if (e.target.classList.contains('cart__quantity-input')) {
       const index = e.target.dataset.index;
+      const max = cartItems[index].stock;
       let value = parseInt(e.target.value);
-      if (!isNaN(value) && value > 0) {
+
+      if (isNaN(value) || value <= 0) {
+        cartItems[index].quantity = 1;
+      } else if (value > max) {
+        showToast(`Chỉ còn ${max} sản phẩm có sẵn`, 'error');
+        cartItems[index].quantity = max;
+      } else {
         cartItems[index].quantity = value;
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-        renderCart();
       }
+
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      renderCart();
     }
   });
 
+  // ========== TOAST THÔNG BÁO ==========
+  function showToast(message, type = 'info') {
+    const toast = document.getElementById('cart-toast');
+    toast.querySelector('.cart-toast__msg').textContent = message;
+    toast.style.backgroundColor = type === 'error' ? '#e74c3c' : '#2ecc71';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
   renderCart();
 });
-
-
-function showToast(message) {
-  const toast = document.getElementById('cart-toast');
-  toast.querySelector('.cart-toast__msg').textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2500); // 2.5s tự ẩn
-}
-
-
-
