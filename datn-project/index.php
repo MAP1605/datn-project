@@ -15,8 +15,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- logo ở tên miền -->
+<<<<<<< HEAD:datn-project/index.html
+    <link rel="icon" type="image/png" href="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
+=======
     <link rel="icon" type="image/png" href="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" sizes="16x16">
 
+>>>>>>> main:datn-project/index.php
 
 </head>
 
@@ -53,8 +57,14 @@
     <!-- End footer -->
 
     <!-- JS: load component (header/banner/category/product/footer) -->
+<<<<<<< HEAD:datn-project/index.html
+    <script type="module" src="/datn-project/js/utils/components-loader.js"></script>
+    <script type="module" src="/datn-project/js/pages/product.js"></script>
+
+=======
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader.js"></script>
     <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
+>>>>>>> main:datn-project/index.php
 </body>
 
 </html>

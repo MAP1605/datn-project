@@ -84,7 +84,8 @@ function setupShowMoreButton() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("components/product.php")
+  fetch("/datn-project/components/product.php")
+
     .then(res => res.text())
     .then(html => {
       document.querySelector("#products").innerHTML = html;
