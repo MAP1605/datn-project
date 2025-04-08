@@ -845,24 +845,42 @@
 /* thông báo chung */
 .toast {
     position: fixed;
-    top: 20%;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #333;
-    color: #fff;
-    padding: 14px 20px;
-    border-radius: 6px;
-    font-size: 14px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 10000;
-    max-width: 80%;
-    text-align: center;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    display: none;
+    z-index: 999999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .toast.show {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) scale(1.05);
+    display: block;
+    animation: fadeInOut 2.5s ease;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
 }
