@@ -273,10 +273,68 @@
     background-color: var(--primary-color-rgba);
 }
 
-@media (max-width: 576px) {
+/* ============================= */
+/* RESPONSIVE HEADER - MOBILE   */
+/* ============================= */
+@media (max-width: 767px) {
+    .header__main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 1rem 1.2rem;
+
+        position: relative;
+        /* 💥 QUAN TRỌNG: để icon cart định vị đúng */
+    }
+
+    .header__logo {
+        justify-content: start;
+        width: 100%;
+    }
+
+    .header__logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .header__logo a {
+        font-size: 2rem;
+    }
+
+    .header__search {
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    .header__search-input {
+        font-size: 14px;
+    }
+
+    .header__search-btn {
+        padding: 0.6rem 1rem;
+        margin-left: 8px;
+    }
+
+    .header__cart {
+        position: absolute;
+        right: 12px;
+        top: 22px;
+        z-index: 10;
+    }
+
+    .header__cart-icon {
+        font-size: 2.6rem;
+    }
+
+    .header__cart-count {
+        font-size: 10px;
+        padding: 1px 4px;
+        top: -10px;
+        right: -8px;
+    }
+
     .header__cart-dropdown {
-        width: 90vw;
-        right: 5vw;
-        top: calc(100% + 6px);
+        width: 360px;
     }
 }

@@ -43,31 +43,14 @@
                     <div class="col col--qty">Số lượng</div>
                     <div class="col col--total">Thành tiền</div>
                 </div>
-                <div class="checkout-products__item">
-                    <div class="col col--product">
-                        <img src="/datn-project/assets/images/product__detail/detail__media-1.1.webp" alt="Macbook" />
-                        <span>Macbook Air M3 2024</span>
-                    </div>
-                    <div class="col col--price">27.290.000đ</div>
-                    <div class="col col--qty">1</div>
-                    <div class="col col--total">27.290.000đ</div>
-                </div>
-                <div class="checkout-products__item">
-                    <div class="col col--product">
-                        <img src="/datn-project/assets/images/product__detail/detail__media-1.webp" alt="iPhone" />
-                        <span>iPhone 13 Chính hãng VN/A</span>
-                    </div>
-                    <div class="col col--price">12.385.000đ</div>
-                    <div class="col col--qty">7</div>
-                    <div class="col col--total">86.695.000đ</div>
-                </div>
+
             </section>
 
             <!-- Tổng tiền -->
             <section class="checkout-summary">
                 <div class="checkout-summary__row">
                     <span>Tổng tiền hàng:</span>
-                    <strong>113.985.000đ</strong>
+                    <strong id="checkoutTotal">0đ</strong>
                 </div>
                 <div class="checkout-summary__row">
                     <span>Phí vận chuyển:</span>
@@ -75,8 +58,9 @@
                 </div>
                 <div class="checkout-summary__row checkout-summary__total">
                     <span>Tổng thanh toán:</span>
-                    <strong>114.010.000đ</strong>
+                    <strong id="checkoutFinal">25.000đ</strong>
                 </div>
+
             </section>
 
             <!-- Phương thức thanh toán -->
@@ -102,10 +86,6 @@
     <script type="module" src="/datn-project/js/utils/components-loader-pages.js"></script>
 
     <script type="module" src="/datn-project/js/pages/cart-items.js"></script>
-    <script type="module" src="/datn-project/js/pages/cart.js"></script>
-
-    <!-- js cho product-detail -->
-    <script type="module" src="/datn-project/js/pages/product-detail.js"></script>
 
     <script type="module" src="/datn-project/js/pages/checkout.js"></script>
 

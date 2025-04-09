@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartTotal();
   }
 
+
+
   selectAllTop.addEventListener('change', () => {
     handleSelectAll(selectAllTop.checked);
     selectAllBottom.checked = selectAllTop.checked;

@@ -132,23 +132,119 @@
     opacity: 0.9;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-
-    .checkout-products__header,
-    .checkout-products__item {
-        flex-direction: column;
-        align-items: flex-start;
+/* ======================= */
+/* RESPONSIVE - TABLET     */
+/* ======================= */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .checkout-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 20px;
     }
 
-    .col--price,
-    .col--qty,
-    .col--total {
-        text-align: left;
+    .checkout-products__item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .checkout-products__item img {
+        width: 80px;
+    }
+
+    .checkout-summary__row strong {
+        font-size: 16px;
+    }
+}
+
+/* ======================= */
+/* RESPONSIVE - MOBILE     */
+/* ======================= */
+@media (max-width: 767px) {
+    .checkout-container {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .checkout-address__title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .checkout-address__info {
+        font-size: 14px;
+        line-height: 1.5;
+        padding-bottom: 12px;
+    }
+
+    .checkout-products__header {
+        display: none;
+    }
+
+    .checkout-products__item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .checkout-products__item img {
+        width: 80px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .checkout-products__item .col--product {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    .checkout-products__item .col--price,
+    .checkout-products__item .col--qty,
+    .checkout-products__item .col--total {
+        font-size: 13px;
+        color: #444;
+    }
+
+    .col--price::before {
+        content: "Đơn giá: ";
+        font-weight: 500;
+    }
+
+    .col--qty::before {
+        content: "Số lượng: ";
+        font-weight: 500;
+    }
+
+    .col--total::before {
+        content: "Thành tiền: ";
+        font-weight: 500;
+        color: black;
+    }
+
+    .checkout-summary__row {
+        font-size: 14px;
+        justify-content: space-between;
         padding: 4px 0;
     }
 
-    .checkout-action {
-        text-align: center;
+    .checkout-summary__total strong {
+        color: red;
+        font-size: 16px;
+    }
+
+    .checkout-method label {
+        font-size: 14px;
+    }
+
+    .checkout-action__btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 16px;
     }
 }
