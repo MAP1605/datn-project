@@ -42,13 +42,6 @@ while ($row = $result->fetch_assoc()) {
     $row['Anh_San_Pham1'] = base64_encode($row['Anh_San_Pham1']);
     $items[] = $row;
 }
-
-$items[] = [
-    'ID_Gio_Hang' => 99,
-    'Ten_San_Pham' => 'Sản phẩm test',
-    'Gia_Ban' => 100000,
-    'So_Luong' => 2
-];
 ?>
 
 <!DOCTYPE html>

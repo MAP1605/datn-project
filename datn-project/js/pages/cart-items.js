@@ -122,61 +122,62 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 });
 
-function renderCart() {
-    const cartBody = document.getElementById("cartBody");
-    const cartTotal = document.getElementById("cartTotal");
+// function renderCart() {
+//     const cartBody = document.getElementById("cartBody");
+//     const cartTotal = document.getElementById("cartTotal");
 
-    if (!cartItems || cartItems.length === 0) {
-        cartBody.innerHTML = "<p>🛒 Giỏ hàng trống.</p>";
-        cartTotal.textContent = "₫0";
-        return;
-    }
+//     if (!cartItems || cartItems.length === 0) {
+//         cartBody.innerHTML = "<p>🛒 Giỏ hàng trống.</p>";
+//         cartTotal.textContent = "₫0";
+//         return;
+//     }
 
-    cartBody.innerHTML = "";
-    let total = 0;
+//     cartBody.innerHTML = "";
+//     let total = 0;
 
-    cartItems.forEach((item, index) => {
-        const itemTotal = item.Gia_Ban * item.So_Luong;
-        total += itemTotal;
+//     cartItems.forEach((item, index) => {
+//         const itemTotal = item.Gia_Ban * item.So_Luong;
+//         total += itemTotal;
 
-        const row = document.createElement("div");
-        row.className = "cart__item cart__row";
-        row.innerHTML = `
-        <div class="cart__col cart__col--checkbox">
-          <input type="checkbox" class="cart__checkbox" data-index="${index}" checked />
-        </div>
-        <div class="cart__col cart__col--product">
-          <img src="get-image.php?id=${item.ID_San_Pham}" class="cart__product-img" alt="${item.Ten_San_Pham}" />
-          <span class="cart__product-name">${item.Ten_San_Pham}</span>
-        </div>
-        <div class="cart__col cart__col--price">₫${item.Gia_Ban.toLocaleString()}</div>
-        <div class="cart__col cart__col--quantity">
-          <div class="cart__quantity-control">
-            <button class="cart__quantity-btn" data-type="minus" data-index="${index}">-</button>
-            <input type="text" class="cart__quantity-input" value="${item.So_Luong}" data-index="${index}" />
-            <button class="cart__quantity-btn" data-type="plus" data-index="${index}">+</button>
-          </div>
-        </div>
-        <div class="cart__col cart__col--total">₫${itemTotal.toLocaleString()}</div>
-        <div class="cart__col cart__col--action">
-          <form method="POST">
-            <input type="hidden" name="xoa_id_gio_hang" value="${item.ID_Gio_Hang}">
-            <button type="submit" name="xoa_sp" class="cart__btn cart__btn--delete">Xoá</button>
-          </form>
-        </div>
-      `;
+//         const row = document.createElement("div");
+//         row.className = "cart__item cart__row";
+//         row.innerHTML = `
+//         <div class="cart__col cart__col--checkbox">
+//           <input type="checkbox" class="cart__checkbox" data-index="${index}" checked />
+//         </div>
+//         <div class="cart__col cart__col--product">
+//           <img src="get-image.php?id=${item.ID_San_Pham}" class="cart__product-img" alt="${item.Ten_San_Pham}" />
+//           <span class="cart__product-name">${item.Ten_San_Pham}</span>
+//         </div>
+//         <div class="cart__col cart__col--price">₫${item.Gia_Ban.toLocaleString()}</div>
+//         <div class="cart__col cart__col--quantity">
+//           <div class="cart__quantity-control">
+//             <button class="cart__quantity-btn" data-type="minus" data-index="${index}">-</button>
+//             <input type="text" class="cart__quantity-input" value="${item.So_Luong}" data-index="${index}" />
+//             <button class="cart__quantity-btn" data-type="plus" data-index="${index}">+</button>
+//           </div>
+//         </div>
+//         <div class="cart__col cart__col--total">₫${itemTotal.toLocaleString()}</div>
+//         <div class="cart__col cart__col--action">
+//           <form method="POST">
+//             <input type="hidden" name="xoa_id_gio_hang" value="${item.ID_Gio_Hang}">
+//             <button type="submit" name="xoa_sp" class="cart__btn cart__btn--delete">Xoá</button>
+//           </form>
+//         </div>
+//       `;
 
-        cartBody.appendChild(row);
-    });
+//         cartBody.appendChild(row);
+//     });
 
-    cartTotal.textContent = `₫${total.toLocaleString()}`;
+//     cartTotal.textContent = `₫${total.toLocaleString()}`;
 
-    // Gọi thêm nếu bạn có hàm này ở dưới:
-    if (typeof bindCheckboxEvents === "function") bindCheckboxEvents();
-    if (typeof updateSelectAllStatus === "function") updateSelectAllStatus();
-    if (typeof updateCartTotal === "function") updateCartTotal();
-}
+//     // Gọi thêm nếu bạn có hàm này ở dưới:
+//     if (typeof bindCheckboxEvents === "function") bindCheckboxEvents();
+//     if (typeof updateSelectAllStatus === "function") updateSelectAllStatus();
+//     if (typeof updateCartTotal === "function") updateCartTotal();
+// }
 
-document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     renderCart();
+// });
+

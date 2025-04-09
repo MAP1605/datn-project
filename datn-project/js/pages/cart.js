@@ -1,7 +1,7 @@
 // ✅ CART.JS HOÀN CHỈNH
 // Gắn file này vào cart.html để xử lý hiển thị, tăng giảm, xoá sản phẩm, tính tổng tiền, validate input...
 document.addEventListener('DOMContentLoaded', () => {
-  let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  // let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
   const cartBody = document.getElementById('cartBody');
   const cartTotal = document.getElementById('cartTotal');
