@@ -136,14 +136,13 @@ while ($row = $result->fetch_assoc()) {
     <!-- Footer dùng chung -->
     <div id="footer"></div>
 
+    <script>
+        let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
+    </script>
+
     <!-- JS: load component header/footer  -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
     <script type="module" src="../js/pages/cart.js"></script>
-
-    <script>
-        let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
-        console.log(cartItems); // Test: kiểm tra hiển thị ra gì
-    </script>
 
     <script type="module" src="../js/pages/cart-items.js"></script>
 </body>

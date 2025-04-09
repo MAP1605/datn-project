@@ -196,7 +196,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
 <body>
     <!-- Start header -->
-    <header id="header"></header>
+    <header id="header">
+        <!-- Header top -->
+        <div class="header__top">
+
+            <div class="header__top-left">
+                <a href="#" class="header__link">
+                    Đăng ký người bán
+                </a>
+            </div>
+            <div class="header__top-right">
+                <a href="" class="header__link">
+                    Đăng nhập
+                </a>
+                <a href="" class="header__link">
+                    Đăng ký
+                </a>
+            </div>
+
+        </div>
+        <!-- Header main -->
+        <div class="header__main">
+            <div class="header__logo">
+                <a href="/datn-project/index.html" class="header__logo-link">
+                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
+                </a>
+            </div>
+            <div class="header__search">
+                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
+                <button class="header__search-btn">
+                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
+                </button>
+            </div>
+
+            <!-- Giỏ hàng -->
+            <div class="header__cart">
+                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+                <span class="header__cart-count">0</span>
+                <div class="header__cart-dropdown">
+                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
+                    <ul class="header__cart-list"></ul>
+                    <div class="header__cart-total">Tổng: <b>₫0</b></div>
+                    <div class="header__cart-footer">
+                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
     <!-- End header -->
 
     <div class="main">
@@ -490,14 +538,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
     <!-- Thông báo -->
     <div id="toast" class="toast"></div>
-
-    <!-- Icon giỏ hàng -->
-    <div class="header__cart">
-        <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-        <span class="header__cart-count">0</span> <!-- ✔ Phải có -->
-        <div class="header__cart-total"><b>₫0</b></div> <!-- ✔ Phải có -->
-        <ul class="header__cart-list"></ul> <!-- ✔ Phải có -->
-    </div>
 
     <!-- Popup ảnh -->
     <div class="popup-overlay" id="popupOverlay">
