@@ -260,6 +260,12 @@
     background-color: #fafafa;
 }
 
+.header__cart-total b {
+    float: right;
+    color: #f63;
+    font-size: 15px;
+}
+
 .header__cart-btn {
     background-color: var(--primary-color);
     color: white;

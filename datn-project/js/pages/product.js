@@ -1,29 +1,83 @@
+// let loadedIDs = [];
+
+// function setupShowMoreButton() {
+//   const showMoreBtn = document.querySelector("#show-more-product");
+
+//   if (showMoreBtn) {
+//     showMoreBtn.addEventListener("click", () => {
+//       // cập nhật lại danh sách ID đã hiển thị
+//       document.querySelectorAll(".product__item").forEach(item => {
+//         const id = item.getAttribute("data-id");
+//         if (!loadedIDs.includes(id)) {
+//           loadedIDs.push(id);
+//         }
+//       });
+
+//       fetch("components/load-more.php", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ loaded: loadedIDs })
+//       })
+//         .then(res => res.text())
+//         .then(html => {
+//           document.querySelector("#product-list").insertAdjacentHTML("beforeend", html);
+//           setupShowMoreButton(); // gọi lại nếu cần
+//         })
+//         .catch(err => console.error("❌ Lỗi khi tải thêm sản phẩm:", err));
+//     });
+//   }
+// }
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   fetch("components/product.php")
+//     .then(res => res.text())
+//     .then(html => {
+//       document.querySelector("#products").innerHTML = html;
+//       setupShowMoreButton();
+//     });
+// });
+
+let loadedIDs = [];
+
 function setupShowMoreButton() {
   const showMoreBtn = document.querySelector("#show-more-product");
-  const hiddenItems = document.querySelectorAll(".product__item--hidden");
 
   if (showMoreBtn) {
     showMoreBtn.addEventListener("click", () => {
-      console.log("👉 Nút 'Xem thêm' đã được bấm!");
-
-      // Hiện tất cả item
-      hiddenItems.forEach(item => {
-        item.style.display = "block";
+      // cập nhật lại danh sách ID đã hiển thị
+      document.querySelectorAll(".product__item").forEach(item => {
+        const id = item.getAttribute("data-id");
+        if (!loadedIDs.includes(id)) {
+          loadedIDs.push(id);
+        }
       });
 
-      // Ẩn nút sau khi bấm
-      showMoreBtn.style.display = "none";
+      fetch("components/load-more.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ loaded: loadedIDs })
+      })
+        .then(res => res.text())
+        .then(html => {
+          if (html.trim() === "") {
+            // Không còn sản phẩm để load thêm → ẩn nút
+            showMoreBtn.style.display = "none";
+            return;
+          }
+
+          document.querySelector("#product-list").insertAdjacentHTML("beforeend", html);
+          showMoreBtn.style.display = "none"; // ✅ ẩn nút sau khi bấm (luôn)
+        })
+        .catch(err => console.error("❌ Lỗi khi tải thêm sản phẩm:", err));
     });
-  } else {
-    console.log("❌ Không tìm thấy nút #show-more-product trong DOM");
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/datn-project/components/product.html")
+  fetch("components/product.php")
     .then(res => res.text())
     .then(html => {
-      document.querySelector("#product").innerHTML = html;
-      setupShowMoreButton(); // gọi sau khi load xong sản phẩm
+      document.querySelector("#products").innerHTML = html;
+      setupShowMoreButton();
     });
 });
