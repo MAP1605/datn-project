@@ -14,7 +14,7 @@
     <!-- CSS (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
       </head>
-      <>
+      <body>
         <div id="header">
         </div>
 
@@ -106,7 +106,7 @@
 
 
                     <!-- PHẦN DANH SÁCH TẤT CẢ ĐƠN HÀNG -->
-                    <div id="order-section">  
+                    <div id="order-section" class="order-table-container">  
                       <div class="order-tabs">
                         <div class="tab active" data-filter="Tất cả">Tất cả</div>
                         <div class="tab" data-filter="Chờ xác nhận">Chờ xác nhận</div>
@@ -127,22 +127,29 @@
                           </tr>
                         </thead>
                         <tbody id="order-list">
-                          <tr data-status="Chờ xác nhận">
-                            <td><input type="checkbox" /></td>
-                            <td>#0123456789</td>
-                            <td>Chờ xác nhận</td>
-                            <td>20:30 14/11/2024</td>
-                            <td>₫888.998</td>
-                            <td><button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button></td>
-                          </tr>
-                          <tr data-status="Hoàn thành">
-                            <td><input type="checkbox" /></td>
-                            <td>#2468101214</td>
-                            <td><span class="status-completed">Hoàn thành</span></td>
-                            <td>07:00 17/05/2025</td>
-                            <td>₫888.998</td>
-                            <td><button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button></td>
-                          </tr>
+                          <tbody id="order-list">
+                            <tr data-status="Chờ xác nhận">
+                              <td data-label="Chọn"><input type="checkbox" /></td>
+                              <td data-label="Mã đơn hàng">#0123456789</td>
+                              <td data-label="Trạng thái">Chờ xác nhận</td>
+                              <td data-label="Thời gian đặt hàng">20:30 14/11/2024</td>
+                              <td data-label="Tổng hóa đơn">₫888.998</td>
+                              <td data-label="Hành động">
+                                <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
+                              </td>
+                            </tr>
+                            <tr data-status="Hoàn thành">
+                              <td data-label="Chọn"><input type="checkbox" /></td>
+                              <td data-label="Mã đơn hàng">#2468101214</td>
+                              <td data-label="Trạng thái"><span class="status-completed">Hoàn thành</span></td>
+                              <td data-label="Thời gian đặt hàng">07:00 17/05/2025</td>
+                              <td data-label="Tổng hóa đơn">₫888.998</td>
+                              <td data-label="Hành động">
+                                <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                          
                         </tbody>
                       </table>
                     </div>

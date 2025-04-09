@@ -711,6 +711,20 @@ document.querySelectorAll(".product-image-box").forEach((box) => {
   });
 });
 
+function safeAddEventListener(id, callback) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("click", callback);
+}
+
+safeAddEventListener("link-all-orders", () => {
+  // xử lý
+});
+
+safeAddEventListener("link-add-product", () => {
+  // xử lý
+});
+
+// Thêm các mục khác tương tự
 
 
 // sửa phần sản phẩm

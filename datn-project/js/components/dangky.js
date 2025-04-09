@@ -11,50 +11,46 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.querySelector(".register-step__input--password");
   const repasswordInput = document.querySelector(".register-step__input--repassword");
 
-  // Kiểm tra số điện thoại hợp lệ
+  // Regex kiểm tra
   function isValidPhone(phone) {
-    return /^[0-9]{10}$/.test(phone);
+    return /^0\d{9}$/.test(phone); // Bắt đầu bằng 0 và đủ 10 số
   }
 
-  // Kiểm tra tên đăng nhập
   function isValidUsername(username) {
-    return /^[a-zA-Z0-9]{4,}$/.test(username);
+    return /^[a-zA-Z0-9]{4,}$/.test(username); // ít nhất 4 ký tự chữ hoặc số
   }
 
-  // Kiểm tra email hợp lệ
   function isValidEmail(email) {
-    return email.includes("@") && email.endsWith(".com");
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // dạng chuẩn email
   }
 
-  // Bước 1: xử lý TIẾP THEO
+  // ✅ Bước 1: xử lý TIẾP THEO
   if (nextBtn && phoneInput && step1 && step2) {
     nextBtn.addEventListener("click", function (e) {
       e.preventDefault();
 
       const phone = phoneInput.value.trim();
       if (phone === "") {
-        alert("Vui lòng nhập số điện thoại.");
+        showNotification("Vui lòng nhập số điện thoại.", "error");
         return;
       }
 
       if (!isValidPhone(phone)) {
-        alert("Số điện thoại phải là số và gồm đúng 10 chữ số.");
+        showNotification("Số điện thoại phải bắt đầu bằng 0 và gồm đúng 10 chữ số.", "error");
         return;
       }
 
-      // Lưu số điện thoại nếu cần
+      // Lưu nếu cần
       localStorage.setItem("registerPhone", phone);
 
-      // Chuyển sang bước 2
+      // Chuyển bước
       step1.style.display = "none";
       step2.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-  } else {
-    console.warn("Không tìm thấy phần tử bước 1");
   }
 
-  // Bước 2: xử lý ĐĂNG KÝ
+  // ✅ Bước 2: xử lý ĐĂNG KÝ
   if (registerBtn && usernameInput && emailInput && passwordInput && repasswordInput) {
     registerBtn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -65,40 +61,70 @@ document.addEventListener("DOMContentLoaded", function () {
       const repassword = repasswordInput.value.trim();
 
       if (!username || !email || !password || !repassword) {
-        alert("Vui lòng điền đầy đủ tất cả các ô.");
+        showNotification("Vui lòng điền đầy đủ tất cả các ô.", "error");
         return;
       }
 
       if (!isValidUsername(username)) {
-        alert("Tên đăng nhập phải có ít nhất 4 ký tự và chỉ chứa chữ hoặc số.");
+        showNotification("Tên đăng nhập phải có ít nhất 4 ký tự và chỉ chứa chữ hoặc số.", "error");
         return;
       }
 
       if (!isValidEmail(email)) {
-        alert("Email không hợp lệ. Phải chứa '@' và kết thúc bằng '.com'.");
+        showNotification("Email không hợp lệ. Phải có @", "error");
         return;
       }
 
       if (password.length < 6) {
-        alert("Mật khẩu phải có ít nhất 6 ký tự.");
+        showNotification("Mật khẩu phải có ít nhất 6 ký tự.", "error");
         return;
       }
 
       if (password !== repassword) {
-        alert("Mật khẩu nhập lại không khớp.");
+        showNotification("Mật khẩu nhập lại không khớp.", "error");
         return;
       }
 
-      // Lưu localStorage nếu cần
+      // ✅ Lưu localStorage nếu cần
       localStorage.setItem("registerAccount", JSON.stringify({
         username,
         email
       }));
 
-      alert("Đăng ký thành công!");
-      window.location.href = "../pages/dangnhap.html";
+      showNotification("Đăng ký thành công!", "success");
+      setTimeout(() => {
+        window.location.href = "../pages/dangnhap.html";
+      }, 1500);
     });
-  } else {
-    console.warn("Không tìm thấy phần tử bước 2");
   }
 });
+
+// ✅ Toast thông báo giống mọi form
+function showNotification(message, type) {
+  const noti = document.createElement("div");
+  noti.className = `custom-notification ${type}`;
+  noti.textContent = message;
+
+  Object.assign(noti.style, {
+    position: "fixed",
+    top: "20px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    padding: "14px 28px",
+    color: "#fff",
+    fontSize: "15px",
+    borderRadius: "8px",
+    zIndex: 9999,
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+    animation: "fadeInOut 3s ease forwards",
+    pointerEvents: "none",
+    whiteSpace: "nowrap",
+    backgroundColor: type === "success" ? "#28a745" : "#dc3545",
+  });
+
+  document.body.appendChild(noti);
+
+  setTimeout(() => {
+    noti.remove();
+  }, 3000);
+}

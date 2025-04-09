@@ -1195,3 +1195,31 @@ cursor: default;
 .hidden {
   display: none;
 }
+
+/* Ẩn phần header và định dạng dòng dữ liệu ở tablet/mobile */
+@media (max-width: 1023px), (max-width: 973px) {
+  .order-table thead {
+    display: none;
+  }
+  .order-table tr {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .order-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border: none;
+    font-size: 13px;
+  }
+  .order-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+  }
+}
