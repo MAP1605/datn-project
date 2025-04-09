@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectAllTop = document.getElementById('selectAll');
   const selectAllBottom = document.getElementById('selectAllBottom');
   const deleteSelectedBtn = document.querySelector('.cart__btn--delete');
+  const checkoutBtn = document.querySelector('.cart__btn--checkout');
+
+  // ========== RENDER UI ==========
 
   function renderCart() {
     const cartBody = document.getElementById("cartBody");
@@ -231,6 +234,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ========== SỰ KIỆN MUA HÀNG ========== 
+  checkoutBtn.addEventListener("click", () => {
+    const checkboxes = cartBody.querySelectorAll(".cart__checkbox");
+    const selectedItems = [];
+
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        const index = parseInt(cb.dataset.index);
+        cartItems[index].selected = true;
+        selectedItems.push(cartItems[index]);
+      }
+    });
+
+    if (selectedItems.length === 0) {
+      showToast("Vui lòng chọn sản phẩm để thanh toán!", "error");
+      return;
+    }
+
+    const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    localStorage.setItem("checkoutItems", JSON.stringify(selectedItems));
+    localStorage.setItem("checkoutTotal", total);
+
+    window.location.href = "/datn-project/pages/checkout.html";
+
+  });
+
   // ========== TOAST THÔNG BÁO ==========
   function showToast(message, type = 'info') {
     const toast = document.getElementById('cart-toast');
@@ -241,9 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderCart();
+
 });
 
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   renderCart();
-// });
+
+

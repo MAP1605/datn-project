@@ -65,6 +65,24 @@
     <!-- JS: load component header/footer  -->
     <script type="module" src="/datn-project/js/utils/components-loader-pages.js"></script>
     <script type="module" src="/datn-project/js/pages/cart.js"></script>
+    <script type="module" src="/datn-project/js/pages/cart-items.js"></script>
+
+    <!-- Toast notification -->
+    <div id="cart-toast" class="cart-toast">
+        <span class="cart-toast__msg">Thông báo</span>
+    </div>
+
+    <!-- Confirm modal -->
+    <div id="cart-confirm-modal" class="cart-confirm-modal">
+        <div class="cart-confirm-modal__content">
+            <p>Bạn có chắc muốn xoá tất cả sản phẩm không?</p>
+            <div class="cart-confirm-modal__actions">
+                <button id="confirmYes" class="cart-confirm-modal__btn cart-confirm-modal__btn--yes">Có</button>
+                <button id="confirmNo" class="cart-confirm-modal__btn cart-confirm-modal__btn--no">Không</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
