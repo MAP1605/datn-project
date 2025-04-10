@@ -1,7 +1,7 @@
 // ==============================
 // BIẾN TOÀN CỤC
 // ==============================
-let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+// let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
 
 // ==============================
@@ -106,7 +106,7 @@ function handleAddToCart(isBuyNow = false) {
     updateCartUI();
 
     if (isBuyNow) {
-        window.location.href = '/datn-project/pages/cart.html';
+        window.location.href = '/datn-project/pages/cart.php';
     } else {
         showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
     }
