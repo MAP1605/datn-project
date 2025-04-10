@@ -10,3 +10,6 @@
 /* Seller channel */
 @import url(./components/dangky.css);
 @import url(./components/KenhNguoiBan.css);
+
+@import url(./components/cart.css);
+@import url(./components/checkout.css);
