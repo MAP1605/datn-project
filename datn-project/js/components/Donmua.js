@@ -63,12 +63,27 @@ const addImageBtn = document.getElementById('addImageBtn');
 const imageInput = document.getElementById('imageInput');
 const imagesPreview = document.getElementById('imagesPreview');
 
+const MAX_IMAGES = 3;
+
 addImageBtn.addEventListener('click', () => imageInput.click());
 
 imageInput.addEventListener('change', () => {
-  imagesPreview.innerHTML = '';
   const files = imageInput.files;
-  Array.from(files).forEach(file => {
+
+  // Đếm số ảnh đang hiển thị
+  const currentImagesCount = imagesPreview.querySelectorAll('img').length;
+
+  if (currentImagesCount >= MAX_IMAGES) {
+    showNotification('Chỉ thêm được có 3 ảnh thôi', 'error');
+    imageInput.value = ''; // Clear input để tránh lưu ảnh sai
+    return;
+  }
+
+  // Tính số ảnh còn có thể thêm
+  const remainingSlots = MAX_IMAGES - currentImagesCount;
+
+  // Chỉ lấy số ảnh cho phép
+  Array.from(files).slice(0, remainingSlots).forEach(file => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = document.createElement('img');
@@ -78,11 +93,20 @@ imageInput.addEventListener('change', () => {
     };
     reader.readAsDataURL(file);
   });
+
+  // Nếu chọn quá nhiều ảnh, cảnh báo người dùng
+  if (files.length > remainingSlots) {
+    alert(`Chỉ được thêm tối đa ${remainingSlots} ảnh nữa.`);
+  }
+
+  // Reset lại input để lần sau chọn cùng ảnh vẫn kích hoạt được onchange
+  imageInput.value = '';
 });
 
 document.getElementById('completeBtn').addEventListener('click', () => {
-  alert('Bạn đã hoàn thành đánh giá!');
+
   document.getElementById('reviewModal').style.display = 'none';
+  showNotification('Đánh giá thành công', 'success');
   resetModal();
 });
 
@@ -188,26 +212,11 @@ const addImageBtn = document.getElementById('addImageBtn');
 const imageInput = document.getElementById('imageInput');
 const imagesPreview = document.getElementById('imagesPreview');
 
-addImageBtn.addEventListener('click', () => imageInput.click());
-
-imageInput.addEventListener('change', () => {
-  imagesPreview.innerHTML = '';
-  const files = imageInput.files;
-  Array.from(files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.classList.add('modal__preview-img');
-      imagesPreview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
-});
 
 document.getElementById('completeBtn').addEventListener('click', () => {
-  alert('Bạn đã hoàn thành đánh giá!');
+
   document.getElementById('reviewModal').style.display = 'none';
+  showNotification('Đánh giá thành công', 'success');
   resetModal();
 });
 
@@ -223,3 +232,13 @@ function resetModal() {
   });
 });
 
+function showNotification(message, type) {
+  const noti = document.createElement('div');
+  noti.className = `custom-notification ${type}`;
+  noti.textContent = message;
+  document.body.appendChild(noti);
+
+  setTimeout(() => {
+    noti.remove();
+  }, 3000);
+}

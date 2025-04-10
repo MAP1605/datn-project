@@ -1,0 +1,1132 @@
+
+  "TP. Hồ Chí Minh": {
+    "Quận 1": ["Bến Nghé", "Bến Thành", "Phạm Ngũ Lão"],
+    "Quận 5": ["Chợ Lớn", "Phường 2", "Phường 3"],
+    "Bình Thạnh": ["Phường 13", "Phường 14", "Phường 25"]
+  },
+  "An Giang": {
+    "Long Xuyên": ["Mỹ Bình", "Mỹ Hòa", "Mỹ Phước"],
+    "Châu Đốc": ["Châu Phú A", "Núi Sam", "Vĩnh Mỹ"]
+  },
+  "Bà Rịa - Vũng Tàu": {
+    "Vũng Tàu": ["Phường 1", "Phường 2", "Thắng Tam"],
+    "Bà Rịa": ["Long Toàn", "Phước Hiệp", "Phước Trung"]
+  },
+  "Bắc Giang": {
+    "TP Bắc Giang": ["Hoàng Văn Thụ", "Ngô Quyền", "Thọ Xương"],
+    "Yên Dũng": ["Tân An", "Cảnh Thụy", "Tiền Phong"]
+  },
+  "Bắc Ninh": {
+    "TP Bắc Ninh": ["Đại Phúc", "Kinh Bắc", "Tiền An"],
+    "Thuận Thành": ["Gia Đông", "Ninh Xá", "Trạm Lộ"]
+  },
+  "Bình Dương": {
+    "Thủ Dầu Một": ["Phú Hòa", "Phú Cường", "Chánh Mỹ"],
+    "Dĩ An": ["Đông Hòa", "Tân Đông Hiệp", "Tân Bình"]
+  },
+  "Cần Thơ": {
+    "Ninh Kiều": ["An Hòa", "Tân An", "Thới Bình"],
+    "Bình Thủy": ["Bình Thủy", "Long Tuyền", "An Thới"]
+  },
+  "Đà Nẵng": {
+    "Hải Châu": ["Thanh Bình", "Hải Châu 1", "Hải Châu 2"],
+    "Sơn Trà": ["An Hải Đông", "Phước Mỹ", "Thọ Quang"]
+  },
+  "Hải Phòng": {
+    "Hồng Bàng": ["Minh Khai", "Quang Trung", "Hoàng Văn Thụ"],
+    "Ngô Quyền": ["Cầu Đất", "Lạc Viên", "Máy Chai"]
+  },
+  "Khánh Hòa": {
+    "Nha Trang": ["Lộc Thọ", "Phước Tiến", "Vĩnh Thọ"],
+    "Cam Ranh": ["Cam Phú", "Cam Nghĩa", "Ba Ngòi"]
+  },
+  "Lâm Đồng": {
+    "Đà Lạt": ["Phường 1", "Phường 2", "Phường 3"],
+    "Bảo Lộc": ["Lộc Phát", "B'Lao", "Lộc Sơn"]
+  },
+  "Nam Định": {
+    "TP Nam Định": ["Trần Tế Xương", "Vị Hoàng", "Cửa Bắc"],
+    "Ý Yên": ["Yên Bình", "Yên Chính", "Yên Cường"]
+  },
+  "Nghệ An": {
+    "Vinh": ["Bến Thủy", "Hồng Sơn", "Trường Thi"],
+    "Cửa Lò": ["Thu Thủy", "Nghi Thủy", "Nghi Tân"]
+  },
+  "Quảng Ninh": {
+    "Hạ Long": ["Bạch Đằng", "Hồng Hà", "Tuần Châu"],
+    "Cẩm Phả": ["Cẩm Đông", "Cẩm Sơn", "Cẩm Tây"]
+  },
+  "Thừa Thiên Huế": {
+    "TP Huế": ["Vĩnh Ninh", "Thuận Thành", "Phước Vĩnh"],
+    "Hương Thủy": ["Phú Bài", "Thủy Lương", "Thủy Dương"]
+  },
+  "Yên Bái": {
+    "TP Yên Bái": ["Đồng Tâm", "Nguyễn Thái Học", "Minh Tân"],
+    "Nghĩa Lộ": ["Cầu Thia", "Pú Trạng", "Trung Tâm"]
+  },
+    "An Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bà Rịa - Vũng Tàu": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bắc Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bắc Kạn": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bạc Liêu": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bắc Ninh": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bến Tre": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bình Định": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bình Dương": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bình Phước": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Bình Thuận": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Cà Mau": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Cần Thơ": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Cao Bằng": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Đà Nẵng": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Đắk Lắk": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Đắk Nông": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Điện Biên": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Đồng Nai": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Đồng Tháp": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Gia Lai": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hà Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hà Nam": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hà Nội": {
+      "Ba Đình": [
+        "Trúc Bạch",
+        "Vĩnh Phúc",
+        "Cống Vị"
+      ],
+      "Cầu Giấy": [
+        "Dịch Vọng",
+        "Nghĩa Đô",
+        "Mai Dịch"
+      ],
+      "Hà Đông": [
+        "Văn Quán",
+        "Yên Nghĩa",
+        "La Khê"
+      ]
+    },
+    "Hà Tĩnh": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hải Dương": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hải Phòng": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hậu Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hòa Bình": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Hưng Yên": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Khánh Hòa": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Kiên Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Kon Tum": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Lai Châu": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Lâm Đồng": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Lạng Sơn": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Lào Cai": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Long An": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Nam Định": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Nghệ An": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Ninh Bình": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Ninh Thuận": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Phú Thọ": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Phú Yên": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Quảng Bình": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Quảng Nam": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Quảng Ngãi": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Quảng Ninh": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Quảng Trị": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Sóc Trăng": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Sơn La": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Tây Ninh": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Thái Bình": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Thái Nguyên": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Thanh Hóa": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Thừa Thiên Huế": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Tiền Giang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "TP. Hồ Chí Minh": {
+      "Quận 1": [
+        "Bến Nghé",
+        "Bến Thành",
+        "Cô Giang"
+      ],
+      "Quận 3": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ]
+    },
+    "Trà Vinh": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Tuyên Quang": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Vĩnh Long": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Vĩnh Phúc": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    },
+    "Yên Bái": {
+      "Quận 1": [
+        "Phường 1",
+        "Phường 2",
+        "Phường 3"
+      ],
+      "Quận 2": [
+        "Phường 4",
+        "Phường 5",
+        "Phường 6"
+      ],
+      "Huyện A": [
+        "Xã A1",
+        "Xã A2",
+        "Xã A3"
+      ]
+    }

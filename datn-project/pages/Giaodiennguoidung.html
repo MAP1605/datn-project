@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ho so nguoi dung</title>
+    <title>Ho so nguoi dung</title>     
     <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,24 +18,25 @@
 
     <div class="main">
         <div class="container">
-            <div class="user-main user-main--Address">
-                <aside class="user-main__sidebar">
-                    <img src="img2/Screenshot 2025-02-13 154916.png" alt="Avatar" class="user-main__avatar">
-    
-    
-                    <nav class="user-main__nav">
-                        <ul class="user-main__nav-list">
-                            <li>
-                                <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
-                            </li>
-                            <li><a class="user-main__nav-link" href="Giaodiennguoidung.html">Hồ sơ</a></li>
-                            <li><a class="user-main__nav-link" href="DiachiUse.html">Địa chỉ</a></li>
-                            <li><a class="user-main__nav-link" href="doimatkhau.html">Đổi mật khẩu</a></li>
-                            <li><a class="user-main__nav-link" href="Donmua.html">Đơn mua</a></li>
-                      
-                        </ul>
-                    </nav>
-                </aside>
+            
+          <div class="user-main user-main--Address">
+            <aside class="user-main__sidebar">
+                <img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">
+
+                
+                <nav class="user-main__nav">
+                    <ul class="user-main__nav-list">
+                        <li>
+                            <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
+                        </li>
+                        <li><a class="user-main__nav-link Select-screen-function" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/DiachiUse.html">Địa chỉ</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/Donmua.html">Đơn mua</a></li>
+                     
+                    </ul>
+                </nav>
+            </aside>
 
                     <main class="content">
                         <div class="profile">
@@ -43,7 +44,7 @@
                                 <h2 class="profile__heading">Hồ sơ của tôi</h2>
 
                                 <label class="profile__label">Tên đăng nhập</label>
-                                <input class="profile__input" type="text">
+                                <input class="profile__input" type="text" value="dsadasdsad"readonly >
 
                                 <label class="profile__label">Tên</label>
                                 <input class="profile__input" type="text">
@@ -56,9 +57,9 @@
 
                                 <div class="profile__gender">
                                     <label class="profile__label">Giới tính</label>
-                                    <input type="radio" name="gender"> Nam
-                                    <input type="radio" name="gender"> Nữ
-                                    <input type="radio" name="gender"> Khác
+                                    <input type="radio" name="gender" value="Nam"> Nam
+                                    <input type="radio" name="gender" value="Nữ"> Nữ
+                                    <input type="radio" name="gender" value="Khác"> Khác
                                 </div>
 
                                 <label class="profile__label">Ngày sinh</label>
@@ -70,8 +71,9 @@
                             </form>
 
                             <div class="profile__image-section">
-                                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện"
-                                    class="profile__avatar" id="avatarPreview">
+                                
+                                
+                                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện" class="profile__avatar" id="avatarPreview">
                                 <button class="profile__choose-btn" id="chooseBtn">Chọn ảnh</button>
                                 <input type="file" id="imageInput" accept="image/*" hidden>
                             </div>

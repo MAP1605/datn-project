@@ -7,14 +7,7 @@
  
 }
 
-.user-main__sidebar {
-  width: 290px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  height: fit-content;
-}
+
 
 .user-main__avatar {
   width: 60px;
@@ -44,6 +37,7 @@
   display: block;
   padding: 6px 12px;
   border-radius: 4px;
+  transition: background 0.3s;
 }
 
 .user-main__nav-link:hover {
@@ -203,62 +197,6 @@
     padding: 24px;
   }
 }
-
-/* 
-
-
-.content{
-    width: 70%;
-}
-.from-use{
-   margin: 30px;
-
-    
-    display: flex;
-    
-    flex-direction: column;
-   border-bottom: 1px solid #b9b1b1dd;
-}
-.from-use input{
-width: 50%;
-padding: 5px;
-
-}
-.tabs{
-    border-bottom: 1px solid #b9b1b1dd;
-    display: flex;
-        font-size: 19px;
-        padding: 5px 10px;
-   justify-content: space-between;
-
-}
-.tabs button{
-    padding: 5px ;
-    height: 50px;
-    margin-top: 10px;
-    background: #3ba4eb;
-    border: none;
-        color: #fff;
-        border-radius: 4px;
-        
-}
-.tabs button:hover{
-    background: #2980b9;
-}
-
-.fromthongtin {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 15px;
-    margin-bottom: 10px;
-    margin-left: 30px;
-    max-width: 93%;
-} 
-
-
-
-
-*/
 
 .modal {
   display: none;
@@ -441,4 +379,36 @@ padding: 5px;
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+.alert-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease forwards;
+}
+
+.alert-success {
+  background-color: #28a745; /* Đỏ */
+}
+
+.alert-error {
+  background-color: #dc3545; /* Đỏ */
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    top: 0px;
+  }
+  to {
+    opacity: 1;
+    top: 20px;
+  }
 }

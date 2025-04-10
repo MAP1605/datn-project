@@ -1,11 +1,38 @@
+
 /* ========== GIAO DIỆN HỒ SƠ NGƯỜI DÙNG ========== */
 
-  
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease forwards;
+}
+
+.custom-notification.success {
+  background-color: #28a745; /* Xanh lá */
+}
+
+.custom-notification.error {
+  background-color: #dc3545; /* Đỏ */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
   /* ========== CONTENT PROFILE ========== */
-  .content {
-    width: 100%;
-    max-width: 850px;
-  }
+ 
+/* Sidebar */
+
   
   .profile {
     display: flex;
@@ -120,4 +147,5 @@
       max-width: 100%;
     }
   }
+  
   

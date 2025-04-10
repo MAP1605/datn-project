@@ -13,8 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (file) {
       const reader = new FileReader();
       reader.onload = function (e) {
-        avatarPreview.src = e.target.result;
-        selectedAvatarBase64 = e.target.result;
+        const base64 = e.target.result;
+        avatarPreview.src = base64;
+        document.querySelector('.user-main__avatar').src = base64;
+        selectedAvatarBase64 = base64;
       };
       reader.readAsDataURL(file);
     }
@@ -22,36 +24,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
   saveBtn.addEventListener('click', function (e) {
     e.preventDefault();
-
+  
     const username = document.querySelector('.profile__input[type="text"]').value;
     const name = document.querySelectorAll('.profile__input[type="text"]')[1].value;
     const email = document.querySelector('.profile__input[type="email"]').value;
     const phone = document.querySelector('.profile__input[type="tel"]').value;
-
-    // Validate email and phone
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+    const birth = document.querySelector('.profile__input[type="date"]').value;
+  
+    // Validate
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(\+84|0)\d{9,10}$/;
-
+  
     if (!emailRegex.test(email)) {
-      alert('Email không đúng định dạng!');
+      showNotification('Email không đúng định dạng!', 'error');
       return;
     }
-
+  
     if (!phoneRegex.test(phone)) {
-      alert('Số điện thoại không đúng định dạng!');
+      showNotification('Số điện thoại không đúng định dạng!', 'error');
       return;
     }
-
+  
     const profileData = {
       username,
       name,
       email,
       phone,
+      gender,
+      birth,
       avatar: selectedAvatarBase64
     };
-
+    
     localStorage.setItem('userProfile', JSON.stringify(profileData));
-    alert('Thông tin hồ sơ đã được lưu thành công!');
+    showNotification('Lưu hồ sơ thành công!', 'success');
   });
 
   const savedProfile = JSON.parse(localStorage.getItem('userProfile'));
@@ -61,9 +67,32 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.profile__input[type="text"]')[1].value = savedProfile.name;
     document.querySelector('.profile__input[type="email"]').value = savedProfile.email;
     document.querySelector('.profile__input[type="tel"]').value = savedProfile.phone;
-
+  
+    if (savedProfile.gender) {
+      const genderInput = document.querySelector(`input[name="gender"][value="${savedProfile.gender}"]`);
+      if (genderInput) genderInput.checked = true;
+    }
+  
+    if (savedProfile.birth) {
+      document.querySelector('.profile__input[type="date"]').value = savedProfile.birth;
+    }
+  
     if (savedProfile.avatar) {
       avatarPreview.src = savedProfile.avatar;
+      const sidebarAvatar = document.querySelector('.user-main__avatar');
+      if (sidebarAvatar) sidebarAvatar.src = savedProfile.avatar;
     }
   }
-});
+}
+
+);
+function showNotification(message, type) {
+  const noti = document.createElement('div');
+  noti.className = `custom-notification ${type}`;
+  noti.textContent = message;
+  document.body.appendChild(noti);
+
+  setTimeout(() => {
+    noti.remove();
+  }, 3000);
+}

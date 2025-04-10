@@ -29,7 +29,7 @@
 
           <div class="user-main user-main--Address">
             <aside class="user-main__sidebar">
-                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Avatar" class="user-main__avatar">
+              <img src="" alt="Avatar" class="user-main__avatar">
 
 
                 <nav class="user-main__nav">
@@ -37,10 +37,10 @@
                         <li>
                             <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
                         </li>
-                        <li><a class="user-main__nav-link" href="Giaodiennguoidung.html">Hồ sơ</a></li>
-                        <li><a class="user-main__nav-link" href="DiachiUse.html">Địa chỉ</a></li>
-                        <li><a class="user-main__nav-link" href="doimatkhau.html">Đổi mật khẩu</a></li>
-                        <li><a class="user-main__nav-link" href="Donmua.html">Đơn mua</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
+                        <li><a class="user-main__nav-link Select-screen-function" href="../pages/DiachiUse.html">Địa chỉ</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
+                        <li><a class="user-main__nav-link" href="../pages/Donmua.html">Đơn mua</a></li>
                      
                     </ul>
                 </nav>
@@ -69,48 +69,42 @@
 
     <div id="storeOwnerModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-header">
-                Thêm địa chỉ
-            </div>
-            <div class="modal-body">
-                <form class="modal-from">
-                    <label>Địa chỉ</label>
-                    <label for="province">Tỉnh / Thành phố</label>
-                    <select id="province" required>
-                      <option value="">-- Chọn Tỉnh / Thành phố --</option>
-                    </select>
-                    
-                    <label for="district">Quận / Huyện</label>
-                    <select id="district" required>
-                      <option value="">-- Chọn Quận / Huyện --</option>
-                    </select>
-                    
-                    <label for="ward">Phường / Xã</label>
-                    <select id="ward" required>
-                      <option value="">-- Chọn Phường / Xã --</option>
-                    </select>
-
-                    <label>Tên</label>
-                    <input type="text" required placeholder="Nhập tên" id="Ten" required>
-
-                    <label>Email</label>
-                    <input type="email" required placeholder="Nhập email" id="Email" required>
-
-                    <label>Số Điện Thoại</label>
-                    <input type="text" required placeholder="Nhập số điện thoại" id="SDT" required>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="Themdiachi" id="openModalBtn">Thêm địa chỉ</button>
-            </div>
+          <span class="close">&times;</span>
+          <div class="modal-header"><h3>Thêm địa chỉ</h3></div>
+          <div class="modal-body">
+            <form class="modal-from">
+              <label for="province">Tỉnh / Thành phố</label>
+              <select id="province" required><option value="">-- Chọn Tỉnh / Thành phố --</option></select>
+      
+              <label for="district">Quận / Huyện</label>
+              <select id="district" required><option value="">-- Chọn Quận / Huyện --</option></select>
+      
+              <label for="ward">Phường / Xã</label>
+              <select id="ward" required><option value="">-- Chọn Phường / Xã --</option></select>
+      
+              <label>Tên</label>
+              <input type="text" required placeholder="Nhập tên" id="Ten">
+      
+              <label>Email</label>
+              <input type="email" required placeholder="Nhập email" id="Email">
+      
+              <label>Số Điện Thoại</label>
+              <input type="text" required placeholder="Nhập số điện thoại" id="SDT">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="Themdiachi" id="openModalBtn">Thêm địa chỉ</button>
+          </div>
         </div>
-    </div>
+      </div>
+      
+      <div class="alert" id="alertBox"></div>
+      <div id="alert" class="alert-message"></div>
     <div id="footer">
     </div>
     <script src="../js/components/diachi.js"></script>
     <script type="module" src="../js/utils/components-loader-pages.js"></script>
+    <script src="../js/components/Giaodiennguoidung.js"></script>
 </body>
 
 </html>

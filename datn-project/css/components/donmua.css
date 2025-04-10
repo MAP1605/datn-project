@@ -48,6 +48,7 @@
 
 .user-orders__tab-btn:hover {
   background-color: #cce5ff;
+  
 }
 
 .user-orders__tab-btn--active {
@@ -55,6 +56,16 @@
   color: white;
   font-weight: bold;
 }
+.Select-screen-function{
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
 
 /* Danh sách đơn hàng */
 .user-orders__item {
@@ -326,4 +337,32 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease forwards;
+}
+
+.custom-notification.success {
+  background-color: #28a745; /* Xanh lá */
+}
+
+.custom-notification.error {
+  background-color: #dc3545; /* Đỏ */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
 }
