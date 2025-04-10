@@ -724,6 +724,19 @@ safeAddEventListener("link-add-product", () => {
   // xử lý
 });
 
+
+// thanh 3 gạch của phần quản lý 
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menu-toggle");
+  const sidebar = document.querySelector(".seller-sidebar");
+
+  menuToggle.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+  });
+});
+
+
+
 // Thêm các mục khác tương tự
 
 

@@ -1196,75 +1196,136 @@ cursor: default;
   display: none;
 }
 
+/* =================== Responsive =================== */
 
-/* Responsive layout for seller page */
-
-/* Laptop (max-width: 1200px) */
-@media (max-width: 1200px) {
-  .seller-sidebar {
-    width: 200px;
-  }
-  .seller-main {
-    padding: 20px;
-  }
-  .order-tabs {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-}
-
-/* iPad / Tablet (max-width: 1023px) */
-@media (max-width: 1023px) {
+/* Tablet */
+@media (max-width: 1024px) {
   .seller-layout {
     flex-direction: column;
   }
+
   .seller-sidebar {
     width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-  .seller-sidebar__menu {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
   }
+
   .seller-main {
-    padding: 20px 10px;
+    width: 100%;
+    padding: 16px;
   }
-  .order-tabs {
-    gap: 8px;
+
+  .order-tabs,
+  .product-tabs,
+  .statistic-header,
+  .wallet-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .order-tabs .tab,
+  .product-tabs .tab {
+    margin: 4px;
+  }
+
+  .order-table,
+  .product-table,
+  .statistic-table,
+  .wallet-table table {
     font-size: 14px;
   }
+
+  .btn,
+  .btn-add-product,
+  .btn-withdraw,
+  .btn-add-bank {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .order-product-row,
+  .order-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-img,
+  .product-list_img {
+    width: 60px !important;
+  }
+
+  .product-detail-modal__images img {
+    width: 80px;
+    margin: 4px 0;
+  }
+
   .order-table th,
-  .order-table td {
-    padding: 8px 10px;
-    font-size: 13px;
+  .order-table td,
+  .product-table th,
+  .product-table td {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .wallet-header,
+  .overview-box {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .wallet-balance h2 {
+    font-size: 18px;
+  }
+
+  .search-bar,
+  .wallet-search,
+  .statistic-header .search-input {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .buttons-ka button {
+    width: 100%;
+    margin: 4px 0;
   }
 }
+/* Biểu tượng 3 gạch */
+.hamburger-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
 
-/* Mobile (max-width: 973px) */
-@media (max-width: 973px) {
-  .order-table thead {
-    display: none;
-  }
-  .order-table tr {
+@media (max-width: 1024px) {
+  .hamburger-icon {
     display: block;
-    margin-bottom: 15px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10001;
+  }
+
+  .seller-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 240px;
     background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    z-index: 10000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
   }
-  .order-table td {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    font-size: 14px;
-  }
-  .order-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    color: #333;
+
+  .seller-sidebar.show {
+    display: block;
   }
 }
-
