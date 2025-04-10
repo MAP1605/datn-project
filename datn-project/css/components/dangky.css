@@ -1,0 +1,500 @@
+
+/* ==== AUTH PAGE CSS ==== */
+
+/* Container chính */
+.auth__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #4072c561;
+  margin: 3rem 0 ;
+  font-family: Arial, sans-serif;
+}
+
+/* Bên trái: logo + slogan */
+.auth__intro {
+  flex: 1;
+  text-align: center;
+  color: white;
+}
+
+.auth__logo {
+  max-width: 180px;
+  margin-bottom: 20px;
+}
+
+.auth__slogan {
+  font-size: 16px;
+  line-height: 1.6;
+  color: white;
+}
+
+/* Bên phải: form đăng ký */
+.auth__form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.auth__form-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.auth__title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Input và nút */
+.auth__input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.auth__button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color-rgba);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* Terms và link đăng nhập */
+.auth__terms,
+.auth__login-link {
+  font-size: 14px;
+  color: #666;
+  margin-top: 16px;
+}
+
+.auth__link {
+  color: var(--primary-color-rgba);
+  text-decoration: none;
+}
+
+.auth__link:hover {
+  text-decoration: underline;
+}
+
+/* ==== REGISTER STEP CSS ==== */
+
+/* Container chính */
+.register-step__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #4072c561;
+  margin: 3rem 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Form đăng ký */
+.register-step__form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.register-step__form-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.register-step__title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Input và nút */
+.register-step__input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.register-step__button {
+  width: 100%;
+  padding: 12px;
+  background-color:var(--primary-color-rgba);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* Terms và link đăng nhập */
+.register-step__terms,
+.register-step__login-link {
+  font-size: 14px;
+  color: #666;
+  margin-top: 16px;
+}
+
+.register-step__link {
+  color: var(--primary-color-rgba);
+  text-decoration: none;
+}
+
+.register-step__link:hover {
+  text-decoration: underline;
+}
+
+
+/* ==== LOGIN PAGE CSS ==== */
+
+/* Container chính */
+.login__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #4072c561;
+  margin: 3rem 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Form đăng nhập */
+.login__form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.login__form-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.login__title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Input và nút */
+.login__input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login__button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color-rgba);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* Terms và link đăng ký */
+.login__terms,
+.login__register-link {
+  font-size: 14px;
+  color: #666;
+  margin-top: 16px;
+}
+
+.login__link {
+  color: var(--primary-color-rgba);
+  text-decoration: none;
+}
+
+.login__link:hover {
+  text-decoration: underline;
+}
+
+/* ==== SELLER REGISTER CSS (giống auth__) ==== */
+
+/* Container chính */
+.seller-register__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  font-family: Arial, sans-serif;
+}
+
+/* Form chính */
+.seller-register__form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: #4072c561;
+  margin: 3rem 0;
+}
+
+.seller-register__form-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  margin: 3rem 0;
+  text-align: left;
+}
+
+.seller-register__title {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Form group */
+.seller-register__form-group {
+  margin-bottom: 20px;
+}
+
+.seller-register__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.seller-register__label--required {
+  color: red;
+  margin-right: 4px;
+}
+
+/* Input */
+.seller-register__input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Nút thêm địa chỉ */
+.seller-register__add-address {
+  margin-top: 8px;
+  display: inline-block;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Group nút hành động */
+.seller-register__button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Nút */
+.seller-register__button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.seller-register__button--save {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.seller-register__button--next {
+  background-color: var(--primary-color-rgba);
+  color: white;
+}
+
+
+/* =================== Responsive LAPTOP (≥ 1025px) =================== */
+/* Laptop thường giữ nguyên thiết kế mặc định nên không cần chỉnh gì */
+/* =================== Responsive TABLET (768px - 1024px) =================== */
+@media (max-width: 1024px) {
+  .auth__wrapper,
+  .register-step__wrapper,
+  .login__wrapper,
+  .seller-register__wrapper {
+    padding: 30px 20px;
+    gap: 40px;
+  }
+
+  .auth__form-box,
+  .register-step__form-box,
+  .login__form-box,
+  .seller-register__form-box {
+    max-width: 420px;
+    padding: 28px;
+  }
+}
+
+
+/* =================== Responsive SMARTPHONE (≤ 767px) =================== */
+@media (max-width: 767px) {
+  .auth__wrapper,
+  .register-step__wrapper,
+  .login__wrapper,
+  .seller-register__wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    padding: 20px 16px;
+  }
+
+  .auth__form-box,
+  .register-step__form-box,
+  .login__form-box,
+  .seller-register__form-box {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .auth__input,
+  .register-step__input,
+  .login__input,
+  .seller-register__input,
+  .auth__button,
+  .register-step__button,
+  .login__button,
+  .seller-register__button {
+    font-size: 15px;
+  }
+
+  .seller-register__actions,
+  .seller-register__button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .seller-register__button {
+    width: 100%;
+  }
+  .seller-register__wrapper {
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .seller-register__form-box {
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 3rem 3rem;
+  }
+
+  .seller-register__input {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+
+  .seller-register__button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .seller-register__button {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .seller-register__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .seller-register__label {
+    font-size: 14px;
+  }
+}
+
+
+.auth__wrapper,
+.register-step__wrapper,
+.login__wrapper,
+.seller-register__wrapper {
+  min-height: auto;
+  background-color: #4072c561;
+  padding: 40px 20px;
+  gap: 60px;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+}
+
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #444;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.custom-notification.success {
+  background-color: #4caf50;
+}
+
+.custom-notification.error {
+  background-color: #f44336;
+}
+.input-error {
+  border: 1px solid red !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+

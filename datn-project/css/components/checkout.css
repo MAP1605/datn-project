@@ -1,0 +1,250 @@
+/* ============================
+   CHECKOUT PAGE - PearNK
+   File: components/checkout.css
+   ============================ */
+
+.checkout-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Roboto', sans-serif;
+}
+
+/* ===== Địa chỉ nhận hàng ===== */
+.checkout-address {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-address__title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.checkout-address__info {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ===== Danh sách sản phẩm ===== */
+.checkout-products {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-products__header,
+.checkout-products__item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.checkout-products__header {
+    font-weight: bold;
+    color: #444;
+}
+
+.col {
+    padding: 0 10px;
+}
+
+.col--product {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.col--product img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.col--price,
+.col--qty,
+.col--total {
+    flex: 1;
+    text-align: center;
+    font-size: 15px;
+}
+
+/* ===== Tổng tiền ===== */
+.checkout-summary {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.checkout-summary__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.checkout-summary__total strong {
+    font-size: 18px;
+    color: red;
+}
+
+/* ===== Phương thức thanh toán ===== */
+.checkout-method {
+    padding: 16px;
+    font-size: 16px;
+}
+
+.checkout-method h3 {
+    margin-bottom: 2rem;
+    font-size: 18px;
+}
+
+.checkout-method label {
+    display: block;
+    cursor: pointer;
+}
+
+/* ===== Nút đặt hàng ===== */
+.checkout-action {
+    padding: 16px;
+    text-align: right;
+}
+
+.checkout-action__btn {
+    background-color: var(--primary-color, #0447b5bf);
+    color: #fff;
+    padding: 10px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.checkout-action__btn:hover {
+    opacity: 0.9;
+}
+
+/* ======================= */
+/* RESPONSIVE - TABLET     */
+/* ======================= */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .checkout-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .checkout-products__item {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .checkout-products__item img {
+        width: 80px;
+    }
+
+    .checkout-summary__row strong {
+        font-size: 16px;
+    }
+}
+
+/* ======================= */
+/* RESPONSIVE - MOBILE     */
+/* ======================= */
+@media (max-width: 767px) {
+    .checkout-container {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .checkout-address__title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .checkout-address__info {
+        font-size: 14px;
+        line-height: 1.5;
+        padding-bottom: 12px;
+    }
+
+    .checkout-products__header {
+        display: none;
+    }
+
+    .checkout-products__item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .checkout-products__item img {
+        width: 80px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .checkout-products__item .col--product {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    .checkout-products__item .col--price,
+    .checkout-products__item .col--qty,
+    .checkout-products__item .col--total {
+        font-size: 13px;
+        color: #444;
+    }
+
+    .col--price::before {
+        content: "Đơn giá: ";
+        font-weight: 500;
+    }
+
+    .col--qty::before {
+        content: "Số lượng: ";
+        font-weight: 500;
+    }
+
+    .col--total::before {
+        content: "Thành tiền: ";
+        font-weight: 500;
+        color: black;
+    }
+
+    .checkout-summary__row {
+        font-size: 14px;
+        justify-content: space-between;
+        padding: 4px 0;
+    }
+
+    .checkout-summary__total strong {
+        color: red;
+        font-size: 16px;
+    }
+
+    .checkout-method label {
+        font-size: 14px;
+    }
+
+    .checkout-action__btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 16px;
+    }
+}

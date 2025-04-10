@@ -17,7 +17,6 @@
     <!-- logo ở tên miền -->
     <link rel="icon" type="image/png" href="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" sizes="16x16">
 
-
 </head>
 
 <body>

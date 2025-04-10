@@ -44,7 +44,7 @@ $count = 0;
                 $id = $row['ID_San_Pham'];
             ?>
                 <!-- là đường dẫn tùy vào mỗi máy thường là /datn-project/datn-project/pages/product-detail.php nếu clone thẳng vào file htdocs -->
-                <a href="/GitClone/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="product__item" data-id="<?php echo $id; ?>">
+                <a href="/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="product__item" data-id="<?php echo $id; ?>">
                     <div class="product__img-wrap">
                         <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="product__img" />
                         <span class="product__discount-tag">
@@ -69,7 +69,7 @@ $count = 0;
                     </div>
                 </a>
 
-                <a href="./pages/product-detail.php?id=<?php echo $id; ?>" class="product__item product__item--hidden<?php echo $isHidden; ?>" data-id="<?php echo $id; ?>">
+                <a href="/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="product__item product__item--hidden<?php echo $isHidden; ?>" data-id="<?php echo $id; ?>">
                     <div class="product__img-wrap">
                         <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="product__img" />
                         <span class="product__discount-tag">

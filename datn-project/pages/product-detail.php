@@ -79,7 +79,99 @@ if (!$result || $result->num_rows == 0) {
     die("❌ Không tìm thấy sản phẩm");
 }
 $product = $result->fetch_assoc();
+
+// Lấy đánh giá của sản phẩm từ bảng Danh_Gia_San_Pham
+$sqlReview = "
+    SELECT dg.*, nm.Ho_Ten
+    FROM Danh_Gia_San_Pham dg
+    JOIN Người_Mua nm ON dg.ID_Nguoi_Mua = nm.ID_Nguoi_Mua
+    WHERE dg.ID_San_Pham = $id
+    ORDER BY dg.Ngay_Danh_Gia DESC
+";
+$resultReview = $conn->query($sqlReview);
+
+$sqlCapNhatSaoDB = "SELECT AVG(So_Sao) AS avg_rating FROM Danh_Gia_San_Pham WHERE ID_San_Pham = $id";
+$resultAvg = $conn->query($sqlCapNhatSaoDB);
+
+if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
+    $avgRating = round($rowAvg['avg_rating'], 1); // Làm tròn 1 chữ số thập phân
+
+    // Cập nhật lại cột So_Sao_Danh_Gia trong bảng San_Pham
+    $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
+    $conn->query($sqlUpdate);
+}
+
+
+if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+    $_SESSION['ID_Nguoi_Mua'] = 1;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
+
+
+    $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
+    $id_chi_tiet = intval($_POST['id_san_pham']); // thực chất là ID_Chi_Tiet_San_Pham
+    $so_luong = intval($_POST['so_luong']);
+
+    // ✅ Lấy ID_San_Pham từ Chi_Tiet_San_Pham (bắt buộc)
+    $stmt = $conn->prepare("SELECT ID_San_Pham FROM Chi_Tiet_San_Pham WHERE ID_Chi_Tiet_San_Pham = ?");
+    $stmt->bind_param("i", $id_chi_tiet);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if (!$row = $result->fetch_assoc()) {
+        die("❌ Không tìm thấy sản phẩm phù hợp.");
+    }
+    $id_san_pham = $row['ID_San_Pham'];
+
+    // ✅ Kiểm tra xem sản phẩm chi tiết đã có trong giỏ chưa
+    $stmt = $conn->prepare("
+        SELECT gh.ID_Gio_Hang 
+        FROM Gio_Hang gh
+        JOIN Chi_Tiet_Gio_Hang ctgh ON gh.ID_Gio_Hang = ctgh.ID_Gio_Hang
+        WHERE gh.ID_Nguoi_Mua = ? 
+          AND gh.ID_San_Pham = ? 
+          AND ctgh.ID_Chi_Tiet_San_Pham = ?
+    ");
+    $stmt->bind_param("iii", $id_nguoi_mua, $id_san_pham, $id_chi_tiet);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        // ✅ Đã có → cập nhật số lượng (dùng $so_luong em chọn!)
+        $id_gio_hang = $row['ID_Gio_Hang'];
+        $stmt = $conn->prepare("
+            UPDATE Chi_Tiet_Gio_Hang 
+            SET So_Luong = So_Luong + ? 
+            WHERE ID_Gio_Hang = ? AND ID_Chi_Tiet_San_Pham = ?
+        ");
+        $stmt->bind_param("iii", $so_luong, $id_gio_hang, $id_chi_tiet);
+        $stmt->execute();
+    } else {
+        // ✅ Chưa có → tạo giỏ hàng và chi tiết
+        $stmt = $conn->prepare("
+            INSERT INTO Gio_Hang (ID_Nguoi_Mua, ID_San_Pham) 
+            VALUES (?, ?)
+        ");
+        $stmt->bind_param("ii", $id_nguoi_mua, $id_san_pham);
+        $stmt->execute();
+        $id_gio_hang = $conn->insert_id;
+
+        // ✅ Dùng đúng $so_luong truyền lên
+        $stmt = $conn->prepare("
+            INSERT INTO Chi_Tiet_Gio_Hang (ID_Gio_Hang, ID_Chi_Tiet_San_Pham, So_Luong) 
+            VALUES (?, ?, ?)
+        ");
+        $stmt->bind_param("iii", $id_gio_hang, $id_chi_tiet, $so_luong);
+        $stmt->execute();
+    }
+
+    // ✅ Quay lại trang chi tiết, giữ lại ID sản phẩm chính
+    header("Location: product-detail.php?id=" . $id_san_pham . "&success=1");
+    exit;
+}
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -92,19 +184,67 @@ $product = $result->fetch_assoc();
 
     <!-- CSS chính -->
     <link rel="stylesheet" href="../css/main.css" />
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- logo ở tên miền -->
+    <link rel="icon" type="image/png" href="../assets/images/logo/CuongDao__Logo-PEARNK.png " sizes="16x16">
 </head>
 
 <body>
     <!-- Start header -->
-    <header id="header"></header>
+    <header id="header">
+        <!-- Header top -->
+        <div class="header__top">
+
+            <div class="header__top-left">
+                <a href="#" class="header__link">
+                    Đăng ký người bán
+                </a>
+            </div>
+            <div class="header__top-right">
+                <a href="" class="header__link">
+                    Đăng nhập
+                </a>
+                <a href="" class="header__link">
+                    Đăng ký
+                </a>
+            </div>
+
+        </div>
+        <!-- Header main -->
+        <div class="header__main">
+            <div class="header__logo">
+                <a href="/datn-project/index.html" class="header__logo-link">
+                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
+                </a>
+            </div>
+            <div class="header__search">
+                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
+                <button class="header__search-btn">
+                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
+                </button>
+            </div>
+
+            <!-- Giỏ hàng -->
+            <div class="header__cart">
+                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+                <span class="header__cart-count">0</span>
+                <div class="header__cart-dropdown">
+                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
+                    <ul class="header__cart-list"></ul>
+                    <div class="header__cart-total">Tổng: <b>₫0</b></div>
+                    <div class="header__cart-footer">
+                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
     <!-- End header -->
 
     <div class="main">
@@ -138,9 +278,11 @@ $product = $result->fetch_assoc();
 
                         <div class="product-detail__meta">
                             <div class="product-detail__rating">
-                                <span><i class="fa-solid fa-star"></i> <?php echo $product['So_Sao_Danh_Gia']; ?></span>
+                                <span id="productRating">
+                                    <i class="fa-solid fa-star"></i> <?php echo $product['So_Sao_Danh_Gia']; ?>
+                                </span>
                             </div>
-                            <div class="product-detail__review">0 đánh giá</div>
+                            <div id="productTotalReview" class="product-detail__review"></div>
                             <div class="product-detail__sold"><?php echo $product['Da_Ban']; ?> đã bán</div>
                         </div>
 
@@ -153,25 +295,34 @@ $product = $result->fetch_assoc();
                             </span>
                         </div>
 
+                        <!-- Số lượng -->
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
-                            <button class="product-detail__qty-btn">-</button>
-                            <input type="text" value="1" class="product-detail__qty-input" />
-                            <button class="product-detail__qty-btn">+</button>
-                            <span class="product-detail__stock">
-                                <?php echo $product['So_Luong_Ton']; ?> sản phẩm có sẵn
-                            </span>
+                            <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
+                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
+                            <span class="product-detail__stock"><?= $product['So_Luong_Ton'] ?> sản phẩm có sẵn</span>
                         </div>
 
                         <div class="product-detail__actions">
-                            <button class="product-detail__btn detail__btn--cart">
+                            <button id="addToCartBtn" class="product-detail__btn detail__btn--cart"
+                                data-id="<?= $id ?>"
+                                data-url="add-to-cart.php">
                                 <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                             </button>
-                            <button class="product-detail__btn detail__btn--buy">Mua ngay</button>
+
+                            <!-- Popup -->
+                            <div class="popup-cart" id="popupCart">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Sản phẩm đã được thêm vào Giỏ hàng</span>
+                            </div>
+
+                            <button type="button" class="product-detail__btn detail__btn--buy">Mua ngay</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Thông tin shop -->
                 <div class="product-detail__shop-info">
                     <div class="shop__info">
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($shop['Anh_Nguoi_Mua']); ?>" alt="Shop" class="shop__avatar" />
@@ -269,14 +420,18 @@ $product = $result->fetch_assoc();
                 </section>
 
                 <!-- Mô tả sản phẩm -->
+
                 <section class="detail__section product-detail__section">
                     <h2 class="product-detail__title">Mô tả sản phẩm</h2>
                     <div class="product-detail__description">
                         <?php
                         $raw = $product['Mo_Ta_Chi_Tiet'] ?? '';
-                        // Chuyển \n\n thành <p>, \n thường thành <br>
-                        $converted = nl2br(htmlspecialchars($raw));
-                        echo "<p>$converted</p>";
+                        $paragraphs = preg_split("/\n\s*\n/", trim($raw)); // Tách đoạn theo 2 dòng trống
+
+                        foreach ($paragraphs as $para) {
+                            $safeText = nl2br(htmlspecialchars(trim($para))); // Giữ xuống dòng bên trong đoạn
+                            echo "<p>$safeText</p>"; // Mỗi đoạn là 1 thẻ <p>
+                        }
                         ?>
                     </div>
                 </section>
@@ -287,129 +442,75 @@ $product = $result->fetch_assoc();
                     <h2 class="detail__title">Đánh giá sản phẩm</h2>
 
                     <div class="review__overview">
-                        <span class="review__score">4.9 trên 5</span>
+                        <span class="review__score"></span>
                         <span class="review__star">★★★★★</span>
-                        <span class="review__total">(183 đánh giá)</span>
+
                         <!-- Filter đánh giá -->
                         <div class="review__filters">
-                            <button class="review__filter-btn active">Tất cả</button>
-                            <button class="review__filter-btn">5 sao</button>
-                            <button class="review__filter-btn">4 sao</button>
-                            <button class="review__filter-btn">3 sao</button>
-                            <button class="review__filter-btn">2 sao</button>
-                            <button class="review__filter-btn">1 sao</button>
-                            <button class="review__filter-btn">Có bình luận</button>
-                            <button class="review__filter-btn">Có hình ảnh / video</button>
+                            <button class="review__filter-btn active" data-filter="all">Tất cả</button>
+                            <button class="review__filter-btn" data-filter="5">5 sao</button>
+                            <button class="review__filter-btn" data-filter="4">4 sao</button>
+                            <button class="review__filter-btn" data-filter="3">3 sao</button>
+                            <button class="review__filter-btn" data-filter="2">2 sao</button>
+                            <button class="review__filter-btn" data-filter="1">1 sao</button>
+                            <button class="review__filter-btn" data-filter="comment">Có bình luận</button>
+                            <button class="review__filter-btn" data-filter="image">Có hình ảnh / video</button>
                         </div>
+
                     </div>
 
 
                     <!-- Danh sách đánh giá -->
-                    <div class="review__list">
-                        <!-- review item -->
-                        <div class="review__item">
-                            <div class="review__user">
-                                <span class="review__user-name">Cường Ymir</span>
-                                <span class="review__star">★★★★★</span>
-                            </div>
-                            <div class="review__date">2024-12-25 | Phân loại hàng: Midnight</div>
-                            <p class="review__content">Lần đầu mua hàng giá trị cao cũng hốt. Mà mua máy thấy đúng chính
-                                hãng. Sử dụng thấy mướt. Mua đúng 5/5 được trợ giá tốt
-                                có 15 củ</p>
-                            <div class="review__images">
-                                <img src="../assets/images/product__detail/detail__media-review-img-1.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-2.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-3.webp"
-                                    alt="ảnh đánh giá">
-                            </div>
-                        </div>
-                        <!-- review item -->
-                        <div class="review__item">
-                            <div class="review__user">
-                                <span class="review__user-name">Cường Ymir</span>
-                                <span class="review__star">★★★★★</span>
-                            </div>
-                            <div class="review__date">2024-12-25 | Phân loại hàng: Midnight</div>
-                            <p class="review__content">Lần đầu mua hàng giá trị cao cũng hốt. Mà mua máy thấy đúng chính
-                                hãng. Sử dụng thấy mướt. Mua đúng 5/5 được trợ giá tốt
-                                có 15 củ</p>
-                            <div class="review__images">
-                                <img src="../assets/images/product__detail/detail__media-review-img-1.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-2.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-3.webp"
-                                    alt="ảnh đánh giá">
-                            </div>
-                        </div>
-                        <!-- review item -->
-                        <div class="review__item">
-                            <div class="review__user">
-                                <span class="review__user-name">Cường Ymir</span>
-                                <span class="review__star">★★★★★</span>
-                            </div>
-                            <div class="review__date">2024-12-25 | Phân loại hàng: Midnight</div>
-                            <p class="review__content">Lần đầu mua hàng giá trị cao cũng hốt. Mà mua máy thấy đúng chính
-                                hãng. Sử dụng thấy mướt. Mua đúng 5/5 được trợ giá tốt
-                                có 15 củ</p>
-                            <div class="review__images">
-                                <img src="../assets/images/product__detail/detail__media-review-img-1.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-2.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-3.webp"
-                                    alt="ảnh đánh giá">
-                            </div>
-                        </div>
-                        <!-- review item -->
-                        <div class="review__item">
-                            <div class="review__user">
-                                <span class="review__user-name">Cường Ymir</span>
-                                <span class="review__star">★★★★★</span>
-                            </div>
-                            <div class="review__date">2024-12-25 | Phân loại hàng: Midnight</div>
-                            <p class="review__content">Lần đầu mua hàng giá trị cao cũng hốt. Mà mua máy thấy đúng chính
-                                hãng. Sử dụng thấy mướt. Mua đúng 5/5 được trợ giá tốt
-                                có 15 củ</p>
-                            <div class="review__images">
-                                <img src="../assets/images/product__detail/detail__media-review-img-1.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-2.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-3.webp"
-                                    alt="ảnh đánh giá">
-                            </div>
-                        </div>
-                        <!-- review item -->
-                        <div class="review__item">
-                            <div class="review__user">
-                                <span class="review__user-name">Cường Ymir</span>
-                                <span class="review__star">★★★★★</span>
-                            </div>
-                            <div class="review__date">2024-12-25 | Phân loại hàng: Midnight</div>
-                            <p class="review__content">Lần đầu mua hàng giá trị cao cũng hốt. Mà mua máy thấy đúng chính
-                                hãng. Sử dụng thấy mướt. Mua đúng 5/5 được trợ giá tốt
-                                có 15 củ</p>
-                            <div class="review__images">
-                                <img src="../assets/images/product__detail/detail__media-review-img-1.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-2.webp"
-                                    alt="ảnh đánh giá">
-                                <img src="../assets/images/product__detail/detail__media-review-img-3.webp"
-                                    alt="ảnh đánh giá">
-                            </div>
+                    <?php if (!empty($review['Anh_Danh_Gia1'])): ?>
+                        <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia1']); ?>" alt="ảnh đánh giá">
+                    <?php endif; ?>
+                    <div class="review__list" id="review__list">
+                        <!-- review item (có bl + ảnh)-->
+                        <div class="review__list">
+                            <?php while ($review = $resultReview->fetch_assoc()): ?>
+                                <div class="review__item"
+                                    data-rating="<?php echo $review['So_Sao']; ?>"
+                                    data-has-comment="<?php echo !empty($review['Binh_Luan']) ? 'true' : 'false'; ?>"
+                                    data-has-image="<?php echo (!empty($review['Anh_Danh_Gia1']) || !empty($review['Anh_Danh_Gia2']) || !empty($review['Anh_Danh_Gia3'])) ? 'true' : 'false'; ?>">
+
+                                    <div class="review__user">
+                                        <span class="review__user-name"><?php echo htmlspecialchars($review['Ho_Ten']); ?></span>
+                                        <span class="review__star"><?php echo str_repeat("★", $review['So_Sao']); ?></span>
+                                    </div>
+
+                                    <div class="review__date"><?php echo $review['Ngay_Danh_Gia']; ?></div>
+
+                                    <p class="review__content"><?php echo nl2br(htmlspecialchars($review['Binh_Luan'])); ?></p>
+
+                                    <div class="review__images">
+                                        <?php if (!empty($review['Anh_Danh_Gia1'])): ?>
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia1']); ?>" alt="ảnh đánh giá">
+                                        <?php endif; ?>
+                                        <?php if (!empty($review['Anh_Danh_Gia2'])): ?>
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia2']); ?>" alt="ảnh đánh giá">
+                                        <?php endif; ?>
+                                        <?php if (!empty($review['Anh_Danh_Gia3'])): ?>
+                                            <img src="data:image/webp;base64,<?php echo base64_encode($review['Anh_Danh_Gia3']); ?>" alt="ảnh đánh giá">
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endwhile; ?>
                         </div>
                     </div>
 
                     <!-- Phân trang đánh giá -->
-                    <div class="review__pagination">
+                    <div class="review__pagination" id="review__pagination">
+                        <button class="page-btn"><i class="fa-solid fa-angle-left"></i></button>
                         <button class="page-btn active">1</button>
                         <button class="page-btn">2</button>
                         <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">5</button>
                         <button class="page-btn">...</button>
-                        <button class="page-btn">21</button>
+                        <button class="page-btn">6</button>
+                        <button class="page-btn">7</button>
+                        <button class="page-btn">8</button>
+                        <button class="page-btn"><i class="fa-solid fa-angle-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -417,17 +518,40 @@ $product = $result->fetch_assoc();
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
-        <div id="product"></div>
+        <section class="products">
+            <div class="container container__product">
+                <h2 class="product__title">Có thể bạn cũng thích</h2>
+                <?php include '../components/product__product-detail.php'; ?>
+            </div>
+        </section>
     </div>
-
-
 
     <!-- Start footer -->
     <footer id="footer"></footer>
     <!-- End footer -->
 
     <!-- JS: load component header/footer -->
-    <script type="module" src="../js/utils/components-loader-pages.js"></script>
+    <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+
+    <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
+
+
+    <!-- Thông báo -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Popup ảnh -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="popup-btn prev" id="popupPrevBtn">&#8592;</button>
+            <img id="popupImage" src="" alt="Ảnh đánh giá">
+            <button class="popup-btn next" id="popupNextBtn">&#8594;</button>
+        </div>
+    </div>
+
+    <!-- js cho product-detail -->
+    <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+
+    <script type="module" src="/datn-project/datn-project/js/pages/cart-items.js"></script>
 
 </body>
 
