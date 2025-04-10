@@ -1196,30 +1196,75 @@ cursor: default;
   display: none;
 }
 
-/* Ẩn phần header và định dạng dòng dữ liệu ở tablet/mobile */
-@media (max-width: 1023px), (max-width: 973px) {
+
+/* Responsive layout for seller page */
+
+/* Laptop (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .seller-sidebar {
+    width: 200px;
+  }
+  .seller-main {
+    padding: 20px;
+  }
+  .order-tabs {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+/* iPad / Tablet (max-width: 1023px) */
+@media (max-width: 1023px) {
+  .seller-layout {
+    flex-direction: column;
+  }
+  .seller-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .seller-sidebar__menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .seller-main {
+    padding: 20px 10px;
+  }
+  .order-tabs {
+    gap: 8px;
+    font-size: 14px;
+  }
+  .order-table th,
+  .order-table td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile (max-width: 973px) */
+@media (max-width: 973px) {
   .order-table thead {
     display: none;
   }
   .order-table tr {
-    display: flex;
-    flex-direction: column;
+    display: block;
+    margin-bottom: 15px;
+    background-color: #fff;
     padding: 10px;
-    margin-bottom: 10px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
   .order-table td {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
-    border: none;
-    font-size: 13px;
+    padding: 8px 0;
+    font-size: 14px;
   }
   .order-table td::before {
     content: attr(data-label);
     font-weight: bold;
-    margin-right: 10px;
+    color: #333;
   }
 }
+
