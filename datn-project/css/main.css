@@ -1,5 +1,8 @@
+/* CSS base*/
 @import url(./base/base.css);
 @import url(./base/variables.css);
+
+/* CSS components - Cường Đào */
 @import url(./components/header.css);
 @import url(./components/banner.css);
 @import url(./components/category.css);
@@ -8,3 +11,4 @@
 @import url(./components/product-detail.css);
 @import url(./components/cart.css);
 @import url(./components/checkout.css);
+@import url(./components/search.css);
