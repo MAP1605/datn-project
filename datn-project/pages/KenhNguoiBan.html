@@ -1,617 +1,577 @@
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Kênh người bán</title>
-    <!-- CSS (main) -->
-    <link rel="stylesheet" href="../css/main.css" />
-    <!-- CSS (font) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"  rel="stylesheet"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kênh người bán</title>
+<!-- CSS (main) -->
+<link rel="stylesheet" href="../css/main.css" />
+<!-- CSS (font) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"  rel="stylesheet"/>
 
-    <!-- CSS (icon) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-      </head>
-      <body>
-        <div id="header">
-        </div>
+<!-- CSS (icon) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<b>
+  <div id="header"></div>
+  <div class="container">
 
-          <div class="container">
-
-            <div class="seller-layout">
-
-              <!-- Sidebar bên trái -->
-              <aside class="seller-sidebar">
-                <ul class="seller-sidebar__menu">
-                  <li class="seller-sidebar__section">
-                    <p class="seller-sidebar__title">Quản lý đơn hàng</p>
-                    <a href="#" id="link-all-orders" class="seller-sidebar__link">Tất cả đơn hàng</a>
-                  </li>
-                  <li class="seller-sidebar__section">
-                    <p class="seller-sidebar__title">Quản lý sản phẩm</p>
-                    <a href="#" id="link-all-products" class="seller-sidebar__link">Tất cả sản phẩm</a>
-                    <a href="#" id="link-add-product" class="seller-sidebar__link">Thêm sản phẩm</a>
-                  </li>
-                  <li class="seller-sidebar__section">
-                    <p class="seller-sidebar__title">Thống kê</p>
-                    <a href="#" id="link-all-vin" class="seller-sidebar__link">Doanh thu</a>
-                    <a href="#" id="link-add-vin" class="seller-sidebar__link">Ví</a>
-                  </li>
-                </ul>
-              </aside>
-              
-              <main class="seller-main">
-            
-                <div class="container-content">
-                 <!-- MODAL CHI TIẾT ĐƠN HÀNG -->
-                  <div id="order-detail-modal"class="modal">
-                  <div class="modal-content">
-                    <span class="close close-order-modal">&times;</span>
-                    <h2>Chi tiết đơn hàng</h2>
-                    <br>
-                    <hr>
-                    <div class="order-detail-info">
-                      <br>
-                      <p><strong>Mã đơn hàng:</strong> <span class="order-id">#0000</span></p>
-                      <br>
-                      <p><strong>Người nhận:</strong> <span class="order-recipient">---</span></p>
-                      <br>
-                      <p><strong>Địa chỉ:</strong> <span class="order-address">---</span></p>
-                      <br>
-                      <p><strong>Trạng thái đơn hàng:</strong> <span class="order-status label-cancelled">---</span></p>
-                      <br>
-                      <p><strong>Ngày tạo:</strong> <span class="order-date">---</span></p>
-                      <br>
+              <div class="seller-layout">
+                    <!-- Nút mở sidebar -->
+                    <div class="sidebar-toggle" id="sidebar-toggle">
+                      <i class="fas fa-bars"></i> Menu
                     </div>
+                <!-- SIDEBAR CHUẨN -->
+                <aside class="seller-sidebar" id="sidebar">
+                  <ul class="seller-sidebar__menu">
+                    <li class="seller-sidebar__section">
+                      <p class="seller-sidebar__title">Quản lý đơn hàng</p>
+                      <a href="#" class="seller-sidebar__link" data-section="order-section">Tất cả đơn hàng</a>
+                    </li>
+                    <li class="seller-sidebar__section">
+                      <p class="seller-sidebar__title">Quản lý sản phẩm</p>
+                      <a href="#" class="seller-sidebar__link" data-section="product-section">Tất cả sản phẩm</a>
+                      <a href="#" class="seller-sidebar__link" data-section="product-form-add">Thêm sản phẩm</a>
+                    </li>
+                    <li class="seller-sidebar__section">
+                      <p class="seller-sidebar__title">Thống kê</p>
+                      <a href="#" class="seller-sidebar__link" data-section="statistic-section">Doanh thu</a>
+                      <a href="#" class="seller-sidebar__link" data-section="wallet">Ví</a>
+                    </li>
+                  </ul>
+                </aside>
 
-                    <hr>
-                    <div class="order-detail-products">
-                      <div class="order-product-row">
-                        <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh" width="50px"></div>
-                        <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                        <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                        <div class="order-product-price"><strong>Giá:</strong> ---</div>
+        
+                <main class="seller-main">
+      
+                 <div class="container-content">
+                    <!-- MẪU CHUẨN CHO CÁC MODAL CÓ THỂ TÁI SỬ DỤNG -->
+                    <div class="modal" id="orderDetailModal">
+                      <div class="modal__content">
+                        <span class="modal__close" id="closeOrderModal" >&times;</span>
+                        <h2 class="modal__title">Tiêu đề modal</h2>
+
+                        <div class="modal__section modal__order-info">
+                          <h3 class="modal__subtitle">Thông tin đơn hàng</h3>
+                          <p><strong>Mã đơn hàng:</strong> <span class="modal__order-id">#0000</span></p>
+                          <p><strong>Người nhận:</strong> <span class="modal__order-recipient">---</span></p>
+                          <p><strong>Địa chỉ:</strong> <span class="modal__order-address">---</span></p>
+                          <p><strong>Trạng thái:</strong> <span class="modal__order-status">---</span></p>
+                          <p><strong>Ngày tạo:</strong> <span class="modal__order-date">---</span></p>
+                        </div>
+
+                        <div class="modal__section modal__product-list">
+                          <h3 class="modal__subtitle">Sản phẩm</h3>
+                          <div class="modal__products"></div>
+                        </div>
+
+                        <div class="modal__section modal__shipping">
+                          <h3 class="modal__subtitle">Vận chuyển</h3>
+                          <p><strong>Phương thức:</strong> <span class="modal__shipping-method">---</span></p>
+                          <p><strong>Phí vận chuyển:</strong> <span class="modal__shipping-fee">₫0</span></p>
+                        </div>
+
+                        <div class="modal__section modal__payment">
+                          <h3 class="modal__subtitle">Thanh toán</h3>
+                          <p><strong>Phương thức:</strong> <span class="modal__payment-method">---</span></p>
+                          <p><strong>Trạng thái:</strong> <span class="modal__payment-status">---</span></p>
+                        </div>
+
+                        <div class="modal__section modal__note">
+                          <h3 class="modal__subtitle">Ghi chú từ người mua</h3>
+                          <p class="modal__order-note">---</p>
+                        </div>
+
+                        <div class="modal__section modal__total">
+                          <p><strong>Tổng cộng:</strong> <span class="modal__order-total">₫0</span></p>
+                        </div>
+
+                        <div class="modal__actions">
+                          <button class="modal__button" data-close>Đóng</button>
+                        </div>
                       </div>
                     </div>
-                    <div class="order-detail-products">
-                      <div class="order-product-row">
-                        <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh" width="50px"></div>
-                        <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                        <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                        <div class="order-product-price"><strong>Giá:</strong> ---</div>
-                      </div>
-                    </div>
-                    <div class="order-detail-products">
-                      <h3>Sản phẩm</h3>
-                      <div class="order-product-row">
-                        <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh" width="50px"></div>
-                        <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                        <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                        <div class="order-product-price"><strong>Giá:</strong> ---</div>
-                      </div>
-                    </div>
-
-                    <hr>
-                    <div class="order-detail-summary">
-                      <p><strong>Tổng cộng:</strong> <span class="order-total">---</span></p>
-                    </div>
-
-                    <div class="buttons-ka">
-                      <button class="Submit close-order-modal">Đóng</button>
-                    </div>
-                  </div>
-                </div>
+                
 
 
-                    <!-- PHẦN DANH SÁCH TẤT CẢ ĐƠN HÀNG -->
-                    <div id="order-section" class="order-table-container">  
-                      <div class="order-tabs">
-                        <div class="tab active" data-filter="Tất cả">Tất cả</div>
-                        <div class="tab" data-filter="Chờ xác nhận">Chờ xác nhận</div>
-                        <div class="tab" data-filter="Đang giao">Đang giao</div>
-                        <div class="tab" data-filter="Hoàn thành">Hoàn thành</div>
-                        <div class="tab" data-filter="Trả hàng">Trả hàng</div>
-                        <div class="tab" data-filter="Hủy">Hủy</div>
-                      </div>
-                      <table class="order-table" cellspacing="0" cellpadding="5">
-                        <thead>
-                          <tr>
-                            <th><input type="checkbox" /></th>
-                            <th>Mã đơn hàng</th>
-                            <th>Trạng thái</th>
-                            <th>Thời gian đặt hàng</th>
-                            <th>Tổng hóa đơn</th>
-                            <th>Hành động</th>
+                  <!-- Danh sách đơn hàng -->
+                  <section id="order-section" class="order-section hidden">
+                    <div class="order-section__tabs">
+                      <div class="order-section__tab order-section__tab--active" data-filter="Tất cả">Tất cả</div>
+                      <div class="order-section__tab" data-filter="Chờ xác nhận">Chờ xác nhận</div>
+                      <div class="order-section__tab" data-filter="Đang giao">Đang giao</div>
+                      <div class="order-section__tab" data-filter="Hoàn thành">Hoàn thành</div>
+                      <div class="order-section__tab" data-filter="Trả hàng">Trả hàng</div>
+                      <div class="order-section__tab" data-filter="Hủy">Hủy</div>
+                    </div>
+
+                    <div class="order-section__table-wrapper">
+                      <table class="order-table">
+                        <thead class="order-table__head">
+                          <tr class="order-table__row">
+                            <th class="order-table__cell"><input type="checkbox" /></th>
+                            <th class="order-table__cell">Mã đơn hàng</th>
+                            <th class="order-table__cell">Trạng thái</th>
+                            <th class="order-table__cell">Thời gian đặt hàng</th>
+                            <th class="order-table__cell">Tổng hóa đơn</th>
+                            <th class="order-table__cell">Hành động</th>
                           </tr>
                         </thead>
-                        <tbody id="order-list">
-                          <tbody id="order-list">
-                            <tr data-status="Chờ xác nhận">
-                              <td data-label="Chọn"><input type="checkbox" /></td>
-                              <td data-label="Mã đơn hàng">#0123456789</td>
-                              <td data-label="Trạng thái">Chờ xác nhận</td>
-                              <td data-label="Thời gian đặt hàng">20:30 14/11/2024</td>
-                              <td data-label="Tổng hóa đơn">₫888.998</td>
-                              <td data-label="Hành động">
-                                <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
-                              </td>
-                            </tr>
-                            <tr data-status="Hoàn thành">
-                              <td data-label="Chọn"><input type="checkbox" /></td>
-                              <td data-label="Mã đơn hàng">#2468101214</td>
-                              <td data-label="Trạng thái"><span class="status-completed">Hoàn thành</span></td>
-                              <td data-label="Thời gian đặt hàng">07:00 17/05/2025</td>
-                              <td data-label="Tổng hóa đơn">₫888.998</td>
-                              <td data-label="Hành động">
-                                <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
-                              </td>
-                            </tr>
-                          </tbody>
-                          
+                        <tbody id="order-list" class="order-table__body">
+                          <tr class="order-table__row"
+                          data-order='{
+                            "id": "#123456",
+                            "recipient": "Nguyễn Văn A",
+                            "address": "123 Đường ABC, Hà Nội",
+                            "status": "Đang giao",
+                            "date": "12/04/2025",
+                            "products": [
+                              {
+                                "image": "../assets/images/product1.jpg",
+                                "name": "Sản phẩm A",
+                                "quantity": 2,
+                                "price": "₫1.000.000"
+                              },
+                              {
+                                "image": "../assets/images/product2.jpg",
+                                "name": "Sản phẩm B",
+                                "quantity": 1,
+                                "price": "₫500.000"
+                              }
+                            ],
+                            "payment": {
+                              "method": "Thanh toán khi nhận hàng",
+                              "status": "Chưa thanh toán"
+                            },
+                            "shipping": {
+                              "method": "Giao hàng tiết kiệm",
+                              "fee": "₫30.000"
+                            },
+                            "note": "Giao giờ hành chính",
+                            "total": "₫1.530.000"
+                          }'>
+                        </tr>
+                        
+
+                            <td class="order-table__cell" data-label="Chọn"><input type="checkbox" /></td>
+                            <td class="order-table__cell" data-label="Mã đơn hàng">#0123456789</td>
+                            <td class="order-table__cell" data-label="Trạng thái">Chờ xác nhận</td>
+                            <td class="order-table__cell" data-label="Thời gian đặt hàng">20:30 14/11/2024</td>
+                            <td class="order-table__cell" data-label="Tổng hóa đơn">₫888.998</td>
+                            <td class="order-table__cell" data-label="Hành động">
+                              <button class="order-table__button btn-view-order-detail">Chi tiết</button>
+                            </td>
+                          </tr>
+                          <tr class="order-table__row" data-status="Chờ xác nhận"
+                          data-order='{
+                            "id": "#0123456789",
+                            "recipient": "Nguyễn Văn A",
+                            "address": "123 Hà Nội",
+                            "status": "Hòan thành",
+                            "date": "20:30 14/11/2024",
+                            "total": "₫888.998",
+                            "products": [
+                              {
+                                "image": "../assets/images/CuongDao__Logo-PEARNK.png",
+                                "name": "Điện thoại A",
+                                "quantity": 2,
+                                "price": "₫4.000.000"
+                              },
+                              {
+                                "image": "../assets/images/CuongDao__Logo-PEARNK.png",
+                                "name": "Tai nghe B",
+                                "quantity": 1,
+                                "price": "₫888.998"
+                              }
+                            ]
+                          }'>
+                      
+                            <td class="order-table__cell"><input type="checkbox" /></td>
+                            <td class="order-table__cell">#2468101214</td>
+                            <td class="order-table__cell"><span class="order-table__status status-completed">Hoàn thành</span></td>
+                            <td class="order-table__cell">07:00 17/05/2025</td>
+                            <td class="order-table__cell">₫888.998</td>
+                            <td class="order-table__cell">
+                              <button class="order-table__button btn-view-order-detail">Chi tiết</button>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
-                  </div>
+                    </section>
 
 
-                <!-- PHẦN TẤT CẢ SẢN PHẨM -->
-                <div id="product-section" class="hidden">
-                <div class="section">
-                  <div class="product-tabs">
-                    <div class="tab active" data-filter="Tất cả sản phẩm">Tất cả sản phẩm</div>
-                    <div class="tab" data-filter="Đang bán">Đang bán</div>
-                    <div class="tab" data-filter="Ăn gậy">Ăn gậy</div>
-                    <div class="tab" data-filter="Ngừng bán">Ngừng bán</div>
-                    <button class="btn-add-product">  Thêm mới</button>
-                  </div>
-                <div class="search-bar">
-                  <input type="text" class="input-search" placeholder="Tìm kiếm sản phẩm...">
-                </div>
-  
-                <table class="product-table">
-                  <thead>
-                    <tr>
-                      <th><input type="checkbox"></th>
-                      <th>Hình ảnh</th>
-                      <th>Tên sản phẩm</th>
-                      <th>Số lượng</th>
-                      <th>Giá</th>
-                      <th>Đã bán</th>
-                      <th>Trạng thái</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody  id="product-list">
-                    <tr class="product-row" data-status="Đang bán">
-                      <td><input type="checkbox"></td>
-                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="hình ảnh " class="product-list_img" width="80px"></td>
-                      <td class="btn-chi-tiet-san-pham">Điện thoại A</td>
-                      <td class="btn-chi-tiet-san-pham">100</td>
-                      <td class="btn-chi-tiet-san-pham">5.000.000đ</td>
-                      <td class="btn-chi-tiet-san-pham">50</td>
-                      <td class="btn-chi-tiet-san-pham"><span class="status-active">Đang bán</span></td>
-                      <td>
-                        <span class="icon btn-delete-product">🗑</span>
-                        <span class="icon btn-edit-product">🛠</span>
-                      </td>
-                    </tr>
-                    <tr class="product-row" data-status="Ăn gậy">
-                      <td><input type="checkbox"></td>
-                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                      <td class="btn-chi-tiet-san-pham">Điện thoại B</td>
-                      <td class="btn-chi-tiet-san-pham">50</td>
-                      <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
-                      <td class="btn-chi-tiet-san-pham">20</td>
-                      <td class="btn-chi-tiet-san-pham"><span class="status-blocked">Ăn gậy</span></td>
-                      <td>
-                        <span class="icon btn-delete-product">🗑</span>
-                        <span class="icon btn-edit-product">🛠</span>
-                      </td>
-                    </tr>
-                    <tr class="product-row" data-status="Ngừng bán">
-                      <td><input type="checkbox"></td>
-                      <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                      <td class="btn-chi-tiet-san-pham">Điện thoại C</td>
-                      <td class="btn-chi-tiet-san-pham">50</td>
-                      <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
-                      <td class="btn-chi-tiet-san-pham">20</td>
-                      <td class="btn-chi-tiet-san-pham"><span class="status-Stop_selling">Ngừng bán</span></td>
-                      <td>
-                        <span class="icon btn-delete-product">🗑</span>
-                        <span class="icon btn-edit-product">🛠</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>  
-                  </div>
-                </div>
-
-                <!-- Thêm sản phẩm  -->
-                <div class="Container-ka product-form-ka hidden">
-                  <div class="Content-ka">
-                    <section class="product-form-ka">
-                      <h2>Thông tin cơ bản</h2>
-                      <form>
-                        <div class="from-group-ka">
-                          <label>Hình ảnh sản phẩm:</label>
-                          <div class="img-box-ka" id="product-image-box">
-                            <input type="file"   accept="image/*" id="product-image-input" style="display: none;">
-                            <img id="product-image-preview" style="max-width: 100%; display: none;" />
-                            <span class="img-text">Hình ảnh sản phẩm</span>
+                    <!-- Tất cả sản phẩm -->
+                    <section id="product-section" class="product-section hidden">
+                      <div class="product-section__header">
+                        <div class="product-section__tabs">
+                          <div class="product-section__tab product-section__tab--active" data-filter="Tất cả sản phẩm">Tất cả sản phẩm</div>
+                          <div class="product-section__tab" data-filter="Đang bán">Đang bán</div>
+                          <div class="product-section__tab" data-filter="Ăn gậy">Ăn gậy</div>
+                          <div class="product-section__tab" data-filter="Ngừng bán">Ngừng bán</div>
+                        </div>
+                        <button class="product-section__add-btn btn-add-product">Thêm mới</button>
+                      </div>
+                    
+                      <div class="product-section__search">
+                        <input type="text" class="product-section__search-input input-search" placeholder="Tìm kiếm sản phẩm...">
+                      </div>
+                    
+                      <div class="product-section__table">
+                        <table class="product-table">
+                          <thead>
+                            <tr>
+                              <th><input type="checkbox"></th>
+                              <th>Hình ảnh</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Số lượng</th>
+                              <th>Giá</th>
+                              <th>Đã bán</th>
+                              <th>Trạng thái</th>
+                              <th>Hành động</th>
+                            </tr>
+                          </thead>
+                          <tbody id="product-list">
+                            <tr class="product-table__row" data-status="Đang bán">
+                              <td><input type="checkbox"></td>
+                              <td class="product-table__image btn-product-detail">
+                                <img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="ảnh sản phẩm" class="product-table__img" width="50px">
+                              </td>
+                              <td class="product-table__name btn-product-detail">Điện thoại A</td>
+                              <td class="product-table__qty btn-product-detail">100</td>
+                              <td class="product-table__price btn-product-detail">5.000.000đ</td>
+                              <td class="product-table__sold btn-product-detail">50</td>
+                              <td class="product-table__status btn-product-detail"><span class="status-active">Đang bán</span></td>
+                              <td class="product-table__actions">
+                                <span class="icon btn-delete-product">🗑</span>
+                                <span class="icon btn-edit-product">🛠</span>
+                              </td>
+                            </tr>
+                            <!-- Thêm các dòng khác nếu cần -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                    
+                    
+                    <!-- Thêm sản phẩm -->
+                    <section id="product-form-add" class="product-form hidden">
+                      <h2 class="product-form__title">Thêm sản phẩm</h2>
+                    
+                      <form class="product-form__form" id="product-form">
+                        <!-- Ảnh sản phẩm (3 ảnh) -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Hình ảnh sản phẩm:</label>
+                          <div class="product-form__images">
+                            <div class="product-form__image-box product-image-box" id="product-image-box-1">
+                              <input type="file" class="product-image-input" hidden />
+                              <img class="product-image-preview" style="display: none" />
+                              <span class="img-text">Hình ảnh 1</span>
+                            </div>
+                            <div class="product-form__image-box product-image-box">
+                              <input type="file" class="product-image-input" hidden />
+                              <img class="product-image-preview" style="display: none" />
+                              <span class="img-text">Hình ảnh 2</span>
+                            </div>
+                            <div class="product-form__image-box product-image-box">
+                              <input type="file" class="product-image-input" hidden />
+                              <img class="product-image-preview" style="display: none" />
+                              <span class="img-text">Hình ảnh 3</span>
+                            </div>
                           </div>
                         </div>
-
-
-                        <div class="from-group-ka">
-                          <label>Hình ảnh sản phẩm:</label>
-                          <div class="img-box-ka product-image-box">
-                            <input type="file" accept="image/*" class="product-image-input" style="display: none;">
-                            <img class="product-image-preview" style="max-width: 100%; display: none;" />
-                            <span class="img-text">Hình ảnh sản phẩm</span>
-                          </div>
-                        </div>
-                        
-                        <div class="from-group-ka">
-                          <label>Hình ảnh sản phẩm:</label>
-                          <div class="img-box-ka product-image-box">
-                            <input type="file" accept="image/*" class="product-image-input" style="display: none;">
-                            <img class="product-image-preview" style="max-width: 100%; display: none;" />
-                            <span class="img-text">Hình ảnh sản phẩm</span>
-                          </div>
-                        </div>
-                        
-                        
-                        <div class="from-group-ka">
-                          <label>Ảnh bìa:</label>
-                          <div class="img-box-ka" id="cover-image-box">
-                            <input type="file" accept="image/*" id="cover-image-input" style="display: none;">
-                            <img id="cover-image-preview" style="max-width: 100%; display: none;" />
+                    
+                        <!-- Ảnh bìa -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Ảnh bìa:</label>
+                          <div class="product-form__image-box" id="cover-image-box">
+                            <input type="file" id="cover-image-input" hidden />
+                            <img id="cover-image-preview" style="display: none" />
                             <span class="img-text">Ảnh bìa</span>
                           </div>
                         </div>
-                        
-                        <div class="from-group-ka">
-                          <label>Tên sản phẩm:</label>
-                          <input type="text" id="product-name">
+                    
+                        <!-- Tên, giá, số lượng, tình trạng -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Tên sản phẩm:</label>
+                          <input type="text" class="product-form__input" id="product-name" />
                         </div>
-                        
-                        <div class="from-group-ka">
-                          <label>Giá gốc:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Giá gốc:</label>
+                          <input type="text" class="product-form__input" id="product-original-price" />
                         </div>
-                        
-                        <div class="from-group-ka">
-                          <label>Giá bán:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Giá bán:</label>
+                          <input type="text" class="product-form__input" id="product-price" />
                         </div>
-
-                        <div class="from-group-ka">
-                          <label>Số lượng tồn:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Số lượng tồn:</label>
+                          <input type="text" class="product-form__input" id="product-stock" />
                         </div>
-
-                        <div class="from-group-ka">
-                          <label>Tình trạng:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Tình trạng:</label>
+                          <input type="text" class="product-form__input" id="product-status" />
                         </div>
-
-                        <div class="from-group-ka">
-                          <label>hạn bảo hàng:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Hạn bảo hành:</label>
+                          <input type="text" class="product-form__input" id="product-warranty-time" />
                         </div>
-
-                        <div class="from-group-ka">
-                          <label>Loại bảo hành:</label>
-                          <input type="text" id="product-name">
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Loại bảo hành:</label>
+                          <input type="text" class="product-form__input" id="product-warranty-type" />
                         </div>
-                        
-                        <div class="from-group-ka">
-                          <label for="product-category">Danh mục:</label>
-                          <select id="product-category" class="product-form__select">
+                    
+                        <!-- Danh mục -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Danh mục:</label>
+                          <select class="product-form__select" id="product-category">
                             <option value="">-- Chọn danh mục --</option>
                             <option value="dien-thoai">Điện thoại</option>
                             <option value="may-tinh">Máy tính</option>
                             <option value="thoi-trang">Thời trang</option>
                             <option value="do-gia-dung">Đồ gia dụng</option>
                             <option value="sach">Sách</option>
-                            <!-- Thêm danh mục khác nếu cần -->
                           </select>
                         </div>
-                        
-                
-                        <div class="from-group-ka">
-                          <label>Mô tả sản phẩm:</label>
-                          <textarea class="textareas" id="product-description"></textarea>
-                        </div>
-                      </form>
-                
-                      <h2>Thông tin chi tiết</h2>
-                      <form>
-                        <div class="from-group-ka">
-                          <label>Thương hiệu:</label>
-                          <input type="text" value="No brand" id="product-brand"> 
-                        </div>
-                        <div class="from-group-ka">
-                          <label>Xuất xứ:</label>
-                          <input type="text" value="Việt Nam" id="product-origin"> 
-                        </div>
-                      </form>
-                
-                      <h2>Thông tin bán hàng</h2>
-                      <form>
-                        <div class="from-group-ka">
-                          <label>Giá:</label>
-                          <input type="text" id="product-price"> 
-                        </div>
-                        <div class="from-group-ka">
-                          <label>Kho hàng:</label>
-                          <input type="text" id="product-stock"> 
-                        </div>
-                      </form>
-                
-                      <div class="buttons-ka">
-                        <button class="Cancel">Hủy</button>
-                        <button class="Submit">Thêm sản phẩm</button>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-                
-                <!-- khu vực sửa sản phẩm -->
-                <div class="Container-sua hidden">
-                  <h2>Sửa sản phẩm</h2>
-                  <form>
-                    <div class="from-group-ka">
-                      <label>Tên sản phẩm:</label>
-                      <input type="text" id="edit-name">
-                    </div>
-                    <div class="from-group-ka">
-                      <label>Giá:</label>
-                      <input type="text" id="edit-price">
-                    </div>
-                    <div class="from-group-ka">
-                      <label>Thương hiệu:</label>
-                      <input type="text" id="edit-name">
-                    </div>
-                    <div class="from-group-ka">
-                      <label>Xuất xứ:</label>
-                      <input type="text" id="edit-name">
-                    </div>
-                    <div class="from-group-ka">
-                      <label>Kho hàng:</label>
-                      <input type="text" id="edit-stock">
-                    </div>
-                    <div class="buttons-ka">
-                      <button type="button" class="Cancel">Hủy</button>
-                      <button type="button" class="Update">Cập nhật</button>
-                    </div>
-                  </form>
-                </div>
-                
-                <!-- MODAL chi tiết sản phẩm  -->
-                <div id="product-detail-modal" class="product-detail-modal modal">
-                  <div class="product-detail-modal__content modal-content">
-                    <span class="product-detail-modal__close">&times;</span>
-                    <h2 class="product-detail-modal__title">Chi tiết sản phẩm</h2>
-                    <br>
-                    <hr>
-                    <br>
-                    <div class="product-detail-modal__info">
-                      <p><strong>Mã sản phẩm:</strong> <span class="product-detail-modal__id">SP001</span></p>
-                      <br>
-                      <p><strong>Tên sản phẩm:</strong> <span class="product-detail-modal__name">Điện thoại XYZ</span></p>
-                      <br>
-                      <p><strong>Giá gốc:</strong> <span class="product-detail-modal__name">3M</span></p>
-                      <br>
-                      <p><strong>Số lượng tồn:</strong> <span class="product-detail-modal__name">100</span></p>
-                      <br>
-                      <p><strong>Thương hiệu:</strong> <span class="product-detail-modal__brand">No brand</span></p>
-                      <br>
-                      <p><strong>Xuất xứ:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
-                      <br>
-                      <p><strong>Tình trạng:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
-                      <br>
-                      <p><strong>Hạn bảo hàng:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
-                      <br>
-                      <p><strong>Loại bảo hành:</strong> <span class="product-detail-modal__origin">Việt Nam</span></p>
-                      <br>
-                      <p><strong>Tổng kho:</strong> <span class="product-detail-modal__stock">100</span></p>
-                      <br>
-                      <p><strong>Giá bán:</strong> <span class="product-detail-modal__price">5.000.000đ</span></p>
-                      <br>
-                    </div>
-                
-                    <hr>
-                    <br>
-                    <div class="product-detail-modal__description">
-                      <h3>Mô tả sản phẩm</h3>
-                      <p>Đây là sản phẩm test mô tả, rất chất lượng và hot trend hiện nay...</p>
-                    </div>
-                    <br>
-                    <hr>
-                    <br>
-                    <div class="product-detail-modal__images">
-                      <h3>Hình ảnh</h3>
-                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
-                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
-                      <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
-                    </div>
-                
-                    <div class="product-detail-modal__actions">
-                      <button class="product-detail-modal__button product-detail-modal__button--close">Đóng</button>
-                    </div>
-                  </div>
-                </div>
-                
-
-
-                <!-- Tổng quan doanh thu -->
-                <div class="doanhthu-section hidden">
-                  <div class="overview-box">
-                    <div class="overview-item">
-                      <h4><strong>Chưa thanh toán tổng cộng</strong></h4>
-                      <div>                    
-                        <span id="total-unpaid-amount">0đ</span>
-                      </div>  
-  
-                    </div>
-                      <div class="overview-item">
-                        <h4>Đã thanh toán</h4>
-                        <span id="paid-this-week">0đ</span>
-                      </div>
-                    <div class="overview-item">
-                      <h4>Tổng cộng</h4>
-                      <span id="total-all-amount">0₫</span>
-                    </div>
                     
-                  </div>
-                  <!-- Chi tiết doanh thu -->
-                <div class="statistic-detail">
-                  <div class="statistic-header">
-                    <div class="tab active">Chưa thanh toán</div>
-                    <div class="tab">Đã thanh toán</div>
-                    <input type="text" class="search-input" placeholder="Tìm kiếm đơn hàng">
-                  </div>
-              
-                  <div class="statistic-table-container">
-                    <table class="statistic-table">
-                      <thead>
-                        <tr>
-                          <th>Đơn hàng</th>
-                          <th>Trạng thái</th>
-                          <th>Phương thức thanh toán</th>
-                          <th>Số tiền chưa thanh toán</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="order-info">
-                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                              <div>
-                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                                <div>Đào Việt Cường</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Chưa hoàn thành</td>
-                          <td>Thanh toán khi nhận hàng</td>
-                          <td class="amount-cell">₫199.000</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="order-info">
-                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                              <div>
-                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                                <div>Nguyễn Trọng Đại</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Đã hoàn thành</td>
-                          <td>Thanh toán khi nhận hàng</td>
-                          <td class="amount-cell">₫999.000</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="order-info">
-                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                              <div>
-                                <div>Mã đơn hàng <button class="btn-copy">coby</button></div>
-                                <div>Phan Thế Dũng </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Chưa hoàn thành</td>
-                          <td>Thanh toán qua ví</td>
-                          <td class="amount-cell">₫140.000.000</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="order-info">
-                              <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                              <div>
-                                <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                                <div>Nguyễn Quang Hà</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>Chưa hoàn thành</td>
-                          <td>Trả sau</td>
-                          <td class="amount-cell">₫19.411.000</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                </div>
-                  <!-- Bắt đầu phần container ví -->
-                <div class="wallet-container hidden">
-                  <!-- Tổng quan số dư -->
-                  <div class="wallet-overview">
-                    <h3>Tổng quan</h3>
-                    <div class="wallet-header">
-                      <div class="wallet-balance">
-                        <p>Số dư</p>
-                        <h2>1.000.000.000đ</h2>
-                        <button class="btn-withdraw">Rút tiền</button>
-                      </div>
-                      <div class="wallet-bank">
-                        <p>Tài khoản ngân hàng</p>
-                        <button class="btn-add-bank">Thêm tài khoản ngân hàng</button>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <!-- Các giao dịch -->
-                  <div class="wallet-transactions">
-                    <div class="wallet-transactions-header">
-                      <h3>Các giao dịch</h3>
-                      <p>Số lượng giao dịch (Tổng số tiền +)</p>
-                    </div>
-  
-                    <!-- Tabs chuyển trạng thái -->
-                    <div class="wallet-tabs">
-                      <button class="wallet-tab" data-tab="hoanthanh">Hoàn thành</button>
-                    </div>
-  
-                    <!-- Tìm kiếm -->
-                    <div class="wallet-search">
-                      <input type="text" placeholder="Tìm kiếm theo mã đơn..." />
-                    </div>
-  
-                    <!-- Bảng dữ liệu -->
-                    <div class="wallet-table" id="wallet-data">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Ngày</th>
-                            <th>Loại giao dịch</th>
-                            <th>Mã đơn hàng</th>
-                            <th>Số tiền</th>
-                            <th>Trạng thái</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>21/12/2025</td>
-                            <td>#21122007</td>
-                            <td>#21122007</td>
-                            <td>500.000đ</td>
-                            <td>Hoàn thành</td>
-                          </tr>
-                          <!-- Có thể thêm nhiều dòng giao dịch -->
-                         </tbody>
-                        </table>
-                       </div>
-                      </div>
+                        <!-- Mô tả -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Mô tả sản phẩm:</label>
+                          <textarea class="product-form__textarea" id="product-description"></textarea>
                         </div>
+                    
+                        <!-- Thương hiệu, xuất xứ -->
+                        <div class="product-form__group">
+                          <label class="product-form__label">Thương hiệu:</label>
+                          <input type="text" class="product-form__input" id="product-brand" value="No brand" />
+                        </div>
+                    
+                        <div class="product-form__group">
+                          <label class="product-form__label">Xuất xứ:</label>
+                          <input type="text" class="product-form__input" id="product-origin" value="Việt Nam" />
+                        </div>
+                    
+                        <!-- Nút hành động -->
+                        <div class="product-form__actions">
+                          <button type="button" class="product-form__button product-form__button--cancel">Hủy</button>
+                          <button type="button" class="product-form__button product-form__button--submit">Thêm sản phẩm</button>
+                        </div>
+                      </form>
+                    </section>
+                    
+                    <!-- Sửa sản phẩm -->
+                    <section class="product-edit hidden">
+                      <h2 class="product-edit__title">Sửa sản phẩm</h2>
+                      <form class="product-edit__form" id="product-edit-form">
+                        
+                        <div class="product-edit__group">
+                          <label class="product-edit__label">Tên sản phẩm:</label>
+                          <input type="text" class="product-edit__input" id="edit-name" />
+                        </div>
+                    
+                        <div class="product-edit__group">
+                          <label class="product-edit__label">Giá:</label>
+                          <input type="text" class="product-edit__input" id="edit-price" />
+                        </div>
+                    
+                        <div class="product-edit__group">
+                          <label class="product-edit__label">Thương hiệu:</label>
+                          <input type="text" class="product-edit__input" id="edit-brand" />
+                        </div>
+                    
+                        <div class="product-edit__group">
+                          <label class="product-edit__label">Xuất xứ:</label>
+                          <input type="text" class="product-edit__input" id="edit-origin" />
+                        </div>
+                    
+                        <div class="product-edit__group">
+                          <label class="product-edit__label">Kho hàng:</label>
+                          <input type="text" class="product-edit__input" id="edit-stock" />
+                        </div>
+                    
+                        <div class="product-edit__actions">
+                          <button type="button" class="product-edit__button product-edit__button--cancel">Hủy</button>
+                          <button type="button" class="product-edit__button product-edit__button--update">Cập nhật</button>
+                        </div>
+                      </form>
+                    </section>
+                    
+                    <!-- Modal Chi tiết sản phẩm -->
+                    <div id="product-detail-modal" class="product-modal modal hidden">
+                      <div class="product-modal__content modal-content">
+                        <span class="product-modal__close">&times;</span>
+                        <h2 class="product-modal__title">Chi tiết sản phẩm</h2>
+                        <hr>
+                    
+                        <div class="product-modal__info">
+                          <p><strong>Mã sản phẩm:</strong> <span class="product-modal__field product-modal__id">SP001</span></p>
+                          <p><strong>Tên sản phẩm:</strong> <span class="product-modal__field product-modal__name">Điện thoại XYZ</span></p>
+                          <p><strong>Giá gốc:</strong> <span class="product-modal__field product-modal__original-price">3M</span></p>
+                          <p><strong>Số lượng tồn:</strong> <span class="product-modal__field product-modal__stock">100</span></p>
+                          <p><strong>Thương hiệu:</strong> <span class="product-modal__field product-modal__brand">No brand</span></p>
+                          <p><strong>Xuất xứ:</strong> <span class="product-modal__field product-modal__origin">Việt Nam</span></p>
+                          <p><strong>Tình trạng:</strong> <span class="product-modal__field product-modal__status">Mới</span></p>
+                          <p><strong>Hạn bảo hành:</strong> <span class="product-modal__field product-modal__warranty-time">12 tháng</span></p>
+                          <p><strong>Loại bảo hành:</strong> <span class="product-modal__field product-modal__warranty-type">Chính hãng</span></p>
+                          <p><strong>Giá bán:</strong> <span class="product-modal__field product-modal__price">5.000.000đ</span></p>
+                        </div>
+                    
+                        <hr>
+                    
+                        <div class="product-modal__description">
+                          <h3 class="product-modal__subtitle">Mô tả sản phẩm</h3>
+                          <p class="product-modal__text">Đây là sản phẩm test mô tả, rất chất lượng và hot trend hiện nay...</p>
+                        </div>
+                    
+                        <hr>
+                    
+                        <div class="product-modal__gallery">
+                          <h3 class="product-modal__subtitle">Hình ảnh</h3>
+                          <div class="product-modal__images">
+                            <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" class="product-modal__image" />
+                            <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" class="product-modal__image" />
+                            <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" class="product-modal__image" />
+                          </div>
+                        </div>
+                          
+                              <div class="product-modal__actions">
+                                <button class="product-modal__button product-modal__button--close">Đóng</button>
+                              </div>
+                            </div>
+                          </div>
+                          <section class="statistic-section hidden">
+                            <!-- Tổng quan doanh thu -->
+                            <div class="statistic-overview">
+                              <div class="statistic-overview__item">
+                                <h4 class="statistic-overview__title">Chưa thanh toán tổng cộng</h4>
+                                <p class="statistic-overview__value" id="statistic-unpaid">0₫</p>
+                              </div>
+                              <div class="statistic-overview__item">
+                                <h4 class="statistic-overview__title">Đã thanh toán</h4>
+                                <p class="statistic-overview__value" id="statistic-paid">0₫</p>
+                              </div>
+                              <div class="statistic-overview__item">
+                                <h4 class="statistic-overview__title">Tổng cộng</h4>
+                                <p class="statistic-overview__value" id="statistic-total">0₫</p>
+                              </div>
+                            </div>
+                          
+                            <!-- Chi tiết doanh thu -->
+                            <div class="statistic-detail">
+                              <div class="statistic-detail__header">
+                                <div class="statistic-detail__tab statistic-detail__tab--active">Chưa thanh toán</div>
+                                <div class="statistic-detail__tab">Đã thanh toán</div>
+                                <input type="text" class="statistic-detail__search-input" placeholder="Tìm kiếm đơn hàng" />
+                              </div>
+                          
+                              <div class="statistic-table-wrapper">
+                                <table class="statistic-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Đơn hàng</th>
+                                      <th>Trạng thái</th>
+                                      <th>Phương thức thanh toán</th>
+                                      <th>Số tiền</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <div class="statistic-order">
+                                          <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh" class="statistic-order__image" />
+                                          <div class="statistic-order__info">
+                                            <div class="statistic-order__code">#DH001 <button class="statistic-order__copy">copy</button></div>
+                                            <div class="statistic-order__customer">Đào Việt Cường</div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td>Chưa hoàn thành</td>
+                                      <td>Thanh toán khi nhận hàng</td>
+                                      <td>₫199.000</td>
+                                    </tr>
+                          
+                                    <!-- thêm các dòng tương tự nếu cần -->
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </section>
+                    
+                      <!-- Bắt đầu phần container ví -->
+                      <section class="wallet hidden">
+                        <!-- Tổng quan số dư -->
+                        <div class="wallet__overview">
+                          <h3 class="wallet__title">Tổng quan</h3>
+                          <div class="wallet__header">
+                            <div class="wallet__balance">
+                              <p class="wallet__label">Số dư</p>
+                              <h2 class="wallet__value">1.000.000.000đ</h2>
+                              <button class="wallet__button wallet__button--withdraw">Rút tiền</button>
+                            </div>
+                            <div class="wallet__bank">
+                              <p class="wallet__label">Tài khoản ngân hàng</p>
+                              <button class="wallet__button wallet__button--add-bank">Thêm tài khoản ngân hàng</button>
+                            </div>
+                          </div>
+                        </div>
+                      
+                        <!-- Giao dịch -->
+                        <div class="wallet__transactions">
+                          <div class="wallet__transactions-header">
+                            <h3 class="wallet__subtitle">Các giao dịch</h3>
+                            <p class="wallet__desc">Số lượng giao dịch (Tổng số tiền +)</p>
+                          </div>
+                      
+                          <!-- Tabs -->
+                          <div class="wallet__tabs">
+                            <button class="wallet__tab wallet__tab--active" data-tab="hoanthanh">Hoàn thành</button>
+                          </div>
+                      
+                          <!-- Tìm kiếm -->
+                          <div class="wallet__search">
+                            <input type="text" class="wallet__search-input" placeholder="Tìm kiếm theo mã đơn..." />
+                          </div>
+                      
+                          <!-- Bảng dữ liệu -->
+                          <div class="wallet__table-wrapper">
+                            <table class="wallet__table">
+                              <thead>
+                                <tr>
+                                  <th>Ngày</th>
+                                  <th>Loại giao dịch</th>
+                                  <th>Mã đơn hàng</th>
+                                  <th>Số tiền</th>
+                                  <th>Trạng thái</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>21/12/2025</td>
+                                  <td>Doanh thu</td>
+                                  <td>#21122007</td>
+                                  <td>500.000đ</td>
+                                  <td>Hoàn thành</td>
+                                </tr>
+                                <!-- thêm nhiều dòng nếu cần -->
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </section>
+                      </div>
+                      </main>
                       </div>
                       </div>
-                    </main>             
-          <script type="module" src="../js/utils/components-loader-pages.js"></script>
-          <script type="module" src="../js/components/KenhNguoiBan.js"></script>
-      </body>
-      </html>
+
+    <script type="module" src="../js/utils/components-loader-pages.js"></script>
+    <script type="module" src="../js/components/KenhNguoiBan.js"></script>
+</body>
+</html>
