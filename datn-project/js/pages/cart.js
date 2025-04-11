@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="cart__col cart__col--quantity">
           <div class="cart__quantity-control">
             <button class="cart__quantity-btn" data-type="minus" data-index="${index}">-</button>
-            <input type="text" class="cart__quantity-input" value="${item.So_Luong}" data-index="${index}" />
+            <input type="text" class="cart__quantity-input"
+       value="${item.So_Luong}"
+       data-index="${index}"
+       data-id="${item.ID_Gio_Hang}"
+       data-ctgh-id="${item.ID_Chi_Tiet_Gio_Hang}" />
             <button class="cart__quantity-btn" data-type="plus" data-index="${index}">+</button>
           </div>
         </div>
@@ -67,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSelectAllStatus();
     updateCartTotal();
   }
+
   function rememberCheckedState() {
     document.querySelectorAll('.cart__checkbox').forEach(cb => {
       const index = +cb.dataset.index;
@@ -141,44 +146,64 @@ document.addEventListener('DOMContentLoaded', () => {
     selectAllTop.checked = selectAllBottom.checked;
   });
 
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCart();
+  });
+
+
   cartBody.addEventListener('click', (e) => {
     const type = e.target.dataset.type;
     const index = e.target.dataset.index;
+    const input = document.querySelector(`.cart__quantity-input[data-index="${index}"]`);
+    const id = input?.dataset.ctghId;
 
-    if (type && index !== undefined) {
-      const item = cartItems[index];
+    if (!type || index === undefined || !id) return;
 
-      // Đảm bảo luôn là số nguyên >= 1
-      item.So_Luong = parseInt(item.So_Luong) || 1;
+    let quantity = parseInt(input.value) || 1;
 
-      if (type === 'plus') {
-        item.So_Luong++;
-      }
+    if (type === 'plus') quantity++;
+    if (type === 'minus' && quantity > 1) quantity--;
 
-      if (type === 'minus' && item.So_Luong > 1) {
-        item.So_Luong--;
-      }
-      rememberCheckedState();
-      renderCart();
-    }
+    input.value = quantity;
 
+    updateQuantityToServer(id, quantity);
   });
 
   cartBody.addEventListener('input', (e) => {
     if (e.target.classList.contains('cart__quantity-input')) {
       const index = e.target.dataset.index;
+      const id = e.target.dataset.id;
       let val = parseInt(e.target.value);
       if (isNaN(val) || val < 1) val = 1;
+
       cartItems[index].So_Luong = val;
-      rememberCheckedState();
-      renderCart();
+      updateQuantityToServer(id, val);
     }
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
-  });
 
+  function updateQuantityToServer(id_chi_tiet_gio_hang, quantity) {
+    fetch('../pages/update-quantity.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id_chi_tiet_gio_hang: id_chi_tiet_gio_hang, // ✅ sửa lại key đúng
+        so_luong: quantity
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('DEBUG SERVER RESPONSE:', data);
+        if (data.success) {
+          console.log('✅ Đã cập nhật DB');
+        } else {
+          alert('❌ Cập nhật DB thất bại');
+        }
+      })
+      .catch(() => {
+        alert('❌ Không thể kết nối server');
+      });
+  }
 
   // ========== TOAST THÔNG BÁO ==========
   function showToast(message, type = 'info') {

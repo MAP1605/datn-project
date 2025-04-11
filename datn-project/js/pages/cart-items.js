@@ -286,16 +286,14 @@ function updateCartTotal() {
             const quantityInput = document.querySelector(`.cart__quantity-input[data-index="${index}"]`);
             const quantity = parseInt(quantityInput?.value) || 0;
 
-            // Đảm bảo giá là số (loại dấu chấm)
-            const price = typeof item.Gia_Ban === 'string'
-                ? parseInt(item.Gia_Ban.replace(/\./g, ''))
-                : item.Gia_Ban;
+            // ✅ Chuyển giá thành số thực từ chuỗi
+            const price = parseFloat(item.Gia_Ban) || 0;
 
             total += price * quantity;
         }
     });
 
-    cartTotal.textContent = `₫${total.toLocaleString()}`;
+    cartTotal.textContent = `₫${total.toFixed(2).toLocaleString()}`;
 }
 
 
@@ -341,36 +339,52 @@ selectAllBottom?.addEventListener('change', () => {
 cartBody.addEventListener('click', (e) => {
     const type = e.target.dataset.type;
     const index = e.target.dataset.index;
+    const input = document.querySelector(`.cart__quantity-input[data-index="${index}"]`);
+    const id = input?.dataset.id;
 
-    if (type && index !== undefined) {
-        const item = cartItems[index];
+    if (!type || index === undefined || !id) return;
 
-        // Đảm bảo luôn là số nguyên >= 1
-        item.So_Luong = parseInt(item.So_Luong) || 1;
+    let quantity = parseInt(input.value) || 1;
 
-        if (type === 'plus') {
-            item.So_Luong++;
-        }
+    if (type === 'plus') quantity++;
+    if (type === 'minus' && quantity > 1) quantity--;
 
-        if (type === 'minus' && item.So_Luong > 1) {
-            item.So_Luong--;
-        }
-        rememberCheckedState();
-        renderCart();
-    }
+    input.value = quantity;
 
+    updateQuantityToServer(id, quantity);
 });
 
 cartBody.addEventListener('input', (e) => {
     if (e.target.classList.contains('cart__quantity-input')) {
         const index = e.target.dataset.index;
+        const id = e.target.dataset.id;
         let val = parseInt(e.target.value);
         if (isNaN(val) || val < 1) val = 1;
+
         cartItems[index].So_Luong = val;
-        rememberCheckedState();
-        renderCart();
+        updateQuantityToServer(id, val);
     }
 });
+
+
+function updateQuantityToServer(id, quantity) {
+    fetch('../pages/update-quantity.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_gio_hang: id, so_luong: quantity })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                console.log('✅ Đã cập nhật DB');
+            } else {
+                alert('❌ Cập nhật DB thất bại');
+            }
+        })
+        .catch(() => {
+            alert('❌ Không thể kết nối server');
+        });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     renderCart();
