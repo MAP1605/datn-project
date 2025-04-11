@@ -4,6 +4,7 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Kết nối CSDL
 $host = 'localhost';
 $user = 'root';
 $password = '';
@@ -17,7 +18,6 @@ if ($conn->connect_error) {
 $errors = [];
 $success = false;
 
-// Bắt sự kiện submit form
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $phone = trim($_POST['phone']);
   $username = trim($_POST['username']);
@@ -25,24 +25,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'];
   $repassword = $_POST['repassword'];
 
-  // Validate
+  // Validate rỗng và mật khẩu
   if (empty($phone) || empty($username) || empty($email) || empty($password) || empty($repassword)) {
     $errors[] = "Vui lòng nhập đầy đủ thông tin.";
   } elseif ($password !== $repassword) {
-    $errors[] = "Mật khẩu không khớp.";
+    $errors[] = "Mật khẩu xác nhận không khớp.";
   } else {
-    // Mã hóa mật khẩu
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    // ✅ Kiểm tra tồn tại: username, email, phone
+    $checkQuery = "
+      SELECT * FROM Người_Mua 
+      WHERE Ten_Dang_Nhap = ? OR Email = ? OR So_Dien_Thoai = ?
+      LIMIT 1
+    ";
+    $stmtCheck = $conn->prepare($checkQuery);
+    $stmtCheck->bind_param("sss", $username, $email, $phone);
+    $stmtCheck->execute();
+    $result = $stmtCheck->get_result();
 
-    $stmt = $conn->prepare("INSERT INTO Người_Mua (Ten_Dang_Nhap, Email, Mat_Khau, So_Dien_Thoai, Ho_Ten, Trang_Thai, Role, Ngay_Tao)
-    VALUES (?, ?, ?, ?, ?, 'Hoạt động', 1, NOW())");
+    if ($result->num_rows > 0) {
+      $existing = $result->fetch_assoc();
 
-    $stmt->bind_param("sssss", $username, $email, $hashedPassword, $phone, $username);
-
-    if ($stmt->execute()) {
-      $success = true;
+      if ($existing['Ten_Dang_Nhap'] === $username) {
+        $errors[] = "Tên đăng nhập đã tồn tại.";
+      }
+      if ($existing['Email'] === $email) {
+        $errors[] = "Email đã được sử dụng.";
+      }
+      if ($existing['So_Dien_Thoai'] === $phone) {
+        $errors[] = "Số điện thoại đã được đăng ký.";
+      }
     } else {
-      $errors[] = "Lỗi khi thêm tài khoản: " . $conn->error;
+      // ✅ Mã hóa mật khẩu
+      $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+      // ✅ Insert vào bảng
+      $stmt = $conn->prepare("
+        INSERT INTO Người_Mua 
+        (Ten_Dang_Nhap, Email, Mat_Khau, So_Dien_Thoai, Ho_Ten, Trang_Thai, Role, Ngay_Tao)
+        VALUES (?, ?, ?, ?, ?, 'Hoạt động', 1, NOW())
+      ");
+      $stmt->bind_param("sssss", $username, $email, $hashedPassword, $phone, $username);
+
+      if ($stmt->execute()) {
+        $success = true;
+      } else {
+        $errors[] = "Lỗi khi thêm tài khoản: " . $conn->error;
+      }
     }
   }
 }
