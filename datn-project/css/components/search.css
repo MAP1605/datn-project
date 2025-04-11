@@ -121,7 +121,7 @@
     margin-bottom: 1rem;
 }
 
-.product__list {
+.search__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.2rem;
@@ -170,13 +170,13 @@
         width: 100%;
     }
 
-    .product__list {
+    .search__list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 739px) {
-    .product__list {
+    .search__list {
         grid-template-columns: repeat(2, 1fr);
     }
 }

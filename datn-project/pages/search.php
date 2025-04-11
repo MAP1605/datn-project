@@ -137,7 +137,7 @@ $stmtCount->close();
           </div>
         </div>
 
-        <div class="product__list">
+        <div class="search__list">
           <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): 
               $base64Img = base64_encode($row['Anh_San_Pham1']);
