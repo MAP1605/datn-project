@@ -62,7 +62,7 @@ $sqlChiTietSanPham = "
     SELECT 
         sp.*,
         dm.Ten_Danh_Muc,
-        dc.Tinh_Thanh_Pho,
+        dc.Dia_Chi AS Dia_Chi_Nguoi_Ban,
         ctsp.Tinh_Trang,
         ctsp.Han_Bao_Hanh,
         ctsp.Loai_Bao_Hanh,
@@ -71,9 +71,10 @@ $sqlChiTietSanPham = "
     LEFT JOIN Chi_Tiet_San_Pham ctsp ON sp.ID_San_Pham = ctsp.ID_San_Pham
     LEFT JOIN Danh_Muc dm ON sp.ID_Danh_Muc = dm.ID_Danh_Muc
     LEFT JOIN Nguoi_Ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban
-    LEFT JOIN Dia_Chi_Nhan_Hang dc ON nb.ID_Nguoi_Mua = dc.ID_Nguoi_Mua
+    LEFT JOIN người_mua dc ON nb.ID_Nguoi_Mua = dc.ID_Nguoi_Mua
     WHERE sp.ID_San_Pham = $id
 ";
+
 $result = $conn->query($sqlChiTietSanPham);
 if (!$result || $result->num_rows == 0) {
     die("❌ Không tìm thấy sản phẩm");

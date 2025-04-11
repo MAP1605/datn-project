@@ -147,21 +147,21 @@ $stmtCount->close();
                 $discount = round((($row['Gia_Goc'] - $row['Gia_Ban']) / $row['Gia_Goc']) * 100);
               }
             ?>
-              <a href="/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="product__item" data-id="<?php echo $id; ?>">
-                <div class="product__img-wrap">
-                  <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="product__img" />
+              <a href="/datn-project/datn-project/pages/product-detail.php?id=<?php echo $id; ?>" class="search__item" data-id="<?php echo $id; ?>">
+                <div class="search__img-wrap">
+                  <img src="data:image/jpeg;base64,<?php echo $base64Img; ?>" alt="<?php echo $row['Ten_San_Pham']; ?>" class="search__img" />
                   <?php if ($discount > 0): ?>
-                    <span class="product__discount-tag">-<?php echo $discount; ?>%</span>
+                    <span class="search__discount-tag">-<?php echo $discount; ?>%</span>
                   <?php endif; ?>
                 </div>
-                <h3 class="product__name"><?php echo $row['Ten_San_Pham']; ?></h3>
-                <div class="product__price-wrap">
-                  <span class="product__price"><?php echo number_format($row['Gia_Ban'], 0, ',', '.') . 'đ'; ?></span>
-                  <span class="product__price-old"><?php echo number_format($row['Gia_Goc'], 0, ',', '.') . 'đ'; ?></span>
+                <h3 class="search__name"><?php echo $row['Ten_San_Pham']; ?></h3>
+                <div class="search__price-wrap">
+                  <span class="search__price"><?php echo number_format($row['Gia_Ban'], 0, ',', '.') . 'đ'; ?></span>
+                  <span class="search__price-old"><?php echo number_format($row['Gia_Goc'], 0, ',', '.') . 'đ'; ?></span>
                 </div>
-                <div class="product__meta">
-                  <span class="product__stars">⭐ <?php echo $row['So_Sao_Danh_Gia']; ?></span>
-                  <span class="product__sold">Đã bán <?php echo $row['Da_Ban']; ?></span>
+                <div class="search__meta">
+                  <span class="search__stars">⭐ <?php echo $row['So_Sao_Danh_Gia']; ?></span>
+                  <span class="search__sold">Đã bán <?php echo $row['Da_Ban']; ?></span>
                 </div>
               </a>
             <?php endwhile; ?>
