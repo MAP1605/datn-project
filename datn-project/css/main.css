@@ -13,3 +13,10 @@
 
 @import url(./components/cart.css);
 @import url(./components/checkout.css);
+
+/* Kênh người dùng */
+/* my-accout*/
+@import url(./components/DiachiUse.css);
+@import url(./components/doimatkhau.css);
+@import url(./components/donmua.css);
+@import url(./components/giaodiennguoidung.css);

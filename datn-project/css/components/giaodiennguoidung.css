@@ -1,0 +1,151 @@
+
+/* ========== GIAO DIỆN HỒ SƠ NGƯỜI DÙNG ========== */
+
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease forwards;
+}
+
+.custom-notification.success {
+  background-color: #28a745; /* Xanh lá */
+}
+
+.custom-notification.error {
+  background-color: #dc3545; /* Đỏ */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+  /* ========== CONTENT PROFILE ========== */
+ 
+/* Sidebar */
+
+  
+  .profile {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    
+  }
+  
+  .profile__form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile__heading {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .profile__label {
+    margin: 10px 0 5px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .profile__input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .profile__gender {
+    margin: 10px 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+  }
+  
+  .profile__buttonsave {
+    margin-top: 20px;
+  }
+  
+  .profile__submit {
+    padding: 10px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .profile__submit:hover {
+    background-color: #554ee2;
+  }
+  
+  .profile__image-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile__avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+  }
+  
+  .profile__choose-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .profile__choose-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .user-main__container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .profile {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .content {
+      max-width: 100%;
+    }
+  }
+  
+  
