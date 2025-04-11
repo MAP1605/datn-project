@@ -1,52 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const loginBtn = document.querySelector(".login__button--submit");
-  const emailInput = document.querySelector(".login__input--email");
-  const passwordInput = document.querySelector(".login__input--password");
+  const registerBtn = document.querySelector(".register-step__button--submit");
+  const usernameInput = document.querySelector(".register-step__input--username");
+  const emailInput = document.querySelector(".register-step__input--email");
+  const passwordInput = document.querySelector(".register-step__input--password");
+  const repasswordInput = document.querySelector(".register-step__input--repassword");
 
   function isEmail(input) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
   }
 
-  function isPhone(input) {
-    return /^0\d{9}$/.test(input);
-  }
-
-  if (loginBtn && emailInput && passwordInput) {
-    loginBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const username = emailInput.value.trim();
+  if (registerBtn && usernameInput && emailInput && passwordInput && repasswordInput) {
+    registerBtn.addEventListener("click", function (e) {
+      const username = usernameInput.value.trim();
+      const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
+      const repassword = repasswordInput.value.trim();
 
-      if (!username || !password) {
-        showNotification("Vui lòng điền đầy đủ Email/SĐT và Mật khẩu.", "error");
+      if (!username || !email || !password || !repassword) {
+        e.preventDefault();
+        showNotification("Vui lòng điền đầy đủ thông tin!", "error");
         return;
       }
 
-      const isNumberOnly = /^\d+$/.test(username);
-
-      if (isNumberOnly) {
-        if (!isPhone(username)) {
-          showNotification("Số điện thoại phải bắt đầu bằng 0 và gồm đúng 10 chữ số!", "error");
-          return;
-        }
-      } else {
-        if (!isEmail(username)) {
-          showNotification("Email không hợp lệ. Phải có @ và kết thúc bằng .com", "error");
-          return;
-        }
+      if (!isEmail(email)) {
+        e.preventDefault();
+        showNotification("Email không hợp lệ. Phải có @ và kết thúc bằng .com", "error");
+        return;
       }
 
-      // ✅ Nếu qua tất cả kiểm tra
-      showNotification("Đăng nhập thành công!", "success");
-      setTimeout(() => {
-        window.location.href = "../index.html"; // chuyển trang sau 1.5s
-      }, 1500);
+      if (password !== repassword) {
+        e.preventDefault();
+        showNotification("Mật khẩu xác nhận không khớp!", "error");
+        return;
+      }
+
+      // ✅ Nếu vượt qua tất cả kiểm tra → cho submit form
+      // Không cần preventDefault
     });
   }
 });
 
-// ✅ Thông báo dạng toast giống các trang khác
+// ✅ Toast thông báo giống các trang khác
 function showNotification(message, type) {
   const noti = document.createElement("div");
   noti.className = `custom-notification ${type}`;

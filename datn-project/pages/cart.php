@@ -1,11 +1,14 @@
 <?php
 session_start();
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Gán tạm người dùng nếu chưa đăng nhập (test)
 if (!isset($_SESSION['ID_Nguoi_Mua'])) {
-    $_SESSION['ID_Nguoi_Mua'] = 1;
+    // Nếu chưa đăng nhập → chuyển về trang đăng nhập
+    header('Location: /datn-project/pages/dangnhap.php');
+    exit;
 }
 $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
 

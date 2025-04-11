@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -102,9 +108,9 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
 }
 
 
-if (!isset($_SESSION['ID_Nguoi_Mua'])) {
-    $_SESSION['ID_Nguoi_Mua'] = 1;
-}
+// if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+//     $_SESSION['ID_Nguoi_Mua'] = 2;
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
