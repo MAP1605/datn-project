@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.value = quantity;
 
     updateQuantityToServer(id, quantity);
+    updateCartTotal();
   });
 
   cartBody.addEventListener('input', (e) => {
@@ -178,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       cartItems[index].So_Luong = val;
       updateQuantityToServer(id, val);
+      updateCartTotal(); // ✅ tính lại tổng
     }
   });
 
