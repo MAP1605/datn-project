@@ -23,18 +23,6 @@
     margin-bottom: 2rem;
 }
 
-/* .search-filter__group {
-    max-height: 120px;
-    overflow: hidden;
-    position: relative;
-    transition: max-height 0.3s ease;
-    margin-bottom: 1rem;
-}
-
-.search-filter__group.expanded {
-    max-height: 1000px;
-} */
-
 .search-filter__heading {
     font-weight: 600;
     color: var(--primary-color);
@@ -121,11 +109,94 @@
     margin-bottom: 1rem;
 }
 
-/* .product__list {
+.search__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.2rem;
-} */
+}
+
+.search__item {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    padding: 1rem;
+    transition: box-shadow 0.3s ease;
+    background-color: var(--white-color);
+
+}
+
+.search__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.search__img-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.search__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.search__discount-tag {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    background-color: var(--primary-color);
+    /* màu chủ đạo của em */
+    color: var(--white-color);
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+    border-radius: 2px;
+}
+
+.search__name {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 1rem 0;
+    height: 4rem;
+    line-height: 2rem;
+    overflow: hidden;
+}
+
+.search__price-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.search__price {
+    font-size: 1.6rem;
+    color: var(--red-color-primary);
+    font-weight: 600;
+}
+
+.search__price-old {
+    font-size: 1.2rem;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.search__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding-top: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.search__meta i {
+    font-size: 1.2rem;
+    color: var(--star-gold-color);
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
 
 /* ==== PAGINATION ==== */
 .pagination {
@@ -170,13 +241,13 @@
         width: 100%;
     }
 
-    .product__list {
+    .search__list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 739px) {
-    .product__list {
+    .search__list {
         grid-template-columns: repeat(2, 1fr);
     }
 }

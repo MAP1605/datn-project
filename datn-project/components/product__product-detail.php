@@ -31,7 +31,9 @@ if (!$result) {
 
 $count = 0;
 ?>
-
+<section class="product">
+    <div class="container container__product">
+        <h2 class="product__title">Có thể bạn cũng thích</h2>
 <div class="product__list">
     <?php while ($row = $result->fetch_assoc()) {
         $id = $row['ID_San_Pham'];
@@ -60,3 +62,6 @@ $count = 0;
     <?php $count++;
     } ?>
 </div>
+
+    </div>
+</section>
