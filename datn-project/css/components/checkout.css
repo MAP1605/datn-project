@@ -17,36 +17,25 @@
 .checkout-address {
     padding: 16px;
     border-bottom: 1px solid #eee;
-  }
-  
-  .checkout-address__header {
+}
+
+.checkout-address__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
-  }
-  
-  .checkout-address__title {
+}
+
+.checkout-address__title {
     font-weight: bold;
     font-size: 18px;
-  }
-  
-  .checkout-Select-Address {
-    background-color: var(--primary-color, #0447b5bf);
-    color: #fff;
-    padding: 10px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-    white-space: nowrap;
-  }
-  
-  .checkout-address__info {
+}
+
+.checkout-address__info {
     line-height: 1.6;
     font-size: 15px;
-  }
+}
+
 /* ===== chọn địa chỉ nhận hàng ===== */
 .checkout-Select-Address {
     left: 10px;
@@ -59,6 +48,7 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
 /* ===== Danh sách sản phẩm ===== */
 .checkout-products {
     padding: 16px;
@@ -277,51 +267,53 @@
         margin-top: 16px;
     }
 }
+
 /* popup */
 .address-popup {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .address-popup__content {
+}
+
+.address-popup__content {
     background: #fff;
     border-radius: 10px;
     padding: 24px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  }
-  
-  .address-popup__list {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.address-popup__list {
     max-height: 300px;
     overflow-y: auto;
     margin: 20px 0;
     padding: 0;
     list-style: none;
-  }
-  
-  .address-popup__item {
+}
+
+.address-popup__item {
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     margin-bottom: 10px;
     cursor: pointer;
     transition: 0.2s;
-  }
-  .address-popup__item:hover {
+}
+
+.address-popup__item:hover {
     background: #f0f8ff;
-  }
-  
-  .address-popup__close {
+}
+
+.address-popup__close {
     background: #dc3545;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
     cursor: pointer;
-  }
+}
