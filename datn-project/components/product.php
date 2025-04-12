@@ -33,7 +33,7 @@ $count = 0;
 ?>
 
 <!-- Start product (Gợi ý hôm nay) -->
-<section class="products">
+<section class="product">
     <div class="container container__product">
         <h2 class="product__title">GỢI Ý HÔM NAY</h2>
 
