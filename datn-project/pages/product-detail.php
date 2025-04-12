@@ -534,10 +534,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
-        <!-- <section class="product__product-detail">
-                <?php include '../components/product__product-detail.php'; ?>
-            </div>
-        </section> -->
+        <section class="product__product-detail">
+            <section class="product">
+                <div class="container container__product">
+                    <h2 class="product__title">CÓ THỂ BẠN SẼ THÍCH </h2>
+                        <?php include '../components/product__product-detail.php'; ?>
+                </div>
+            </section>
+        </section>
 
     </div>
 
