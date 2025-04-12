@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -103,9 +109,9 @@ if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
 }
 
 
-if (!isset($_SESSION['ID_Nguoi_Mua'])) {
-    $_SESSION['ID_Nguoi_Mua'] = 1;
-}
+// if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+//     $_SESSION['ID_Nguoi_Mua'] = 2;
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
@@ -516,6 +522,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                 </div>
             </div>
         </section>
+
+        <!-- Popup ảnh -->
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup-content">
+                <button class="popup-btn prev" id="popupPrevBtn">&#8592;</button>
+                <img id="popupImage" src="" alt="Ảnh đánh giá">
+                <button class="popup-btn next" id="popupNextBtn">&#8594;</button>
+            </div>
+        </div>
+
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
@@ -534,26 +550,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <!-- JS: load component header/footer -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
-
-
     <!-- Thông báo -->
     <div id="toast" class="toast"></div>
 
-    <!-- Popup ảnh -->
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-content">
-            <button class="popup-btn prev" id="popupPrevBtn">&#8592;</button>
-            <img id="popupImage" src="" alt="Ảnh đánh giá">
-            <button class="popup-btn next" id="popupNextBtn">&#8594;</button>
-        </div>
-    </div>
+    <script>
+        let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
+    </script>
 
     <!-- js cho product-detail -->
     <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/cart-items.js"></script>
-
+    <script type="module" src="/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
 </body>
 
 </html>

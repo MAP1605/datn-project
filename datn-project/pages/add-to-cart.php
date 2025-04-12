@@ -16,9 +16,9 @@ if ($conn->connect_error) {
     die("❌ Kết nối thất bại: " . $conn->connect_error);
 }
 
-if (!isset($_SESSION['ID_Nguoi_Mua'])) {
-    $_SESSION['ID_Nguoi_Mua'] = 1; // Gán tạm người dùng ID = 1
-}
+// if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+//     $_SESSION['ID_Nguoi_Mua'] = 1; // Gán tạm người dùng ID = 1
+// }
 
 // Khi làm form đăng nhập thì tìm hiểu sau
 // if (!isset($_SESSION['ID_Nguoi_Mua'])) {
