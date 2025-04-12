@@ -92,7 +92,11 @@ while ($row = $result->fetch_assoc()) {
                         <?php foreach ($items as $index => $item): ?>
                             <div class="cart__row">
                                 <div class="cart__col cart__col--checkbox">
-                                    <input type="checkbox" class="cart__checkbox" data-index="<?= $index ?>" />
+                                    <input
+                                        type="checkbox"
+                                        class="cart__checkbox"
+                                        data-index="<?= $index ?>"
+                                        data-ctgh-id="<?= $item['ID_Chi_Tiet_Gio_Hang'] ?>" />
                                 </div>
 
                                 <div class="cart__col cart__col--product">
@@ -156,8 +160,31 @@ while ($row = $result->fetch_assoc()) {
 
     <!-- JS: load component header/footer  -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+
+    <script>
+        window.onload = () => {
+            document.querySelector('.cart__btn--checkout')?.addEventListener('click', () => {
+                const checkedCheckboxes = document.querySelectorAll('.cart__checkbox:checked');
+                const selectedIds = Array.from(checkedCheckboxes).map(cb => parseInt(cb.dataset.ctghId));
+
+                console.clear();
+                console.log('🧪 Checkbox đã tick:', checkedCheckboxes);
+                console.log('🧪 ID chi tiết giỏ hàng được chọn:', selectedIds);
+
+                if (selectedIds.length === 0) {
+                    alert('Bạn chưa chọn sản phẩm nào để mua!');
+                    return;
+                }
+
+                localStorage.setItem('selectedCartIds', JSON.stringify(selectedIds));
+                const queryString = selectedIds.map(id => `ids[]=${id}`).join('&');
+                window.location.href = `/datn-project/datn-project/pages/checkout.php?${queryString}`;
+
+            });
+        };
+    </script>
+
     <script type="module" src="../js/pages/cart.js?v=<?= time() ?>"></script>
-    <script type="module" src="/datn-project/datn-project/js/pages/cart-items.js"></script>
 </body>
 
 </html>

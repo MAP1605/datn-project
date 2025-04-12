@@ -1,3 +1,47 @@
+<?php
+session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Kết nối DB
+$conn = new mysqli('localhost', 'root', '', 'DATN');
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+$idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
+$selectedIds = $_GET['ids'] ?? [];
+echo "<pre>";
+print_r($selectedIds);
+echo "</pre>";
+$items = [];
+
+if (!is_array($selectedIds) || empty($selectedIds)) {
+    echo "<script>alert('Không có sản phẩm nào được chọn!');</script>";
+} else {
+    $idStr = implode(',', array_map('intval', $selectedIds));
+    $sql = "SELECT ctgh.ID_Chi_Tiet_Gio_Hang,
+    sp.Ten_San_Pham AS name,
+    sp.Gia_Ban AS price,
+    sp.Anh_San_Pham1 AS image,
+    ctgh.So_Luong AS quantity
+FROM Chi_Tiet_Gio_Hang ctgh
+JOIN Chi_Tiet_San_Pham ctsp ON ctgh.ID_Chi_Tiet_San_Pham = ctsp.ID_Chi_Tiet_San_Pham
+JOIN San_Pham sp ON ctsp.ID_San_Pham = sp.ID_San_Pham
+WHERE ctgh.ID_Chi_Tiet_Gio_Hang IN ($idStr)
+AND ctgh.ID_Gio_Hang IN (
+   SELECT ID_Gio_Hang FROM Gio_Hang WHERE ID_Nguoi_Mua = $idNguoiMua
+)";
+
+    $result = $conn->query($sql);
+    while ($row = $result->fetch_assoc()) {
+        // ✅ Chuyển ảnh sang base64 để hiển thị
+        $row['image'] = 'data:image/jpeg;base64,' . base64_encode($row['image']);
+        $items[] = $row;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -5,28 +49,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PearNK - Thanh toán</title>
-    <!-- CSS (main) -->
     <link rel="stylesheet" href="../css/main.css">
-    <!-- CSS (font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- CSS (icon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- logo ở tên miền -->
     <link rel="icon" type="image/png" href="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
-
 </head>
 
 <body>
-    <!-- Start header -->
-    <header id="header">
-    </header>
-    <!-- End header -->
+
+    <header id="header"></header>
 
     <main>
         <div class="checkout-container">
-            <!-- Địa chỉ nhận hàng -->
             <section class="checkout-address">
                 <div class="checkout-address__title">Địa chỉ nhận hàng</div>
                 <div class="checkout-address__info">
@@ -35,7 +71,6 @@
                 </div>
             </section>
 
-            <!-- Danh sách sản phẩm -->
             <section class="checkout-products">
                 <div class="checkout-products__header">
                     <div class="col col--product">Sản phẩm</div>
@@ -43,10 +78,8 @@
                     <div class="col col--qty">Số lượng</div>
                     <div class="col col--total">Thành tiền</div>
                 </div>
-
             </section>
 
-            <!-- Tổng tiền -->
             <section class="checkout-summary">
                 <div class="checkout-summary__row">
                     <span>Tổng tiền hàng:</span>
@@ -60,34 +93,40 @@
                     <span>Tổng thanh toán:</span>
                     <strong id="checkoutFinal">25.000đ</strong>
                 </div>
-
             </section>
 
-            <!-- Phương thức thanh toán -->
             <section class="checkout-method">
                 <h3>Phương thức thanh toán</h3>
                 <label><input type="radio" name="payment" checked /> Thanh toán khi nhận hàng</label><br />
-                <!-- <label><input type="radio" name="payment" /> Thẻ ATM / Visa / Momo</label> -->
             </section>
 
-            <!-- Nút đặt hàng -->
             <section class="checkout-action">
                 <button class="checkout-action__btn">Đặt hàng</button>
             </section>
         </div>
     </main>
 
-    <!-- Start footer -->
-    <footer id="footer">
-    </footer>
-    <!-- End footer -->
+    <footer id="footer"></footer>
 
-    <!-- JS: load component header/footer -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/cart.js"></script>
+    <!-- Biến cart từ PHP -->
+    <script>
+        const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
+    </script>
 
     <script type="module" src="/datn-project/datn-project/js/pages/checkout.js"></script>
+
+    <script>
+        // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
+        const urlParams = new URLSearchParams(window.location.search);
+        const ids = urlParams.getAll('ids[]').length > 0 ?
+            urlParams.getAll('ids[]') :
+            urlParams.getAll('ids'); // fallback nếu browser đổi cú pháp
+
+        const parsedIds = ids.map(id => parseInt(id));
+        localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
+    </script>
 
 </body>
 

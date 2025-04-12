@@ -144,7 +144,7 @@ document.addEventListener('click', function (e) {
         const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
         localStorage.setItem('checkoutTotal', total);
 
-        window.location.href = '/datn-project/pages/checkout.html';
+        window.location.href = '.../datn-project/pages/checkout.html';
     }
 });
 
