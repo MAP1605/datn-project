@@ -20,56 +20,7 @@
 
 <body>
     <!-- Start header -->
-    <header id="header">
-        <!-- Header top -->
-        <div class="header__top">
-
-            <div class="header__top-left">
-                <a href="#" class="header__link">
-                    Đăng ký người bán
-                </a>
-            </div>
-            <div class="header__top-right">
-                <a href="" class="header__link">
-                    Đăng nhập
-                </a>
-                <a href="" class="header__link">
-                    Đăng ký
-                </a>
-            </div>
-
-        </div>
-        <!-- Header main -->
-        <div class="header__main">
-            <div class="header__logo">
-                <a href="/datn-project/index.html" class="header__logo-link">
-                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
-                </a>
-            </div>
-            <div class="header__search">
-                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
-                <button class="header__search-btn">
-                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
-                </button>
-            </div>
-
-            <!-- Giỏ hàng -->
-            <div class="header__cart">
-                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-                <span class="header__cart-count">0</span>
-                <div class="header__cart-dropdown">
-                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
-                    <ul class="header__cart-list"></ul>
-                    <div class="header__cart-total">Tổng: <b>₫0</b></div>
-                    <div class="header__cart-footer">
-                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </header>
+    <header id="header"></header>
     <!-- End header -->
 
     <div class="main">
@@ -105,9 +56,9 @@
 
                         <div class="product-detail__meta">
                             <div class="product-detail__rating">
-                                <span id="productRating"><i class="fa-solid fa-star"></i> </span>
+                                <span id="productRating"><i class="fa-solid fa-star"></i> 4.5</span>
                             </div>
-                            <div id="productTotalReview" class="product-detail__review"></div>
+                            <div id="productTotalReview" class="product-detail__review">3.8k đánh giá</div>
                             <div class="product-detail__sold">30.2k đã bán</div> <!-- có thể cập nhật thêm nếu muốn -->
                         </div>
 
@@ -121,7 +72,7 @@
                             <label>Số lượng:</label>
                             <button class="product-detail__qty-btn" data-type="minus">-</button>
                             <input type="text" value="1" class="product-detail__qty-input" data-max="369" />
-                            <button class="product-detail__qty-btn" data-type="plus">+</button>
+                            id="popupCart <button class="product-detail__qty-btn" data-type="plus">+</button>
                             <span class="product-detail__stock">369 sản phẩm có sẵn</span>
                         </div>
 
@@ -131,8 +82,8 @@
                                 <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                             </button>
                             <!-- Thông báo popup -->
-                            <div class="popup-cart" id="popupCart">
-                                <i class="fa-solid fa-check"></i>
+                            <div class="popup-cart" ">
+                                <i class=" fa-solid fa-check"></i>
                                 <span>Sản phẩm đã được thêm vào Giỏ hàng</span>
                             </div>
                             <button class="product-detail__btn detail__btn--buy">Mua ngay</button>
@@ -3364,15 +3315,6 @@
                         </div>
                     </div>
 
-                    <!-- Popup ảnh (đánh giá sản phẩm)-->
-                    <div class="popup-overlay" id="popupOverlay">
-                        <div class="popup-content">
-                            <button class="popup-btn prev" id="popupPrevBtn">&#8592;</button>
-                            <img id="popupImage" src="" alt="Ảnh đánh giá">
-                            <button class="popup-btn next" id="popupNextBtn">&#8594;</button>
-                        </div>
-                    </div>
-
                     <!-- Phân trang đánh giá -->
                     <div class="review__pagination" id="review__pagination">
                         <button class="page-btn"><i class="fa-solid fa-angle-left"></i></button>
@@ -3408,6 +3350,23 @@
 
     <!-- Thông báo -->
     <div id="toast" class="toast"></div>
+
+    <!-- Icon giỏ hàng -->
+    <div class="header__cart">
+        <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+        <span class="header__cart-count">0</span> <!-- ✔ Phải có -->
+        <div class="header__cart-total"><b>₫0</b></div> <!-- ✔ Phải có -->
+        <ul class="header__cart-list"></ul> <!-- ✔ Phải có -->
+    </div>
+
+    <!-- Popup ảnh (đánh giá sản phẩm)-->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="popup-btn prev" id="popupPrevBtn">&#8592;</button>
+            <img id="popupImage" src="" alt="Ảnh đánh giá">
+            <button class="popup-btn next" id="popupNextBtn">&#8594;</button>
+        </div>
+    </div>
 
     <!-- js cho product-detail -->
     <script type="module" src="/datn-project/js/pages/product-detail.js"></script>

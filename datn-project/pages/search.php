@@ -1,13 +1,16 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$dbname = 'datn'; 
+$dbname = 'DATN';
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
 if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+  die("Kết nối thất bại: " . $conn->connect_error);
 }
 
 $keyword = isset($_GET['q']) ? trim($_GET['q']) : '';
@@ -23,18 +26,18 @@ $offset = ($page - 1) * $limit;
 $where = "WHERE Ten_San_Pham LIKE ? AND Trang_Thai_San_Pham = 'Đang bán' AND Gia_Ban BETWEEN $min_price AND $max_price";
 
 if (!empty($brands)) {
-    $inBrands = implode("','", array_map([$conn, 'real_escape_string'], $brands));
-    $where .= " AND Thuong_Hieu IN ('$inBrands')";
+  $inBrands = implode("','", array_map([$conn, 'real_escape_string'], $brands));
+  $where .= " AND Thuong_Hieu IN ('$inBrands')";
 }
 if (!empty($categories)) {
-    $inCats = implode("','", array_map([$conn, 'real_escape_string'], $categories));
-    $where .= " AND Danh_Muc IN ('$inCats')";
+  $inCats = implode("','", array_map([$conn, 'real_escape_string'], $categories));
+  $where .= " AND Danh_Muc IN ('$inCats')";
 }
 if ($rating > 0) {
-    $where .= " AND So_Sao_Danh_Gia >= $rating";
+  $where .= " AND So_Sao_Danh_Gia >= $rating";
 }
 
-$sql = "SELECT * FROM san_pham $where LIMIT $limit OFFSET $offset";
+$sql = "SELECT * FROM San_Pham $where LIMIT $limit OFFSET $offset";
 $stmt = $conn->prepare($sql);
 $searchTerm = "%" . $keyword . "%";
 $stmt->bind_param("s", $searchTerm);
@@ -42,7 +45,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Đếm tổng số sản phẩm để tính tổng số trang
-$countSql = "SELECT COUNT(*) FROM san_pham $where";
+$countSql = "SELECT COUNT(*) FROM San_Pham $where";
 $stmtCount = $conn->prepare($countSql);
 $stmtCount->bind_param("s", $searchTerm);
 $stmtCount->execute();
@@ -57,30 +60,30 @@ $stmtCount->close();
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEARNK - Tìm kiếm</title>
-    <!-- CSS (main) -->
-    <link rel="stylesheet" href="../css/main.css">
-    <!-- CSS (font) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- CSS (icon) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- logo ở tên miền -->
-    <link rel="icon" type="image/png" href="../assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEARNK - Tìm kiếm</title>
+  <!-- CSS (main) -->
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- CSS (font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- CSS (icon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- logo ở tên miền -->
+  <link rel="icon" type="image/png" href="../assets/images/CuongDao__Logo-PEARNK.png" sizes="16x16">
 
 </head>
 
 <body>
 
-    <!-- Start header -->
-    <header id="header">
-    </header>
-    <!-- End header -->
+  <!-- Start header -->
+  <header id="header">
+  </header>
+  <!-- End header -->
 
-    <main class="search-page container">
+  <main class="search-page container">
     <form id="searchFilterForm" method="GET" class="search-page__content">
       <aside class="search-filter">
         <h3 class="search-filter__title">Bộ lọc tìm kiếm</h3>
@@ -139,7 +142,7 @@ $stmtCount->close();
 
         <div class="product__list">
           <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): 
+            <?php while ($row = $result->fetch_assoc()):
               $base64Img = base64_encode($row['Anh_San_Pham1']);
               $id = $row['ID_San_Pham'];
               $discount = 0;
@@ -199,10 +202,10 @@ $stmtCount->close();
     });
   </script>
 
-    <footer id="footer"></footer>
-  
-  <script type="module" src="../js/utils/components-loader-pages.js"></script>
-  <script type="module" src="../js/pages/search.js"></script>
+  <footer id="footer"></footer>
+
+  <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+  <script type="module" src="/datn-project/datn-project/js/pages/search.js"></script>
 
 </body>
 

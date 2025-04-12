@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       showNotification("Đăng ký thành công!", "success");
       setTimeout(() => {
-        window.location.href = "../pages/dangnhap.html";
+        window.location.href = "../pages/dangnhap.php";
       }, 1500);
     });
   }
