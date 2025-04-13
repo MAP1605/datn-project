@@ -7,6 +7,8 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
+$category_id = intval($_GET['category_id'] ?? 0);
+
 $keyword = trim($_GET['q'] ?? '');
 $min_price = $_GET['min_price'] ?? '';
 $max_price = $_GET['max_price'] ?? '';
@@ -27,6 +29,13 @@ if ($keyword !== '') {
     $bindTypes .= 's';
     $bindValues[] = '%' . $keyword . '%';
 }
+
+if ($category_id > 0) {
+    $where .= " AND sp.ID_Danh_Muc = ?";
+    $bindTypes .= 'i';
+    $bindValues[] = $category_id;
+}
+
 
 // 2. Lọc khoảng giá
 if (($min_price !== '' && is_numeric($min_price)) || ($max_price !== '' && is_numeric($max_price))) {
@@ -130,6 +139,8 @@ $stmtCount->close();
 
     <!-- GIỮ TỪ KHÓA -->
     <input type="hidden" name="q" value="<?= htmlspecialchars($keyword) ?>">
+    <input type="hidden" name="category_id" value="<?= $category_id ?>">
+
 
     <aside class="search-filter">
       <h3 class="search-filter__title">Bộ lọc tìm kiếm</h3>
@@ -256,8 +267,18 @@ $stmtCount->close();
 
     <section class="search-result">
       <div class="search-result__header">
-        <p class="search-result__count">Kết quả cho từ khóa: "<?= htmlspecialchars($keyword) ?>"</p>
-        
+        <p class="search-result__count">
+          <?php if ($category_id > 0): ?>
+            Kết quả cho danh mục:
+            <?php
+              $cateName = $conn->query("SELECT Ten_Danh_Muc FROM danh_muc WHERE ID_Danh_Muc = $category_id")->fetch_assoc()['Ten_Danh_Muc'] ?? 'Không rõ';
+              echo htmlspecialchars($cateName);
+            ?>
+          <?php else: ?>
+            Kết quả cho từ khóa: "<?= htmlspecialchars($keyword) ?>"
+          <?php endif; ?>
+        </p>
+
         <div class="search-result__sort">
           <label for="sort-select" class="search-result__sort-label">Sắp xếp theo</label>
           <select id="sort-select" name="sort" class="search-result__sort-select" onchange="this.form.submit()">
@@ -307,7 +328,8 @@ $stmtCount->close();
         'max_price' => $max_price,
         'rating' => $rating,
         'location' => $location,
-        'sort' => $sort
+        'sort' => $sort,
+        'category_id' => $category_id
       ]);
       ?>
       <div class="pagination">
