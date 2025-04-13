@@ -88,7 +88,7 @@ function handleAddToCart(isBuyNow = false) {
 
   setTimeout(() => {
     if (isBuyNow) {
-      window.location.href = '/datn-project/pages/cart.php';
+      window.location.href = '/datn-project/datn-project/pages/cart.php';
     } else {
       showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
     }

@@ -106,7 +106,7 @@ function handleAddToCart(isBuyNow = false) {
     updateCartUI();
 
     if (isBuyNow) {
-        window.location.href = '/datn-project/pages/cart.php';
+        window.location.href = '/datn-project/datn-project/pages/cart.php';
     } else {
         showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
     }
@@ -192,7 +192,7 @@ function handleAddToCart(isBuyNow = false) {
     updateCartUI();
 
     if (isBuyNow) {
-        window.location.href = '/datn-project/pages/cart.html';
+        window.location.href = '/datn-project/datn-project/pages/cart.html';
     } else {
         showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
     }

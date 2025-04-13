@@ -24,8 +24,13 @@
 
   <div class="main">
     <div class="container">
+      <button class="mobile-menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="user-main user-main--Address">
+        
         <aside class="user-main__sidebar">
+          <div class="mobile-overlay" id="mobileOverlay"></div>
           <img src="" alt="Avatar" class="user-main__avatar">
 
 
@@ -83,8 +88,7 @@
               </div>
             </div>
            
-            <div class="user-orders__list">
-              <div class="user-orders__item" data-status="hoanthanh">
+            <div class="user-orders__item" data-status="hoanthanh" title="Xem chi tiết đơn hàng">
                 <div class="user-orders__shop">
                   <div class="user-orders__shop-left">
                     <span>Tên shop</span>
@@ -195,6 +199,31 @@
       </div>
 
     </div>
+    
+    <!-- Modal Chi tiết đơn hàng -->
+    <div class="modal" id="orderDetailModal">
+      
+      <div class="modal__content order-detail-modal">
+        <span class="modal__close" id="closeOrderDetail">&times;</span>
+        <h2 class="modal__title">Chi tiết đơn hàng</h2>
+        <div class="order-detail__info">
+          <div class="order-detail__image">
+            <img src="../assets/images/Phanthedung/images (2).jpg" alt="Ảnh sản phẩm">
+          </div>
+          <div class="order-detail__text">
+            <p><strong>Tên sản phẩm:</strong> Áo thun PEARNK</p>
+            <p><strong>Số lượng:</strong> 2</p>
+            <p><strong>Giá:</strong> <span class="price">200.000đ</span></p>
+            <p><strong>Thành tiền:</strong> <span class="total">400.000đ</span></p>
+            <p><strong>Ngày đặt:</strong> <span class="label">10/04/2025</span></p>
+            <p><strong>Trạng thái:</strong> <span class="label">Hoàn thành</span></p>
+            <p><strong>Shop:</strong> <span class="label">PEARNK Store</span></p>
+            <p><strong>Địa chỉ giao:</strong> <span class="label">123 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal đánh giá -->
     <div class="modal" id="reviewModal">
       <div class="modal__content">
         <span class="modal__close" id="closeModal">&times;</span>

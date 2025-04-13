@@ -945,7 +945,7 @@ document.addEventListener('DOMContentLoaded', function () {
   addBtn.addEventListener('click', function () {
     // Tạo khối mới với class "from-use"
     const newAddressForm = document.createElement('from');
-    newAddressForm.classList.add('.from-use__tabs');
+ 
     const alertBox = document.getElementById("alert");
     const province = document.getElementById('province').value;
     const district = document.getElementById('district').value;

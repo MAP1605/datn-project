@@ -49,7 +49,7 @@ AND ctgh.ID_Gio_Hang IN (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PearNK - Thanh toán</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="/datn-project/datn-project/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -63,8 +63,12 @@ AND ctgh.ID_Gio_Hang IN (
 
     <main>
         <div class="checkout-container">
-            <section class="checkout-address">
-                <div class="checkout-address__title">Địa chỉ nhận hàng</div>
+        <section class="checkout-address">
+                <div class="checkout-address__header">
+                    <div class="checkout-address__title">Địa chỉ nhận hàng</div>
+                    <button class="checkout-Select-Address">Chọn địa chỉ</button>
+                </div>
+
                 <div class="checkout-address__info">
                     <strong>Đào Việt Cường</strong> &nbsp; (+84) 868897782 <br />
                     Số nhà 9 liên kề 23 khu đô thị La Khê Hà Đông, Phường La Khê, Hà Đông, Hà Nội
@@ -101,7 +105,7 @@ AND ctgh.ID_Gio_Hang IN (
             </section>
 
             <section class="checkout-action">
-                <button class="checkout-action__btn">Đặt hàng</button>
+                <button class="checkout-action__btn" > <a href="/datn-project/datn-project/pages/Donmua.html">Đặt hàng</a></button>
             </section>
         </div>
     </main>
@@ -115,7 +119,7 @@ AND ctgh.ID_Gio_Hang IN (
         const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js"></script>
+<script type="module" src="/datn-project/datn-project/js/pages/checkout.js"></script>
 
     <script>
         // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
@@ -127,7 +131,7 @@ AND ctgh.ID_Gio_Hang IN (
         const parsedIds = ids.map(id => parseInt(id));
         localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
     </script>
-
+ 
 </body>
 
 </html>
