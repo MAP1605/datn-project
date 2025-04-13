@@ -2,14 +2,14 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$conn = new mysqli('localhost', 'root', '', 'DATN');
+$conn = new mysqli('localhost', 'root', '', 'datn');
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-$keyword = $_GET['q'] ?? '';
-$min_price = intval($_GET['min_price'] ?? 0);
-$max_price = intval($_GET['max_price'] ?? 1000000000);
+$keyword = trim($_GET['q'] ?? '');
+$min_price = $_GET['min_price'] ?? '';
+$max_price = $_GET['max_price'] ?? '';
 $rating = intval($_GET['rating'] ?? 0);
 $location = $_GET['location'] ?? '';
 $sort = $_GET['sort'] ?? 'asc';
@@ -17,44 +17,60 @@ $page = intval($_GET['page'] ?? 1);
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
-if ($min_price > $max_price) {
-    [$min_price, $max_price] = [$max_price, $min_price];
-}
-
 $bindTypes = '';
 $bindValues = [];
+$where = "WHERE 1";
 
-// Luôn có 1 điều kiện tìm tên
-$where = "WHERE sp.Ten_San_Pham LIKE ?";
-$bindTypes .= 's';
-$bindValues[] = '%' . $keyword . '%';
-
-// Lọc giá
-if ($min_price || $max_price < 1000000000) {
-  $where .= " AND sp.Gia_Ban BETWEEN ? AND ?";
-  $bindTypes .= 'ii'; 
-  $bindValues[] = $min_price;
-  $bindValues[] = $max_price;
+// 1. Tìm theo tên
+if ($keyword !== '') {
+    $where .= " AND LOWER(sp.Ten_San_Pham) LIKE LOWER(?)";
+    $bindTypes .= 's';
+    $bindValues[] = '%' . $keyword . '%';
 }
 
-// Lọc địa chỉ người bán (join bảng Nguoi_Ban)
+// 2. Lọc khoảng giá
+if (($min_price !== '' && is_numeric($min_price)) || ($max_price !== '' && is_numeric($max_price))) {
+    $min_price = intval($min_price ?: 0);
+    $max_price = intval($max_price ?: 1000000000);
+    if ($min_price > $max_price) {
+        [$min_price, $max_price] = [$max_price, $min_price];
+    }
+    $where .= " AND sp.Gia_Goc BETWEEN ? AND ?";
+    $bindTypes .= 'ii';
+    $bindValues[] = $min_price;
+    $bindValues[] = $max_price;
+} else {
+    $min_price = 0;
+    $max_price = 0;
+}
+
+// 3. Lọc theo địa chỉ người mua đã đăng ký làm người bán
 if (!empty($location)) {
-  $where .= " AND nb.Dia_Chi LIKE ?";
-  $bindTypes .= 's';
-  $bindValues[] = '%' . $location . '%';
+    $where .= " AND dcn.Tinh_Thanh_Pho LIKE ?";
+    $bindTypes .= 's';
+    $bindValues[] = '%' . $location . '%';
 }
 
-// Lọc sao
+// 4. Lọc số sao đánh giá
 if ($rating > 0) {
-  $where .= " AND sp.So_Sao_Danh_Gia >= ?";
-  $bindTypes .= 'i';
-  $bindValues[] = $rating;
+  if ($rating == 5) {
+    $where .= " AND sp.So_Sao_Danh_Gia = 5";
+  } else {
+    $where .= " AND sp.So_Sao_Danh_Gia >= ? AND sp.So_Sao_Danh_Gia < ?";
+    $bindTypes .= 'ii';
+    $bindValues[] = $rating;
+    $bindValues[] = $rating + 1;
+  }
 }
 
-// SQL có JOIN
-$sql = "SELECT sp.* FROM San_Pham sp 
-        JOIN Nguoi_Ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban 
-        $where 
+
+$sql = "SELECT sp.* 
+        FROM san_pham sp
+        JOIN nguoi_ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban
+        JOIN `người_mua` nm ON nb.ID_Nguoi_Mua = nm.ID_Nguoi_Mua
+        LEFT JOIN dia_chi_nhan_hang dcn ON nm.ID_Nguoi_Mua = dcn.ID_Nguoi_Mua
+        $where
+        GROUP BY sp.ID_San_Pham
         ORDER BY sp.Gia_Ban " . ($sort === 'desc' ? 'DESC' : 'ASC') . 
         " LIMIT $limit OFFSET $offset";
 
@@ -63,9 +79,11 @@ $stmt->bind_param($bindTypes, ...$bindValues);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Đếm tổng
-$countSql = "SELECT COUNT(*) FROM San_Pham sp 
-             JOIN Nguoi_Ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban 
+$countSql = "SELECT COUNT(DISTINCT sp.ID_San_Pham)
+             FROM san_pham sp
+             JOIN nguoi_ban nb ON sp.ID_Nguoi_Ban = nb.ID_Nguoi_Ban
+             JOIN `người_mua` nm ON nb.ID_Nguoi_Mua = nm.ID_Nguoi_Mua
+             LEFT JOIN dia_chi_nhan_hang dcn ON nm.ID_Nguoi_Mua = dcn.ID_Nguoi_Mua
              $where";
 
 $stmtCount = $conn->prepare($countSql);
@@ -76,6 +94,8 @@ $stmtCount->fetch();
 $totalPages = ceil($totalProducts / $limit);
 $stmtCount->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -105,30 +125,112 @@ $stmtCount->close();
   <!-- End header -->
 
 <main class="search-page container">
+
   <form id="searchFilterForm" method="GET" class="search-page__content">
+
+    <!-- GIỮ TỪ KHÓA -->
+    <input type="hidden" name="q" value="<?= htmlspecialchars($keyword) ?>">
+
     <aside class="search-filter">
       <h3 class="search-filter__title">Bộ lọc tìm kiếm</h3>
       <div class="search-filter__group">
-        <p class="search-filter__heading">Nơi bán</p>
-        <label class="search-filter__checkbox">
-          <input type="radio" name="location" value="Hà Nội" <?= $location == 'Hà Nội' ? 'checked' : '' ?>> Hà Nội
-        </label>
-        <label class="search-filter__checkbox">
-          <input type="radio" name="location" value="Hồ Chí Minh" <?= $location == 'Hồ Chí Minh' ? 'checked' : '' ?>> Hồ Chí Minh
-        </label>
-        <label class="search-filter__checkbox">
-          <input type="radio" name="location" value="Thái Bình" <?= $location == 'Thái Bình' ? 'checked' : '' ?>> Thái Bình
-        </label>
-        <button type="button" class="search-filter__more">Xem thêm</button>
-      </div>
+  <p class="search-filter__heading">Nơi bán</p>
+  <input type="text"
+         id="province-input"
+         name="location"
+         placeholder="Nhập nơi bán..."
+         list="province-list"
+         class="search-filter__input"
+         value="<?= htmlspecialchars($location) ?>">
+            <datalist id="province-list">
+              <option value="An Giang">
+              <option value="Bà Rịa - Vũng Tàu">
+              <option value="Bắc Giang">
+              <option value="Bắc Kạn">
+              <option value="Bạc Liêu">
+              <option value="Bắc Ninh">
+              <option value="Bến Tre">
+              <option value="Bình Định">
+              <option value="Bình Dương">
+              <option value="Bình Phước">
+              <option value="Bình Thuận">
+              <option value="Cà Mau">
+              <option value="Cần Thơ">
+              <option value="Cao Bằng">
+              <option value="Đà Nẵng">
+              <option value="Đắk Lắk">
+              <option value="Đắk Nông">
+              <option value="Điện Biên">
+              <option value="Đồng Nai">
+              <option value="Đồng Tháp">
+              <option value="Gia Lai">
+              <option value="Hà Giang">
+              <option value="Hà Nam">
+              <option value="Hà Nội">
+              <option value="Hà Tĩnh">
+              <option value="Hải Dương">
+              <option value="Hải Phòng">
+              <option value="Hậu Giang">
+              <option value="Hòa Bình">
+              <option value="Hưng Yên">
+              <option value="Khánh Hòa">
+              <option value="Kiên Giang">
+              <option value="Kon Tum">
+              <option value="Lai Châu">
+              <option value="Lâm Đồng">
+              <option value="Lạng Sơn">
+              <option value="Lào Cai">
+              <option value="Long An">
+              <option value="Nam Định">
+              <option value="Nghệ An">
+              <option value="Ninh Bình">
+              <option value="Ninh Thuận">
+              <option value="Phú Thọ">
+              <option value="Phú Yên">
+              <option value="Quảng Bình">
+              <option value="Quảng Nam">
+              <option value="Quảng Ngãi">
+              <option value="Quảng Ninh">
+              <option value="Quảng Trị">
+              <option value="Sóc Trăng">
+              <option value="Sơn La">
+              <option value="Tây Ninh">
+              <option value="Thái Bình">
+              <option value="Thái Nguyên">
+              <option value="Thanh Hóa">
+              <option value="Thừa Thiên Huế">
+              <option value="Tiền Giang">
+              <option value="TP Hồ Chí Minh">
+              <option value="Trà Vinh">
+              <option value="Tuyên Quang">
+              <option value="Vĩnh Long">
+              <option value="Vĩnh Phúc">
+              <option value="Yên Bái">
+            </datalist>
+          </div>
 
       <div class="search-filter__group">
         <p class="search-filter__heading">Khoảng giá</p>
-        <input type="number" class="search-filter__input" name="min_price" placeholder="MIN" value="<?= $min_price ?>">
-        <span class="search-filter__dash">-</span>
-        <input type="number" class="search-filter__input" name="max_price" placeholder="MAX" value="<?= $max_price ?>">
+        <input
+          type="number"
+          min="0"
+          name="min_price"
+          class="search-filter__input"
+          value="<?= $min_price ?>"
+          placeholder="Giá từ..."
+        />
+        <input
+          type="number"
+          min="0"
+          name="max_price"
+          class="search-filter__input"
+          value="<?= $max_price ?>"
+          placeholder="Đến..."
+        />
         <button class="search-filter__btn" type="submit">Áp dụng</button>
       </div>
+
+
 
       <div class="search-filter__group">
         <p class="search-filter__heading">Đánh giá</p>
@@ -147,12 +249,15 @@ $stmtCount->close();
         <label class="search-filter__rating">
           <input type="radio" name="rating" value="1" <?= $rating == 1 ? 'checked' : '' ?>> ★☆☆☆☆
         </label>
+        <!-- ✅ Thêm nút reset filter -->
+  <button type="button" class="search-filter__reset" onclick="resetFilters()">Xoá bộ lọc</button>
       </div>
     </aside>
 
     <section class="search-result">
       <div class="search-result__header">
         <p class="search-result__count">Kết quả cho từ khóa: "<?= htmlspecialchars($keyword) ?>"</p>
+        
         <div class="search-result__sort">
           <label for="sort-select" class="search-result__sort-label">Sắp xếp theo</label>
           <select id="sort-select" name="sort" class="search-result__sort-select" onchange="this.form.submit()">
@@ -213,7 +318,9 @@ $stmtCount->close();
         <?php endfor; ?>
       </div>
     </section>
+
   </form>
+
 </main>
 
 <script>
@@ -230,6 +337,21 @@ document.querySelectorAll('.search-filter__more').forEach(btn => {
     btn.textContent = group.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
   });
 });
+
+function resetFilters() {
+  const form = document.getElementById('searchFilterForm');
+
+  // Reset radio buttons (location + rating)
+  form.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+
+  // Reset price
+  form.querySelector('input[name="min_price"]').value = '';
+  form.querySelector('input[name="max_price"]').value = '';
+
+  // Submit lại form giữ nguyên từ khóa
+  form.submit();
+}
+
 </script>
 
 

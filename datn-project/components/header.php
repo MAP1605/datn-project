@@ -34,7 +34,8 @@
 
             <!-- Tìm kiếm  -->
             <form action="/datn-project/datn-project/pages/search.php" method="GET" class="header__search">
-                <input type="text" name="q" placeholder="Tìm sản phẩm..." class="header__search-input" required />
+                <input type="text" name="q" placeholder="Tìm sản phẩm..." class="header__search-input"
+                    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" />
                 <button type="submit" class="header__search-btn">
                     <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
                 </button>
