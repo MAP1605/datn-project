@@ -117,36 +117,6 @@ $statusMap = [
               <button class="user-orders__tab-btn" data-tab="dahuy">Đã hủy</button>
             </div>
 
-
-            <div class="user-orders__item" data-status="Chogiaohang">
-              <div class="user-orders__shop">
-                <div class="user-orders__shop-left">
-                  <span>Tên shop</span>
-                  <button>Chat</button>
-                  <button>Xem shop</button>
-                </div>
-                <div class="user-orders__shop-right">
-                  <h4>Chờ giao hàng</h4>
-                </div>
-              </div>
-              <div class="user-orders__details">
-                <div class="user-orders__details-img">
-                  <img src="../assets/images/Phanthedung/images (1).jpg" alt="" class="user-orders__details-img-1" id=" ">
-                </div>
-                <div class="user-orders__product-info">
-                  <p>Tên sản phẩm</p>
-                  <p>Số lượng</p>
-                  <p class="user-orders__price">Giá</p>
-                </div>
-              </div>
-              <div class="user-orders__total">Thành tiền:</div>
-              <div class="user-orders__actions">
-
-                <button class="check-ship">Đã nhận được hàng</button>
-                <button class="">Chưa nhận được hàng</button>
-              </div>
-            </div>
-
             <div class="user-orders__list">
               <?php while ($row = $result->fetch_assoc()):
                 $statusKey = $statusMap[$row['Trang_Thai_Don_Hang']] ?? 'all';
@@ -165,7 +135,7 @@ $statusMap = [
 
                   <div class="user-orders__details">
                     <div class="user-orders__details-img">
-                      <img src="image.php?id=<?= $row['ID_San_Pham'] ?>" alt="Ảnh" class="user-orders__details-img-1">
+                      <img src="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>" alt="Ảnh" class="user-orders__details-img-1">
                     </div>
                     <div class="user-orders__product-info">
                       <p><?= htmlspecialchars($row['Ten_San_Pham']) ?></p>
@@ -182,7 +152,6 @@ $statusMap = [
                       <button>Yêu cầu trả hàng/Hoàn tiền</button>
                     <?php elseif ($statusKey == 'chogiaohang'): ?>
                       <button class="confirm-received" data-id="<?= $row['ID_Hoa_Don'] ?>">Đã nhận được hàng</button>
-                      <button>Chưa nhận được hàng</button>
                     <?php elseif ($statusKey == 'dahuy'): ?>
                       <button>Mua lại</button>
                     <?php endif; ?>
@@ -246,7 +215,7 @@ $statusMap = [
           if (!id) return;
 
           if (confirm("Bạn xác nhận đã nhận được hàng?")) {
-            fetch('update-status.php', {
+            fetch('/datn-project/datn-project/pages/update-status.php', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'

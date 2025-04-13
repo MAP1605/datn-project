@@ -24,7 +24,8 @@ if (!is_array($selectedIds) || empty($selectedIds)) {
     sp.Ten_San_Pham AS name,
     sp.Gia_Ban AS price,
     sp.Anh_San_Pham1 AS image,
-    ctgh.So_Luong AS quantity
+    ctgh.So_Luong AS quantity,
+    ctsp.ID_San_Pham
 FROM Chi_Tiet_Gio_Hang ctgh
 JOIN Chi_Tiet_San_Pham ctsp ON ctgh.ID_Chi_Tiet_San_Pham = ctsp.ID_Chi_Tiet_San_Pham
 JOIN San_Pham sp ON ctsp.ID_San_Pham = sp.ID_San_Pham
@@ -91,11 +92,11 @@ AND ctgh.ID_Gio_Hang IN (
                 </div>
                 <div class="checkout-summary__row">
                     <span>Phí vận chuyển:</span>
-                    <strong>25.000đ</strong>
+                    <strong>0đ</strong>
                 </div>
                 <div class="checkout-summary__row checkout-summary__total">
                     <span>Tổng thanh toán:</span>
-                    <strong id="checkoutFinal">25.000đ</strong>
+                    <strong id="checkoutFinal">0đ</strong>
                 </div>
             </section>
 
@@ -119,7 +120,7 @@ AND ctgh.ID_Gio_Hang IN (
         const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js"></script>
+    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js?ts=<?= time() ?>"></script>
 
     <script>
         // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
@@ -132,7 +133,7 @@ AND ctgh.ID_Gio_Hang IN (
         localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
     </script>
 
-    <script src="/datn-project/datn-project/js/components/checkout.js"></script>
+    <script src="/datn-project/datn-project/js/components/checkout.js?ts=<?= time() ?>"></script>
 
 </body>
 
