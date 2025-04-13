@@ -71,8 +71,8 @@ AND ctgh.ID_Gio_Hang IN (
                 </div>
 
                 <div class="checkout-address__info">
-                    <strong>Đào Việt Cường</strong> &nbsp; (+84) 868897782 <br />
-                    Số nhà 9 liên kề 23 khu đô thị La Khê Hà Đông, Phường La Khê, Hà Đông, Hà Nội
+                    <strong>Tên Người Nhận</strong> &nbsp; (+84) Số điên thoại <br />
+                    Địa Chỉ Của Bạn
                 </div>
             </section>
 
@@ -120,7 +120,6 @@ AND ctgh.ID_Gio_Hang IN (
         const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js?ts=<?= time() ?>"></script>
 
     <script>
         // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
@@ -132,6 +131,7 @@ AND ctgh.ID_Gio_Hang IN (
         const parsedIds = ids.map(id => parseInt(id));
         localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
     </script>
+    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js?ts=<?= time() ?>"></script>
 
     <script src="/datn-project/datn-project/js/components/checkout.js?ts=<?= time() ?>"></script>
 

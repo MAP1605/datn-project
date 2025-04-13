@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelector('.checkout-action__btn').addEventListener('click', () => {
   if (!confirm('Xác nhận đặt hàng?')) return;
 
+  if (!window.selectedAddressId) {
+    alert("Vui lòng chọn địa chỉ giao hàng trước khi đặt hàng!");
+    return;
+  }
+
   const sanPham = cart.map(sp => ({
     idCTGH: sp.ID_Chi_Tiet_Gio_Hang,
     soLuong: sp.quantity,
@@ -55,7 +60,7 @@ document.querySelector('.checkout-action__btn').addEventListener('click', () => 
 
   const formData = new FormData();
   formData.append('sanPham', JSON.stringify(sanPham));
-  formData.append('diaChiID', 1);
+  formData.append('diaChiID', window.selectedAddressId);
   formData.append('phuongThuc', 'Thanh toán khi nhận hàng');
 
   fetch('/datn-project/datn-project/pages/api/xu-ly-dat-hang.php', {

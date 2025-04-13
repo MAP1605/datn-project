@@ -7,6 +7,8 @@ document.querySelector('.checkout-Select-Address').addEventListener('click', () 
         return;
       }
 
+      console.log("📦 Danh sách địa chỉ nhận được:", addresses); // ✅ để ngoài HTML
+
       const popup = document.createElement('div');
       popup.className = 'address-popup';
       popup.innerHTML = `
@@ -14,25 +16,38 @@ document.querySelector('.checkout-Select-Address').addEventListener('click', () 
         <div class="address-popup__content">
           <h3>Chọn địa chỉ giao hàng</h3>
           <ul class="address-popup__list">
-            ${addresses.map((addr, i) => `
-              <li class="address-popup__item" data-index="${i}">
+            ${addresses.map(addr => `
+              <li class="address-popup__item" data-id="${addr.ID_Dia_Chi}">
                 <strong>${addr.ten}</strong> | ${addr.sdt}<br/>
                 ${addr.diachi}, ${addr.ward}, ${addr.district}, ${addr.province}
-              </li>`).join('')}
+              </li>
+            `).join('')}
           </ul>
           <button class="address-popup__close">Đóng</button>
         </div>
       `;
+
       document.body.appendChild(popup);
 
       document.querySelectorAll('.address-popup__item').forEach(item => {
         item.addEventListener('click', () => {
-          const idx = item.dataset.index;
-          const addr = addresses[idx];
-          document.querySelector('.checkout-address__info').innerHTML = `
+          const id = parseInt(item.dataset.id);
+          const addr = addresses.find(a => a.ID_Dia_Chi == id);
+
+          if (!addr) {
+            alert("Không tìm thấy địa chỉ tương ứng!");
+            return;
+          }
+
+          const infoBox = document.querySelector('.checkout-address__info');
+          infoBox.innerHTML = `
             <strong>${addr.ten}</strong> &nbsp; (${addr.sdt})<br/>
             ${addr.diachi}, ${addr.ward}, ${addr.district}, ${addr.province}
           `;
+          infoBox.dataset.id = addr.ID_Dia_Chi;
+          window.selectedAddressId = addr.ID_Dia_Chi;
+
+          console.log("✅ Đã chọn địa chỉ ID:", addr.ID_Dia_Chi);
           popup.remove();
         });
       });
@@ -41,4 +56,3 @@ document.querySelector('.checkout-Select-Address').addEventListener('click', () 
     })
     .catch(() => alert('Không thể lấy danh sách địa chỉ!'));
 });
-
