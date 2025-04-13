@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bindCheckboxEvents();
     updateSelectAllStatus();
     updateCartTotal();
+    handleSelectAll(selectAllTop.checked);
   }
 
   function rememberCheckedState() {
@@ -261,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Khi click chọn tất cả
   function handleSelectAll(checked) {
     const checkboxes = document.querySelectorAll('.cart__checkbox');
     checkboxes.forEach(cb => cb.checked = checked);
