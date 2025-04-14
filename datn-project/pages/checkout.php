@@ -50,7 +50,7 @@ AND ctgh.ID_Gio_Hang IN (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PearNK - Thanh toán</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="/datn-project/datn-project/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -64,6 +64,7 @@ AND ctgh.ID_Gio_Hang IN (
 
     <main>
         <div class="checkout-container">
+
             <section class="checkout-address">
                 <div class="checkout-address__header">
                     <div class="checkout-address__title">Địa chỉ nhận hàng</div>
@@ -106,7 +107,7 @@ AND ctgh.ID_Gio_Hang IN (
             </section>
 
             <section class="checkout-action">
-                <button class="checkout-action__btn">Đặt hàng</button>
+                <button class="checkout-action__btn"> <a href="/datn-project/datn-project/pages/Donmua.html">Đặt hàng</a></button>
             </section>
         </div>
     </main>
@@ -120,7 +121,6 @@ AND ctgh.ID_Gio_Hang IN (
         const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-
     <script>
         // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
         const urlParams = new URLSearchParams(window.location.search);
@@ -131,6 +131,7 @@ AND ctgh.ID_Gio_Hang IN (
         const parsedIds = ids.map(id => parseInt(id));
         localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
     </script>
+
     <script type="module" src="/datn-project/datn-project/js/pages/checkout.js?ts=<?= time() ?>"></script>
 
     <script src="/datn-project/datn-project/js/components/checkout.js?ts=<?= time() ?>"></script>
