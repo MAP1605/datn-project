@@ -1,3 +1,15 @@
+function dataURLtoFile(dataurl, filename) {
+  let arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
+
 const tabButtons = document.querySelectorAll('.user-orders__tab-btn');
 const orderItems = document.querySelectorAll('.user-orders__item');
 
@@ -103,14 +115,6 @@ imageInput.addEventListener('change', () => {
   imageInput.value = '';
 });
 
-document.getElementById('completeBtn').addEventListener('click', () => {
-
-  document.getElementById('reviewModal').style.display = 'none';
-  showNotification('Đánh giá thành công', 'success');
-  resetModal();
-});
-
-
 function resetModal() {
   currentRating = 0;
   updateStarColors(0);
@@ -213,12 +217,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const imagesPreview = document.getElementById('imagesPreview');
 
 
-      document.getElementById('completeBtn').addEventListener('click', () => {
+      // document.getElementById('completeBtn').addEventListener('click', () => {
 
-        document.getElementById('reviewModal').style.display = 'none';
-        showNotification('Đánh giá thành công', 'success');
-        resetModal();
-      });
+      //   document.getElementById('reviewModal').style.display = 'none';
+      //   showNotification('Đánh giá thành công', 'success');
+      //   resetModal();
+      // });
 
 
       function resetModal() {
@@ -286,4 +290,77 @@ window.addEventListener('click', function (e) {
   if (e.target === modal) {
     modal.style.display = 'none';
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const openBtns = document.querySelectorAll('.openModalBtn');
+  const reviewModal = document.getElementById('reviewModal');
+  const closeModal = document.getElementById('closeModal');
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      const img = btn.dataset.img;
+      const qty = btn.dataset.qty;
+      const price = parseInt(btn.dataset.price);
+      const total = parseInt(btn.dataset.total);
+      const productId = btn.dataset.id;
+
+      // GÁN VÀO input ẩn để gửi về backend
+      document.getElementById('reviewProductId').value = productId;
+
+      // Hiển thị vào modal
+      document.getElementById('review-name').textContent = name;
+      document.getElementById('review-image').src = img;
+      document.getElementById('review-price').textContent = price.toLocaleString('vi-VN') + 'đ';
+      document.getElementById('review-qty').textContent = qty;
+      document.getElementById('review-total').textContent = total.toLocaleString('vi-VN') + 'đ';
+
+      document.getElementById('reviewModal').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Đóng modal
+  closeModal.addEventListener('click', () => {
+    reviewModal.classList.remove('show');
+    document.body.style.overflow = '';
+  });
+});
+
+document.getElementById('completeBtn').addEventListener('click', () => {
+  const starCount = document.querySelectorAll('#starContainer .star.selected').length;
+  const reviewText = document.querySelector('.review-textarea').value.trim();
+  const productId = document.getElementById('reviewProductId')?.value;
+
+  if (!productId || starCount === 0 || reviewText === '') {
+    alert('Vui lòng nhập đầy đủ thông tin đánh giá!');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('ID_San_Pham', productId);
+  formData.append('So_Sao', starCount);
+  formData.append('Binh_Luan', reviewText);
+
+  // 👇 Thêm từ ảnh trong preview
+  const previewImgs = document.querySelectorAll('.modal__preview-img');
+  for (let i = 0; i < Math.min(previewImgs.length, 3); i++) {
+    const file = dataURLtoFile(previewImgs[i].src, `anh${i + 1}.jpg`);
+    formData.append(`Anh_Danh_Gia${i + 1}`, file);
+  }
+
+  fetch('../pages/api/add-review.php', {
+    method: 'POST',
+    body: formData
+  })
+    .then(res => res.text())
+    .then(data => {
+      if (data.trim() === 'success') {
+        alert('🎉 Đánh giá đã được gửi!');
+        location.reload();
+      } else {
+        alert('❌ Gửi đánh giá thất bại!');
+      }
+    });
 });

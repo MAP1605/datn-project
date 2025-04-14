@@ -167,8 +167,15 @@ $user = $resultUser->fetch_assoc();
 
                   <div class="user-orders__actions">
                     <?php if ($statusKey == 'hoanthanh'): ?>
-                      <button class="openModalBtn">Đánh giá</button>
-                      <button>Yêu cầu trả hàng/Hoàn tiền</button>
+                      <button class="openModalBtn"
+                        data-id="<?= $row['ID_San_Pham'] ?>"
+                        data-name="<?= htmlspecialchars($row['Ten_San_Pham']) ?>"
+                        data-img="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>"
+                        data-qty="<?= $row['So_Luong'] ?>"
+                        data-price="<?= $row['Gia_Ban'] ?>"
+                        data-total="<?= $row['Thanh_Tien'] ?>">
+                        Đánh giá
+                      </button>
                     <?php elseif ($statusKey == 'chogiaohang'): ?>
                       <button class="confirm-received" data-id="<?= $row['ID_Hoa_Don'] ?>">Đã nhận được hàng</button>
                     <?php elseif ($statusKey == 'dahuy'): ?>
@@ -218,11 +225,17 @@ $user = $resultUser->fetch_assoc();
     <div class="modal__content">
       <span class="modal__close" id="closeModal">&times;</span>
       <h2 class="modal__title">ĐÁNH GIÁ SẢN PHẨM</h2>
+      <input type="hidden" id="reviewProductId" />
 
       <div class="modal__product-info">
-        <div class="modal__product-image">HÌNH ẢNH</div>
+        <div class="modal__product-image">
+          <img id="review-image" src="" alt="" style="max-width: 100px;" />
+        </div>
         <div class="modal__product-details">
-          <h3 class="modal__product-name">Tên sản phẩm</h3>
+          <h3 class="modal__product-name" id="review-name">Tên sản phẩm</h3>
+          <p>Giá: <span id="review-price"></span></p>
+          <p>Số lượng: <span id="review-qty"></span></p>
+          <p>Thành tiền: <span id="review-total"></span></p>
           <div class="modal__rating">
             <label class="modal__rating-label">Chất lượng sản phẩm</label>
             <div class="modal__stars" id="starContainer">
@@ -251,7 +264,7 @@ $user = $resultUser->fetch_assoc();
   </div>
 
   <div id="footer"></div>
-  <script src="../js/components/Donmua.js"></script>
+  <script src="../js/components/Donmua.js?v=<?= time() ?>"></script>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
   <script src="../js/components/Giaodiennguoidung.js"></script>
 
