@@ -224,8 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
         <!-- Header main -->
         <div class="header__main">
             <div class="header__logo">
-                <a href="/datn-project/index.html" class="header__logo-link">
-                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
+                <a href="/datn-project/datn-project/index.html" class="header__logo-link">
+                    <img src="/datn-project/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
                 </a>
             </div>
             <div class="header__search">
@@ -244,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     <ul class="header__cart-list"></ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
-                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                        <a href="/datn-project/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>

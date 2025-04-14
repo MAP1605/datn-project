@@ -366,3 +366,226 @@
   90% { opacity: 1; transform: translateX(-50%) translateY(0); }
   100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
 }
+/* ========== RESPONSIVE ========== */
+
+/* Tablet (iPad) */
+@media (max-width: 1023px) {
+  .user-main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-main__sidebar {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .user-main__nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .profile {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .profile__image-section {
+    order: -1;
+    margin-bottom: 20px;
+  }
+
+  .profile__form {
+    width: 100%;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+}
+
+/* Mobile (iPhone 14) */
+@media (max-width: 767px) {
+  .profile__heading {
+    font-size: 20px;
+  }
+
+  .profile__label {
+    font-size: 14px;
+  }
+
+  .profile__input,
+  .profile__submit,
+  .profile__choose-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .profile__submit {
+    width: 100%;
+  }
+
+  .user-main__nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile {
+    padding: 16px;
+  }
+
+  .profile__avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile__gender {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+  
+  /* Ẩn nút menu 3 gạch trên desktop */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10001;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Hiện menu 3 gạch trên mobile */
+@media (max-width: 767px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .user-main__sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 10000;
+    padding: 20px;
+  }
+
+  .user-main__sidebar.active {
+    left: 0;
+  }
+}
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: none;
+}
+
+.mobile-overlay.active {
+  display: block;
+}
+
+/* giao dien hoa don */
+.order-detail-modal {
+  max-width: 600px;
+  font-family: 'Roboto', sans-serif;
+}
+.modal__title{
+  color: #3498db;
+}
+.order-detail__info {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.order-detail__image {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.order-detail__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.order-detail__text {
+  flex: 1;
+}
+
+.order-detail__text p {
+  margin: 6px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.order-detail__text strong {
+  color: #444;
+}
+
+/* Giá trị màu nổi bật */
+.order-detail__text p span.price {
+  color: #e67e22; /* cam cho giá */
+  font-weight: 500;
+}
+
+.order-detail__text p span.total {
+  color: #d63031; /* đỏ cho thành tiền */
+  font-weight: bold;
+}
+
+.order-detail__text p span.label {
+  color: #2d3436;
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .order-detail__info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .order-detail__text {
+    text-align: center;
+  }
+}
+/* Đơn hàng đã hoàn thành có thể click: hiện pointer và hiệu ứng */
+.user-orders__item[data-status="hoanthanh"] {
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-orders__item[data-status="hoanthanh"]:hover {
+  background-color: #f0f8ff; /* xanh nhạt nhẹ */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+  border: 1px solid #b3d7ff;
+}

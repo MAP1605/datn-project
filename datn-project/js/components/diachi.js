@@ -960,6 +960,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = formData.get("Email");
     const sdt = formData.get("SDT");
 
+
     // 👉 Validate trước khi gửi
     if (!province || !district || !ward || !diachi || !ten || !email || !sdt) {
       alert("⚠ Vui lòng nhập đầy đủ thông tin!");

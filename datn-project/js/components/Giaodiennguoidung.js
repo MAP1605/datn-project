@@ -96,3 +96,18 @@ function showNotification(message, type) {
     noti.remove();
   }, 3000);
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("menuToggle");
+  const sidebar = document.querySelector(".user-main__sidebar");
+  const overlay = document.getElementById("mobileOverlay");
+
+  toggleBtn.addEventListener("click", function () {
+    sidebar.classList.toggle("active");
+   
+  });
+
+  overlay.addEventListener("click", function () {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+});

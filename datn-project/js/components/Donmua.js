@@ -148,90 +148,113 @@ document.addEventListener('DOMContentLoaded', function () {
         <button>Yêu cầu trả hàng/Hoàn tiền</button>
       `;
       const tabButtons = document.querySelectorAll('.user-orders__tab-btn');
-const orderItems = document.querySelectorAll('.user-orders__item');
+      const orderItems = document.querySelectorAll('.user-orders__item');
 
-tabButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    tabButtons.forEach(btn => btn.classList.remove('user-orders__tab-btn--active'));
-    button.classList.add('user-orders__tab-btn--active');
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          tabButtons.forEach(btn => btn.classList.remove('user-orders__tab-btn--active'));
+          button.classList.add('user-orders__tab-btn--active');
 
-    const status = button.getAttribute('data-tab');
-    orderItems.forEach(item => {
-      const itemStatus = item.getAttribute('data-status');
-      item.style.display = (status === 'all' || status === itemStatus) ? 'block' : 'none';
+          const status = button.getAttribute('data-tab');
+          orderItems.forEach(item => {
+            const itemStatus = item.getAttribute('data-status');
+            item.style.display = (status === 'all' || status === itemStatus) ? 'block' : 'none';
+          });
+        });
+      });
+      document.querySelectorAll('.openModalBtn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('reviewModal').style.display = 'block';
+        });
+      });
+
+      document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('reviewModal').style.display = 'none';
+        resetModal();
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('reviewModal')) {
+          document.getElementById('reviewModal').style.display = 'none';
+          resetModal();
+        }
+      });
+
+      const starContainer = document.getElementById('starContainer');
+      let currentRating = 0;
+
+      starContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('star')) {
+          currentRating = e.target.getAttribute('data-value');
+          updateStarColors(currentRating);
+        }
+      });
+
+      starContainer.addEventListener('mouseover', (e) => {
+        if (e.target.classList.contains('star')) {
+          updateStarColors(e.target.getAttribute('data-value'));
+        }
+      });
+
+      starContainer.addEventListener('mouseout', () => {
+        updateStarColors(currentRating);
+      });
+
+      function updateStarColors(rating) {
+        const stars = starContainer.querySelectorAll('.star');
+        stars.forEach(star => {
+          const value = star.getAttribute('data-value');
+          star.classList.toggle('selected', value <= rating);
+        });
+      }
+
+      const addImageBtn = document.getElementById('addImageBtn');
+      const imageInput = document.getElementById('imageInput');
+      const imagesPreview = document.getElementById('imagesPreview');
+
+
+      document.getElementById('completeBtn').addEventListener('click', () => {
+
+        document.getElementById('reviewModal').style.display = 'none';
+        showNotification('Đánh giá thành công', 'success');
+        resetModal();
+      });
+
+
+      function resetModal() {
+        currentRating = 0;
+        updateStarColors(0);
+        imagesPreview.innerHTML = '';
+        imageInput.value = '';
+        document.querySelector('.review-textarea').value = '';
+      }
+      // ấn vào hiện thông tin đơn hàng chi TIết
+      document.querySelectorAll('.user-orders__item[data-status="hoanthanh"]').forEach(item => {
+        item.addEventListener('click', function (e) {
+          // Tránh trigger khi ấn vào nút Đánh giá hoặc Yêu cầu trả hàng
+          if (e.target.closest('button')) return;
+      
+          const modal = document.getElementById('orderDetailModal');
+          modal.style.display = 'block';
+        });
+      });
+      
+      document.getElementById('closeOrderDetail').addEventListener('click', function () {
+        document.getElementById('orderDetailModal').style.display = 'none';
+      });
+      
+      window.addEventListener('click', function (e) {
+        const modal = document.getElementById('orderDetailModal');
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
     });
+
   });
+  
 });
-document.querySelectorAll('.openModalBtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.getElementById('reviewModal').style.display = 'block';
-  });
-});
-
-document.getElementById('closeModal').addEventListener('click', () => {
-  document.getElementById('reviewModal').style.display = 'none';
-  resetModal();
-});
-
-window.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('reviewModal')) {
-    document.getElementById('reviewModal').style.display = 'none';
-    resetModal();
-  }
-});
-
-const starContainer = document.getElementById('starContainer');
-let currentRating = 0;
-
-starContainer.addEventListener('click', (e) => {
-  if (e.target.classList.contains('star')) {
-    currentRating = e.target.getAttribute('data-value');
-    updateStarColors(currentRating);
-  }
-});
-
-starContainer.addEventListener('mouseover', (e) => {
-  if (e.target.classList.contains('star')) {
-    updateStarColors(e.target.getAttribute('data-value'));
-  }
-});
-
-starContainer.addEventListener('mouseout', () => {
-  updateStarColors(currentRating);
-});
-
-function updateStarColors(rating) {
-  const stars = starContainer.querySelectorAll('.star');
-  stars.forEach(star => {
-    const value = star.getAttribute('data-value');
-    star.classList.toggle('selected', value <= rating);
-  });
-}
-
-const addImageBtn = document.getElementById('addImageBtn');
-const imageInput = document.getElementById('imageInput');
-const imagesPreview = document.getElementById('imagesPreview');
-
-
-document.getElementById('completeBtn').addEventListener('click', () => {
-
-  document.getElementById('reviewModal').style.display = 'none';
-  showNotification('Đánh giá thành công', 'success');
-  resetModal();
-});
-
-
-function resetModal() {
-  currentRating = 0;
-  updateStarColors(0);
-  imagesPreview.innerHTML = '';
-  imageInput.value = '';
-  document.querySelector('.review-textarea').value = '';
-}
-    });
-  });
-});
-
+// thời gian hiện thông báo và thông báo
 function showNotification(message, type) {
   const noti = document.createElement('div');
   noti.className = `custom-notification ${type}`;
@@ -242,3 +265,24 @@ function showNotification(message, type) {
     noti.remove();
   }, 3000);
 }
+// ấn vào hiện hóa đơn chi tiết 
+document.querySelectorAll('.user-orders__item[data-status="hoanthanh"]').forEach(item => {
+  item.addEventListener('click', function (e) {
+    // Tránh trigger khi ấn vào nút Đánh giá hoặc Yêu cầu trả hàng
+    if (e.target.closest('button')) return;
+
+    const modal = document.getElementById('orderDetailModal');
+    modal.style.display = 'block';
+  });
+});
+
+document.getElementById('closeOrderDetail').addEventListener('click', function () {
+  document.getElementById('orderDetailModal').style.display = 'none';
+});
+
+window.addEventListener('click', function (e) {
+  const modal = document.getElementById('orderDetailModal');
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
