@@ -233,16 +233,16 @@ document.addEventListener('DOMContentLoaded', function () {
         item.addEventListener('click', function (e) {
           // Tránh trigger khi ấn vào nút Đánh giá hoặc Yêu cầu trả hàng
           if (e.target.closest('button')) return;
-      
+
           const modal = document.getElementById('orderDetailModal');
           modal.style.display = 'block';
         });
       });
-      
+
       document.getElementById('closeOrderDetail').addEventListener('click', function () {
         document.getElementById('orderDetailModal').style.display = 'none';
       });
-      
+
       window.addEventListener('click', function (e) {
         const modal = document.getElementById('orderDetailModal');
         if (e.target === modal) {
@@ -252,8 +252,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   });
-  
+
 });
+
 // thời gian hiện thông báo và thông báo
 function showNotification(message, type) {
   const noti = document.createElement('div');

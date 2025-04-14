@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ho so nguoi dung</title>     
+    <title>Ho so nguoi dung</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,72 +20,82 @@
         <div class="container">
             <button class="mobile-menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
-              </button>
-          <div class="user-main user-main--Address">
-            
-            <aside class="user-main__sidebar">
-                <div class="mobile-overlay" id="mobileOverlay"></div>
-                <img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">
+            </button>
+            <div class="user-main user-main--Address">
+
+                <aside class="user-main__sidebar">
+                    <div class="mobile-overlay" id="mobileOverlay"></div>
+                    <?php
+                // Giả sử bạn đã lấy dữ liệu người dùng từ CSDL vào biến $user
+                // Ví dụ: $user = ['Avatar' => 'user-avatar.jpg'];
                 
-                
-                <nav class="user-main__nav">
-                    <ul class="user-main__nav-list">
-                        <li>
-                            <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
-                        </li>
-                        <li><a class="user-main__nav-link Select-screen-function" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
-                        <li><a class="user-main__nav-link" href="../pages/DiachiUse.html">Địa chỉ</a></li>
-                        <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
-                        <li><a class="user-main__nav-link" href="../pages/Donmua.html">Đơn mua</a></li>
-                     
-                    </ul>
-                </nav>
-            </aside>
+                // Kiểm tra xem người dùng có ảnh đại diện không
+                $imagePath = !empty($user['Avatar']) ? '../assets/images/' . $user['Avatar'] : '../assets/images/Phanthedung/song.jpg';
+                ?>
 
-                    <main class="content">
-                        <div class="profile">
-                            <form class="profile__form">
-                                <h2 class="profile__heading">Hồ sơ của tôi</h2>
+                    <!-- Thẻ img sử dụng đường dẫn ảnh từ CSDL -->
+                    <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="Avatar" class="user-main__avatar">
 
-                                <label class="profile__label">Tên đăng nhập</label>
-                                <input class="profile__input" type="text" value="dsadasdsad"readonly >
+                    <nav class="user-main__nav">
+                        <ul class="user-main__nav-list">
+                            <li>
+                                <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
+                            </li>
+                            <li><a class="user-main__nav-link Select-screen-function"
+                                    href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
+                            <li><a class="user-main__nav-link" href="../pages/DiachiUse.html">Địa chỉ</a></li>
+                            <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
+                            <li><a class="user-main__nav-link" href="../pages/Donmua.html">Đơn mua</a></li>
 
-                                <label class="profile__label">Tên</label>
-                                <input class="profile__input" type="text">
+                        </ul>
+                    </nav>
+                </aside>
 
-                                <label class="profile__label">Email</label>
-                                <input class="profile__input" type="email">
+                <main class="content">
+                    <div class="profile">
+                        <form class="profile__form">
+                            <h2 class="profile__heading">Hồ sơ của tôi</h2>
 
-                                <label class="profile__label">Số điện thoại</label>
-                                <input class="profile__input" type="tel">
+                            <label class="profile__label">Tên đăng nhập</label>
+                            <input class="profile__input" type="text" value="dsadasdsad" readonly>
 
-                                <div class="profile__gender">
-                                    <label class="profile__label">Giới tính</label>
-                                    <input type="radio" name="gender" value="Nam"> Nam
-                                    <input type="radio" name="gender" value="Nữ"> Nữ
-                                    <input type="radio" name="gender" value="Khác"> Khác
-                                </div>
+                            <label class="profile__label">Tên</label>
+                            <input class="profile__input" type="text">
 
-                                <label class="profile__label">Ngày sinh</label>
-                                <input class="profile__input" type="date" value="">
-                                <div class="profile__buttonsave">
+                            <label class="profile__label">Email</label>
+                            <input class="profile__input" type="email">
 
-                                    <button id="saveProfileBtn" class="profile__submit">Lưu</button>
-                                </div>
-                            </form>
+                            <label class="profile__label">Số điện thoại</label>
+                            <input class="profile__input" type="tel">
 
-                            <div class="profile__image-section">
-                                
-                                
-                                <img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện" class="profile__avatar" id="avatarPreview">
-                                <button class="profile__choose-btn" id="chooseBtn">Chọn ảnh</button>
-                                <input type="file" id="imageInput" accept="image/*" hidden>
+                            <div class="profile__gender">
+                                <label class="profile__label">Giới tính</label>
+                                <input type="radio" name="gender" value="Nam"> Nam
+                                <input type="radio" name="gender" value="Nữ"> Nữ
+                                <input type="radio" name="gender" value="Khác"> Khác
                             </div>
+
+                            <label class="profile__label">Ngày sinh</label>
+                            <input class="profile__input" type="date" value="">
+                            <div class="profile__buttonsave">
+
+                                <button id="saveProfileBtn" class="profile__submit">Lưu</button>
+                            </div>
+                        </form>
+
+                        <div class="profile__image-section">
+
+
+                            <img src="img2/Screenshot 2025-02-13 154916.png" alt="Ảnh đại diện" class="profile__avatar"
+                                id="avatarPreview">
+                            <button class="profile__choose-btn" id="chooseBtn">Chọn ảnh</button>
+                            <input type="file" id="imageInput" accept="image/*" hidden>
                         </div>
-                    </main>
-                </div>
+                    </div>
+                </main>
             </div>
         </div>
+    </div>
     </div>
     <div id="footer"></div>
     <script src="../js/components/Giaodiennguoidung.js"></script>

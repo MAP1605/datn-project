@@ -21,7 +21,7 @@ if (!isset($_SESSION['ID_Nguoi_Mua'])) {
 
 $idNguoiMua = $_SESSION['ID_Nguoi_Mua'];
 
-// Kiểm tra người mua đã là người bán chưa
+// Kiểm tra người mua đã là người bán chưa và trạng thái duyệt
 $stmt = $conn->prepare("
   SELECT * FROM Duyet_Nguoi_Mua 
   WHERE ID_Nguoi_Mua = ? AND Trang_Thai = 'Đã duyệt'
@@ -31,10 +31,36 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-  // Đã duyệt → vào thẳng kênh người bán
+  // Đã duyệt → Kiểm tra xem người bán có bị Banned không
+  $stmtBan = $conn->prepare("
+    SELECT * FROM Nguoi_Ban 
+    WHERE ID_Nguoi_Mua = ? AND Trang_Thai = 'Banned'
+  ");
+  $stmtBan->bind_param("i", $idNguoiMua);
+  $stmtBan->execute();
+  $banResult = $stmtBan->get_result();
+
+  if ($banResult->num_rows > 0) {
+    // Người bán bị Banned
+    echo "<script>
+            alert('Tài khoản của bạn đã bị cấm. Bạn không thể truy cập kênh người bán.');
+            window.location.href = '../index.php'; // Chuyển hướng về trang chủ
+          </script>";
+    exit;
+  }
+
+  // Nếu không bị banned, vào thẳng kênh người bán
   header('Location: KenhNguoiBan.html');
   exit;
+} else {
+  // Nếu chưa duyệt, hiển thị thông báo và chuyển hướng về trang chủ
+  echo "<script>
+          alert('Tài khoản của bạn chưa được duyệt. Vui lòng chờ xét duyệt!');
+          window.location.href = '../index.php'; // Chuyển hướng về trang chủ
+        </script>";
+  exit;
 }
+
 
 // Lấy thông tin người mua để hiển thị email và SĐT
 $stmt2 = $conn->prepare("SELECT Email, So_Dien_Thoai FROM Người_Mua WHERE ID_Nguoi_Mua = ?");
@@ -71,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
-
 ?>
+
 
 
 <!DOCTYPE html>
