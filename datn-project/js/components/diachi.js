@@ -900,153 +900,100 @@ const data = {
 
 };
 
-const provinceSelect = document.getElementById('province');
-const districtSelect = document.getElementById('district');
-const wardSelect = document.getElementById('ward');
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("storeOwnerModal");
+  const openBtn = document.getElementById("openModalBtn");
+  const closeBtn = document.querySelector(".close");
+  const form = document.getElementById("addressForm");
 
-// Load tỉnh
-for (let province in data) {
-  const option = new Option(province, province);
-  provinceSelect.appendChild(option);
-}
+  const provinceSelect = document.getElementById("province");
+  const districtSelect = document.getElementById("district");
+  const wardSelect = document.getElementById("ward");
 
-provinceSelect.addEventListener('change', () => {
-  const province = provinceSelect.value;
-  districtSelect.innerHTML = '<option value="">-- Chọn Quận / Huyện --</option>';
-  wardSelect.innerHTML = '<option value="">-- Chọn Phường / Xã --</option>';
-
-  if (province && data[province]) {
-    for (let district in data[province]) {
-      const option = new Option(district, district);
-      districtSelect.appendChild(option);
-    }
+  // 🏙 Load tỉnh
+  for (let province in data) {
+    provinceSelect.appendChild(new Option(province, province));
   }
-});
 
-districtSelect.addEventListener('change', () => {
-  const province = provinceSelect.value;
-  const district = districtSelect.value;
-  wardSelect.innerHTML = '<option value="">-- Chọn Phường / Xã --</option>';
+  provinceSelect.addEventListener("change", () => {
+    const province = provinceSelect.value;
+    districtSelect.innerHTML = '<option value="">-- Chọn Quận / Huyện --</option>';
+    wardSelect.innerHTML = '<option value="">-- Chọn Phường / Xã --</option>';
 
-  if (province && district && data[province][district]) {
-    data[province][district].forEach(ward => {
-      const option = new Option(ward, ward);
-      wardSelect.appendChild(option);
-    });
-  }
-});
-
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const addBtn = document.querySelector('.Themdiachi');
-
-  addBtn.addEventListener('click', function () {
-    // Tạo khối mới với class "from-use"
-    const newAddressForm = document.createElement('from');
- 
-    const alertBox = document.getElementById("alert");
-    const province = document.getElementById('province').value;
-    const district = document.getElementById('district').value;
-    const ward = document.getElementById('ward').value;
-    const fullAddress = `Tỉnh/Thành phố: ${province}, Quận/huyện: ${district}, Phường/Xã: ${ward}`;
-    const ten = document.getElementById('Ten').value;
-    const Email = document.getElementById('Email').value;
-    const SDT = document.getElementById('SDT').value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const sdtRegex = /^(0|\+84)[0-9]{9}$/;
-
-    // Kiểm tra định dạng email và SĐT
-    if (!emailRegex.test(Email)) {
-      showAlert("Email không hợp lệ!", "error");
-      modal.style.display = "block";
-      return;
-    } else if (!sdtRegex.test(SDT)) {
-      showAlert("Số điện thoại không hợp lệ! Vui lòng nhập đúng 10 số bắt đầu bằng 0.", "error");
-      modal.style.display = "block";
-      return;
-    } else {
-      newAddressForm.innerHTML = `
-        <form class="ModelInfo">
-        <p><Strong>Địa chỉ nhà:</Strong> ${fullAddress}</p>
-                  <p><strong>Tên:</strong>${ten}</p>
-                  <p><strong>Email</strong> ${Email}</p>
-                  <p><strong>Số điện thoại:</strong>${SDT}</p>
-                  </form >
-      `;
-      showAlert("Thêm địa chỉ thành công!", "success");
-      // Thêm form mới vào cuối main.content
-      const content = document.querySelector('.content');
-      content.appendChild(newAddressForm);
-      const newAddress = {
-        ten,
-        email: Email,
-        sdt: SDT,
-        province,
-        district,
-        ward
-      };
-    
-      // Lưu vào localStorage
-      const saved = JSON.parse(localStorage.getItem('savedAddresses') || '[]');
-      saved.push(newAddress);
-      localStorage.setItem('savedAddresses', JSON.stringify(saved));
-    
-      showAlert("Thêm địa chỉ thành công!", "success");
-      modal.style.display = "none";
+    if (province && data[province]) {
+      for (let district in data[province]) {
+        districtSelect.appendChild(new Option(district, district));
+      }
     }
-
-    // Nội dung HTML của form mới (bạn có thể tùy chỉnh lại)
-
-
   });
-});
 
-function showAlert(message, type) {
-  const alertBox = document.getElementById("alert");
-  alertBox.textContent = message;
-  alertBox.className = "alert-message " + (type === "success" ? "alert-success" : "alert-error");
-  alertBox.style.display = "block";
+  districtSelect.addEventListener("change", () => {
+    const province = provinceSelect.value;
+    const district = districtSelect.value;
+    wardSelect.innerHTML = '<option value="">-- Chọn Phường / Xã --</option>';
 
-  setTimeout(() => {
-    alertBox.style.display = "none";
-  }, 4000);
-}
+    if (province && district && data[province][district]) {
+      data[province][district].forEach(ward => {
+        wardSelect.appendChild(new Option(ward, ward));
+      });
+    }
+  });
 
-// Lấy phần tử modal
-const modal = document.getElementById("storeOwnerModal");
+  // 🔘 Mở & Đóng modal
+  openBtn.addEventListener("click", () => modal.style.display = "block");
+  closeBtn.addEventListener("click", () => modal.style.display = "none");
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
 
-// Lấy nút mở modal
-const openModalBtn = document.getElementById("openModalBtn");
+  // ✅ Gửi form bằng fetch (AJAX)
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Ngăn reload
 
-// Lấy nút đóng modal (dấu ×)
-const closeElem = document.getElementsByClassName("close")[0];
+    const formData = new FormData(form);
 
-// Lấy nút "Đồng ý"
-const agreeBtn = document.getElementById("agreeBtn");
-const addBtn = document.querySelector('.Themdiachi');
+    const province = formData.get("province");
+    const district = formData.get("district");
+    const ward = formData.get("ward");
+    const diachi = formData.get("diachicuthe");
+    const ten = formData.get("Ten");
+    const email = formData.get("Email");
+    const sdt = formData.get("SDT");
 
 
+    // 👉 Validate trước khi gửi
+    if (!province || !district || !ward || !diachi || !ten || !email || !sdt) {
+      alert("⚠ Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
 
-// Khi người dùng nhấn nút mở modal, hiển thị modal
-openModalBtn.addEventListener("click", function () {
-  modal.style.display = "block";
-});
-
-// Khi người dùng nhấn vào dấu ×, ẩn modal
-closeElem.addEventListener("click", function () {
-  modal.style.display = "none";
-});
-
-// Khi người dùng nhấn nút "Đồng ý", ẩn modal
-addBtn.addEventListener("click", function () {
-  modal.style.display = "none";
-});
-
-// Khi người dùng nhấn ngoài khu vực modal, ẩn modal
-window.addEventListener("click", function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+    fetch("../pages/api/them-diachi.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams(formData)
+    })
+      .then(res => res.text())
+      .then(data => {
+        if (data.trim().includes("success")) {
+          const newForm = document.createElement("form");
+          newForm.className = "ModelInfo";
+          newForm.innerHTML = `
+            <p><strong>Địa chỉ nhà:</strong> ${diachi}, ${ward}, ${district}, ${province}</p>
+            <p><strong>Tên:</strong> ${ten}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Số điện thoại:</strong> ${sdt}</p>
+          `;
+          document.querySelector(".address-list")?.prepend(newForm);
+          modal.style.display = "none";
+        } else {
+          alert("❌ Thêm thất bại!\n" + data.trim());
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("❌ Lỗi kết nối đến máy chủ!");
+      });
+  });
 });

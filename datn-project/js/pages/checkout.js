@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const productList = document.querySelector('.checkout-products');
-  const shippingFee = 25000;
+  const shippingFee = 0;
   let subtotal = 0;
 
   const selectedIds = JSON.parse(localStorage.getItem('selectedCartIds') || '[]').map(id => parseInt(id));
@@ -43,43 +43,40 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('checkoutTotal').innerText = subtotal.toLocaleString('vi-VN') + 'đ';
   document.getElementById('checkoutFinal').innerText = (subtotal + shippingFee).toLocaleString('vi-VN') + 'đ';
 });
-document.querySelector('.checkout-Select-Address').addEventListener('click', () => {
-  const addresses = JSON.parse(localStorage.getItem('savedAddresses') || '[]');
-  if (!addresses.length) {
-    alert('Chưa có địa chỉ nào. Vui lòng thêm ở trang địa chỉ!');
-    window.location.href = "datn-project/datn-project/pages/diachi.html";
+
+
+document.querySelector('.checkout-action__btn').addEventListener('click', () => {
+  if (!confirm('Xác nhận đặt hàng?')) return;
+
+  if (!window.selectedAddressId) {
+    alert("Vui lòng chọn địa chỉ giao hàng trước khi đặt hàng!");
     return;
   }
 
-  const popup = document.createElement('div');
-  popup.className = 'address-popup';
-  popup.innerHTML = `
-    <div class="address-popup__overlay"></div>
-    <div class="address-popup__content">
-      <h3>Chọn địa chỉ giao hàng</h3>
-      <ul class="address-popup__list">
-        ${addresses.map((addr, i) => `
-          <li class="address-popup__item" data-index="${i}">
-            <strong>${addr.ten}</strong> | ${addr.sdt}<br/>
-            ${addr.ward}, ${addr.district}, ${addr.province}
-          </li>`).join('')}
-      </ul>
-      <button class="address-popup__close">Đóng</button>
-    </div>
-  `;
-  document.body.appendChild(popup);
+  const sanPham = cart.map(sp => ({
+    idCTGH: sp.ID_Chi_Tiet_Gio_Hang,
+    soLuong: sp.quantity,
+    giaBan: sp.price
+  }));
 
-  document.querySelectorAll('.address-popup__item').forEach(item => {
-    item.addEventListener('click', () => {
-      const idx = item.dataset.index;
-      const addr = addresses[idx];
-      document.querySelector('.checkout-address__info').innerHTML = `
-        <strong>${addr.ten}</strong> &nbsp; (${addr.sdt})<br/>
-        ${addr.ward}, ${addr.district}, ${addr.province}
-      `;
-      popup.remove();
+  const formData = new FormData();
+  formData.append('sanPham', JSON.stringify(sanPham));
+  formData.append('diaChiID', window.selectedAddressId);
+  formData.append('phuongThuc', 'Thanh toán khi nhận hàng');
+
+  fetch('/datn-project/datn-project/pages/api/xu-ly-dat-hang.php', {
+    method: 'POST',
+    body: formData
+  })
+    .then(res => res.text())
+    .then(data => {
+      console.log('Kết quả trả về:', data);
+      if (data.trim() === 'success') {
+        alert('Đặt hàng thành công!');
+        window.location.href = '/datn-project/datn-project/pages/Donmua.php';
+      } else {
+        alert('Đặt hàng thất bại!');
+        console.error(data);
+      }
     });
-  });
-
-  document.querySelector('.address-popup__close').addEventListener('click', () => popup.remove());
 });

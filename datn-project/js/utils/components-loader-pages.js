@@ -11,6 +11,6 @@ const loadComponent = async (id, filePath) => {
 const basePath = location.pathname.includes('/pages/') ? '../components/' : 'components/';
 
 // Load header và footer
-loadComponent('header', `${basePath}header.html`);
+loadComponent('header', `${basePath}header.php`);
 loadComponent('products', `${basePath}product.php`);
 loadComponent('footer', `${basePath}footer.html`);

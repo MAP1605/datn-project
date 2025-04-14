@@ -35,10 +35,11 @@ if ($result->num_rows === 0) {
             <div class="category__list">
 
                 <?php while ($row = $result->fetch_assoc()) { ?>
-                    <div class="category__item">
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($row['Anh_Danh_Muc_Blob']); ?>" alt="<?php echo $row['Ten_Danh_Muc']; ?>" class="category__icon">
-                        <span class="category__name"><?php echo $row['Ten_Danh_Muc']; ?></span>
-                    </div>
+                    <a href="/datn-project/datn-project/pages/search.php?category_id=<?= $row['ID_Danh_Muc'] ?>" class="category__item">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($row['Anh_Danh_Muc_Blob']); ?>" alt="<?= $row['Ten_Danh_Muc'] ?>" class="category__icon">
+                        <span class="category__name"><?= $row['Ten_Danh_Muc'] ?></span>
+                    </a>
+
                 <?php } ?>
 
             </div>

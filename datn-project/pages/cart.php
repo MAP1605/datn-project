@@ -101,7 +101,7 @@ while ($row = $result->fetch_assoc()) {
 
                                 <div class="cart__col cart__col--product">
                                     <div class="cart__product-wrapper">
-                                        <img src="get-image.php?id=<?= $item['ID_San_Pham'] ?>" class="cart__img" alt="<?= $item['Ten_San_Pham'] ?>">
+                                        <img src="../pages/api/get-image.php?id=<?= $item['ID_San_Pham'] ?>" class="cart__img" alt="<?= $item['Ten_San_Pham'] ?>">
                                         <span class="cart__product-name"><?= $item['Ten_San_Pham'] ?></span>
                                     </div>
                                 </div>

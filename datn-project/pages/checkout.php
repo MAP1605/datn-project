@@ -24,7 +24,8 @@ if (!is_array($selectedIds) || empty($selectedIds)) {
     sp.Ten_San_Pham AS name,
     sp.Gia_Ban AS price,
     sp.Anh_San_Pham1 AS image,
-    ctgh.So_Luong AS quantity
+    ctgh.So_Luong AS quantity,
+    ctsp.ID_San_Pham
 FROM Chi_Tiet_Gio_Hang ctgh
 JOIN Chi_Tiet_San_Pham ctsp ON ctgh.ID_Chi_Tiet_San_Pham = ctsp.ID_Chi_Tiet_San_Pham
 JOIN San_Pham sp ON ctsp.ID_San_Pham = sp.ID_San_Pham
@@ -63,15 +64,16 @@ AND ctgh.ID_Gio_Hang IN (
 
     <main>
         <div class="checkout-container">
-        <section class="checkout-address">
+
+            <section class="checkout-address">
                 <div class="checkout-address__header">
                     <div class="checkout-address__title">Địa chỉ nhận hàng</div>
                     <button class="checkout-Select-Address">Chọn địa chỉ</button>
                 </div>
 
                 <div class="checkout-address__info">
-                    <strong>Đào Việt Cường</strong> &nbsp; (+84) 868897782 <br />
-                    Số nhà 9 liên kề 23 khu đô thị La Khê Hà Đông, Phường La Khê, Hà Đông, Hà Nội
+                    <strong>Tên Người Nhận</strong> &nbsp; (+84) Số điên thoại <br />
+                    Địa Chỉ Của Bạn
                 </div>
             </section>
 
@@ -91,11 +93,11 @@ AND ctgh.ID_Gio_Hang IN (
                 </div>
                 <div class="checkout-summary__row">
                     <span>Phí vận chuyển:</span>
-                    <strong>25.000đ</strong>
+                    <strong>0đ</strong>
                 </div>
                 <div class="checkout-summary__row checkout-summary__total">
                     <span>Tổng thanh toán:</span>
-                    <strong id="checkoutFinal">25.000đ</strong>
+                    <strong id="checkoutFinal">0đ</strong>
                 </div>
             </section>
 
@@ -105,7 +107,7 @@ AND ctgh.ID_Gio_Hang IN (
             </section>
 
             <section class="checkout-action">
-                <button class="checkout-action__btn" > <a href="/datn-project/datn-project/pages/Donmua.html">Đặt hàng</a></button>
+                <button class="checkout-action__btn"> <a href="/datn-project/datn-project/pages/Donmua.html">Đặt hàng</a></button>
             </section>
         </div>
     </main>
@@ -119,8 +121,6 @@ AND ctgh.ID_Gio_Hang IN (
         const cart = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-<script type="module" src="/datn-project/datn-project/js/pages/checkout.js"></script>
-
     <script>
         // ✅ Lấy ID từ URL (dù là ?ids=1&ids=2 hay ?ids[]=1&ids[]=2 đều được)
         const urlParams = new URLSearchParams(window.location.search);
@@ -131,7 +131,11 @@ AND ctgh.ID_Gio_Hang IN (
         const parsedIds = ids.map(id => parseInt(id));
         localStorage.setItem('selectedCartIds', JSON.stringify(parsedIds));
     </script>
- 
+
+    <script type="module" src="/datn-project/datn-project/js/pages/checkout.js?ts=<?= time() ?>"></script>
+
+    <script src="/datn-project/datn-project/js/components/checkout.js?ts=<?= time() ?>"></script>
+
 </body>
 
 </html>
