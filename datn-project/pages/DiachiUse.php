@@ -9,6 +9,15 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM Dia_Chi_Nhan_Hang WHERE ID_Nguoi_Mua = $idNguoiMua";
 $result = $conn->query($sql);
+
+// ✅ ẢNH ĐẠI DIỆN NGƯỜI DÙNG
+$user = null;
+$sqlUser = "SELECT Anh_Nguoi_Mua FROM Người_Mua WHERE ID_Nguoi_Mua = ?";
+$stmtUser = $conn->prepare($sqlUser);
+$stmtUser->bind_param("i", $idNguoiMua);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
+$user = $resultUser->fetch_assoc();
 ?>
 
 
@@ -43,18 +52,27 @@ $result = $conn->query($sql);
 
       <div class="user-main user-main--Address">
         <aside class="user-main__sidebar">
-          <img src="" alt="Avatar" class="user-main__avatar">
-
+          <?php
+          if (!empty($user['Anh_Nguoi_Mua'])) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($user['Anh_Nguoi_Mua']);
+            if (strpos($mime, 'image/') !== 0) $mime = 'image/jpeg';
+            $base64 = base64_encode($user['Anh_Nguoi_Mua']);
+            echo '<img src="data:' . $mime . ';base64,' . $base64 . '" alt="Avatar" class="user-main__avatar">';
+          } else {
+            echo '<img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">';
+          }
+          ?>
 
           <nav class="user-main__nav">
             <ul class="user-main__nav-list">
               <li>
                 <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
               </li>
-              <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
+              <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.php">Hồ sơ</a></li>
               <li><a class="user-main__nav-link Select-screen-function" href="../pages/DiachiUse.html">Địa chỉ</a></li>
-              <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
-              <li><a class="user-main__nav-link" href="../pages/Donmua.html">Đơn mua</a></li>
+              <li><a class="user-main__nav-link" href="../pages/doimatkhau.php">Đổi mật khẩu</a></li>
+              <li><a class="user-main__nav-link" href="../pages/Donmua.php">Đơn mua</a></li>
 
             </ul>
           </nav>

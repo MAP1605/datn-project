@@ -6,17 +6,39 @@
         <div class="header__top">
 
             <div class="header__top-left">
-                <a href="/datn-project/datn-project/pages/Dangkykenh.php" class="header__link">
-                    Đăng ký người bán
-                </a>
+                <a href="../pages/Dangkykenh.html" class="header__link">
+                    <a href="/datn-project/datn-project/pages/Dangkykenh.php" class="header__link">
+                        Kênh Người Bán
+                    </a>
             </div>
             <div class="header__top-right">
+                <!-- <a href="/datn-project/datn-project/pages/dangnhap.html" class="header__link">
+
                 <a href="/datn-project/datn-project/pages/dangnhap.php" class="header__link">
                     Đăng nhập
                 </a>
                 <a href="/datn-project/datn-project/pages/dangky.php" class="header__link">
                     Đăng ký
-                </a>
+                </a> -->
+                <div class="header__user">
+
+                    <img src="/datn-project/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="user_Avatar"
+                        class="header__user-avatar">
+                    <span class="header__user-name">DŨNG đb</span>
+                    <div class="header__user-dropdown">
+                        <ul>
+                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
+                                <li>Tài Khoản Của Tôi</li>
+                            </a>
+                            <a href="/datn-project/datn-project/pages/Donmua.php">
+                                <li>Đơn Mua</li>
+                            </a>
+                            <a href="/datn-project/datn-project/pages/dangnhap.php">
+                                <li>Đăng Xuất</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
         </div>

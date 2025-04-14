@@ -60,6 +60,17 @@ $statusMap = [
   'Hoàn thành' => 'hoanthanh',
   'Đã hủy' => 'dahuy'
 ];
+
+// ✅ ẢNH ĐẠI DIỆN NGƯỜI DÙNG
+$user = null;
+$sqlUser = "SELECT Anh_Nguoi_Mua FROM Người_Mua WHERE ID_Nguoi_Mua = ?";
+$stmtUser = $conn->prepare($sqlUser);
+$stmtUser->bind_param("i", $idNguoiMua);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
+$user = $resultUser->fetch_assoc();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -90,18 +101,26 @@ $statusMap = [
     <div class="container">
       <div class="user-main user-main--Address">
         <aside class="user-main__sidebar">
-          <img src="" alt="Avatar" class="user-main__avatar">
-
-
+          <?php
+          if (!empty($user['Anh_Nguoi_Mua'])) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($user['Anh_Nguoi_Mua']);
+            if (strpos($mime, 'image/') !== 0) $mime = 'image/jpeg';
+            $base64 = base64_encode($user['Anh_Nguoi_Mua']);
+            echo '<img src="data:' . $mime . ';base64,' . $base64 . '" alt="Avatar" class="user-main__avatar">';
+          } else {
+            echo '<img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">';
+          }
+          ?>
           <nav class="user-main__nav">
             <ul class="user-main__nav-list">
               <li>
                 <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
               </li>
-              <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
-              <li><a class="user-main__nav-link" href="../pages/DiachiUse.html">Địa chỉ</a></li>
-              <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
-              <li><a class="user-main__nav-link Select-screen-function" href="../pages/Donmua.html">Đơn mua</a></li>
+              <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.php">Hồ sơ</a></li>
+              <li><a class="user-main__nav-link" href="../pages/DiachiUse.php">Địa chỉ</a></li>
+              <li><a class="user-main__nav-link" href="../pages/doimatkhau.php">Đổi mật khẩu</a></li>
+              <li><a class="user-main__nav-link Select-screen-function" href="../pages/Donmua.php">Đơn mua</a></li>
 
             </ul>
           </nav>
@@ -148,8 +167,15 @@ $statusMap = [
 
                   <div class="user-orders__actions">
                     <?php if ($statusKey == 'hoanthanh'): ?>
-                      <button class="openModalBtn">Đánh giá</button>
-                      <button>Yêu cầu trả hàng/Hoàn tiền</button>
+                      <button class="openModalBtn"
+                        data-id="<?= $row['ID_San_Pham'] ?>"
+                        data-name="<?= htmlspecialchars($row['Ten_San_Pham']) ?>"
+                        data-img="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>"
+                        data-qty="<?= $row['So_Luong'] ?>"
+                        data-price="<?= $row['Gia_Ban'] ?>"
+                        data-total="<?= $row['Thanh_Tien'] ?>">
+                        Đánh giá
+                      </button>
                     <?php elseif ($statusKey == 'chogiaohang'): ?>
                       <button class="confirm-received" data-id="<?= $row['ID_Hoa_Don'] ?>">Đã nhận được hàng</button>
                     <?php elseif ($statusKey == 'dahuy'): ?>
@@ -157,9 +183,39 @@ $statusMap = [
                     <?php endif; ?>
                   </div>
                 </div>
+
               <?php endwhile; ?>
             </div>
           </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Chi tiết đơn hàng -->
+  <div class="modal" id="orderDetailModal">
+
+    <div class="modal__content order-detail-modal">
+      <span class="modal__close" id="closeOrderDetail">&times;</span>
+      <h2 class="modal__title">Chi tiết đơn hàng</h2>
+      <div class="order-detail__info">
+        <div class="order-detail__image">
+          <img src="../assets/images/Phanthedung/images (2).jpg" alt="Ảnh sản phẩm">
+        </div>
+        <div class="order-detail__text">
+          <p><strong>Tên sản phẩm:</strong> Áo thun PEARNK</p>
+          <p><strong>Số lượng:</strong> 2</p>
+          <p><strong>Giá:</strong> <span class="price">200.000đ</span></p>
+          <p><strong>Thành tiền:</strong> <span class="total">400.000đ</span></p>
+          <hr>
+          <p><strong>Tên người nhận:</strong> Nguyễn Văn A</p>
+          <p><strong>Số điện thoại:</strong> 0987654321</p>
+          <p><strong>Địa chỉ:</strong> 123 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội</p>
+          <p><strong>Phí vận chuyển:</strong> <span class="price">25.000đ</span></p>
+          <p><strong>Phương thức thanh toán:</strong> <span class="label">Thanh toán khi nhận hàng</span></p>
+          <p><strong>Ngày đặt:</strong> <span class="label">10/04/2025</span></p>
+          <p><strong>Trạng thái:</strong> <span class="label">Hoàn thành</span></p>
+          <p><strong>Shop:</strong> <span class="label">PEARNK Store</span></p>
+        </div>
       </div>
     </div>
   </div>
@@ -169,11 +225,17 @@ $statusMap = [
     <div class="modal__content">
       <span class="modal__close" id="closeModal">&times;</span>
       <h2 class="modal__title">ĐÁNH GIÁ SẢN PHẨM</h2>
+      <input type="hidden" id="reviewProductId" />
 
       <div class="modal__product-info">
-        <div class="modal__product-image">HÌNH ẢNH</div>
+        <div class="modal__product-image">
+          <img id="review-image" src="" alt="" style="max-width: 100px;" />
+        </div>
         <div class="modal__product-details">
-          <h3 class="modal__product-name">Tên sản phẩm</h3>
+          <h3 class="modal__product-name" id="review-name">Tên sản phẩm</h3>
+          <p>Giá: <span id="review-price"></span></p>
+          <p>Số lượng: <span id="review-qty"></span></p>
+          <p>Thành tiền: <span id="review-total"></span></p>
           <div class="modal__rating">
             <label class="modal__rating-label">Chất lượng sản phẩm</label>
             <div class="modal__stars" id="starContainer">
@@ -202,7 +264,7 @@ $statusMap = [
   </div>
 
   <div id="footer"></div>
-  <script src="../js/components/Donmua.js"></script>
+  <script src="../js/components/Donmua.js?v=<?= time() ?>"></script>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
   <script src="../js/components/Giaodiennguoidung.js"></script>
 
