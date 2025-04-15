@@ -901,3 +901,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// phần menu 
+const sidebarToggle = document.getElementById("sidebar-toggle");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("sidebarOverlay");
+
+sidebarToggle?.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+  overlay.classList.toggle("active");
+});
+
+overlay?.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  overlay.classList.remove("active");
+});

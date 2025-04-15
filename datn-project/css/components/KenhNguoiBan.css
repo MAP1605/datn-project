@@ -1604,3 +1604,71 @@ cursor: default;
     height: 50px;
   }
 }
+/* Mặc định ẩn toggle menu */
+.sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 20px;
+  margin: 10px 20px;
+  cursor: pointer;
+}
+
+/* Hiện toggle khi ở điện thoại */
+@media (max-width: 973px) {
+  .sidebar-toggle {
+    display: block;
+    color: #fff;
+  }
+
+  .seller-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 240px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 1002;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  }
+
+  .seller-sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+}
+
+
+/* Hide hamburger icon on screens >= 973px */
+@media (min-width: 973px) {
+  #menu-toggle {
+    display: none !important;
+  }
+}
+
+/* Show hamburger icon only on mobile */
+@media (max-width: 972px) {
+  #menu-toggle {
+    display: flex !important;
+    align-items: center;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+  }
+}
