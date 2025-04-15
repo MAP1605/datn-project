@@ -60,17 +60,6 @@ $statusMap = [
   'Hoàn thành' => 'hoanthanh',
   'Đã hủy' => 'dahuy'
 ];
-
-// ✅ ẢNH ĐẠI DIỆN NGƯỜI DÙNG
-$user = null;
-$sqlUser = "SELECT Anh_Nguoi_Mua FROM Người_Mua WHERE ID_Nguoi_Mua = ?";
-$stmtUser = $conn->prepare($sqlUser);
-$stmtUser->bind_param("i", $idNguoiMua);
-$stmtUser->execute();
-$resultUser = $stmtUser->get_result();
-$user = $resultUser->fetch_assoc();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -98,20 +87,21 @@ $user = $resultUser->fetch_assoc();
   <div id="header"></div>
 
   <div class="main">
+
     <div class="container">
       <div class="user-main user-main--Address">
+      <div class="mobile-menu-toggle-wrapper">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+              
+                <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
         <aside class="user-main__sidebar">
-          <?php
-          if (!empty($user['Anh_Nguoi_Mua'])) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($user['Anh_Nguoi_Mua']);
-            if (strpos($mime, 'image/') !== 0) $mime = 'image/jpeg';
-            $base64 = base64_encode($user['Anh_Nguoi_Mua']);
-            echo '<img src="data:' . $mime . ';base64,' . $base64 . '" alt="Avatar" class="user-main__avatar">';
-          } else {
-            echo '<img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">';
-          }
-          ?>
+          <img src="" alt="Avatar" class="user-main__avatar">
+
+
           <nav class="user-main__nav">
             <ul class="user-main__nav-list">
               <li>
@@ -120,7 +110,7 @@ $user = $resultUser->fetch_assoc();
               <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.php">Hồ sơ</a></li>
               <li><a class="user-main__nav-link" href="../pages/DiachiUse.php">Địa chỉ</a></li>
               <li><a class="user-main__nav-link" href="../pages/doimatkhau.php">Đổi mật khẩu</a></li>
-              <li><a class="user-main__nav-link Select-screen-function" href="../pages/Donmua.php">Đơn mua</a></li>
+              <li><a class="user-main__nav-link Select-screen-function" href="Donmua.php">Đơn mua</a></li>
 
             </ul>
           </nav>
@@ -139,17 +129,6 @@ $user = $resultUser->fetch_assoc();
             <div class="user-orders__list">
               <?php while ($row = $result->fetch_assoc()):
                 $statusKey = $statusMap[$row['Trang_Thai_Don_Hang']] ?? 'all';
-
-                // Kiểm tra sản phẩm này đã được người dùng đánh giá chưa
-                $idSanPham = $row['ID_San_Pham'];
-                $isReviewed = false;
-                $sqlCheckReview = "SELECT 1 FROM Danh_Gia_San_Pham 
-                     WHERE ID_Nguoi_Mua = $idNguoiMua 
-                     AND ID_San_Pham = $idSanPham LIMIT 1";
-                $resultCheck = $conn->query($sqlCheckReview);
-                if ($resultCheck && $resultCheck->num_rows > 0) {
-                  $isReviewed = true;
-                }
               ?>
                 <div class="user-orders__item" data-status="<?= $statusKey ?>">
                   <div class="user-orders__shop">
@@ -178,19 +157,8 @@ $user = $resultUser->fetch_assoc();
 
                   <div class="user-orders__actions">
                     <?php if ($statusKey == 'hoanthanh'): ?>
-                      <?php if ($isReviewed): ?>
-                        <button disabled style="background-color: #ccc; cursor: not-allowed;">Đã đánh giá</button>
-                      <?php else: ?>
-                        <button class="openModalBtn"
-                          data-id="<?= $row['ID_San_Pham'] ?>"
-                          data-name="<?= htmlspecialchars($row['Ten_San_Pham']) ?>"
-                          data-img="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>"
-                          data-qty="<?= $row['So_Luong'] ?>"
-                          data-price="<?= $row['Gia_Ban'] ?>"
-                          data-total="<?= $row['Thanh_Tien'] ?>">
-                          Đánh giá
-                        </button>
-                      <?php endif; ?>
+                      <button class="openModalBtn">Đánh giá</button>
+                      <button>Yêu cầu trả hàng/Hoàn tiền</button>
                     <?php elseif ($statusKey == 'chogiaohang'): ?>
                       <button class="confirm-received" data-id="<?= $row['ID_Hoa_Don'] ?>">Đã nhận được hàng</button>
                     <?php elseif ($statusKey == 'dahuy'): ?>
@@ -198,39 +166,9 @@ $user = $resultUser->fetch_assoc();
                     <?php endif; ?>
                   </div>
                 </div>
-
               <?php endwhile; ?>
             </div>
           </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Chi tiết đơn hàng -->
-  <div class="modal" id="orderDetailModal">
-
-    <div class="modal__content order-detail-modal">
-      <span class="modal__close" id="closeOrderDetail">&times;</span>
-      <h2 class="modal__title">Chi tiết đơn hàng</h2>
-      <div class="order-detail__info">
-        <div class="order-detail__image">
-          <img src="../assets/images/Phanthedung/images (2).jpg" alt="Ảnh sản phẩm">
-        </div>
-        <div class="order-detail__text">
-          <p><strong>Tên sản phẩm:</strong> Áo thun PEARNK</p>
-          <p><strong>Số lượng:</strong> 2</p>
-          <p><strong>Giá:</strong> <span class="price">200.000đ</span></p>
-          <p><strong>Thành tiền:</strong> <span class="total">400.000đ</span></p>
-          <hr>
-          <p><strong>Tên người nhận:</strong> Nguyễn Văn A</p>
-          <p><strong>Số điện thoại:</strong> 0987654321</p>
-          <p><strong>Địa chỉ:</strong> 123 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội</p>
-          <p><strong>Phí vận chuyển:</strong> <span class="price">25.000đ</span></p>
-          <p><strong>Phương thức thanh toán:</strong> <span class="label">Thanh toán khi nhận hàng</span></p>
-          <p><strong>Ngày đặt:</strong> <span class="label">10/04/2025</span></p>
-          <p><strong>Trạng thái:</strong> <span class="label">Hoàn thành</span></p>
-          <p><strong>Shop:</strong> <span class="label">PEARNK Store</span></p>
-        </div>
       </div>
     </div>
   </div>
@@ -240,17 +178,11 @@ $user = $resultUser->fetch_assoc();
     <div class="modal__content">
       <span class="modal__close" id="closeModal">&times;</span>
       <h2 class="modal__title">ĐÁNH GIÁ SẢN PHẨM</h2>
-      <input type="hidden" id="reviewProductId" />
 
       <div class="modal__product-info">
-        <div class="modal__product-image">
-          <img id="review-image" src="" alt="" style="max-width: 100px;" />
-        </div>
+        <div class="modal__product-image">HÌNH ẢNH</div>
         <div class="modal__product-details">
-          <h3 class="modal__product-name" id="review-name">Tên sản phẩm</h3>
-          <p>Giá: <span id="review-price"></span></p>
-          <p>Số lượng: <span id="review-qty"></span></p>
-          <p>Thành tiền: <span id="review-total"></span></p>
+          <h3 class="modal__product-name">Tên sản phẩm</h3>
           <div class="modal__rating">
             <label class="modal__rating-label">Chất lượng sản phẩm</label>
             <div class="modal__stars" id="starContainer">
@@ -279,10 +211,28 @@ $user = $resultUser->fetch_assoc();
   </div>
 
   <div id="footer"></div>
-  <script src="../js/components/Donmua.js?v=<?= time() ?>"></script>
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById("menuToggle");
+            const sidebar = document.querySelector(".user-main__sidebar");
+            const overlay = document.getElementById("mobileOverlay");
 
+            if (toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener("click", () => {
+                    sidebar.classList.toggle("active");
+
+                });
+
+                overlay.addEventListener("click", () => {
+                    sidebar.classList.remove("active");
+                    overlay.classList.remove("active");
+                });
+            }
+        });
+    </script>
+  <script src="../js/components/Donmua.js"></script>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
-  <script src="../js/components/Giaodiennguoidung.js"></script>
+  
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -314,7 +264,26 @@ $user = $resultUser->fetch_assoc();
       });
     });
   </script>
+ <script>
+       document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("mobileMenuToggle");
+  const sidebar = document.querySelector(".user-main__nav");
+  const overlay = document.getElementById("mobileMenuOverlay");
 
+  if (toggleBtn && sidebar && overlay) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.add("active");
+      overlay.classList.add("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  }
+});
+    </script>
+    <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
 </body>
 
 </html>

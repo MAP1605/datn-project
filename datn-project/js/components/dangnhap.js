@@ -33,7 +33,27 @@ document.addEventListener("DOMContentLoaded", function () {
         showNotification("Mật khẩu xác nhận không khớp!", "error");
         return;
       }
-
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginBtn = document.querySelector(".login__button");
+      
+        if (loginBtn) {
+          loginBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+      
+         
+      
+            // 1. Ẩn các nút đăng nhập/đăng ký
+            const authLinks = document.querySelectorAll(".headerAuth");
+            authLinks.forEach(link => link.style.display = "none");
+      
+            // 2. Hiện avatar
+            const userSection = document.querySelector(".header__user");
+            if (userSection) userSection.style.display = "inline-flex";
+      
+      
+          });
+        }
+      });
       // ✅ Nếu vượt qua tất cả kiểm tra → cho submit form
       // Không cần preventDefault
     });
@@ -69,3 +89,5 @@ function showNotification(message, type) {
     noti.remove();
   }, 3000);
 }
+    
+
