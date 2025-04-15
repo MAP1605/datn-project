@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <!-- Các input khác -->
                             <label class="profile__label">Tên đăng nhập</label>
-                            <input class="profile__input" type="text" value="dsadasdsad" readonly>
+                            <input class="profile__input" type="text" value="<?= htmlspecialchars($user['Ten_Dang_Nhap']) ?>" readonly>
 
                             <label class="profile__label">Tên</label>
                             <input class="profile__input" type="text" name="ho_ten" value="<?= htmlspecialchars($user['Ho_Ten']) ?>">
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input class="profile__input" type="email" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
 
                             <label class="profile__label">Số điện thoại</label>
-                            <input class="profile__input" type="tel" name="so_dien_thoai" value="<?= htmlspecialchars($user['So_Dien_Thoai']) ?>">
+                            <input class="profile__input" type="tel" name="so_dien_thoai" value="<?= htmlspecialchars($user['So_Dien_Thoai']) ?>" readonly>
 
                             <div class="profile__gender">
                                 <label class="profile__label">Giới tính</label>

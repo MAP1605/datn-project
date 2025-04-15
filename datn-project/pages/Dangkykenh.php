@@ -4,73 +4,21 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'DATN';
-
-$conn = new mysqli($host, $user, $password, $dbname);
+$conn = new mysqli('localhost', 'root', '', 'DATN');
 if ($conn->connect_error) {
-  die("❌ Kết nối thất bại: " . $conn->connect_error);
+  die("❌ Lỗi kết nối CSDL: " . $conn->connect_error);
 }
 
+// 1. Kiểm tra đăng nhập
 if (!isset($_SESSION['ID_Nguoi_Mua'])) {
   header('Location: dangnhap.php');
   exit;
 }
 
 $idNguoiMua = $_SESSION['ID_Nguoi_Mua'];
+$currentPage = basename($_SERVER['PHP_SELF']);
 
-// Kiểm tra người mua đã là người bán chưa và trạng thái duyệt
-$stmt = $conn->prepare("
-  SELECT * FROM Duyet_Nguoi_Mua 
-  WHERE ID_Nguoi_Mua = ? AND Trang_Thai = 'Đã duyệt'
-");
-$stmt->bind_param("i", $idNguoiMua);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-  // Đã duyệt → Kiểm tra xem người bán có bị Banned không
-  $stmtBan = $conn->prepare("
-    SELECT * FROM Nguoi_Ban 
-    WHERE ID_Nguoi_Mua = ? AND Trang_Thai = 'Banned'
-  ");
-  $stmtBan->bind_param("i", $idNguoiMua);
-  $stmtBan->execute();
-  $banResult = $stmtBan->get_result();
-
-  if ($banResult->num_rows > 0) {
-    // Người bán bị Banned
-    echo "<script>
-            alert('Tài khoản của bạn đã bị cấm. Bạn không thể truy cập kênh người bán.');
-            window.location.href = '../index.php'; // Chuyển hướng về trang chủ
-          </script>";
-    exit;
-  }
-
-  // Nếu không bị banned, vào thẳng kênh người bán
-  header('Location: KenhNguoiBan.html');
-  exit;
-} else {
-  // Nếu chưa duyệt, hiển thị thông báo và chuyển hướng về trang chủ
-  echo "<script>
-          alert('Tài khoản của bạn chưa được duyệt. Vui lòng chờ xét duyệt!');
-          window.location.href = '../index.php'; // Chuyển hướng về trang chủ
-        </script>";
-  exit;
-}
-
-
-// Lấy thông tin người mua để hiển thị email và SĐT
-$stmt2 = $conn->prepare("SELECT Email, So_Dien_Thoai FROM Người_Mua WHERE ID_Nguoi_Mua = ?");
-$stmt2->bind_param("i", $idNguoiMua);
-$stmt2->execute();
-$info = $stmt2->get_result()->fetch_assoc();
-
-$email = $info['Email'] ?? '';
-$sdt = $info['So_Dien_Thoai'] ?? '';
-
+// 2. Xử lý đăng ký nếu có POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $shop_name = trim($_POST['shop_name']);
   $shop_address = trim($_POST['shop_address']);
@@ -81,52 +29,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (empty($shop_name) || empty($shop_address) || empty($cccd) || empty($phone) || empty($email)) {
     echo "<script>alert('Vui lòng nhập đầy đủ thông tin!');</script>";
   } else {
-    $stmtInsert = $conn->prepare("
-    INSERT INTO Duyet_Nguoi_Mua 
-      (ID_Nguoi_Mua, Ten_Shop, Dia_Chi_Lay_Hang, CCCD, Trang_Thai, Ngay_Gui_Duyet, Role)
-    VALUES (?, ?, ?, ?, 'Chờ duyệt', NOW(), 2)
-  ");
-    $stmtInsert->bind_param("isss", $idNguoiMua, $shop_name, $shop_address, $cccd);
+    $stmtCheck = $conn->prepare("SELECT * FROM Duyet_Nguoi_Mua WHERE ID_Nguoi_Mua = ?");
+    $stmtCheck->bind_param("i", $idNguoiMua);
+    $stmtCheck->execute();
+    $check = $stmtCheck->get_result();
 
-
-    if ($stmtInsert->execute()) {
-      echo "<script>alert('Đã gửi yêu cầu đăng ký kênh người bán! Vui lòng chờ duyệt.'); window.location.href = '../index.php';</script>";
-      exit;
+    if ($check->num_rows > 0) {
+      echo "<script>alert('Bạn đã gửi đăng ký trước đó!');</script>";
     } else {
-      echo "<script>alert('Lỗi khi gửi yêu cầu: " . $conn->error . "');</script>";
+      $stmtInsert = $conn->prepare("
+                INSERT INTO Duyet_Nguoi_Mua 
+                (ID_Nguoi_Mua, Ten_Shop, Dia_Chi_Lay_Hang, CCCD, Trang_Thai, Ngay_Gui_Duyet, Role)
+                VALUES (?, ?, ?, ?, 'Chờ duyệt', NOW(), 2)
+            ");
+      $stmtInsert->bind_param("isss", $idNguoiMua, $shop_name, $shop_address, $cccd);
+
+      if ($stmtInsert->execute()) {
+        echo "<script>alert('Đăng ký thành công! Vui lòng chờ xét duyệt.'); window.location.href='../index.php';</script>";
+        exit;
+      } else {
+        echo "<script>alert('Lỗi khi lưu đăng ký: " . $conn->error . "');</script>";
+      }
     }
   }
 }
+
+// 3. Kiểm tra trạng thái đăng ký nếu không phải POST
+$stmtCheck = $conn->prepare("SELECT * FROM Duyet_Nguoi_Mua WHERE ID_Nguoi_Mua = ?");
+$stmtCheck->bind_param("i", $idNguoiMua);
+$stmtCheck->execute();
+$resultCheck = $stmtCheck->get_result();
+$rowDuyet = $resultCheck->fetch_assoc();
+
+// ❗Chưa từng đăng ký → về trang đăng ký (trừ chính trang đăng ký)
+if (!$rowDuyet && $currentPage !== 'Dangkykenh.php') {
+  header('Location: Dangkykenh.php');
+  exit;
+}
+
+$trangThai = $rowDuyet['Trang_Thai'] ?? '';
+
+if ($trangThai === 'Đã duyệt') {
+  $stmtBan = $conn->prepare("SELECT * FROM Nguoi_Ban WHERE ID_Nguoi_Mua = ? AND Trang_Thai = 'Banned'");
+  $stmtBan->bind_param("i", $idNguoiMua);
+  $stmtBan->execute();
+  $banResult = $stmtBan->get_result();
+
+  if ($banResult->num_rows > 0) {
+    echo "<script>
+        alert('Tài khoản của bạn đã bị cấm. Không thể vào kênh người bán.');
+        window.location.href = '../index.php';
+        </script>";
+    exit;
+  }
+
+  // ✅ Nếu được duyệt và không bị banned → CHO VÀO
+  header('Location: KenhNguoiBan.html');
+  exit;
+} elseif ($trangThai === 'Chờ duyệt') {
+  echo "<script>
+    alert('Tài khoản đang chờ duyệt. Vui lòng quay lại sau!');
+    window.location.href = '../index.php';
+    </script>";
+  exit;
+} elseif ($trangThai === 'Hủy duyệt') {
+  echo "<script>
+  alert('Yêu cầu đăng ký kênh của bạn đã bị từ chối.');
+  window.location.href = '../index.php';
+  </script>";
+  exit;
+}
+
+// 4. Lấy email + sdt
+$stmt2 = $conn->prepare("SELECT Email, So_Dien_Thoai FROM Người_Mua WHERE ID_Nguoi_Mua = ?");
+$stmt2->bind_param("i", $idNguoiMua);
+$stmt2->execute();
+$info = $stmt2->get_result()->fetch_assoc();
+
+$email = $info['Email'] ?? '';
+$sdt = $info['So_Dien_Thoai'] ?? '';
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- CSS (main) -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kênh người bán</title>
   <link rel="stylesheet" href="../css/main.css" />
-  <!-- CSS (font) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-    rel="stylesheet" />
-
-  <!-- CSS (icon) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <title>Kênh người bán</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
 <body>
   <div id="header"></div>
-
   <main>
     <div class="container">
       <form class="seller-register__form" method="POST">
@@ -175,11 +174,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </form>
     </div>
   </main>
-
   <div id="footer"></div>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
   <script type="module" src="../js/components/Dangkykenh.js"></script>
-
 </body>
 
 </html>
