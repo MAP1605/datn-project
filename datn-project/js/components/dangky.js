@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       showNotification("Đăng ký thành công!", "success");
       setTimeout(() => {
-        window.location.href = "../pages/dangnhap.html";
+        window.location.href = "datn-project/datn-project/pages/Dangky.php";
       }, 1500);
     });
   }

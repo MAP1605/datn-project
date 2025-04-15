@@ -1,0 +1,323 @@
+.search-page__content {
+    display: flex;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.search-filter {
+    flex: 0 0 220px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.6rem;
+    font-size: 1.4rem;
+}
+
+.search-filter__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+}
+
+.search-filter__group {
+    margin-bottom: 2rem;
+}
+
+.search-filter__heading {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.6rem;
+}
+
+.search-filter__checkbox,
+.search-filter__rating {
+    display: block;
+    margin: 0.4rem 0;
+}
+
+.search-filter__input {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-filter__dash {
+    display: block;
+    text-align: center;
+    margin: 0.6rem 0;
+}
+
+.search-filter__btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background-color 0.3s ease;
+}
+
+.search-filter__btn:hover {
+    background-color: #033da2;
+    /* hoặc màu hover đậm hơn 1 chút */
+}
+
+.search-filter__more {
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-result {
+    flex: 1;
+}
+
+.search-result__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.search-result__count {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.search-result__sort-label {
+    margin-right: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.search-result__sort-select {
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    border-radius: 4px;
+}
+
+.search-filter__rating {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.search__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+.search__item {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    padding: 1rem;
+    transition: box-shadow 0.3s ease;
+    background-color: var(--white-color);
+
+}
+
+.search__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.search__img-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.search__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.search__discount-tag {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    background-color: var(--primary-color);
+    /* màu chủ đạo của em */
+    color: var(--white-color);
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+    border-radius: 2px;
+}
+
+.search__name {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 1rem 0;
+    height: 4rem;
+    line-height: 2rem;
+    overflow: hidden;
+}
+
+.search__price-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.search__price {
+    font-size: 1.6rem;
+    color: var(--red-color-primary);
+    font-weight: 600;
+}
+
+.search__price-old {
+    font-size: 1.2rem;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.search__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding-top: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.search__meta i {
+    font-size: 1.2rem;
+    color: var(--star-gold-color);
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+/* ==== PAGINATION ==== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 4rem 0 2rem;
+    flex-wrap: wrap;
+}
+
+.pagination__link {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__link:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.pagination__link.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    border-color: var(--primary-color);
+}
+
+@media (max-width: 1023px) {
+    .search-page__content {
+        flex-direction: column;
+    }
+
+    .search-filter {
+        width: 100%;
+    }
+
+    .search__list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 739px) {
+    .search__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.search-filter__reset {
+    margin-top: 16px;
+    padding: 8px 12px;
+    background-color: var(--red-color-primary);
+    color: var(--white-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.search-filter__reset:hover {
+    background-color: #ee4d2d9c;
+    color: white;
+}
+
+#province-input {
+    text-transform: capitalize;
+}
+
+
+/* Bộ lọc khoảng giá */
+.search-filter__price-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.search-filter__input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+}
+
+.search-filter__dash {
+    font-size: 1.4rem;
+    color: #888;
+    user-select: none;
+}
+
+/* Responsive tablet/mobile */
+@media (max-width: 739px) {
+    .search-filter__price-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-filter__dash {
+        display: none;
+    }
+
+    .search-result__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .search-result__sort {
+        width: 100%;
+    }
+
+    .search-result__sort-select {
+        width: 100%;
+    }
+}

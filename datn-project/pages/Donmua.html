@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ho so nguoi dung</title>
+
+  <!-- CSS (main) -->
+  <link rel="stylesheet" href="../css/main.css">
+  <!-- CSS (font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- CSS (icon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <div class="main">
+    <div class="container">
+      <button class="mobile-menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="user-main user-main--Address">
+        
+        <aside class="user-main__sidebar">
+          <div class="mobile-overlay" id="mobileOverlay"></div>
+          <img src="" alt="Avatar" class="user-main__avatar">
+
+
+            <nav class="user-main__nav">
+                <ul class="user-main__nav-list">
+                    <li>
+                        <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
+                    </li>
+                    <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.html">Hồ sơ</a></li>
+                    <li><a class="user-main__nav-link" href="../pages/DiachiUse.html">Địa chỉ</a></li>
+                    <li><a class="user-main__nav-link" href="../pages/doimatkhau.html">Đổi mật khẩu</a></li>
+                    <li><a class="user-main__nav-link Select-screen-function" href="../pages/Donmua.html">Đơn mua</a></li>
+                 
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+          <div class="user-orders">
+            <div class="user-orders__tabs" role="tablist">
+              <button class="user-orders__tab-btn user-orders__tab-btn--active" data-tab="all">Tất cả</button>
+              <button class="user-orders__tab-btn" data-tab="choxacnhan">Chờ xác nhận</button>
+              <button class="user-orders__tab-btn" data-tab="dangvanchuyen">Đang vận chuyển</button>
+              <button class="user-orders__tab-btn" data-tab="Chogiaohang">Chờ giao hàng</button>
+              <button class="user-orders__tab-btn" data-tab="hoanthanh">Đã nhận được đơn hàng</button>
+              <button class="user-orders__tab-btn" data-tab="dahuy">Đã hủy</button>
+            </div>
+
+
+            <div class="user-orders__item" data-status="Chogiaohang">
+              <div class="user-orders__shop">
+                <div class="user-orders__shop-left">
+                  <span>Tên shop</span>
+                  <button>Chat</button>
+                  <button>Xem shop</button>
+                </div>
+                <div class="user-orders__shop-right">
+                  <h4>Chờ giao hàng</h4>
+                </div>
+              </div>
+              <div class="user-orders__details">
+                <div class="user-orders__details-img">
+                  <img src="../assets/images/Phanthedung/images (1).jpg" alt="" class="user-orders__details-img-1" id=" ">
+                </div>
+                <div class="user-orders__product-info">
+                  <p>Tên sản phẩm</p>
+                  <p>Số lượng</p>
+                  <p class="user-orders__price">Giá</p>
+                </div>
+              </div>
+              <div class="user-orders__total">Thành tiền:</div>
+              <div class="user-orders__actions">
+              
+                <button class="check-ship">Đã nhận được hàng</button>
+                <button class="">Chưa nhận được hàng</button>
+              </div>
+            </div>
+           
+            <div class="user-orders__item" data-status="hoanthanh" title="Xem chi tiết đơn hàng">
+                <div class="user-orders__shop">
+                  <div class="user-orders__shop-left">
+                    <span>Tên shop</span>
+                    <button>Chat</button>
+                    <button>Xem shop</button>
+                  </div>
+                  <div class="user-orders__shop-right">
+                    <h4>Hoàn thành</h4>
+                  </div>
+                </div>
+                <div class="user-orders__details">
+                  <div class="user-orders__details-img">
+                    <img src="../assets/images/Phanthedung/images (2).jpg" alt="" class="user-orders__details-img-1" id=" ">
+                  </div>
+                  <div class="user-orders__product-info">
+                    <p>Tên sản phẩm</p>
+                    <p>Số lượng</p>
+                    <p class="user-orders__price">Giá</p>
+                  </div>
+                </div>
+                <div class="user-orders__total">Thành tiền:</div>
+                <div class="user-orders__actions">
+                  
+                  <button class="openModalBtn">Đánh giá</button>
+                  <button>Yêu cầu trả hàng/Hoàn tiền</button>
+                </div>
+              </div>
+
+              <div class="user-orders__item" data-status="dangvanchuyen">
+                <div class="user-orders__shop">
+                  <div class="user-orders__shop-left">
+                    <span>Tên shop</span>
+                    <button>Chat</button>
+                    <button>Xem shop</button>
+                  </div>
+                  <div class="user-orders__shop-right">
+                    <h4>Đang giao hàng</h4>
+                  </div>
+                </div>
+                <div class="user-orders__details">
+                  <div class="user-orders__details-img">
+                    <img src="../assets/images/Phanthedung/images.jpg" alt="" class="user-orders__details-img-1" id=" ">
+                  </div>
+                  <div class="user-orders__product-info">
+                    <p>Tên sản phẩm</p>
+                    <p>Số lượng</p>
+                    <p class="user-orders__price">Giá</p>
+                  </div>
+                </div>
+                <div class="user-orders__total">Thành tiền:</div>
+              </div>
+
+              <div class="user-orders__item" data-status="choxacnhan">
+                <div class="user-orders__shop">
+                  <div class="user-orders__shop-left">
+                    <span>Tên shop</span>
+                    <button>Chat</button>
+                    <button>Xem shop</button>
+                  </div>
+                  <div class="user-orders__shop-right">
+                    <h4>Chờ xác nhận</h4>
+                  </div>
+                </div>
+                <div class="user-orders__details">
+                  <div class="user-orders__details-img">
+                    <img src="../assets/images/Phanthedung/images (1).jpg" alt="" class="user-orders__details-img-1" id=" ">
+                  </div>
+                  <div class="user-orders__product-info">
+                    <p>Tên sản phẩm</p>
+                    <p>Số lượng</p>
+                    <p class="user-orders__price">Giá</p>
+                  </div>
+                </div>
+                <div class="user-orders__total">Thành tiền:</div>
+              </div>
+
+              <div class="user-orders__item" data-status="dahuy">
+                <div class="user-orders__shop">
+                  <div class="user-orders__shop-left">
+                    <span>Tên shop</span>
+                    <button>Chat</button>
+                    <button>Xem shop</button>
+                  </div>
+                  <div class="user-orders__shop-right">
+                    <h4>Đã hủy đơn hàng</h4>
+                  </div>
+                </div>
+                <div class="user-orders__details">
+                  <div class="user-orders__details-img">
+                    <img src="../assets/images/Phanthedung/images (2).jpg" alt="" class="user-orders__details-img-1" id=" ">
+                  </div>
+                  <div class="user-orders__product-info">
+                    <p>Tên sản phẩm: A</p>
+                    <p>Số lượng: 100</p>
+                    <p class="user-orders__price">Giá</p>
+                  </div>
+                </div>
+                <div class="user-orders__total">Thành tiền:</div>
+                <div class="user-orders__actions">
+                  <button>Mua lại</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+    
+    <!-- Modal Chi tiết đơn hàng -->
+    <div class="modal" id="orderDetailModal">
+      
+      <div class="modal__content order-detail-modal">
+        <span class="modal__close" id="closeOrderDetail">&times;</span>
+        <h2 class="modal__title">Chi tiết đơn hàng</h2>
+        <div class="order-detail__info">
+          <div class="order-detail__image">
+            <img src="../assets/images/Phanthedung/images (2).jpg" alt="Ảnh sản phẩm">
+          </div>
+          <div class="order-detail__text">
+            <p><strong>Tên sản phẩm:</strong> Áo thun PEARNK</p>
+            <p><strong>Số lượng:</strong> 2</p>
+            <p><strong>Giá:</strong> <span class="price">200.000đ</span></p>
+            <p><strong>Thành tiền:</strong> <span class="total">400.000đ</span></p>
+            <hr>
+            <p><strong>Tên người nhận:</strong> Nguyễn Văn A</p>
+            <p><strong>Số điện thoại:</strong> 0987654321</p>
+            <p><strong>Địa chỉ:</strong> 123 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội</p>
+            <p><strong>Phí vận chuyển:</strong> <span class="price">25.000đ</span></p>
+            <p><strong>Phương thức thanh toán:</strong> <span class="label">Thanh toán khi nhận hàng</span></p>
+            <p><strong>Ngày đặt:</strong> <span class="label">10/04/2025</span></p>
+            <p><strong>Trạng thái:</strong> <span class="label">Hoàn thành</span></p>
+            <p><strong>Shop:</strong> <span class="label">PEARNK Store</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal đánh giá -->
+    <div class="modal" id="reviewModal">
+      <div class="modal__content">
+        <span class="modal__close" id="closeModal">&times;</span>
+        <h2 class="modal__title">ĐÁNH GIÁ SẢN PHẨM</h2>
+
+        <div class="modal__product-info">
+          <div class="modal__product-image">HÌNH ẢNH</div>
+          <div class="modal__product-details">
+            <h3 class="modal__product-name">Tên sản phẩm</h3>
+            <div class="modal__rating">
+              <label class="modal__rating-label">Chất lượng sản phẩm</label>
+              <div class="modal__stars" id="starContainer">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <textarea class="modal__textarea review-textarea"
+          placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé!"></textarea>
+          
+        <div class="modal__images">
+          <input type="file" id="imageInput" multiple hidden accept="image/*">
+          <button class="modal__add-image" id="addImageBtn">Thêm hình ảnh</button>
+          <div class="modal__preview" id="imagesPreview"></div>
+        </div>
+
+        <button class="modal__submit" id="completeBtn">Hoàn Thành</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="../js/components/Donmua.js"></script>
+  <script type="module" src="../js/utils/components-loader-pages.js"></script>
+  <script src="../js/components/Giaodiennguoidung.js"></script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@
             <div class="header__top-left">
                 <a href="../pages/Dangkykenh.html" class="header__link">
                     <a href="/datn-project/datn-project/pages/Dangkykenh.php" class="header__link">
-                        Đăng ký người bán
+                        Kênh Người Bán
                     </a>
             </div>
             <div class="header__top-right">
@@ -24,16 +24,16 @@
 
                     <img src="/datn-project/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="user_Avatar"
                         class="header__user-avatar">
-                    <span class="header__user-name">Cường đẹp trai</span>
+                    <span class="header__user-name">DŨNG đb</span>
                     <div class="header__user-dropdown">
                         <ul>
-                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.html">
+                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
                                 <li>Tài Khoản Của Tôi</li>
                             </a>
-                            <a href="/datn-project/datn-project/pages/Donmua.html">
+                            <a href="/datn-project/datn-project/pages/Donmua.php">
                                 <li>Đơn Mua</li>
                             </a>
-                            <a href="/datn-project/datn-project/pages/dangnhap.html">
+                            <a href="/datn-project/datn-project/pages/dangnhap.php">
                                 <li>Đăng Xuất</li>
                             </a>
                         </ul>
@@ -48,9 +48,7 @@
 
 
                 <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="/datn-project/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="user_Avatar"
-                        class="header__user-avatar">
-
+                    <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
 
 
                 </a>
@@ -58,8 +56,8 @@
 
             <!-- Tìm kiếm  -->
             <form action="/datn-project/datn-project/pages/search.php" method="GET" class="header__search">
-
-                <input type="text" name="q" placeholder="Tìm sản phẩm..." class="header__search-input" required />
+                <input type="text" name="q" placeholder="Tìm sản phẩm..." class="header__search-input"
+                    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" />
                 <button type="submit" class="header__search-btn">
                     <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
                 </button>
@@ -76,7 +74,7 @@
                     </ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
-                        <a href="/datn-project/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                        <a href="../pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
@@ -87,4 +85,4 @@
 </header>
 <!-- End header (components) -->
 
-<script type="module" src="../js/pages/cart-items.js"></script>
+<script type="module" src="/datn-project/js/pages/cart-items.js"></script>
