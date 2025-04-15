@@ -139,6 +139,17 @@ $user = $resultUser->fetch_assoc();
             <div class="user-orders__list">
               <?php while ($row = $result->fetch_assoc()):
                 $statusKey = $statusMap[$row['Trang_Thai_Don_Hang']] ?? 'all';
+
+                // Kiểm tra sản phẩm này đã được người dùng đánh giá chưa
+                $idSanPham = $row['ID_San_Pham'];
+                $isReviewed = false;
+                $sqlCheckReview = "SELECT 1 FROM Danh_Gia_San_Pham 
+                     WHERE ID_Nguoi_Mua = $idNguoiMua 
+                     AND ID_San_Pham = $idSanPham LIMIT 1";
+                $resultCheck = $conn->query($sqlCheckReview);
+                if ($resultCheck && $resultCheck->num_rows > 0) {
+                  $isReviewed = true;
+                }
               ?>
                 <div class="user-orders__item" data-status="<?= $statusKey ?>">
                   <div class="user-orders__shop">
@@ -167,15 +178,19 @@ $user = $resultUser->fetch_assoc();
 
                   <div class="user-orders__actions">
                     <?php if ($statusKey == 'hoanthanh'): ?>
-                      <button class="openModalBtn"
-                        data-id="<?= $row['ID_San_Pham'] ?>"
-                        data-name="<?= htmlspecialchars($row['Ten_San_Pham']) ?>"
-                        data-img="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>"
-                        data-qty="<?= $row['So_Luong'] ?>"
-                        data-price="<?= $row['Gia_Ban'] ?>"
-                        data-total="<?= $row['Thanh_Tien'] ?>">
-                        Đánh giá
-                      </button>
+                      <?php if ($isReviewed): ?>
+                        <button disabled style="background-color: #ccc; cursor: not-allowed;">Đã đánh giá</button>
+                      <?php else: ?>
+                        <button class="openModalBtn"
+                          data-id="<?= $row['ID_San_Pham'] ?>"
+                          data-name="<?= htmlspecialchars($row['Ten_San_Pham']) ?>"
+                          data-img="../pages/api/get-image.php?id=<?= $row['ID_San_Pham'] ?>"
+                          data-qty="<?= $row['So_Luong'] ?>"
+                          data-price="<?= $row['Gia_Ban'] ?>"
+                          data-total="<?= $row['Thanh_Tien'] ?>">
+                          Đánh giá
+                        </button>
+                      <?php endif; ?>
                     <?php elseif ($statusKey == 'chogiaohang'): ?>
                       <button class="confirm-received" data-id="<?= $row['ID_Hoa_Don'] ?>">Đã nhận được hàng</button>
                     <?php elseif ($statusKey == 'dahuy'): ?>
@@ -265,6 +280,7 @@ $user = $resultUser->fetch_assoc();
 
   <div id="footer"></div>
   <script src="../js/components/Donmua.js?v=<?= time() ?>"></script>
+
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
   <script src="../js/components/Giaodiennguoidung.js"></script>
 

@@ -107,7 +107,7 @@ AND ctgh.ID_Gio_Hang IN (
             </section>
 
             <section class="checkout-action">
-                <button class="checkout-action__btn"> <a href="/datn-project/datn-project/pages/Donmua.php">Đặt hàng</a></button>
+                <button class="checkout-action__btn"> <a>Đặt hàng</a></button>
             </section>
         </div>
     </main>

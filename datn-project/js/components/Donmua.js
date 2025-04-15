@@ -1,13 +1,13 @@
-function dataURLtoFile(dataurl, filename) {
-  let arr = dataurl.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
+function dataURLtoFile(dataurl, filenameWithoutExt) {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const ext = mime.split('/')[1]; // lấy jpg, png, webp...
+  const bstr = atob(arr[1]);
+  const u8arr = new Uint8Array(bstr.length);
+  for (let i = 0; i < bstr.length; i++) {
+    u8arr[i] = bstr.charCodeAt(i);
   }
-  return new File([u8arr], filename, { type: mime });
+  return new File([u8arr], `${filenameWithoutExt}.${ext}`, { type: mime });
 }
 
 const tabButtons = document.querySelectorAll('.user-orders__tab-btn');
@@ -328,6 +328,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+function dataURLtoFile(dataurl, filenameWithoutExt) {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const ext = mime.split('/')[1];
+  const bstr = atob(arr[1]);
+  const u8arr = new Uint8Array(bstr.length);
+  for (let i = 0; i < bstr.length; i++) {
+    u8arr[i] = bstr.charCodeAt(i);
+  }
+  return new File([u8arr], `${filenameWithoutExt}.${ext}`, { type: mime });
+}
+
+let currentReviewBtn = null;
+
+document.querySelectorAll('.openModalBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentReviewBtn = btn;
+
+    const productId = btn.dataset.id;
+    const name = btn.dataset.name;
+    const img = btn.dataset.img;
+    const qty = btn.dataset.qty;
+    const price = parseInt(btn.dataset.price);
+    const total = parseInt(btn.dataset.total);
+
+    document.getElementById('reviewProductId').value = productId;
+    document.getElementById('review-name').textContent = name;
+    document.getElementById('review-image').src = img;
+    document.getElementById('review-price').textContent = price.toLocaleString('vi-VN') + 'đ';
+    document.getElementById('review-qty').textContent = qty;
+    document.getElementById('review-total').textContent = total.toLocaleString('vi-VN') + 'đ';
+
+    document.getElementById('reviewModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
 document.getElementById('completeBtn').addEventListener('click', () => {
   const starCount = document.querySelectorAll('#starContainer .star.selected').length;
   const reviewText = document.querySelector('.review-textarea').value.trim();
@@ -343,10 +380,9 @@ document.getElementById('completeBtn').addEventListener('click', () => {
   formData.append('So_Sao', starCount);
   formData.append('Binh_Luan', reviewText);
 
-  // 👇 Thêm từ ảnh trong preview
   const previewImgs = document.querySelectorAll('.modal__preview-img');
   for (let i = 0; i < Math.min(previewImgs.length, 3); i++) {
-    const file = dataURLtoFile(previewImgs[i].src, `anh${i + 1}.jpg`);
+    const file = dataURLtoFile(previewImgs[i].src, `anh${i + 1}`);
     formData.append(`Anh_Danh_Gia${i + 1}`, file);
   }
 
@@ -358,9 +394,17 @@ document.getElementById('completeBtn').addEventListener('click', () => {
     .then(data => {
       if (data.trim() === 'success') {
         alert('🎉 Đánh giá đã được gửi!');
-        location.reload();
+        if (currentReviewBtn) {
+          currentReviewBtn.textContent = 'Đã đánh giá';
+          currentReviewBtn.disabled = true;
+          currentReviewBtn.style.backgroundColor = '#ccc';
+          currentReviewBtn.style.cursor = 'not-allowed';
+        }
+        document.getElementById('reviewModal').classList.remove('show');
+        document.body.style.overflow = '';
       } else {
         alert('❌ Gửi đánh giá thất bại!');
       }
     });
 });
+
