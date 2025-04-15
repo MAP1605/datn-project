@@ -19,47 +19,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //  Tăng giảm số lượng sản phẩm
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const qtyInput = document.querySelector(".product-detail__qty-input");
-//   const minusBtn = document.querySelector('button[data-type="minus"]');
-//   const plusBtn = document.querySelector('button[data-type="plus"]');
-//   const maxQty = parseInt(qtyInput.dataset.max) || 999;
+document.addEventListener("DOMContentLoaded", () => {
+  const qtyInput = document.querySelector(".product-detail__qty-input");
+  const minusBtn = document.querySelector('button[data-type="minus"]');
+  const plusBtn = document.querySelector('button[data-type="plus"]');
+  const maxQty = parseInt(qtyInput.dataset.max) || 999;
 
-//   // Nút trừ
-//   minusBtn.addEventListener("click", () => {
-//     let value = parseInt(qtyInput.value) || 1;
-//     if (value > 1) {
-//       qtyInput.value = value - 1;
-//     }
-//   });
+  // Nút trừ
+  minusBtn.addEventListener("click", () => {
+    let value = parseInt(qtyInput.value) || 1;
+    if (value > 1) {
+      qtyInput.value = value - 1;
+    }
+  });
 
-//   // Nút cộng
-//   plusBtn.addEventListener("click", () => {
-//     let value = parseInt(qtyInput.value) || 1;
-//     if (value < maxQty) {
-//       qtyInput.value = value + 1;
-//     }
-//   });
+  // Nút cộng
+  plusBtn.addEventListener("click", () => {
+    let value = parseInt(qtyInput.value) || 1;
+    if (value < maxQty) {
+      qtyInput.value = value + 1;
+    }
+  });
 
-//   // Khi rời ô input hoặc nhấn Enter thì kiểm tra lại
-//   qtyInput.addEventListener("blur", validateInput);
-//   qtyInput.addEventListener("keydown", (e) => {
-//     if (e.key === "Enter") {
-//       e.preventDefault();
-//       validateInput();
-//       qtyInput.blur();
-//     }
-//   });
+  // Khi rời ô input hoặc nhấn Enter thì kiểm tra lại
+  qtyInput.addEventListener("blur", validateInput);
+  qtyInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      validateInput();
+    }
+  });
+  function validateInput() {
+    let value = parseInt(qtyInput.value);
+    if (isNaN(value) || value < 1) {
+      qtyInput.value = 1;
+    } else if (value > maxQty) {
+      qtyInput.value = maxQty;
+    }
+  }
+});
 
-//   function validateInput() {
-//     let value = parseInt(qtyInput.value);
-//     if (isNaN(value) || value < 1) {
-//       qtyInput.value = 1;
-//     } else if (value > maxQty) {
-//       qtyInput.value = maxQty;
-//     }
-//   }
-// });
+const formQtyInput = document.getElementById("formQuantity");
+if (formQtyInput) formQtyInput.value = value;
+
 
 
 //  phóng to ảnh riview 

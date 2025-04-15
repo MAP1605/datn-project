@@ -248,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     </div>
                 </div>
             </div>
-
+            
         </div>
     </header>
     <!-- End header -->
@@ -306,6 +306,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                             <label>Số lượng:</label>
                             <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
                             <input type="text" value="1" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+
+                            <input type="text" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <input type="hidden" name="so_luong" id="formQuantity" value="1">
+
                             <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
                             <span class="product-detail__stock"><?= $product['So_Luong_Ton'] ?> sản phẩm có sẵn</span>
                         </div>
