@@ -539,6 +539,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
 
     <script type="module" src="/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
+                                            
+    <div id="toast" class="custom-toast">Tính năng này sẽ được cập nhật sau!</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const shopButtons = document.querySelectorAll(".shop__btn");
+
+        shopButtons.forEach((btn) => {
+            btn.addEventListener("click", function () {
+            alert("Tính năng này sẽ được cập nhật sau!");
+            });
+        });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const shopButtons = document.querySelectorAll(".shop__btn");
+
+        shopButtons.forEach((btn) => {
+            btn.addEventListener("click", function () {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2500);
+            });
+        });
+        });
+    </script>
 </body>
 
 </html>
