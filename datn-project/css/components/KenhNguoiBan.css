@@ -1195,82 +1195,141 @@ cursor: default;
 .hidden {
   display: none;
 }
-
-/* =================== Responsive =================== */
-
-/* Tablet */
-@media (max-width: 1024px) {
+/* responsive  */
+@media (max-width: 1200px) {
   .seller-layout {
     flex-direction: column;
   }
 
   .seller-sidebar {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 16px;
-    border-bottom: 1px solid #ccc;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .seller-sidebar__section {
+    display: inline-block;
+    margin-right: 20px;
   }
 
   .seller-main {
     width: 100%;
-    padding: 16px;
+    margin-left: 0;
+  }
+
+  .wallet-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+}
+
+/* ========================= 1023px ↓ ========================= */
+@media (max-width: 1023px) {
+  .seller-layout {
+    flex-direction: column;
+  }
+
+  .seller-sidebar {
+    display: none;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+
+  .seller-sidebar.show {
+    display: block;
+  }
+
+  .seller-sidebar__menu {
+    flex-direction: column;
+  }
+
+  .seller-sidebar__section {
+    margin-bottom: 15px;
+  }
+
+  .seller-main {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hamburger-icon {
+    display: block;
+    font-size: 24px;
+    padding: 10px;
   }
 
   .order-tabs,
   .product-tabs,
   .statistic-header,
-  .wallet-tabs {
-    flex-wrap: wrap;
-    justify-content: center;
+  .wallet-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  .order-tabs .tab,
-  .product-tabs .tab {
-    margin: 4px;
+  .order-table thead {
+    display: none;
   }
 
-  .order-table,
-  .product-table,
-  .statistic-table,
-  .wallet-table table {
+  .order-table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background: #f9f9f9;
+  }
+
+  .order-table td {
+    display: flex;
+    justify-content: space-between;
     font-size: 14px;
+    padding: 6px 0;
   }
 
-  .btn,
-  .btn-add-product,
-  .btn-withdraw,
-  .btn-add-bank {
-    font-size: 14px;
-    padding: 6px 10px;
+  .order-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    color: #444;
+  }
+
+  .order-table input[type="checkbox"] {
+    transform: scale(1.2);
   }
 }
 
-/* Mobile */
+/* ========================= 768px ↓ ========================= */
 @media (max-width: 768px) {
+  .order-tabs .tab,
+  .product-tabs .tab {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
   .order-product-row,
-  .order-info {
+  .product-row {
     flex-direction: column;
-    align-items: flex-start;
   }
 
-  .order-img,
-  .product-list_img {
-    width: 60px !important;
+  .img-box-ka img,
+  .product-image-preview {
+    width: 100%;
+    height: auto;
   }
 
-  .product-detail-modal__images img {
-    width: 80px;
-    margin: 4px 0;
+  .modal-content,
+  .product-detail-modal__content {
+    width: 95%;
+    padding: 15px;
   }
 
-  .order-table th,
-  .order-table td,
-  .product-table th,
-  .product-table td {
-    padding: 4px;
-    font-size: 12px;
+  .buttons-ka button {
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .wallet-header,
@@ -1279,53 +1338,39 @@ cursor: default;
     gap: 12px;
   }
 
-  .wallet-balance h2 {
-    font-size: 18px;
-  }
-
-  .search-bar,
-  .wallet-search,
-  .statistic-header .search-input {
+  .search-bar input {
     width: 100%;
-    margin-top: 8px;
-  }
-
-  .buttons-ka button {
-    width: 100%;
-    margin: 4px 0;
+    font-size: 14px;
   }
 }
-/* Biểu tượng 3 gạch */
-.hamburger-icon {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
-}
 
-@media (max-width: 1024px) {
-  .hamburger-icon {
-    display: block;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10001;
+/* ========================= 576px ↓ (Mobile nhỏ) ========================= */
+@media (max-width: 576px) {
+  .wallet-table table,
+  .product-table,
+  .statistic-table {
+    font-size: 12px;
   }
 
-  .seller-sidebar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 240px;
-    background-color: #fff;
-    z-index: 10000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+  .order-product-img img {
+    width: 60px;
   }
 
-  .seller-sidebar.show {
-    display: block;
+  .btn,
+  .Submit,
+  .Cancel,
+  .Update {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .product-detail-modal__images img {
+    width: 80px;
+    margin: 5px 0;
+  }
+
+  .seller-sidebar__link {
+    font-size: 14px;
   }
 }
+
