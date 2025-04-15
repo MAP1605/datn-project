@@ -184,7 +184,7 @@ while ($row = $result->fetch_assoc()) {
         };
     </script>
 
-    <script type="module" src="../js/pages/cart.js?v=<?= time() ?>"></script>
+    <script type="module" src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
 </body>
 
 </html>

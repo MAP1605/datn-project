@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('checkoutFinal').innerText = (subtotal + shippingFee).toLocaleString('vi-VN') + 'đ';
 });
 
+
 document.querySelector('.checkout-action__btn').addEventListener('click', () => {
   if (!confirm('Xác nhận đặt hàng?')) return;
 

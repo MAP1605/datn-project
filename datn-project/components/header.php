@@ -21,7 +21,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             <div class="header__top-left">
                 <a href="../pages/Dangkykenh.html" class="header__link">
                     <a href="/datn-project/datn-project/pages/Dangkykenh.php" class="header__link">
-                        Đăng ký người bán
+
+                      Kênh người bán
                     </a>
             </div>
             <div class="header__top-right">
@@ -38,7 +39,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                             <span class="header__user-name"><?= htmlspecialchars($_SESSION['Ten_Dang_Nhap'])  ?></span>
                         <div class="header__user-dropdown">
                             <ul>
-                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.html">
+                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
                                     <li>Tài Khoản Của Tôi</li>
                                 </a>
                                 <a href="/datn-project/datn-project/pages/Donmua.php">
@@ -52,6 +53,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         </div>
                     </div>
                 <?php endif; ?>
+
             </div>
 
 
