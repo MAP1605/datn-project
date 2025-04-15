@@ -724,8 +724,180 @@ safeAddEventListener("link-add-product", () => {
   // xử lý
 });
 
+
+// thanh 3 gạch của phần quản lý 
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menu-toggle");
+  const sidebar = document.querySelector(".seller-sidebar");
+
+  menuToggle.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+  });
+});
+
+
+
 // Thêm các mục khác tương tự
 
 
 // sửa phần sản phẩm
- 
+
+
+// phần check box của phần tât cả đơn hàng
+document.addEventListener("DOMContentLoaded", () => {
+  const selectAll = document.getElementById("select-all-orders");
+  const checkboxes = document.querySelectorAll(".order-checkbox");
+
+  if (selectAll) {
+    selectAll.addEventListener("change", function () {
+      checkboxes.forEach(cb => {
+        cb.checked = this.checked;
+      });
+    });
+
+    // Nếu bỏ tích 1 ô con thì bỏ tích ô tổng
+    checkboxes.forEach(cb => {
+      cb.addEventListener("change", function () {
+        if (!this.checked) {
+          selectAll.checked = false;
+        } else if ([...checkboxes].every(cb => cb.checked)) {
+          selectAll.checked = true;
+        }
+      });
+    });
+  }
+});
+
+
+// phần check box của phần tât cả sản phẩm 
+document.addEventListener("DOMContentLoaded", () => {
+  const selectAllProductCheckbox = document.getElementById("select-all-products");
+  const productCheckboxes = document.querySelectorAll(".product-checkbox");
+
+  if (selectAllProductCheckbox) {
+    selectAllProductCheckbox.addEventListener("change", function () {
+      productCheckboxes.forEach(cb => {
+        cb.checked = this.checked;
+      });
+    });
+
+    productCheckboxes.forEach(cb => {
+      cb.addEventListener("change", function () {
+        if (!this.checked) {
+          selectAllProductCheckbox.checked = false;
+        } else if ([...productCheckboxes].every(cb => cb.checked)) {
+          selectAllProductCheckbox.checked = true;
+        }
+      });
+    });
+  }
+});
+
+
+// phần vi của doanh thu
+document.addEventListener("DOMContentLoaded", function () {
+  function formatCurrency(number) {
+    return number.toLocaleString("vi-VN") + "đ";
+  }
+
+  function calculateWalletBalance() {
+    const rows = document.querySelectorAll(".wallet-table tbody tr");
+    let total = 0;
+
+    rows.forEach(row => {
+      const status = row.cells[4].textContent.trim();
+      const amountText = row.cells[3].textContent.trim().replace(/[₫,.]/g, "");
+      const amount = parseInt(amountText, 10);
+
+      if (status === "Hoàn thành" && !isNaN(amount)) {
+        total += amount;
+      }
+    });
+
+    const balanceEl = document.getElementById("wallet-balance");
+    if (balanceEl) {
+      balanceEl.textContent = formatCurrency(total);
+    }
+  }
+
+  calculateWalletBalance();
+});
+
+
+// thêm chức năng của phần tìm kiếm tất cả sản phẩm 
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("product-search");
+  const rows = document.querySelectorAll("#product-list tr");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      const keyword = this.value.toLowerCase().trim();
+
+      rows.forEach(row => {
+        const nameCell = row.querySelector("td:nth-child(3)");
+        const name = nameCell ? nameCell.textContent.toLowerCase() : "";
+
+        if (name.includes(keyword)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    });
+  }
+});
+
+
+// vi
+document.addEventListener("DOMContentLoaded", function () {
+  const openModalBtn = document.querySelector(".btn-withdraw");
+  const modal = document.getElementById("withdraw-modal");
+  const closeModalBtn = modal.querySelector(".close-modal");
+  const cancelBtn = modal.querySelector(".btn-cancel");
+  const confirmBtn = modal.querySelector(".btn-confirm");
+  const inputAmount = document.getElementById("withdraw-amount");
+  const walletBalance = document.getElementById("wallet-balance");
+
+  if (openModalBtn && modal) {
+    openModalBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      const currentBalance = parseInt(walletBalance.textContent.replace(/[₫,.]/g, ""));
+      const amount = parseInt(inputAmount.value);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Vui lòng nhập số tiền hợp lệ.");
+        return;
+      }
+
+      if (amount > currentBalance) {
+        alert("Số dư không đủ để rút!");
+        return;
+      }
+
+      const newBalance = currentBalance - amount;
+      walletBalance.textContent = newBalance.toLocaleString("vi-VN") + "đ";
+      alert(`✅ Rút thành công ${amount.toLocaleString("vi-VN")}đ`);
+
+      inputAmount.value = "";
+      modal.style.display = "none";
+    });
+  }
+});
