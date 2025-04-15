@@ -1,11 +1,14 @@
 <?php
 session_start();
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Gán tạm người dùng nếu chưa đăng nhập (test)
 if (!isset($_SESSION['ID_Nguoi_Mua'])) {
-    $_SESSION['ID_Nguoi_Mua'] = 1;
+    // Nếu chưa đăng nhập → chuyển về trang đăng nhập
+    header('Location: /datn-project/pages/dangnhap.php');
+    exit;
 }
 $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
 
@@ -25,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['xoa_sp'])) {
 }
 
 // Lấy giỏ hàng theo người dùng
-$sql = "SELECT gh.ID_Gio_Hang, sp.ID_San_Pham, sp.Ten_San_Pham, sp.Gia_Ban, sp.Anh_San_Pham1, ctgh.So_Luong
+$sql = "SELECT gh.ID_Gio_Hang, ctgh.ID_Chi_Tiet_Gio_Hang, sp.ID_San_Pham, sp.Ten_San_Pham, sp.Gia_Ban, sp.Anh_San_Pham1, ctgh.So_Luong
         FROM Gio_Hang gh
         JOIN Chi_Tiet_Gio_Hang ctgh ON gh.ID_Gio_Hang = ctgh.ID_Gio_Hang
         JOIN Chi_Tiet_San_Pham ctsp ON ctgh.ID_Chi_Tiet_San_Pham = ctsp.ID_Chi_Tiet_San_Pham
@@ -40,6 +43,7 @@ $result = $stmt->get_result();
 $items = [];
 while ($row = $result->fetch_assoc()) {
     $row['Anh_San_Pham1'] = base64_encode($row['Anh_San_Pham1']);
+    echo "<pre>ID_Chi_Tiet_Gio_Hang: " . $row['ID_Chi_Tiet_Gio_Hang'] . "</pre>";
     $items[] = $row;
 }
 ?>
@@ -85,10 +89,14 @@ while ($row = $result->fetch_assoc()) {
                     </div>
 
                     <div class="cart__body" id="cartBody">
-                        <?php foreach ($items as $item): ?>
+                        <?php foreach ($items as $index => $item): ?>
                             <div class="cart__row">
                                 <div class="cart__col cart__col--checkbox">
-                                    <input type="checkbox" />
+                                    <input
+                                        type="checkbox"
+                                        class="cart__checkbox"
+                                        data-index="<?= $index ?>"
+                                        data-ctgh-id="<?= $item['ID_Chi_Tiet_Gio_Hang'] ?>" />
                                 </div>
 
                                 <div class="cart__col cart__col--product">
@@ -100,7 +108,17 @@ while ($row = $result->fetch_assoc()) {
 
                                 <div class="cart__col cart__col--price">₫<?= number_format($item['Gia_Ban']) ?></div>
 
-                                <div class="cart__col cart__col--quantity"><?= $item['So_Luong'] ?></div>
+                                <div class="cart__col cart__col--quantity">
+                                    <div class="cart__quantity-control">
+                                        <button class="cart__quantity-btn" data-type="minus" data-index="<?= $index ?>">-</button>
+                                        <input type="text" class="cart__quantity-input"
+                                            value="<?= $item['So_Luong'] ?>"
+                                            data-index="<?= $index ?>"
+                                            data-id="<?= $item['ID_Gio_Hang'] ?>"
+                                            data-ctgh-id="<?= $item['ID_Chi_Tiet_Gio_Hang'] ?>" />
+                                        <button class="cart__quantity-btn" data-type="plus" data-index="<?= $index ?>">+</button>
+                                    </div>
+                                </div>
 
                                 <div class="cart__col cart__col--total">
                                     ₫<?= number_format($item['Gia_Ban'] * $item['So_Luong']) ?>
@@ -142,9 +160,31 @@ while ($row = $result->fetch_assoc()) {
 
     <!-- JS: load component header/footer  -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
-    <script type="module" src="../js/pages/cart.js"></script>
 
-    <script type="module" src="../js/pages/cart-items.js"></script>
+    <script>
+        window.onload = () => {
+            document.querySelector('.cart__btn--checkout')?.addEventListener('click', () => {
+                const checkedCheckboxes = document.querySelectorAll('.cart__checkbox:checked');
+                const selectedIds = Array.from(checkedCheckboxes).map(cb => parseInt(cb.dataset.ctghId));
+
+                console.clear();
+                console.log('🧪 Checkbox đã tick:', checkedCheckboxes);
+                console.log('🧪 ID chi tiết giỏ hàng được chọn:', selectedIds);
+
+                if (selectedIds.length === 0) {
+                    alert('Bạn chưa chọn sản phẩm nào để mua!');
+                    return;
+                }
+
+                localStorage.setItem('selectedCartIds', JSON.stringify(selectedIds));
+                const queryString = selectedIds.map(id => `ids[]=${id}`).join('&');
+                window.location.href = `/datn-project/datn-project/pages/checkout.php?${queryString}`;
+
+            });
+        };
+    </script>
+
+    <script type="module" src="../js/pages/cart.js?v=<?= time() ?>"></script>
 </body>
 
 </html>

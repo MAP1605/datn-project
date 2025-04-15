@@ -23,7 +23,7 @@ if (!empty($idList)) {
     $where .= " AND ID_San_Pham NOT IN ($idList)";
 }
 
-$sql = "SELECT * FROM San_Pham $where ORDER BY RAND() LIMIT 3";
+$sql = "SELECT * FROM San_Pham $where ORDER BY RAND() LIMIT 5";
 $result = $conn->query($sql);
 if (!$result) {
     die("❌ Lỗi truy vấn: " . $conn->error);
