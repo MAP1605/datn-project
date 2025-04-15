@@ -1,13 +1,13 @@
-function dataURLtoFile(dataurl, filename) {
-  let arr = dataurl.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
+function dataURLtoFile(dataurl, filenameWithoutExt) {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const ext = mime.split('/')[1]; // lấy jpg, png, webp...
+  const bstr = atob(arr[1]);
+  const u8arr = new Uint8Array(bstr.length);
+  for (let i = 0; i < bstr.length; i++) {
+    u8arr[i] = bstr.charCodeAt(i);
   }
-  return new File([u8arr], filename, { type: mime });
+  return new File([u8arr], `${filenameWithoutExt}.${ext}`, { type: mime });
 }
 
 const tabButtons = document.querySelectorAll('.user-orders__tab-btn');
