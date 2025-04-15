@@ -100,7 +100,8 @@ $sqlCapNhatSaoDB = "SELECT AVG(So_Sao) AS avg_rating FROM Danh_Gia_San_Pham WHER
 $resultAvg = $conn->query($sqlCapNhatSaoDB);
 
 if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
-    $avgRating = round($rowAvg['avg_rating'], 1); // Làm tròn 1 chữ số thập phân
+    $avgRating = $rowAvg['avg_rating'] !== null ? round($rowAvg['avg_rating'], 1) : 0;
+ // Làm tròn 1 chữ số thập phân
 
     // Cập nhật lại cột So_Sao_Danh_Gia trong bảng San_Pham
     $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
@@ -208,53 +209,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
-        <!-- Header top -->
-        <div class="header__top">
-
-            <div class="header__top-left">
-                <a href="#" class="header__link">
-                    Đăng ký người bán
-                </a>
-            </div>
-            <div class="header__top-right">
-                <a href="" class="header__link">
-                    Đăng nhập
-                </a>
-                <a href="" class="header__link">
-                    Đăng ký
-                </a>
-            </div>
-
-        </div>
-        <!-- Header main -->
-        <div class="header__main">
-            <div class="header__logo">
-                <a href="/datn-project/datn-project/index.html" class="header__logo-link">
-                    <img src="/datn-project/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
-                </a>
-            </div>
-            <div class="header__search">
-                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
-                <button class="header__search-btn">
-                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
-                </button>
-            </div>
-
-            <!-- Giỏ hàng -->
+         <!-- Giỏ hàng -->
             <div class="header__cart">
                 <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-                <span class="header__cart-count">0</span>
+                <span class="header__cart-count" id="cartItemCount">0</span>
                 <div class="header__cart-dropdown">
                     <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
                     <ul class="header__cart-list"></ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
-                        <a href="/datn-project/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                        <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
-            
-        </div>
     </header>
     <!-- End header -->
 
@@ -312,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                             <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
                             
 
-                            <input type="text" class="product-detail__qty-input" value="1" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <input type="text" class="product-detail__qty-input" value="1"  data-max="<?= $product['So_Luong_Ton'] ?>" />
                             <input type="hidden" name="so_luong" id="formQuantity" value="1">
 
                             <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
