@@ -91,24 +91,3 @@ function showNotification(message, type) {
 }
     
 
-document.addEventListener("DOMContentLoaded", function () {
-  const loginBtn = document.querySelector(".login__button");
-
-  if (loginBtn) {
-    loginBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-   
-
-      // 1. Ẩn các nút đăng nhập/đăng ký
-      const authLinks = document.querySelectorAll(".headerAuth");
-      authLinks.forEach(link => link.style.display = "none");
-
-      // 2. Hiện avatar
-      const userSection = document.querySelector(".header__user");
-      if (userSection) userSection.style.display = "inline-flex";
-
-
-    });
-  }
-});

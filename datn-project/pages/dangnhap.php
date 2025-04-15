@@ -38,6 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Nếu mật khẩu đã mã hóa bằng password_hash
       if (password_verify($matkhau, $matkhauTrongDB)) {
         $_SESSION['ID_Nguoi_Mua'] = $user['ID_Nguoi_Mua'];
+        // lấy tên người dúng đang sai 
+        $_SESSION['Ten_Dang_Nhap'] = $row['Ten_Dang_Nhap']; // hoặc Ho_Va_Ten
+
+        
         header('Location: ../index.php');
         exit;
       }
@@ -45,6 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Nếu là plain-text (tạm thời hỗ trợ khi chưa mã hóa)
       if ($matkhau === $matkhauTrongDB) {
         $_SESSION['ID_Nguoi_Mua'] = $user['ID_Nguoi_Mua'];
+        // lấy tên người dúng đang sai 
+        $_SESSION['Ten_Dang_Nhap'] = $row['Ten_Dang_Nhap']; // hoặc Ho_Va_Ten     
+
+
         header('Location: ../index.php');
         exit;
       }
@@ -54,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $thongbao = 'Tài khoản không tồn tại.';
     }
   }
+  
 }
 
 ?>

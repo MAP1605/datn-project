@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -60,9 +61,9 @@
     <script type="module" src="../js/components/dangnhap.js"></script>
 
     <!-- header.php phần header__top-right -->
-    <script type="module" src="../js/components/dangnhap.js"></script>
-    <script type="module" src="../js/pages/cart-items.js"></script>
 
+    <script type="module" src="../js/pages/cart-items.js"></script>
+    
 </body>
 
 </html>

@@ -1,4 +1,17 @@
 <!-- Start header (components) -->
+<?php
+session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+?>
+
+<?php if (!isset($_SESSION['ID_Nguoi_Mua'])): ?>
+    <!-- Hiện login/register -->
+<?php else: ?>
+    <!-- Hiện avatar -->
+  
+<?php endif; ?>
+
 <header class="header">
     <div class="container">
 
@@ -11,29 +24,36 @@
                         Đăng ký người bán
                     </a>
             </div>
-            <div class="header__top-right" id="headerAuth">
-            <div class="headerAuth">
-                    <a href="/datn-project/datn-project/pages/dangnhap.php" class="header__link">Đăng nhập</a>
-                    <a href="/datn-project/datn-project/pages/dangky.php" class="header__link">Đăng ký</a>
-            </div>
-                <div class="header__user" style="display: none;">
-                    <img src="/datn-project/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" class="header__user-avatar">
-                    <span class="header__user-name" id="headerUsername">Cường đẹp trai</span>
-                    <div class="header__user-dropdown">
-                        <ul>
-                            <a href="../pages/Giaodiennguoidung.php">
-                                <li>Tài Khoản Của Tôi</li>
-                            </a>
-                            <a href="../pages/Donmua.php">
-                                <li>Đơn Mua</li>
-                            </a>
-                            <a href="#" id="logoutBtn">
-                                <li>Đăng Xuất</li>
-                            </a>
-                        </ul>
+            <div class="header__top-right">
+                <?php if (!isset($_SESSION['ID_Nguoi_Mua'])): ?>
+                    <div class="headerAuth">
+                        <a href="/datn-project/datn-project/pages/dangnhap.php" class="header__link">Đăng nhập</a>
+                        <a href="/datn-project/datn-project/pages/dangky.php" class="header__link">Đăng ký</a>
                     </div>
-                </div>
+                <?php else: ?>
+                    <div class="header__user" style="display: inline-flex;">
+                        <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" class="header__user-avatar">
+                        <span class="header__user-name">
+                            <!-- Tên người dùng đăng nhập xong dang sai -->
+                            <span class="header__user-name"><?= htmlspecialchars($_SESSION['Ten_Dang_Nhap'])  ?></span>
+                        <div class="header__user-dropdown">
+                            <ul>
+                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.html">
+                                    <li>Tài Khoản Của Tôi</li>
+                                </a>
+                                <a href="/datn-project/datn-project/pages/Donmua.php">
+                                    <li>Đơn Mua</li>
+                                </a>
+                                <a href="/datn-project/datn-project/pages/dangxuat.php">
+                                    <li>Đăng Xuất</li>
+                                </a>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
+
 
         </div>
         <!-- Header main -->
@@ -47,13 +67,13 @@
 
             <!-- Tìm kiếm  -->
             <form action="/datn-project/datn-project/pages/search.php" method="GET" class="header__search">
-  
+
                 <input type="text" name="q" placeholder="Tìm sản phẩm..." class="header__search-input" required />
                 <button type="submit" class="header__search-btn">
                     <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
                 </button>
             </form>
-    
+
 
             <!-- Giỏ hàng -->
             <div class="header__cart">
@@ -75,5 +95,3 @@
     </div>
 </header>
 <!-- End header (components) -->
-
-
