@@ -120,7 +120,7 @@
                         <table class="order-table" cellspacing="0" cellpadding="5">
                           <thead>
                             <tr>
-                              <th><input type="checkbox" /></th>
+                              <th><input type="checkbox" id="select-all-orders" /></th>
                               <th>Mã đơn hàng</th>
                               <th>Trạng thái</th>
                               <th>Thời gian đặt hàng</th>
@@ -131,7 +131,7 @@
                           <tbody id="order-list">
                             <tbody id="order-list">
                               <tr data-status="Chờ xác nhận">
-                                <td data-label="Chọn"><input type="checkbox" /></td>
+                                <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
                                 <td data-label="Mã đơn hàng">#0123456789</td>
                                 <td data-label="Trạng thái">Chờ xác nhận</td>
                                 <td data-label="Thời gian đặt hàng">20:30 14/11/2024</td>
@@ -141,7 +141,7 @@
                                 </td>
                               </tr>
                               <tr data-status="Hoàn thành">
-                                <td data-label="Chọn"><input type="checkbox" /></td>
+                                <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
                                 <td data-label="Mã đơn hàng">#2468101214</td>
                                 <td data-label="Trạng thái"><span class="status-completed">Hoàn thành</span></td>
                                 <td data-label="Thời gian đặt hàng">07:00 17/05/2025</td>
@@ -169,13 +169,13 @@
                       <button class="btn-add-product">  Thêm mới</button>
                     </div>
                   <div class="search-bar">
-                    <input type="text" class="input-search" placeholder="Tìm kiếm sản phẩm...">
+                    <input type="text" class="input-search" id="product-search" placeholder="Tìm kiếm sản phẩm...">
                   </div>
     
                   <table class="product-table">
                     <thead>
                       <tr>
-                        <th><input type="checkbox"></th>
+                        <th><input type="checkbox" id="select-all-products"></th>
                         <th>Hình ảnh</th>
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
@@ -187,7 +187,7 @@
                     </thead>
                     <tbody  id="product-list">
                       <tr class="product-row" data-status="Đang bán">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" class="product-checkbox"></td>
                         <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="hình ảnh " class="product-list_img" width="80px"></td>
                         <td class="btn-chi-tiet-san-pham">Điện thoại A</td>
                         <td class="btn-chi-tiet-san-pham">100</td>
@@ -200,7 +200,7 @@
                         </td>
                       </tr>
                       <tr class="product-row" data-status="Ăn gậy">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" class="product-checkbox"></td>
                         <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
                         <td class="btn-chi-tiet-san-pham">Điện thoại B</td>
                         <td class="btn-chi-tiet-san-pham">50</td>
@@ -213,7 +213,7 @@
                         </td>
                       </tr>
                       <tr class="product-row" data-status="Ngừng bán">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" class="product-checkbox"></td>
                         <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" class="product-list_img" alt="Hình ảnh" width="80px"></td>
                         <td class="btn-chi-tiet-san-pham">Điện thoại C</td>
                         <td class="btn-chi-tiet-san-pham">50</td>
@@ -447,7 +447,46 @@
                       </div>
                     </div>
                   </div>
-                  
+                                    
+                  <!-- MODAL RÚT TIỀN -->
+                  <div id="withdraw-modal" class="modal">
+                    <div class="modal-content withdraw-modal-content">
+                      <span class="close-modal">&times;</span>
+                      <h2>Rút tiền về tài khoản</h2>
+
+                      <div class="form-group">
+                        <label for="withdraw-amount">Số tiền muốn rút</label>
+                        <input type="number" id="withdraw-amount" placeholder="Nhập số tiền..." />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="bank-name">Ngân hàng</label>
+                        <select id="bank-name">
+                          <option value="">-- Chọn ngân hàng --</option>
+                          <option value="vcb">Vietcombank</option>
+                          <option value="mb">MB Bank</option>
+                          <option value="tpb">TPBank</option>
+                          <option value="acb">ACB</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="account-number">Số tài khoản</label>
+                        <input type="text" id="account-number" placeholder="Nhập số tài khoản..." />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="withdraw-password">Mật khẩu xác nhận</label>
+                        <input type="password" id="withdraw-password" placeholder="Nhập mật khẩu..." />
+                      </div>
+
+                      <div class="withdraw-actions">
+                        <button class="btn-cancel">Hủy</button>
+                        <button class="btn-confirm">Xác nhận rút</button>
+                      </div>
+                    </div>
+                  </div>
+
 
 
                   <!-- Tổng quan doanh thu -->
@@ -558,7 +597,7 @@
                       <div class="wallet-header">
                         <div class="wallet-balance">
                           <p>Số dư</p>
-                          <h2>1.000.000.000đ</h2>
+                          <h2 id="wallet-balance">đ</h2>
                           <button class="btn-withdraw">Rút tiền</button>
                         </div>
                         <div class="wallet-bank">
@@ -605,11 +644,36 @@
                               <td>500.000đ</td>
                               <td>Hoàn thành</td>
                             </tr>
+                            
+                            <tr>
+                              <td>21/12/2025</td>
+                              <td>#21122007</td>
+                              <td>#21122007</td>
+                              <td>11111</td>
+                              <td>Hoàn thành</td>
+                            </tr>
+
+                            <tr>
+                              <td>21/12/2025</td>
+                              <td>#21122007</td>
+                              <td>#21122007</td>
+                              <td>60.000đ</td>
+                              <td>Hoàn thành</td>
+                            </tr>
+
+                            <tr>
+                              <td>21/12/2025</td>
+                              <td>#21122007</td>
+                              <td>#21122007</td>
+                              <td>500.000đ</td>
+                              <td>Hoàn thành</td>
+                            </tr>
                             <!-- Có thể thêm nhiều dòng giao dịch -->
                           </tbody>
                           </table>
+                          
                         </div>
-                        </div>  
+                        </div>
                           </div>
                         </div>
                         </div>
