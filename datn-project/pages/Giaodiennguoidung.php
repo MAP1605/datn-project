@@ -70,12 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="header"></div>
 
     <div class="main">
-        <div class="container">
-            <button class="mobile-menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="user-main user-main--Address">
 
+        <div class="container">
+
+            <div class="user-main user-main--Address">
+                <div class="mobile-menu-toggle-wrapper">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+              
+                <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
                 <aside class="user-main__sidebar">
                     <div class="mobile-overlay" id="mobileOverlay"></div>
                     <!-- Hiển thị ảnh từ CSDL -->
@@ -160,10 +166,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </main>
             </div>
         </div>
+
     </div>
     <div id="footer"></div>
-    <script src="../js/components/Giaodiennguoidung.js"></script>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("mobileMenuToggle");
+  const sidebar = document.querySelector(".user-main__nav");
+  const overlay = document.getElementById("mobileMenuOverlay");
+
+  if (toggleBtn && sidebar && overlay) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.add("active");
+      overlay.classList.add("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  }
+});
+    </script>
+    <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
     <script type="module" src="../js/utils/components-loader-pages.js?v=<?= time() ?>"></script>
+
 </body>
 
 </html>

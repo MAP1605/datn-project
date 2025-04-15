@@ -1,6 +1,8 @@
 <!-- Start header (components) -->
 <?php
+
 session_start();
+
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 ?>
@@ -36,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" class="header__user-avatar">
                         <span class="header__user-name">
                             <!-- Tên người dùng đăng nhập xong dang sai -->
-                            <span class="header__user-name"><?= htmlspecialchars($_SESSION['Ten_Dang_Nhap'])  ?></span>
+                            <span class="header__user-name">Khách hàng <?= htmlspecialchars($_SESSION['ID_Nguoi_Mua'] )  ?></span>
                         <div class="header__user-dropdown">
                             <ul>
                             <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
