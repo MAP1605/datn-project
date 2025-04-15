@@ -117,7 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
     $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
     $id_chi_tiet = intval($_POST['id_san_pham']); // thực chất là ID_Chi_Tiet_San_Pham
-    $so_luong = intval($_POST['so_luong']);
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id_chi_tiet = intval($data['id_san_pham'] ?? 0);
+    $so_luong = intval($data['so_luong'] ?? 1);
+
+    
+
 
     // ✅ Lấy ID_San_Pham từ Chi_Tiet_San_Pham (bắt buộc)
     $stmt = $conn->prepare("SELECT ID_San_Pham FROM Chi_Tiet_San_Pham WHERE ID_Chi_Tiet_San_Pham = ?");
@@ -305,9 +310,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
                             <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
-                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            
 
-                            <input type="text" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <input type="text" class="product-detail__qty-input" value="1" data-max="<?= $product['So_Luong_Ton'] ?>" />
                             <input type="hidden" name="so_luong" id="formQuantity" value="1">
 
                             <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>

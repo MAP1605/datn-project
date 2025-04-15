@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const qtyInput = document.querySelector(".product-detail__qty-input");
   const minusBtn = document.querySelector('button[data-type="minus"]');
   const plusBtn = document.querySelector('button[data-type="plus"]');
+  const formQtyInput = document.getElementById("formQuantity");
   const maxQty = parseInt(qtyInput.dataset.max) || 999;
 
   // Nút trừ
@@ -57,9 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-
-const formQtyInput = document.getElementById("formQuantity");
 if (formQtyInput) formQtyInput.value = value;
+
+
+if ($so_luong <= 0 || $so_luong > $product['So_Luong_Ton']) {
+  die("❌ Số lượng không hợp lệ");
+}
 
 
 
@@ -328,6 +332,23 @@ document.addEventListener("DOMContentLoaded", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id_san_pham: id, so_luong })
     });
+
+    try {
+      const data = await res.json();
+      console.log('📦 Server trả về:', data);
+
+      if (data.success) {
+        popup.classList.add("show");
+        setTimeout(() => popup.classList.remove("show"), 3000);
+        if (typeof renderCart === "function") renderCart();
+      } else {
+        alert("❌ Lỗi: " + data.error);
+      }
+    } catch (e) {
+      console.log('❌ Không đọc được JSON:', e);
+      alert("Lỗi kết nối máy chủ");
+    }
+
 
     const data = await res.json();
     if (data.success) {

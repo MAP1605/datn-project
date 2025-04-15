@@ -48,9 +48,7 @@
 
 
                 <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
-
-
+                    <img src="/datn-project/datn-project/assets/images/footer/footer__middle/footer__middle-ThanhToan-Visa.png" alt="Logo PEARNK"  class="header__logo-img">
                 </a>
             </div>
 
