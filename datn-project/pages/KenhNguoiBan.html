@@ -134,45 +134,19 @@
                 </tr>
               </thead>
               <tbody id="order-list">
-                <?php
-                            // Kết nối CSDL
-                            $conn = new mysqli('localhost', 'root', '', 'DATN');
-                            if ($conn->connect_error) {
-                              die("Kết nối thất bại: " . $conn->connect_error);
-                            }
-                          
-                            $sql = "SELECT * FROM Don_Hang_Seller ORDER BY ID_Hoa_Don DESC";
-                            $result = $conn->query($sql);
-                          
-                            while ($row = $result->fetch_assoc()) {
-                              $maDon = "#HD" . str_pad($row['ID_Hoa_Don'], 6, "0", STR_PAD_LEFT);
-                              $trangThai = $row['Trang_Thai_Don_Hang'];
-                              $thoiGian = date("H:i d/m/Y", strtotime($row['Thoi_Gian_Dat_Hang']));
-                              $tongTien = number_format($row['So_Tien_Nhan_Duoc'], 0, ',', '.') . '₫';
-                          
-                              // Tự động gán class màu theo trạng thái
-                              $statusClass = match ($trangThai) {
-                                'Hoàn thành' => 'status-completed',
-                                'Chờ xác nhận' => 'status-pending',
-                                'Đã hủy' => 'status-cancel',
-                                default => 'status-other'
-                              };
-                          
-                              echo '
-                              <tr data-status="' . $trangThai . '">
-                                <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
-                                <td data-label="Mã đơn hàng">' . $maDon . '</td>
-                                <td data-label="Trạng thái"><span class="' . $statusClass . '">' . $trangThai . '</span></td>
-                                <td data-label="Thời gian đặt hàng">' . $thoiGian . '</td>
-                                <td data-label="Tổng hóa đơn">' . $tongTien . '</td>
-                                <td data-label="Hành động">
-                                  <button class="btn btn-outline-primary btn-view-order-detail" data-id="' . $row['ID_Hoa_Don'] . '">Chi tiết</button>
-                                </td>
-                              </tr>';
-                            }
-                          
-                            $conn->close();
-                            ?>
+              <tbody id="order-list">
+                <tr data-status="Hoàn thành">
+                  <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
+                  <td data-label="Mã đơn hàng">#2468101214</td>
+                  <td data-label="Trạng thái"><span class="status-completed">Hoàn thành</span></td>
+                  <td data-label="Thời gian đặt hàng">07:00 17/05/2025</td>
+                  <td data-label="Tổng hóa đơn">₫888.998</td>
+                  <td data-label="Hành động">
+                    <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
+                  </td>
+                </tr>
+              </tbody>
+
               </tbody>
             </table>
           </div>

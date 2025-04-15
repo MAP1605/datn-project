@@ -489,6 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 // khu chi tiết sản phẩm
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("product-detail-modal");
@@ -503,41 +504,61 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", () => {
       const row = btn.closest("tr");
 
-      // Lấy dữ liệu từ hàng sản phẩm
-      const name = row.querySelector("td:nth-child(3)").textContent;
-      const stock = row.querySelector("td:nth-child(4)").textContent;
-      const price = row.querySelector("td:nth-child(5)").textContent;
+      if (!row || !modal) return;
+
+      // ✅ Lấy dữ liệu từ bảng theo từng cột (tùy theo HTML của mày)
+      const name = row.querySelector("td:nth-child(3)")?.textContent.trim() || "---";
+      const stock = row.querySelector("td:nth-child(4)")?.textContent.trim() || "---";
+      const originalPrice = row.querySelector("td:nth-child(5)")?.textContent.trim() || "---";
+      const price = row.querySelector("td:nth-child(6)")?.textContent.trim() || "---";
+      const sold = row.querySelector("td:nth-child(7)")?.textContent.trim() || "---";
+      const status = row.querySelector("td:nth-child(8)")?.textContent.trim() || "---";
+
+      // 🔧 Các biến mặc định hoặc sẽ lấy sau
+      const id = row.dataset.id || "SP001";
       const brand = "No brand";
       const origin = "Việt Nam";
-      const id = "SP001";
+      const warrantyTime = "12 tháng";
+      const warrantyType = "Chính hãng";
+      const description = "Sản phẩm đang cập nhật mô tả...";
+      const img1 = "../assets/images/CuongDao__Logo-PEARNK.png"; // hoặc từ row.dataset.img1
+      const img2 = "../assets/images/CuongDao__Logo-PEARNK.png";
+      const img3 = "../assets/images/CuongDao__Logo-PEARNK.png";
 
-      // Gán vào modal
+      // ✅ Gán dữ liệu vào modal
       modal.querySelector(".product-detail-modal__id").textContent = id;
       modal.querySelector(".product-detail-modal__name").textContent = name;
+      modal.querySelector(".product-detail-modal__original-price").textContent = originalPrice;
       modal.querySelector(".product-detail-modal__stock").textContent = stock;
       modal.querySelector(".product-detail-modal__price").textContent = price;
       modal.querySelector(".product-detail-modal__brand").textContent = brand;
       modal.querySelector(".product-detail-modal__origin").textContent = origin;
+      modal.querySelector(".product-detail-modal__status").textContent = status;
+      modal.querySelector(".product-detail-modal__warranty-time").textContent = warrantyTime;
+      modal.querySelector(".product-detail-modal__warranty-type").textContent = warrantyType;
+      modal.querySelector(".product-detail-modal__description-text").textContent = description;
+      modal.querySelector(".product-detail-modal__image1").src = img1;
+      modal.querySelector(".product-detail-modal__image2").src = img2;
+      modal.querySelector(".product-detail-modal__image3").src = img3;
 
-      // Mở modal
+      // ✅ Hiện modal
       modal.style.display = "block";
-      overlay.classList.remove("hidden");
+      overlay?.classList.remove("hidden");
     });
   });
 
-  // Đóng modal khi bấm nút close hoặc ×
+  // Đóng modal
   closeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       modal.style.display = "none";
-      overlay.classList.add("hidden");
+      overlay?.classList.add("hidden");
     });
   });
 
-  // Đóng modal khi click ra ngoài
   window.addEventListener("click", function (e) {
     if (e.target === overlay) {
       modal.style.display = "none";
-      overlay.classList.add("hidden");
+      overlay?.classList.add("hidden");
     }
   });
 });
@@ -639,86 +660,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // thêm sản phẩm
 document.addEventListener("DOMContentLoaded", function () {
-  const submitBtn = document.querySelector(".product-form-ka .Submit");
-  const productList = document.getElementById("product-list");
+  const form = document.querySelector("form"); // form thêm sản phẩm
 
-  // Hàm kiểm tra xem chuỗi có phải số dương không
-  function isPositiveNumber(value) {
-    return /^\d+(\.\d{1,2})?$/.test(value);
-  }
+  form.addEventListener("submit", function (e) {
+    const name = document.getElementById("product-name").value.trim();
+    const price = document.querySelector('input[name="Gia_Ban"]').value.trim();
+    const stock = document.querySelector('input[name="So_Luong_Ton"]').value.trim();
+    const brand = document.getElementById("product-brand")?.value.trim();
+    const origin = document.getElementById("product-origin")?.value.trim();
+    const category = document.getElementById("product-category").value;
 
-  // Hàm kiểm tra xem chuỗi có phải chỉ chứa chữ cái
-  function isLettersOnly(value) {
-    return /^[\p{L}\s]+$/u.test(value); // hỗ trợ tiếng Việt và dấu cách
-  }
+    function isPositiveNumber(val) {
+      return /^\d+(\.\d{1,2})?$/.test(val);
+    }
 
-  if (submitBtn) {
-    submitBtn.addEventListener("click", function () {
-      const name = document.getElementById("product-name").value.trim();
-      const price = document.getElementById("product-price").value.trim();
-      const stock = document.getElementById("product-stock").value.trim();
-      const brand = document.getElementById("product-brand").value.trim();
-      const origin = document.getElementById("product-origin").value.trim();
-      const category = document.getElementById("product-category").value;
-      const imageSrc = "../assets/images/logo/CuongDao__Logo-PEARNK.png";
+    function isLettersOnly(val) {
+      return /^[\p{L}\s]+$/u.test(val);
+    }
 
-      // Kiểm tra dữ liệu hợp lệ
-      if (!name || !price || !stock || !brand || !origin || !category) {
-        alert("Vui lòng điền đầy đủ thông tin sản phẩm!");
-        return;
-      }
+    // ✅ Hiển thị dữ liệu form để kiểm tra
+    console.log("🧾 DỮ LIỆU FORM:");
+    console.log("Tên SP:", name);
+    console.log("Giá bán:", price);
+    console.log("Tồn kho:", stock);
+    console.log("Thương hiệu:", brand);
+    console.log("Xuất xứ:", origin);
+    console.log("Danh mục:", category);
 
-      if (!isPositiveNumber(price)) {
-        alert("Giá phải là số hợp lệ!");
-        return;
-      }
+    if (!name || !price || !stock || !brand || !origin || !category) {
+      alert("❌ Vui lòng điền đầy đủ thông tin!");
+      e.preventDefault();
+      return;
+    }
 
-      if (!isPositiveNumber(stock)) {
-        alert("Số lượng phải là số hợp lệ!");
-        return;
-      }
+    if (!isPositiveNumber(price)) {
+      alert("❌ Giá không hợp lệ!");
+      e.preventDefault();
+      return;
+    }
 
-      if (!isLettersOnly(brand)) {
-        alert("Thương hiệu chỉ được chứa chữ cái!");
-        return;
-      }
+    if (!isPositiveNumber(stock)) {
+      alert("❌ Số lượng không hợp lệ!");
+      e.preventDefault();
+      return;
+    }
 
-      if (!isLettersOnly(origin)) {
-        alert("Xuất xứ chỉ được chứa chữ cái!");
-        return;
-      }
+    if (!isLettersOnly(brand) || !isLettersOnly(origin)) {
+      alert("❌ Thương hiệu và xuất xứ chỉ được dùng chữ!");
+      e.preventDefault();
+      return;
+    }
 
-      // Thêm sản phẩm mới vào bảng
-      const newRow = document.createElement("tr");
-      newRow.className = "product-row";
-      newRow.setAttribute("data-status", "Đang bán");
-      newRow.innerHTML = `
-        <td><input type="checkbox"></td>
-        <td class="btn-chi-tiet-san-pham"><img src="${imageSrc}" class="product-list_img" alt="Hình ảnh" width="80px"></td>
-        <td class="btn-chi-tiet-san-pham">${name}</td>
-        <td class="btn-chi-tiet-san-pham">${stock}</td>
-        <td class="btn-chi-tiet-san-pham">${price}</td>
-        <td class="btn-chi-tiet-san-pham">0</td>
-        <td class="btn-chi-tiet-san-pham"><span class="status-active">Đang bán</span></td>
-        <td>
-          <span class="icon btn-delete-product">🗑</span>
-          <span class="icon btn-edit-product">🛠</span>
-        </td>
-      `;
-      productList.appendChild(newRow);
-      alert("✅ Đã thêm sản phẩm thành công!");
-
-      // Reset form (trừ input file)
-      document.querySelectorAll(".product-form-ka input, .product-form-ka textarea, .product-form-ka select").forEach(input => {
-        if (input.type !== "file") input.value = "";
-      });
-
-      // Ẩn form thêm - hiện lại bảng sản phẩm
-      document.querySelector(".product-form-ka").classList.add("hidden");
-      document.getElementById("product-section").classList.remove("hidden");
-    });
-  }
+    console.log("✅ Dữ liệu hợp lệ, gửi form...");
+  });
 });
+
+
 
 // Preview multiple product images
 document.querySelectorAll(".product-image-box").forEach((box) => {
