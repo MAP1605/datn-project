@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('sss', $input, $input, $input);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     if ($user = $result->fetch_assoc()) {
       $matkhauTrongDB = $user['Mat_Khau'];
 
@@ -55,7 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input type="text" name="email" placeholder="Email/SĐT/Tên đăng nhập" class="login__input login__input--email" />
               <input type="password" name="password" placeholder="Nhập mật khẩu" class="login__input login__input--password" />
               <button type="submit" class="login__button login__button--submit">ĐĂNG NHẬP</button>
-
+         
               <p class="login__terms">
                 Bằng việc đăng nhập, bạn đã đồng ý với Shopee về
                 <a href="#" class="login__link">Điều khoản dịch vụ</a> &
