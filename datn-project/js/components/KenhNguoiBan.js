@@ -543,45 +543,76 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // chi tiết đơn hàng
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("order-detail-modal");
-  const closeBtns = document.querySelectorAll(".close-order-modal");
-  const viewDetailBtns = document.querySelectorAll(".btn-view-order-detail");
+const modal = document.getElementById("order-detail-modal");
+const container = modal.querySelector(".order-detail-products");
+const template = container.querySelector(".order-product-row.template");
 
-  viewDetailBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const row = btn.closest("tr");
+document.querySelectorAll(".btn-view-order-detail").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    if (!id) return;
 
-      // Lấy dữ liệu từ bảng
-      const orderId = row.children[1].textContent;
-      const status = row.children[2].textContent;
-      const date = row.children[3].textContent;
-      const total = row.children[4].textContent;
+    fetch(`/datn-project/datn-project/pages/api/chitiet_donhang.php?id=${id}`).then((res) => {
+      if (!res.ok) throw new Error("Không thể fetch chi tiết đơn hàng");
+      return res.json();
+    })
+      .then((data) => {
+        if (!data || data.length === 0) {
+          alert("Không có dữ liệu chi tiết đơn hàng.");
+          return;
+        }
 
-      // Gán dữ liệu vào modal
-      modal.querySelector(".order-id").textContent = orderId;
-      modal.querySelector(".order-status").textContent = status;
-      modal.querySelector(".order-date").textContent = date;
-      modal.querySelector(".order-total").textContent = total;
+        const first = data[0];
+        modal.dataset.id = first.ID_Hoa_Don;
+        // Gán thông tin đơn hàng (trên đầu modal)
+        modal.querySelector(".order-id").textContent = "#HD" + String(first.ID_Hoa_Don).padStart(6, '0');
+        modal.querySelector(".order-recipient").textContent = first.Ten_Nguoi_Nhan || "---";
+        modal.querySelector(".order-address").textContent = first.Dia_Chi || "---";
+        modal.querySelector(".order-status").textContent = first.Trang_Thai_Don_Hang || "---";
+        modal.querySelector(".order-date").textContent = new Date(first.Thoi_Gian_Dat_Hang).toLocaleString('vi-VN');
+        modal.querySelector(".order-total").textContent = Number(first.So_Tien_Nhan_Duoc || 0).toLocaleString('vi-VN') + "₫";
 
-      // Hiện modal
-      modal.style.display = "block";
-    });
+        // Xoá các dòng sản phẩm cũ (trừ template)
+        container.querySelectorAll(".order-product-row:not(.template)").forEach(e => e.remove());
+
+        // Render từng sản phẩm
+        data.forEach(sp => {
+          const clone = template.cloneNode(true);
+          clone.classList.remove("template");
+          clone.style.display = "flex";
+
+          // Ảnh base64
+          const imgSrc = `data:image/jpeg;base64,${sp.Anh_San_Pham1}`;
+          clone.querySelector(".order-product-img img").src = imgSrc;
+
+          // Thông tin sản phẩm
+          clone.querySelector(".order-product-name span").textContent = sp.Ten_San_Pham || "---";
+          clone.querySelector(".order-product-qty span").textContent = sp.So_Luong || "--";
+          clone.querySelector(".order-product-price span").textContent = Number(sp.Gia_Ban || 0).toLocaleString('vi-VN') + "₫";
+
+          container.appendChild(clone);
+        });
+
+        // Hiện modal
+        modal.style.display = "block";
+      })
+      .catch((err) => {
+        console.error("Lỗi khi lấy chi tiết đơn hàng:", err);
+        alert("Không thể lấy chi tiết đơn hàng.");
+      });
   });
+});
 
-  // Đóng modal khi ấn vào nút "×" hoặc nút "Đóng"
-  closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+document.querySelectorAll(".close-order-modal").forEach(btn => {
+  btn.addEventListener("click", () => {
+    modal.style.display = "none";
   });
+});
 
-  // Đóng khi click ra ngoài
-  window.addEventListener("click", function (e) {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
+window.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -901,3 +932,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+//Xử lý cho sự kiện nút xác nhận phần chi tiết đơn hàng
+document.querySelector(".btn-xac-nhan").addEventListener("click", () => {
+  const orderId = modal.dataset.id;
+  console.log("🧪 Bấm xác nhận, đơn hàng ID:", orderId);
+  if (!orderId) {
+    console.warn("Không có ID đơn hàng!");
+    return;
+  }
+
+  fetch("/datn-project/datn-project/pages/api/capnhat_trangthaidonmua.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `id=${orderId}&trangthai=Chờ giao hàng`
+  })
+    .then(res => res.text())
+    .then(res => {
+      console.log("Server trả về:", res);
+      if (res.trim() === "success") {
+        alert("✔️ Đã cập nhật trạng thái thành 'Chờ giao hàng'");
+        modal.style.display = "none";
+        location.reload();
+      } else {
+        alert("❌ Lỗi khi cập nhật trạng thái đơn hàng.");
+      }
+    })
+    .catch(err => {
+      console.error("💥 Lỗi fetch:", err);
+    });
+});
+

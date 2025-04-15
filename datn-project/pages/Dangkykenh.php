@@ -84,7 +84,7 @@ if ($trangThai === 'Đã duyệt') {
   }
 
   // ✅ Nếu được duyệt và không bị banned → CHO VÀO
-  header('Location: KenhNguoiBan.html');
+  header('Location: KenhNguoiBan.php');
   exit;
 } elseif ($trangThai === 'Chờ duyệt') {
   echo "<script>
