@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <!-- Hiện login/register -->
 <?php else: ?>
     <!-- Hiện avatar -->
-  
+
 <?php endif; ?>
 
 <header class="header">
@@ -24,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 <a href="../pages/Dangkykenh.html" class="header__link">
                     <a href="/datn-project/datn-project/pages/Dangkykenh.php" class="header__link">
 
-                      Kênh người bán
+                        Kênh người bán
                     </a>
             </div>
             <div class="header__top-right">
@@ -35,24 +35,28 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                     </div>
                 <?php else: ?>
                     <div class="header__user" style="display: inline-flex;">
-                        <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" class="header__user-avatar">
-                        <span class="header__user-name">
+                        <?php if (!empty($_SESSION['Anh_Nguoi_Mua'])): ?>
+                            <img src="data:image/png;base64,<?= $_SESSION['Anh_Nguoi_Mua'] ?>" class="header__user-avatar" alt="Avatar">
+                        <?php else: ?>
+                            <img src="/datn-project/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" class="header__user-avatar" alt="Default Avatar">
+                        <?php endif; ?> <span class="header__user-name">
                             <!-- Tên người dùng đăng nhập xong dang sai -->
-                            <span class="header__user-name">Khách hàng <?= htmlspecialchars($_SESSION['ID_Nguoi_Mua'] )  ?></span>
-                        <div class="header__user-dropdown">
-                            <ul>
-                            <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
-                                    <li>Tài Khoản Của Tôi</li>
-                                </a>
-                                <a href="/datn-project/datn-project/pages/Donmua.php">
-                                    <li>Đơn Mua</li>
-                                </a>
-                                <a href="/datn-project/datn-project/pages/dangxuat.php">
-                                    <li>Đăng Xuất</li>
-                                </a>
-                                
-                            </ul>
-                        </div>
+                            <span class="header__user-name"> <?= htmlspecialchars($_SESSION['Ten_Dang_Nhap']) ?></span>
+
+                            <div class="header__user-dropdown">
+                                <ul>
+                                    <a href="/datn-project/datn-project/pages/Giaodiennguoidung.php">
+                                        <li>Tài Khoản Của Tôi</li>
+                                    </a>
+                                    <a href="/datn-project/datn-project/pages/Donmua.php">
+                                        <li>Đơn Mua</li>
+                                    </a>
+                                    <a href="/datn-project/datn-project/pages/dangxuat.php">
+                                        <li>Đăng Xuất</li>
+                                    </a>
+
+                                </ul>
+                            </div>
                     </div>
                 <?php endif; ?>
 
