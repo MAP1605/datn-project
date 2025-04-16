@@ -1,3 +1,39 @@
+<?php
+session_start();
+
+$conn = new mysqli('localhost', 'root', '', 'DATN');
+if ($conn->connect_error) {
+  die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+  die("<tr><td colspan='6'>Vui lòng đăng nhập!</td></tr>");
+}
+
+$idNguoiMua = $_SESSION['ID_Nguoi_Mua'];
+
+$sqlGetSeller = "SELECT ID_Nguoi_Ban FROM Nguoi_Ban WHERE ID_Nguoi_Mua = ?";
+$stmt = $conn->prepare($sqlGetSeller);
+$stmt->bind_param("i", $idNguoiMua);
+$stmt->execute();
+$resultSeller = $stmt->get_result();
+
+if ($resultSeller->num_rows === 0) {
+  die("<tr><td colspan='6'>Bạn chưa đăng ký kênh người bán.</td></tr>");
+}
+
+$idNguoiBan = $resultSeller->fetch_assoc()['ID_Nguoi_Ban'];
+
+// Lấy đơn hàng
+$sqldonhang = "SELECT * FROM Don_Hang_Seller 
+INNER JOIN Hoa_Don hd ON Don_Hang_Seller.ID_Hoa_Don = hd.ID_Hoa_Don
+WHERE ID_Nguoi_Ban = ? ORDER BY Don_Hang_Seller.ID_Hoa_Don DESC";
+$stmt = $conn->prepare($sqldonhang);
+$stmt->bind_param("i", $idNguoiBan);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,58 +91,36 @@
             <div class="modal-content">
               <span class="close close-order-modal">&times;</span>
               <h2>Chi tiết đơn hàng</h2>
-              <br>
               <hr>
+
               <div class="order-detail-info">
-                <br>
                 <p><strong>Mã đơn hàng:</strong> <span class="order-id">#0000</span></p>
-                <br>
                 <p><strong>Người nhận:</strong> <span class="order-recipient">---</span></p>
-                <br>
                 <p><strong>Địa chỉ:</strong> <span class="order-address">---</span></p>
-                <br>
                 <p><strong>Trạng thái đơn hàng:</strong> <span class="order-status label-cancelled">---</span></p>
-                <br>
                 <p><strong>Ngày tạo:</strong> <span class="order-date">---</span></p>
-                <br>
               </div>
 
               <hr>
+
+              <!-- ✅ Chỉ giữ 1 container để JS render sản phẩm -->
               <div class="order-detail-products">
-                <div class="order-product-row">
-                  <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh"
-                      width="50px"></div>
-                  <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                  <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                  <div class="order-product-price"><strong>Giá:</strong> ---</div>
-                </div>
-              </div>
-              <div class="order-detail-products">
-                <div class="order-product-row">
-                  <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh"
-                      width="50px"></div>
-                  <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                  <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                  <div class="order-product-price"><strong>Giá:</strong> ---</div>
-                </div>
-              </div>
-              <div class="order-detail-products">
-                <div class="order-product-row">
-                  <div class="order-product-img"><img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Hình ảnh"
-                      width="50px"></div>
-                  <div class="order-product-name"><strong>Tên sản phẩm:</strong> ---</div>
-                  <div class="order-product-qty"><strong>Số lượng:</strong> --</div>
-                  <div class="order-product-price"><strong>Giá:</strong> ---</div>
+                <div class="order-product-row template" style="display: none;">
+                  <div class="order-product-img"><img src="" alt="Hình ảnh" width="50px"></div>
+                  <div class="order-product-name"><strong>Tên sản phẩm:</strong> <span>---</span></div>
+                  <div class="order-product-qty"><strong>Số lượng:</strong> <span>--</span></div>
+                  <div class="order-product-price"><strong>Giá:</strong> <span>---</span></div>
                 </div>
               </div>
 
               <hr>
               <div class="order-detail-summary">
-                <p><strong>Tổng cộng:</strong> <span class="order-total">---</span></p>
+                <p><strong>Số tiền nhận được:</strong> <span class="order-total">---</span></p>
               </div>
 
+              <!-- class="Submit close-order-modal" thay đổi class button Xác nhận -->
               <div class="buttons-ka">
-                <button class="Submit close-order-modal">Đóng</button>
+                <button class="Submit btn-xac-nhan">Xác nhận</button>
               </div>
             </div>
           </div>
@@ -134,19 +148,38 @@
                 </tr>
               </thead>
               <tbody id="order-list">
-              <tbody id="order-list">
-                <tr data-status="Hoàn thành">
-                  <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
-                  <td data-label="Mã đơn hàng">#2468101214</td>
-                  <td data-label="Trạng thái"><span class="status-completed">Hoàn thành</span></td>
-                  <td data-label="Thời gian đặt hàng">07:00 17/05/2025</td>
-                  <td data-label="Tổng hóa đơn">₫888.998</td>
-                  <td data-label="Hành động">
-                    <button class="btn btn-outline-primary btn-view-order-detail">Chi tiết</button>
-                  </td>
-                </tr>
-              </tbody>
+                <?php
 
+
+                while ($row = $result->fetch_assoc()) {
+                  $maDon = $row['ID_Don_Hang_Seller'];
+                  $trangThai = $row['Trang_Thai_Don_Hang'];
+                  $thoiGian = date("H:i d/m/Y", strtotime($row['Thoi_Gian_Dat_Hang']));
+                  $tongTien = number_format($row['Tong_Tien_Hoa_Don'], 0, ',', '.') . '₫';
+
+                  // Tự động gán class màu theo trạng thái
+                  $statusClass = match ($trangThai) {
+                    'Hoàn thành' => 'status-completed',
+                    'Chờ xác nhận' => 'status-pending',
+                    'Đã hủy' => 'status-cancel',
+                    default => 'status-other'
+                  };
+
+                  echo '
+    <tr data-status="' . $trangThai . '">
+      <td data-label="Chọn"><input type="checkbox" class="order-checkbox" /></td>
+      <td data-label="Mã đơn hàng">' . $maDon . '</td>
+      <td data-label="Trạng thái"><span class="' . $statusClass . '">' . $trangThai . '</span></td>
+      <td data-label="Thời gian đặt hàng">' . $thoiGian . '</td>
+      <td data-label="Tổng hóa đơn">' . $tongTien . '</td>
+      <td data-label="Hành động">
+        <button class="btn btn-outline-primary btn-view-order-detail" data-id="' . $row['ID_Hoa_Don'] . '">Chi tiết</button>
+      </td>
+    </tr>';
+                }
+
+                $conn->close();
+                ?>
               </tbody>
             </table>
           </div>
@@ -180,50 +213,67 @@
                   <th>Hành động</th>
                 </tr>
               </thead>
-              <tbody id="product-list">
-                <tr class="product-row" data-status="Đang bán">
-                  <td><input type="checkbox" class="product-checkbox"></td>
-                  <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png"
-                      alt="hình ảnh " class="product-list_img" width="80px"></td>
-                  <td class="btn-chi-tiet-san-pham">Điện thoại A</td>
-                  <td class="btn-chi-tiet-san-pham">100</td>
-                  <td class="btn-chi-tiet-san-pham">5.000.000đ</td>
-                  <td class="btn-chi-tiet-san-pham">50</td>
-                  <td class="btn-chi-tiet-san-pham"><span class="status-active">Đang bán</span></td>
-                  <td>
-                    <span class="icon btn-delete-product">🗑</span>
-                    <span class="icon btn-edit-product">🛠</span>
-                  </td>
-                </tr>
-                <tr class="product-row" data-status="Ăn gậy">
-                  <td><input type="checkbox" class="product-checkbox"></td>
-                  <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png"
-                      class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                  <td class="btn-chi-tiet-san-pham">Điện thoại B</td>
-                  <td class="btn-chi-tiet-san-pham">50</td>
-                  <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
-                  <td class="btn-chi-tiet-san-pham">20</td>
-                  <td class="btn-chi-tiet-san-pham"><span class="status-blocked">Ăn gậy</span></td>
-                  <td>
-                    <span class="icon btn-delete-product">🗑</span>
-                    <span class="icon btn-edit-product">🛠</span>
-                  </td>
-                </tr>
-                <tr class="product-row" data-status="Ngừng bán">
-                  <td><input type="checkbox" class="product-checkbox"></td>
-                  <td class="btn-chi-tiet-san-pham"><img src="../assets/images/logo/CuongDao__Logo-PEARNK.png"
-                      class="product-list_img" alt="Hình ảnh" width="80px"></td>
-                  <td class="btn-chi-tiet-san-pham">Điện thoại C</td>
-                  <td class="btn-chi-tiet-san-pham">50</td>
-                  <td class="btn-chi-tiet-san-pham"> 3.000.000đ</td>
-                  <td class="btn-chi-tiet-san-pham">20</td>
-                  <td class="btn-chi-tiet-san-pham"><span class="status-Stop_selling">Ngừng bán</span></td>
-                  <td>
-                    <span class="icon btn-delete-product">🗑</span>
-                    <span class="icon btn-edit-product">🛠</span>
-                  </td>
-                </tr>
-              </tbody>
+              <tbo<tbody id="product-list">
+                <?php
+                $conn = new mysqli('localhost', 'root', '', 'DATN');
+                if ($conn->connect_error) {
+                  die("<tr><td colspan='8'>Kết nối CSDL thất bại</td></tr>");
+                }
+
+                session_start();
+                $idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
+
+                // Lấy ID_Nguoi_Ban từ ID_Nguoi_Mua
+                $sqlGetSeller = "SELECT ID_Nguoi_Ban FROM Nguoi_Ban WHERE ID_Nguoi_Mua = ?";
+                $stmt = $conn->prepare($sqlGetSeller);
+                $stmt->bind_param("i", $idNguoiMua);
+                $stmt->execute();
+                $idNguoiBan = $stmt->get_result()->fetch_assoc()['ID_Nguoi_Ban'] ?? 0;
+
+                // Lấy sản phẩm
+                $sql = "SELECT * FROM San_Pham WHERE ID_Nguoi_Ban = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $idNguoiBan);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($sp = $result->fetch_assoc()):
+                  $ten = htmlspecialchars($sp['Ten_San_Pham']);
+                  $soLuong = $sp['So_Luong_Ton'];
+                  $gia = number_format($sp['Gia_Ban'], 0, ',', '.') . "đ";
+                  $daBan = $sp['Da_Ban'] ?? 0;
+                  $trangThai = $sp['Trang_Thai_San_Pham'] ?? "Đang bán";
+
+                  $classTrangThai = match ($trangThai) {
+                    "Đang bán" => "status-selling",
+                    "Ăn gậy" => "status-blocked",
+                    "Ngừng bán" => "status-Stop_selling",
+                    default => "status-other"
+                  };
+
+                  $srcAnh = !empty($sp['Anh_San_Pham1'])
+                    ? "data:image/jpeg;base64," . base64_encode($sp['Anh_San_Pham1'])
+                    : "../assets/images/logo/default-product.png";
+                ?>
+                  <tr class="product-row" data-status="<?= $trangThai ?>">
+                    <td><input type="checkbox" class="product-checkbox"></td>
+                    <td class="btn-chi-tiet-san-pham">
+                      <img src="<?= $srcAnh ?>" class="product-list_img" alt="Hình ảnh" width="80px">
+                    </td>
+                    <td class="btn-chi-tiet-san-pham"><?= $ten ?></td>
+                    <td class="btn-chi-tiet-san-pham"><?= $soLuong ?></td>
+                    <td class="btn-chi-tiet-san-pham"><?= $gia ?></td>
+                    <td class="btn-chi-tiet-san-pham"><?= $daBan ?></td>
+                    <td class="btn-chi-tiet-san-pham">
+                      <span class="<?= $classTrangThai ?>"><?= $trangThai ?></span>
+                    </td>
+                    <td>
+                      <span class="icon btn-delete-product">🗑</span>
+                      <span class="icon btn-edit-product">🛠</span>
+                    </td>
+                  </tr>
+                <?php endwhile; ?>
+                </tbody>
             </table>
           </div>
         </div>
@@ -233,21 +283,31 @@
           <div class="Content-ka">
             <section class="product-form-ka">
               <h2>Thông tin cơ bản</h2>
-              <form>
+              <form action="/datn-project/datn-project/pages/api/them_sanpham.php" method="POST" enctype="multipart/form-data">
+                <!-- Ảnh sản phẩm -->
+                <?php
+                // Giả sử $sp là dòng dữ liệu lấy từ bảng San_Pham
+                $finfo = new finfo(FILEINFO_MIME_TYPE);
+
+                $srcAnh1 = !empty($sp['Anh_San_Pham1']) ? 'data:' . $finfo->buffer($sp['Anh_San_Pham1']) . ';base64,' . base64_encode($sp['Anh_San_Pham1']) : '';
+                $srcAnh2 = !empty($sp['Anh_San_Pham2']) ? 'data:' . $finfo->buffer($sp['Anh_San_Pham2']) . ';base64,' . base64_encode($sp['Anh_San_Pham2']) : '';
+                $srcAnh3 = !empty($sp['Anh_San_Pham3']) ? 'data:' . $finfo->buffer($sp['Anh_San_Pham3']) . ';base64,' . base64_encode($sp['Anh_San_Pham3']) : '';
+                $srcAnhBia = !empty($sp['Anh_Bia']) ? 'data:' . $finfo->buffer($sp['Anh_Bia']) . ';base64,' . base64_encode($sp['Anh_Bia']) : '';
+                ?>
+
                 <div class="from-group-ka">
-                  <label>Hình ảnh sản phẩm:</label>
+                  <label>Hình ảnh bìa:</label>
                   <div class="img-box-ka" id="product-image-box">
-                    <input type="file" accept="image/*" id="product-image-input" style="display: none;">
+                    <input type="file" accept="image/*" name="Anh_San_Pham1" id="product-image-input" style="display: none;">
                     <img id="product-image-preview" style="max-width: 100%; display: none;" />
                     <span class="img-text">Hình ảnh sản phẩm</span>
                   </div>
                 </div>
 
-
                 <div class="from-group-ka">
                   <label>Hình ảnh sản phẩm:</label>
                   <div class="img-box-ka product-image-box">
-                    <input type="file" accept="image/*" class="product-image-input" style="display: none;">
+                    <input type="file" accept="image/*" name="Anh_San_Pham2" class="product-image-input" style="display: none;">
                     <img class="product-image-preview" style="max-width: 100%; display: none;" />
                     <span class="img-text">Hình ảnh sản phẩm</span>
                   </div>
@@ -256,108 +316,110 @@
                 <div class="from-group-ka">
                   <label>Hình ảnh sản phẩm:</label>
                   <div class="img-box-ka product-image-box">
-                    <input type="file" accept="image/*" class="product-image-input" style="display: none;">
+                    <input type="file" accept="image/*" name="Anh_San_Pham3" class="product-image-input" style="display: none;">
                     <img class="product-image-preview" style="max-width: 100%; display: none;" />
                     <span class="img-text">Hình ảnh sản phẩm</span>
                   </div>
                 </div>
 
-
+                <!-- Ảnh bìa -->
                 <div class="from-group-ka">
-                  <label>Ảnh bìa:</label>
+                  <label>Ảnh ảnh sản phẩm:</label>
                   <div class="img-box-ka" id="cover-image-box">
-                    <input type="file" accept="image/*" id="cover-image-input" style="display: none;">
+                    <input type="file" accept="image/*" name="Anh_Bia" id="cover-image-input" style="display: none;">
                     <img id="cover-image-preview" style="max-width: 100%; display: none;" />
                     <span class="img-text">Ảnh bìa</span>
                   </div>
                 </div>
 
+                <!-- Thông tin sản phẩm -->
                 <div class="from-group-ka">
                   <label>Tên sản phẩm:</label>
-                  <input type="text" id="product-name">
+                  <input type="text" id="product-name" name="Ten_San_Pham" required>
                 </div>
 
                 <div class="from-group-ka">
                   <label>Giá gốc:</label>
-                  <input type="text" id="product-name">
+                  <input type="number" name="Gia_Goc" required>
                 </div>
 
                 <div class="from-group-ka">
                   <label>Giá bán:</label>
-                  <input type="text" id="product-name">
+                  <input type="number" name="Gia_Ban" required>
                 </div>
 
                 <div class="from-group-ka">
                   <label>Số lượng tồn:</label>
-                  <input type="text" id="product-name">
+                  <input type="number" name="So_Luong_Ton" required>
                 </div>
 
                 <div class="from-group-ka">
-                  <label>Tình trạng:</label>
-                  <input type="text" id="product-name">
+                  <label for="product-status">Tình trạng:</label>
+                  <select id="product-status" class="product-form__select" name="Tinh_Trang" required>
+                    <option value="">-- Chọn tình trạng --</option>
+                    <option value="Mới">Mới</option>
+                    <option value="Đã qua sử dụng">Đã qua sử dụng</option>
+                  </select>
                 </div>
 
                 <div class="from-group-ka">
-                  <label>Hạn bảo hàng:</label>
-                  <input type="text" id="product-name">
+                  <label>Hạn bảo hành:</label>
+                  <input type="text" name="Han_Bao_Hanh">
                 </div>
 
                 <div class="from-group-ka">
                   <label>Loại bảo hành:</label>
-                  <input type="text" id="product-name">
+                  <input type="text" name="Loai_Bao_Hanh">
                 </div>
 
+                <?php
+                $conn = new mysqli("localhost", "root", "", "DATN");
+                if ($conn->connect_error) {
+                  die("Lỗi kết nối CSDL");
+                }
+
+                $sql = "SELECT ID_Danh_Muc, Ten_Danh_Muc FROM Danh_Muc WHERE Trang_Thai = 'Hoạt động'";
+                $result = $conn->query($sql);
+                ?>
                 <div class="from-group-ka">
                   <label for="product-category">Danh mục:</label>
-                  <select id="product-category" class="product-form__select">
+                  <select id="product-category" class="product-form__select" name="ID_Danh_Muc" required>
                     <option value="">-- Chọn danh mục --</option>
-                    <option value="dien-thoai">Điện thoại</option>
-                    <option value="may-tinh">Máy tính</option>
-                    <option value="thoi-trang">Thời trang</option>
-                    <option value="do-gia-dung">Đồ gia dụng</option>
-                    <option value="sach">Sách</option>
-                    <!-- Thêm danh mục khác nếu cần -->
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                      <option value="<?= $row['ID_Danh_Muc'] ?>">
+                        <?= htmlspecialchars($row['Ten_Danh_Muc']) ?>
+                      </option>
+                    <?php endwhile; ?>
                   </select>
                 </div>
 
-
                 <div class="from-group-ka">
                   <label>Mô tả sản phẩm:</label>
-                  <textarea class="textareas" id="product-description"></textarea>
+                  <textarea class="textareas" name="Mo_Ta"></textarea>
                 </div>
-              </form>
 
-              <h2>Thông tin chi tiết</h2>
-              <form>
+                <!-- Thông tin chi tiết -->
+                <h2>Thông tin chi tiết</h2>
                 <div class="from-group-ka">
                   <label>Thương hiệu:</label>
-                  <input type="text" value="No brand" id="product-brand">
+                  <input type="text" value="No brand" id="product-brand" name="Thuong_Hieu">
                 </div>
+
                 <div class="from-group-ka">
                   <label>Xuất xứ:</label>
-                  <input type="text" value="Việt Nam" id="product-origin">
+                  <input type="text" value="Việt Nam" id="product-origin" name="Xuat_Xu">
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons-ka">
+                  <button type="button" class="Cancel">Hủy</button>
+                  <button type="submit" class="Submit">Thêm sản phẩm</button>
                 </div>
               </form>
-
-              <h2>Thông tin bán hàng</h2>
-              <form>
-                <div class="from-group-ka">
-                  <label>Giá:</label>
-                  <input type="text" id="product-price">
-                </div>
-                <div class="from-group-ka">
-                  <label>Kho hàng:</label>
-                  <input type="text" id="product-stock">
-                </div>
-              </form>
-
-              <div class="buttons-ka">
-                <button class="Cancel">Hủy</button>
-                <button class="Submit">Thêm sản phẩm</button>
-              </div>
             </section>
           </div>
         </div>
+
 
         <!-- khu vực sửa sản phẩm -->
         <div class="Container-sua hidden">
@@ -391,6 +453,26 @@
         </div>
 
         <!-- MODAL chi tiết sản phẩm  -->
+        <!-- Sẽ fix bug thông tin chi tiết sản phẩm sau -->
+        <?php
+        session_start();
+        $conn = new mysqli('localhost', 'root', '', 'DATN');
+        if ($conn->connect_error) {
+          die("Kết nối CSDL thất bại");
+        }
+
+        $idSanPham = $_GET['id'] ?? 0;
+        $sql = "SELECT * FROM San_Pham WHERE ID_San_Pham = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $idSanPham);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $sp = $result->fetch_assoc();
+
+        $anh1 = !empty($sp['Anh_San_Pham1']) ? 'data:image/jpeg;base64,' . base64_encode($sp['Anh_San_Pham1']) : '';
+        $anh2 = !empty($sp['Anh_San_Pham2']) ? 'data:image/jpeg;base64,' . base64_encode($sp['Anh_San_Pham2']) : '';
+        $anh3 = !empty($sp['Anh_San_Pham3']) ? 'data:image/jpeg;base64,' . base64_encode($sp['Anh_San_Pham3']) : '';
+        ?>
         <div id="product-detail-modal" class="product-detail-modal modal">
           <div class="product-detail-modal__content modal-content">
             <span class="product-detail-modal__close">&times;</span>
@@ -433,6 +515,7 @@
             <br>
             <hr>
             <br>
+
             <div class="product-detail-modal__images">
               <h3>Hình ảnh</h3>
               <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh sản phẩm" width="100px" />
@@ -491,11 +574,10 @@
         <div class="doanhthu-section hidden">
           <div class="overview-box">
             <div class="overview-item">
-              <h4><strong>Chưa thanh toán tổng cộng</strong></h4>
+              <h4><strong>Chưa thanh toán</strong></h4>
               <div>
                 <span id="total-unpaid-amount">0đ</span>
               </div>
-
             </div>
             <div class="overview-item">
               <h4>Đã thanh toán</h4>
@@ -510,7 +592,8 @@
           <!-- Chi tiết doanh thu -->
           <div class="statistic-detail">
             <div class="statistic-header">
-              <div class="tab active">Chưa thanh toán</div>
+              <div class="tab active">Tất cả</div>
+              <div class="tab">Chưa thanh toán</div>
               <div class="tab">Đã thanh toán</div>
               <input type="text" class="search-input" placeholder="Tìm kiếm đơn hàng">
             </div>
@@ -522,66 +605,67 @@
                     <th>Đơn hàng</th>
                     <th>Trạng thái</th>
                     <th>Phương thức thanh toán</th>
-                    <th>Số tiền chưa thanh toán</th>
+                    <th>Số tiền</th>
                   </tr>
                 </thead>
+                <?php
+                $conn = new mysqli('localhost', 'root', '', 'DATN');
+                if ($conn->connect_error) {
+                  die("Lỗi kết nối CSDL");
+                }
+
+
+                $sql = "
+  SELECT 
+    dhs.ID_Don_Hang_Seller,
+    dc.Ho_Va_Ten,
+    sp.Anh_San_Pham1,
+    tts.Trang_Thai_Thanh_Toan,
+    hd.Phuong_Thuc_Thanh_Toan,
+    hd.Tong_Tien_Hoa_Don
+  FROM Don_Hang_Seller dhs
+  JOIN Hoa_Don hd ON dhs.ID_Hoa_Don = hd.ID_Hoa_Don
+  JOIN Dia_Chi_Nhan_Hang dc ON hd.ID_Dia_Chi_Nhan_Hang = dc.ID_Dia_Chi_Nhan_Hang
+  JOIN Thanh_Toan_Seller tts ON tts.ID_Don_Hang_Seller = dhs.ID_Don_Hang_Seller
+  JOIN Chi_Tiet_Hoa_Don cthd ON cthd.ID_Hoa_Don = dhs.ID_Hoa_Don
+  JOIN San_Pham sp ON sp.ID_San_Pham = cthd.ID_San_Pham
+  WHERE dhs.ID_Nguoi_Ban = ?
+  GROUP BY dhs.ID_Don_Hang_Seller
+";
+
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $idNguoiBan);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                ?>
+
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="order-info">
-                        <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                        <div>
-                          <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                          <div>Đào Việt Cường</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Chưa hoàn thành</td>
-                    <td>Thanh toán khi nhận hàng</td>
-                    <td class="amount-cell">₫199.000</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="order-info">
-                        <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                        <div>
-                          <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                          <div>Nguyễn Trọng Đại</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Đã hoàn thành</td>
-                    <td>Thanh toán khi nhận hàng</td>
-                    <td class="amount-cell">₫999.000</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="order-info">
-                        <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                        <div>
-                          <div>Mã đơn hàng <button class="btn-copy">coby</button></div>
-                          <div>Phan Thế Dũng </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Chưa hoàn thành</td>
-                    <td>Thanh toán qua ví</td>
-                    <td class="amount-cell">₫140.000.000</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="order-info">
-                        <img src="../assets/images/CuongDao__Logo-PEARNK.png" alt="Ảnh đơn hàng" class="order-img">
-                        <div>
-                          <div>Mã đơn hàng<button class="btn-copy">coby</button></div>
-                          <div>Nguyễn Quang Hà</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Chưa hoàn thành</td>
-                    <td>Trả sau</td>
-                    <td class="amount-cell">₫19.411.000</td>
-                  </tr>
+                  <?php if ($result && $result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                      <?php
+                      $imgData = base64_encode($row['Anh_San_Pham1']);
+                      $imgSrc = "data:image/jpeg;base64,{$imgData}";
+                      ?>
+                      <tr>
+                        <td>
+                          <div class="order-info">
+                            <img src="<?= $imgSrc ?>" alt="Ảnh đơn hàng" class="order-img">
+                            <div>
+                              <div>Mã đơn hàng <?= $row['ID_Don_Hang_Seller'] ?> <button class="btn-copy">copy</button></div>
+                              <div><?= htmlspecialchars($row['Ho_Va_Ten']) ?></div>
+                            </div>
+                          </div>
+                        </td>
+                        <td><?= htmlspecialchars($row['Trang_Thai_Thanh_Toan']) ?></td>
+                        <td><?= htmlspecialchars($row['Phuong_Thuc_Thanh_Toan']) ?></td>
+                        <td class="amount-cell">₫<?= number_format($row['Tong_Tien_Hoa_Don'], 0, ',', '.') ?></td>
+                      </tr>
+                    <?php endwhile; ?>
+                  <?php else: ?>
+                    <tr>
+                      <td colspan="4">Không có đơn hàng nào</td>
+                    </tr>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -630,43 +714,68 @@
                     <th>Ngày</th>
                     <th>Loại giao dịch</th>
                     <th>Mã đơn hàng</th>
-                    <th>Số tiền</th>
+                    <th>Số tiền nhận được</th>
                     <th>Trạng thái</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>500.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  <?php
+                  $conn = new mysqli("localhost", "root", "", "DATN");
+                  if ($conn->connect_error) {
+                    die("Lỗi kết nối CSDL");
+                  }
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>11111</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  session_start();
+                  $idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>60.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  // Lấy ID người bán từ người mua
+                  $sqlGetSeller = "SELECT ID_Nguoi_Ban FROM Nguoi_Ban WHERE ID_Nguoi_Mua = ?";
+                  $stmt = $conn->prepare($sqlGetSeller);
+                  $stmt->bind_param("i", $idNguoiMua);
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+                  $idNguoiBan = $result->fetch_assoc()['ID_Nguoi_Ban'] ?? 0;
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>500.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
-                  <!-- Có thể thêm nhiều dòng giao dịch -->
+                  // Truy vấn lấy giao dịch hoàn thành
+                  $sql = "
+SELECT 
+  tts.Ngay_Thanh_Toan,
+  dhs.ID_Don_Hang_Seller,
+  dhs.So_Tien_Nhan_Duoc,
+  tts.Trang_Thai_Thanh_Toan
+FROM Don_Hang_Seller dhs
+JOIN Thanh_Toan_Seller tts ON dhs.ID_Don_Hang_Seller = tts.ID_Don_Hang_Seller
+WHERE dhs.ID_Nguoi_Ban = ?
+ORDER BY tts.Ngay_Thanh_Toan DESC
+";
+
+                  $stmt = $conn->prepare($sql);
+                  $stmt->bind_param("i", $idNguoiBan);
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+
+                  if ($result->num_rows > 0):
+                    while ($row = $result->fetch_assoc()):
+                      $ngay = date("d/m/Y", strtotime($row['Ngay_Thanh_Toan']));
+                      $maDon = "#" . $row['ID_Don_Hang_Seller'];
+                      $soTien = number_format($row['So_Tien_Nhan_Duoc'], 0, ',', '.') . "đ";
+                      $trangThai = $row['Trang_Thai_Thanh_Toan'];
+                  ?>
+                      <tr>
+                        <td><?= $ngay ?></td>
+                        <td>Doanh thu từ đơn hàng <?= $maDon ?></td>
+                        <td><?= $maDon ?></td>
+                        <td><?= $soTien ?></td>
+                        <td><?= $trangThai ?></td>
+                      </tr>
+                    <?php
+                    endwhile;
+                  else:
+                    ?>
+                    <tr>
+                      <td colspan="5">Không có giao dịch nào</td>
+                    </tr>
+                  <?php endif; ?>
                 </tbody>
               </table>
 
@@ -677,7 +786,7 @@
   </div>
   </main>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
-  <script type="module" src="../js/components/KenhNguoiBan.js"></script>
+  <script type="module" src="../js/components/KenhNguoiBan.js?v=<?= time() ?>"></script>
 </body>
 
 </html>
