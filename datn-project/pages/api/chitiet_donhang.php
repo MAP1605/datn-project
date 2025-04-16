@@ -4,15 +4,15 @@ header('Content-Type: application/json');
 
 $conn = new mysqli('localhost', 'root', '', 'DATN');
 if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode(["error" => "Lỗi kết nối"]);
-    exit;
+  http_response_code(500);
+  echo json_encode(["error" => "Lỗi kết nối"]);
+  exit;
 }
 
 $id = intval($_GET['id'] ?? 0);
 if ($id === 0) {
-    echo json_encode(["error" => "Thiếu ID đơn hàng"]);
-    exit;
+  echo json_encode(["error" => "Thiếu ID đơn hàng"]);
+  exit;
 }
 
 // 3. Query chi tiết đơn hàng + sản phẩm + người nhận
@@ -44,8 +44,8 @@ $result = $stmt->get_result();
 
 $data = [];
 while ($row = $result->fetch_assoc()) {
-    $row['Anh_San_Pham1'] = base64_encode($row['Anh_San_Pham1']); // nếu ảnh là BLOB
-    $data[] = $row;
+  $row['Anh_San_Pham1'] = base64_encode($row['Anh_San_Pham1']); // nếu ảnh là BLOB
+  $data[] = $row;
 }
 
 echo json_encode($data);

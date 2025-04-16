@@ -40,14 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idDanhMuc = intval($_POST['ID_Danh_Muc']);
 
     // Xử lý hình ảnh
-    $anh1 = addslashes(file_get_contents($_FILES['Anh_San_Pham1']['tmp_name']));
-    $anh2 = addslashes(file_get_contents($_FILES['Anh_San_Pham2']['tmp_name']));
-    $anh3 = addslashes(file_get_contents($_FILES['Anh_San_Pham3']['tmp_name']));
-    $anhBia = addslashes(file_get_contents($_FILES['Anh_Bia']['tmp_name']));
+    $anh1 = file_get_contents($_FILES['Anh_San_Pham1']['tmp_name']);
+    $anh2 = file_get_contents($_FILES['Anh_San_Pham2']['tmp_name']);
+    $anh3 = file_get_contents($_FILES['Anh_San_Pham3']['tmp_name']);
+    $anhBia = file_get_contents($_FILES['Anh_Bia']['tmp_name']);
 
     // Bước 1: Thêm sản phẩm
-    $stmt1 = $conn->prepare("INSERT INTO San_Pham (Ten_San_Pham, Gia_Goc, Gia_Ban, So_Luong_Ton, ID_Danh_Muc, ID_Nguoi_Ban, Anh_San_Pham1, Anh_San_Pham2, Anh_San_Pham3, Anh_Bia)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt1 = $conn->prepare("INSERT INTO San_Pham (Ten_San_Pham, Gia_Goc, Gia_Ban, So_Luong_Ton, ID_Danh_Muc, ID_Nguoi_Ban, Anh_San_Pham1, Anh_San_Pham2, Anh_San_Pham3, Anh_Bia, So_Sao_Danh_Gia, Da_Ban)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
     $stmt1->bind_param("sddiiissss", $ten, $giaGoc, $giaBan, $soLuong, $idDanhMuc, $idNguoiBan, $anh1, $anh2, $anh3, $anhBia);
 
     if ($stmt1->execute()) {
