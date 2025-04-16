@@ -63,10 +63,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         <!-- Header main -->
         <div class="header__main">
             <div class="header__logo">
-
-
-                <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-c600-5230-ab7e-417edaa36d6a/raw?se=2025-04-15T23%3A05%3A59Z&sp=r&sv=2024-08-04&sr=b&scid=b7a32e39-f5c7-5297-9358-00ff5af425d0&skoid=51916beb-8d6a-49b8-8b29-ca48ed86557e&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-15T19%3A18%3A26Z&ske=2025-04-16T19%3A18%3A26Z&sks=b&skv=2024-08-04&sig=rq13CJp6jQq/2eLyxkHkg%2BcUz6YyYnZUTNBkMLmO5RE%3D" alt="Logo PEARNK"  class="header__logo-img">
+                <a href="../index.php" class="header__logo-link">
+                    <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-c600-5230-ab7e-417edaa36d6a/raw?se=2025-04-16T20%3A24%3A08Z&sp=r&sv=2024-08-04&sr=b&scid=a37136d3-6bbf-5c13-b201-f7b7f836048b&skoid=de76bc29-7017-43d4-8d90-7a49512bae0f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-16T10%3A57%3A48Z&ske=2025-04-17T10%3A57%3A48Z&sks=b&skv=2024-08-04&sig=PkZqsbk/B3VbsC3aAUq5wZVXtuIthugRwdiKxeRoPdo%3D" alt="" class="header__logo-img" />
                 </a>
             </div>
 
