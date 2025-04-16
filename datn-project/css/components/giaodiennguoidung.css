@@ -132,46 +132,29 @@
     background-color: #0056b3;
   }
   
-  .mobile-menu-toggle-wrapper {
-    width: 100%;
-    padding: 12px 16px;
-    display: none;
-    background: #fff;
+
+  
+ 
+   
     
-  }
+    
+    
   
-  @media (max-width: 767px) {
-    .mobile-menu-toggle-wrapper {
-      display: block;
-    }
-  
-    .mobile-menu-toggle {
-      position: relative !important;
-      top: auto;
-      left: auto;
-      font-size: 26px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background: white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-  }
   /* rè mô sít */
   /* Ẩn nav ở mobile */
   @media (max-width: 767px) {
     .user-main__nav {
       position: fixed;
-      top: 200px; /* ✅ Kéo xuống thêm */
+      top: 175px; /* ✅ Kéo xuống thêm */
       left: -100%;
-      width: 75%;
+      width: 55%;
       max-width: 300px;
       height: calc(100% - 80px); /* ✅ Giảm chiều cao tương ứng */
       background: white;
       z-index: 999;
       transition: left 0.3s ease;
       padding: 20px;
-      border-radius: 0 16px 16px 0;
+    
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
     }
   
@@ -212,8 +195,8 @@
   .mobile-menu-toggle {
     display: block;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: -10px;
+    left: -30px;
     z-index: 1000;
     font-size: 24px;
     background: none;

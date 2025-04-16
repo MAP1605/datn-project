@@ -160,7 +160,11 @@
 }
 
 /* thông báo giỏ hàng */
+<<<<<<< HEAD
 /* .popup-cart {
+=======
+.popup-cart {
+>>>>>>> main_3
     position: fixed;
     top: 80px;
     right: 30px;
@@ -839,4 +843,55 @@
 
 .toast.show {
     display: block;
+<<<<<<< HEAD
+=======
+    animation: fadeInOut 2.5s ease;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+
+/* thông báo 2 button trang shop */
+.custom-toast {
+    visibility: hidden;
+    min-width: 280px;
+    margin-left: -140px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 50px;
+    font-size: 16px;
+    transition: all 0.5s ease;
+}
+
+.custom-toast.show {
+    visibility: visible;
+    bottom: 80px;
+    opacity: 1;
+>>>>>>> main_3
 }

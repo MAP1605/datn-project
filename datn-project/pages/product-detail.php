@@ -103,7 +103,8 @@ $sqlCapNhatSaoDB = "SELECT AVG(So_Sao) AS avg_rating FROM Danh_Gia_San_Pham WHER
 $resultAvg = $conn->query($sqlCapNhatSaoDB);
 
 if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
-    $avgRating = round($rowAvg['avg_rating'], 1); // Làm tròn 1 chữ số thập phân
+    $avgRating = $rowAvg['avg_rating'] !== null ? round($rowAvg['avg_rating'], 1) : 0;
+    // Làm tròn 1 chữ số thập phân
 
     // Cập nhật lại cột So_Sao_Danh_Gia trong bảng San_Pham
     $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
@@ -120,7 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 
     $id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
     $id_chi_tiet = intval($_POST['id_san_pham']); // thực chất là ID_Chi_Tiet_San_Pham
-    $so_luong = intval($_POST['so_luong']);
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id_chi_tiet = intval($data['id_san_pham'] ?? 0);
+    $so_luong = intval($data['so_luong'] ?? 1);
+
+
+
 
     // ✅ Lấy ID_San_Pham từ Chi_Tiet_San_Pham (bắt buộc)
     $stmt = $conn->prepare("SELECT ID_San_Pham FROM Chi_Tiet_San_Pham WHERE ID_Chi_Tiet_San_Pham = ?");
@@ -206,19 +212,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
-            <!-- Giỏ hàng -->
-            <div class="header__cart">
-                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-                <span class="header__cart-count">0</span>
-                <div class="header__cart-dropdown">
-                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
-                    <ul class="header__cart-list"></ul>
-                    <div class="header__cart-total">Tổng: <b>₫0</b></div>
-                    <div class="header__cart-footer">
-                        <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
-                    </div>
+        <!-- Giỏ hàng -->
+
+        <div class="header__cart">
+            <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+            <span class="header__cart-count" id="cartItemCount">0</span>
+            <div class="header__cart-dropdown">
+                <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
+                <ul class="header__cart-list"></ul>
+                <div class="header__cart-total">Tổng: <b>₫0</b></div>
+                <div class="header__cart-footer">
+                    <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
                 </div>
             </div>
+        </div>
     </header>
     <!-- End header -->
 
@@ -274,7 +281,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
                             <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
-                            <input type="text" value="1" class="product-detail__qty-input" data-max="<?= $product['So_Luong_Ton'] ?>" />
+
+
+                            <input type="text" class="product-detail__qty-input" value="1" data-max="<?= $product['So_Luong_Ton'] ?>" />
+                            <input type="hidden" name="so_luong" id="formQuantity" value="1">
+
                             <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
                             <span class="product-detail__stock"><?= $product['So_Luong_Ton'] ?> sản phẩm có sẵn</span>
                         </div>
@@ -514,17 +525,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <div id="toast" class="toast"></div>
 
     <!-- JS: load component header/footer -->
-    <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
     <script src="/datn-project/datn-project/js/utils/showToast.js"></script>
 
     <script>
-    let cartItems = <?= json_encode($items ?? [], JSON_UNESCAPED_UNICODE) ?>;
+        let cartItems = <?= json_encode($items ?? [], JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
 
     <!-- js cho product-detail -->
-    <script  src="/datn-project/datn-project/js/pages/product-detail.js"></script>
-    <script  src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
+    <script src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+    <script src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
+
 </body>
 
 </html>
