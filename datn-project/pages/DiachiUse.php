@@ -174,6 +174,7 @@ $result = $conn->query($sql);
     <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
   <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 
+
 </body>
 
 </html>

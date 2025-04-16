@@ -6,12 +6,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Kết nối CSDL
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'DATN';
-
-$conn = new mysqli($host, $user, $password, $dbname);
+$conn = new mysqli('localhost', 'root', '', 'DATN');
 if ($conn->connect_error) {
     die(json_encode(['success' => false, 'error' => 'Kết nối CSDL thất bại']));
 }
@@ -29,32 +24,39 @@ $ton_kho = intval($data['ton_kho'] ?? 0); // ✅ Lấy tồn kho từ JS
 
 if ($id_san_pham <= 0 || $so_luong <= 0) {
     echo json_encode(['success' => false, 'error' => 'Dữ liệu không hợp lệ']);
+
     exit;
 }
 
-$id_nguoi_mua = $_SESSION['ID_Nguoi_Mua'];
+// ✅ Kiểm tra đăng nhập
+if (!isset($_SESSION['ID_Nguoi_Mua'])) {
+    echo json_encode(['success' => false, 'error' => 'Chưa đăng nhập']);
+    exit;
+}
+
 
 // ✅ Lấy ID_Chi_Tiet_San_Pham
 $stmt = $conn->prepare("SELECT ID_Chi_Tiet_San_Pham FROM Chi_Tiet_San_Pham WHERE ID_San_Pham = ?");
-$stmt->bind_param("i", $id_san_pham);
+$stmt->bind_param("i", $idSanPham);
 $stmt->execute();
 $res = $stmt->get_result();
 if (!$row = $res->fetch_assoc()) {
+
     echo json_encode(['success' => false, 'error' => 'Không tìm thấy chi tiết sản phẩm']);
     exit;
 }
-$id_chi_tiet = $row['ID_Chi_Tiet_San_Pham'];
 
 // ✅ Kiểm tra số lượng hiện tại đã có trong giỏ
+
 $stmt = $conn->prepare("
   SELECT gh.ID_Gio_Hang, ctgh.So_Luong
   FROM Gio_Hang gh
   JOIN Chi_Tiet_Gio_Hang ctgh ON gh.ID_Gio_Hang = ctgh.ID_Gio_Hang
   WHERE gh.ID_Nguoi_Mua = ? AND gh.ID_San_Pham = ? AND ctgh.ID_Chi_Tiet_San_Pham = ?
 ");
-$stmt->bind_param("iii", $id_nguoi_mua, $id_san_pham, $id_chi_tiet);
+$stmt->bind_param("iii", $idNguoiMua, $idSanPham, $idChiTiet);
 $stmt->execute();
-$result = $stmt->get_result();
+$res = $stmt->get_result();
 
 $so_luong_hien_tai = 0;
 $id_gio_hang = null;
@@ -72,27 +74,29 @@ if ($so_luong + $so_luong_hien_tai > $ton_kho) {
 
 // ✅ Nếu đã có sản phẩm → update
 if ($id_gio_hang) {
+
     $stmt = $conn->prepare("
-        UPDATE Chi_Tiet_Gio_Hang SET So_Luong = So_Luong + ? 
+        UPDATE Chi_Tiet_Gio_Hang SET So_Luong = So_Luong + ?
         WHERE ID_Gio_Hang = ? AND ID_Chi_Tiet_San_Pham = ?
     ");
-    $stmt->bind_param("iii", $so_luong, $id_gio_hang, $id_chi_tiet);
+    $stmt->bind_param("iii", $soLuong, $idGioHang, $idChiTiet);
     $stmt->execute();
 } else {
     // ✅ Nếu chưa có → tạo mới
-    $stmt = $conn->prepare("INSERT INTO Gio_Hang (ID_Nguoi_Mua, ID_San_Pham) VALUES (?, ?)");
-    $stmt->bind_param("ii", $id_nguoi_mua, $id_san_pham);
-    $stmt->execute();
-    $id_gio_hang = $conn->insert_id;
 
-    $stmt = $conn->prepare("
-        INSERT INTO Chi_Tiet_Gio_Hang (ID_Gio_Hang, ID_Chi_Tiet_San_Pham, So_Luong) 
-        VALUES (?, ?, ?)
-    ");
-    $stmt->bind_param("iii", $id_gio_hang, $id_chi_tiet, $so_luong);
+    $stmt = $conn->prepare("INSERT INTO Gio_Hang (ID_Nguoi_Mua, ID_San_Pham) VALUES (?, ?)");
+    $stmt->bind_param("ii", $idNguoiMua, $idSanPham);
+    $stmt->execute();
+    $idGioHang = $conn->insert_id;
+
+    $stmt = $conn->prepare("INSERT INTO Chi_Tiet_Gio_Hang (ID_Gio_Hang, ID_Chi_Tiet_San_Pham, So_Luong)
+        VALUES (?, ?, ?)");
+    $stmt->bind_param("iii", $idGioHang, $idChiTiet, $soLuong);
     $stmt->execute();
 }
 
+// ✅ Trả về JSON đúng
 echo json_encode(['success' => true]);
 $conn->close();
+
 exit;

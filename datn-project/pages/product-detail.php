@@ -206,6 +206,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
+<<<<<<< HEAD
+=======
+        <!-- Header top -->
+        <div class="header__top">
+
+            <div class="header__top-left">
+                <a href="#" class="header__link">
+                    Đăng ký người bán
+                </a>
+            </div>
+            <div class="header__top-right">
+                <a href="" class="header__link">
+                    Đăng nhập
+                </a>
+                <a href="" class="header__link">
+                    Đăng ký
+                </a>
+            </div>
+
+        </div>
+        <!-- Header main -->
+        <div class="header__main">
+            <div class="header__logo">
+                <a href="/datn-project/index.html" class="header__logo-link">
+                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
+                </a>
+            </div>
+            <div class="header__search">
+                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
+                <button class="header__search-btn">
+                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
+                </button>
+            </div>
+
+>>>>>>> backend-feature/Seller_Channel_3
             <!-- Giỏ hàng -->
             <div class="header__cart">
                 <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
@@ -215,7 +250,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     <ul class="header__cart-list"></ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
+<<<<<<< HEAD
                         <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
+=======
+                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+>>>>>>> backend-feature/Seller_Channel_3
                     </div>
                 </div>
             </div>
@@ -496,15 +535,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
-        <section class="product__product-detail">
-            <section class="product">
-                <div class="container container__product">
-                    <h2 class="product__title">CÓ THỂ BẠN SẼ THÍCH </h2>
-                    <?php include '../components/product__product-detail.php'; ?>
-                </div>
-            </section>
+        <section class="products">
+            <div class="container container__product">
+                <h2 class="product__title">Có thể bạn cũng thích</h2>
+                <?php include '../components/product__product-detail.php'; ?>
+            </div>
         </section>
-
     </div>
 
     <!-- Start footer -->
