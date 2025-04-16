@@ -224,8 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
         <!-- Header main -->
         <div class="header__main">
             <div class="header__logo">
-                <a href="/datn-project/datn-project/index.html" class="header__logo-link">
-                    <img src="/datn-project/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
+                <a href="/datn-project/index.html" class="header__logo-link">
+                    <img src="/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
                 </a>
             </div>
             <div class="header__search">
@@ -244,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     <ul class="header__cart-list"></ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
-                        <a href="/datn-project/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+                        <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
@@ -534,15 +534,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
         <!-- End product-detail -->
 
         <!-- Sản phẩm gợi ý -->
-        <section class="product__product-detail">
-            <section class="product">
-                <div class="container container__product">
-                    <h2 class="product__title">CÓ THỂ BẠN SẼ THÍCH </h2>
-                    <?php include '../components/product__product-detail.php'; ?>
-                </div>
-            </section>
+        <section class="products">
+            <div class="container container__product">
+                <h2 class="product__title">Có thể bạn cũng thích</h2>
+                <?php include '../components/product__product-detail.php'; ?>
+            </div>
         </section>
-
     </div>
 
     <!-- Start footer -->
