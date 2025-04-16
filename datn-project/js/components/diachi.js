@@ -899,7 +899,18 @@ const data = {
   }
 
 };
+function showToast(message, isSuccess = true) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.className = "custom-toast show";
+  if (!isSuccess) {
+    toast.classList.add("error");
+  }
 
+  setTimeout(() => {
+    toast.classList.remove("show", "error");
+  }, 3000);
+}
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("storeOwnerModal");
   const openBtn = document.getElementById("openModalBtn");
@@ -963,7 +974,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 👉 Validate trước khi gửi
     if (!province || !district || !ward || !diachi || !ten || !email || !sdt) {
-      alert("⚠ Vui lòng nhập đầy đủ thông tin!");
+      showToast("⚠ Vui lòng nhập đầy đủ thông tin!", false);
       return;
     }
 
@@ -977,6 +988,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(res => res.text())
       .then(data => {
         if (data.trim().includes("success")) {
+          showToast("✅ Đã thêm địa chỉ thành công!");
           const newForm = document.createElement("form");
           newForm.className = "ModelInfo";
           newForm.innerHTML = `
@@ -988,12 +1000,12 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelector(".address-list")?.prepend(newForm);
           modal.style.display = "none";
         } else {
-          alert("❌ Thêm thất bại!\n" + data.trim());
+       showToast("❌ Thêm thất bại: " + data.trim(), false);
         }
       })
       .catch((err) => {
         console.error(err);
-        alert("❌ Lỗi kết nối đến máy chủ!");
+        showToast("❌ Lỗi kết nối đến máy chủ!", false);
       });
   });
 });

@@ -72,9 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main">
 
         <div class="container">
-
-            <div class="user-main user-main--Address">
-                <div class="mobile-menu-toggle-wrapper">
+        <div class="mobile-menu-toggle-wrapper">
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -82,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
               
                 <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+            <div class="user-main user-main--Address">
+            
                 <aside class="user-main__sidebar">
                     <div class="mobile-overlay" id="mobileOverlay"></div>
                     <!-- Hiển thị ảnh từ CSDL -->
