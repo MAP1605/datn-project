@@ -220,7 +220,6 @@ $result = $stmt->get_result();
                   die("<tr><td colspan='8'>Kết nối CSDL thất bại</td></tr>");
                 }
 
-                session_start();
                 $idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
 
                 // Lấy ID_Nguoi_Ban từ ID_Nguoi_Mua
@@ -455,7 +454,6 @@ $result = $stmt->get_result();
         <!-- MODAL chi tiết sản phẩm  -->
         <!-- Sẽ fix bug thông tin chi tiết sản phẩm sau -->
         <?php
-        session_start();
         $conn = new mysqli('localhost', 'root', '', 'DATN');
         if ($conn->connect_error) {
           die("Kết nối CSDL thất bại");
@@ -725,7 +723,6 @@ $result = $stmt->get_result();
                     die("Lỗi kết nối CSDL");
                   }
 
-                  session_start();
                   $idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
 
                   // Lấy ID người bán từ người mua
