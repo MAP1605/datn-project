@@ -79,57 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-<header class="header">
-      <div class="container">
-  
-          <!-- Header top -->
-          <div class="header__top">
-
-            <div class="header__top-left">
-                <a href="../pages/Dangkykenh.php" class="header__link">
-                    Đăng ký người bán
-                </a>
-            </div>
-            <div class="header__top-right">
-                <a href="../pages/dangnhap.php" class="header__link">
-                    Đăng nhập
-                </a>
-                <a href="../pages/dangky.php" class="header__link">
-                    Đăng ký
-                </a>
-            
-            </div>
-
-        </div>
-          <!-- Header main -->
-          <div class="header__main">
-              <div class="header__logo">
-  
-              <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
-
-
-                </a>
-              </div>
-              <div class="header__search">
-                  <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
-                  <button class="header__search-btn">
-                      <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
-                  </button>
-              </div>
-  
-              <!-- Giỏ hàng -->
-              <div class="header__cart">
-                  
-  
-          </div>
-      </div>
-  </header>
+<div id="header"></div>
 
   <main>
     <div class="container">
       <form class="login login--form" method="POST">
         <div class="login__wrapper">
+
           <div class="login__form">
             <div class="login__form-box">
               <h2 class="login__title">Đăng nhập</h2>
