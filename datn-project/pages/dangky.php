@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </main>
 
   <div id="footer"></div>
-  <script type="module" src="../js/utils/components-loader-pages.js"></script>
+  <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
   <script type="module" src="../js/components/dangky.js"></script>
 </body>
 

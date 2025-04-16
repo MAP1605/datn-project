@@ -1,10 +1,13 @@
 <?php
+// khởi động session kiểm tra ng dùng 
 session_start();
 
+// in session ra màn hình - ko nên dùng khi deloy
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
 
+// hiển thị đầy đủ lỗi củ php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -101,7 +104,7 @@ $resultAvg = $conn->query($sqlCapNhatSaoDB);
 
 if ($resultAvg && $rowAvg = $resultAvg->fetch_assoc()) {
     $avgRating = $rowAvg['avg_rating'] !== null ? round($rowAvg['avg_rating'], 1) : 0;
- // Làm tròn 1 chữ số thập phân
+    // Làm tròn 1 chữ số thập phân
 
     // Cập nhật lại cột So_Sao_Danh_Gia trong bảng San_Pham
     $sqlUpdate = "UPDATE San_Pham SET So_Sao_Danh_Gia = $avgRating WHERE ID_San_Pham = $id";
@@ -122,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     $id_chi_tiet = intval($data['id_san_pham'] ?? 0);
     $so_luong = intval($data['so_luong'] ?? 1);
 
-    
+
 
 
     // ✅ Lấy ID_San_Pham từ Chi_Tiet_San_Pham (bắt buộc)
@@ -209,19 +212,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
-         <!-- Giỏ hàng -->
-            <div class="header__cart">
-                <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
-                <span class="header__cart-count" id="cartItemCount">0</span>
-                <div class="header__cart-dropdown">
-                    <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
-                    <ul class="header__cart-list"></ul>
-                    <div class="header__cart-total">Tổng: <b>₫0</b></div>
-                    <div class="header__cart-footer">
-                        <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
-                    </div>
+        <!-- Giỏ hàng -->
+
+        <div class="header__cart">
+            <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
+            <span class="header__cart-count" id="cartItemCount">0</span>
+            <div class="header__cart-dropdown">
+                <h4 class="header__cart-title">Sản phẩm mới thêm</h4>
+                <ul class="header__cart-list"></ul>
+                <div class="header__cart-total">Tổng: <b>₫0</b></div>
+                <div class="header__cart-footer">
+                    <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
                 </div>
             </div>
+        </div>
     </header>
     <!-- End header -->
 
@@ -277,9 +281,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                         <div class="product-detail__quantity">
                             <label>Số lượng:</label>
                             <button type="button" class="product-detail__qty-btn" data-type="minus">-</button>
-                            
 
-                            <input type="text" class="product-detail__qty-input" value="1"  data-max="<?= $product['So_Luong_Ton'] ?>" />
+
+                            <input type="text" class="product-detail__qty-input" value="1" data-max="<?= $product['So_Luong_Ton'] ?>" />
                             <input type="hidden" name="so_luong" id="formQuantity" value="1">
 
                             <button type="button" class="product-detail__qty-btn" data-type="plus">+</button>
@@ -292,13 +296,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                                 data-url="add-to-cart.php">
                                 <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                             </button>
-
-                            <!-- Popup -->
-                            <div class="popup-cart" id="popupCart">
-                                <i class="fa-solid fa-check"></i>
-                                <span>Sản phẩm đã được thêm vào Giỏ hàng</span>
-                            </div>
-
                             <button type="button" class="product-detail__btn detail__btn--buy">Mua ngay</button>
                         </div>
                     </div>
@@ -346,9 +343,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                             </div>
                         </div>
 
-                        <div class="shop__actions">
-                            <button class="shop__btn">Xem Shop</button>
-                            <button class="shop__btn">Chat ngay</button>
+                        <div class="product-detail__shop-action">
+                            <button class="shop-btn shop-btn--view">Xem shop</button>
+                            <button class="shop-btn shop-btn--chat">Chat ngay</button>
                         </div>
                     </div>
                 </div>
@@ -525,48 +522,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <footer id="footer"></footer>
     <!-- End footer -->
 
-    <!-- JS: load component header/footer -->
-    <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
-
-    <!-- Thông báo -->
     <div id="toast" class="toast"></div>
 
+    <!-- JS: load component header/footer -->
+    <script src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script src="/datn-project/datn-project/js/utils/showToast.js"></script>
+
     <script>
-        let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
+        let cartItems = <?= json_encode($items ?? [], JSON_UNESCAPED_UNICODE) ?>;
     </script>
+
 
     <!-- js cho product-detail -->
-    <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+    <script src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+    <script src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
 
-    <script type="module" src="/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
-                                            
-    <div id="toast" class="custom-toast">Tính năng này sẽ được cập nhật sau!</div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const shopButtons = document.querySelectorAll(".shop__btn");
-
-        shopButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-            alert("Tính năng này sẽ được cập nhật sau!");
-            });
-        });
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-        const shopButtons = document.querySelectorAll(".shop__btn");
-
-        shopButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-            const toast = document.getElementById("toast");
-            toast.classList.add("show");
-
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2500);
-            });
-        });
-        });
-    </script>
 </body>
 
 </html>

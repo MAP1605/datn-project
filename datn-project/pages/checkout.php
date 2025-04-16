@@ -114,7 +114,7 @@ AND ctgh.ID_Gio_Hang IN (
 
     <footer id="footer"></footer>
 
-    <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 
     <!-- Biến cart từ PHP -->
     <script>

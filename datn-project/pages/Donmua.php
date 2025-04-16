@@ -231,7 +231,7 @@ $statusMap = [
         });
     </script>
   <script src="../js/components/Donmua.js"></script>
-  <script type="module" src="../js/utils/components-loader-pages.js"></script>
+  <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
   
 
   <script>
@@ -284,6 +284,8 @@ $statusMap = [
 });
     </script>
     <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
+    
+    
 </body>
 
 </html>
