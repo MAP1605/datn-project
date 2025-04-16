@@ -407,4 +407,20 @@ document.getElementById('completeBtn').addEventListener('click', () => {
       }
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleBtn = document.getElementById("menuToggle");
+  const sidebar = document.querySelector(".user-main__sidebar");
+  const overlay = document.getElementById("mobileOverlay");
 
+  if (toggleBtn && sidebar && overlay) {
+      toggleBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("active");
+
+      });
+
+      overlay.addEventListener("click", () => {
+          sidebar.classList.remove("active");
+          overlay.classList.remove("active");
+      });
+  }
+});
