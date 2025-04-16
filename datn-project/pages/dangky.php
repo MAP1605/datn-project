@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               <p class="auth__login-link">
                 Bạn đã có tài khoản?
-                <a href="#" class="auth__link">Đăng nhập</a>
+                <a href="/datn-project//datn-project/pages/dangnhap.php " class="auth__link">Đăng nhập</a>
               </p>
             </div>
           </div>

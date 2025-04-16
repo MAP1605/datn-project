@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -23,9 +24,10 @@
 
 <body>
     <!-- Start header -->
-    <header id="header">
+    <div id="header">
 
-    </header>
+
+</div>
     <!-- End header -->
 
     <main>
@@ -56,6 +58,12 @@
     <!-- JS: load component (header/banner/category/product/footer) -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader.js"></script>
     <script type="module" src="/datn-project/datn-project/js/pages/product.js"></script>
+    <script type="module" src="../js/components/dangnhap.js"></script>
+
+    <!-- header.php phần header__top-right -->
+
+    <script type="module" src="../js/pages/cart-items.js"></script>
+    
 </body>
 
 </html>
