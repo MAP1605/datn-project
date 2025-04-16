@@ -175,7 +175,7 @@ $sdt = $info['So_Dien_Thoai'] ?? '';
     </div>
   </main>
   <div id="footer"></div>
-  <script type="module" src="../js/utils/components-loader-pages.js"></script>
+  <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
   <script type="module" src="../js/components/Dangkykenh.js"></script>
 </body>
 

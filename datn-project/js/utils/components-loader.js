@@ -10,4 +10,3 @@ loadHTML('#category2', 'components/category.php');
 loadHTML('#products', 'components/product.php');
 
 
-// product-detail

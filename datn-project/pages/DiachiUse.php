@@ -172,8 +172,9 @@ $result = $conn->query($sql);
 });
     </script>
     <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
-  <script type="module" src="../js/utils/components-loader-pages.js"></script>
-  <div id="toast" class="custom-toast"></div>
+  <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+
+
 </body>
 
 </html>
@@ -181,4 +182,5 @@ $result = $conn->query($sql);
 
 <?php if (basename($_SERVER['PHP_SELF']) === 'DiachiUse.php'): ?>
   <script src="../js/components/diachi.js"></script>
+  <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 <?php endif; ?>

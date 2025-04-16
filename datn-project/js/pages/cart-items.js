@@ -192,11 +192,9 @@ function handleAddToCart(isBuyNow = false) {
     updateCartUI();
 
     if (isBuyNow) {
-<<<<<<< HEAD
+
         window.location.href = '/datn-project/pages/cart.php';
-=======
-        window.location.href = '/datn-project/datn-project/pages/cart.html';
->>>>>>> 2f13f0a7c80b2be5c7c687b56ffba1c694f891d8
+
     } else {
         showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
     }
