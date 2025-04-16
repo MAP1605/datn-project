@@ -77,9 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (sidebarAvatar) sidebarAvatar.src = savedProfile.avatar;
     }
   }
+  
 }
 
 );
+
+
 function showNotification(message, type) {
   const noti = document.createElement('div');
   noti.className = `custom-notification ${type}`;
@@ -90,18 +93,21 @@ function showNotification(message, type) {
     noti.remove();
   }, 3000);
 }
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.getElementById("menuToggle");
-  const sidebar = document.querySelector(".user-main__sidebar");
-  const overlay = document.getElementById("mobileOverlay");
 
-  toggleBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("active");
+document.addEventListener('DOMContentLoaded', function () {
+const toggleBtn = document.getElementById('mobileMenuToggle');
+const sidebar = document.querySelector('.user-main__nav');
+const overlay = document.getElementById('mobileMenuOverlay');
 
-  });
+if (toggleBtn && sidebar && overlay) {
+toggleBtn.addEventListener('click', () => {
+sidebar.classList.add('active');
 
-  overlay.addEventListener("click", function () {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-  });
+});
+
+overlay.addEventListener('click', () => {
+sidebar.classList.remove('active');
+overlay.classList.remove('active');
+});
+}
 });

@@ -9,15 +9,6 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM Dia_Chi_Nhan_Hang WHERE ID_Nguoi_Mua = $idNguoiMua";
 $result = $conn->query($sql);
-
-// ✅ ẢNH ĐẠI DIỆN NGƯỜI DÙNG
-$user = null;
-$sqlUser = "SELECT Anh_Nguoi_Mua FROM Người_Mua WHERE ID_Nguoi_Mua = ?";
-$stmtUser = $conn->prepare($sqlUser);
-$stmtUser->bind_param("i", $idNguoiMua);
-$stmtUser->execute();
-$resultUser = $stmtUser->get_result();
-$user = $resultUser->fetch_assoc();
 ?>
 
 
@@ -47,22 +38,22 @@ $user = $resultUser->fetch_assoc();
 
   </div>
   <div class="container">
+      
     <div class="main">
 
 
       <div class="user-main user-main--Address">
+      <div class="mobile-menu-toggle-wrapper">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+              
+                <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
         <aside class="user-main__sidebar">
-          <?php
-          if (!empty($user['Anh_Nguoi_Mua'])) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mime = $finfo->buffer($user['Anh_Nguoi_Mua']);
-            if (strpos($mime, 'image/') !== 0) $mime = 'image/jpeg';
-            $base64 = base64_encode($user['Anh_Nguoi_Mua']);
-            echo '<img src="data:' . $mime . ';base64,' . $base64 . '" alt="Avatar" class="user-main__avatar">';
-          } else {
-            echo '<img src="../assets/images/Phanthedung/song.jpg" alt="Avatar" class="user-main__avatar">';
-          }
-          ?>
+          <img src="" alt="Avatar" class="user-main__avatar">
+
 
           <nav class="user-main__nav">
             <ul class="user-main__nav-list">
@@ -70,7 +61,7 @@ $user = $resultUser->fetch_assoc();
                 <h2 class="user-main__nav-title">Sửa hồ sơ</h2>
               </li>
               <li><a class="user-main__nav-link" href="../pages/Giaodiennguoidung.php">Hồ sơ</a></li>
-              <li><a class="user-main__nav-link Select-screen-function" href="../pages/DiachiUse.html">Địa chỉ</a></li>
+              <li><a class="user-main__nav-link Select-screen-function" href="../pages/DiachiUse.php">Địa chỉ</a></li>
               <li><a class="user-main__nav-link" href="../pages/doimatkhau.php">Đổi mật khẩu</a></li>
               <li><a class="user-main__nav-link" href="../pages/Donmua.php">Đơn mua</a></li>
 
@@ -160,10 +151,29 @@ $user = $resultUser->fetch_assoc();
 
   <div class="alert" id="alertBox"></div>
   <div id="alert" class="alert-message"></div>
-  <div id="footer">
-  </div>
+  <div id="footer"> </div>
+  <script>
+       document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("mobileMenuToggle");
+  const sidebar = document.querySelector(".user-main__nav");
+  const overlay = document.getElementById("mobileMenuOverlay");
+
+  if (toggleBtn && sidebar && overlay) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.add("active");
+      overlay.classList.add("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  }
+});
+    </script>
+    <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
   <script type="module" src="../js/utils/components-loader-pages.js"></script>
-  <script src="../js/components/Giaodiennguoidung.js"></script>
+  <div id="toast" class="custom-toast"></div>
 </body>
 
 </html>
