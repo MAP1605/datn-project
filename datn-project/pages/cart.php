@@ -35,6 +35,8 @@ $sql = "SELECT gh.ID_Gio_Hang, ctgh.ID_Chi_Tiet_Gio_Hang, sp.ID_San_Pham, sp.Ten
         JOIN San_Pham sp ON ctsp.ID_San_Pham = sp.ID_San_Pham
         WHERE gh.ID_Nguoi_Mua = ?";
 
+
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_nguoi_mua);
 $stmt->execute();
@@ -139,7 +141,6 @@ while ($row = $result->fetch_assoc()) {
                     <div class="cart__footer-left">
                         <input type="checkbox" id="selectAllBottom" />
                         <label for="selectAllBottom">Chọn tất cả</label>
-                        <button class="cart__btn cart__btn--delete">Xoá</button>
                     </div>
                     <div class="cart__footer-right">
                         <span class="cart__total-label">Tổng cộng:</span>
@@ -159,7 +160,8 @@ while ($row = $result->fetch_assoc()) {
     </script>
 
     <!-- JS: load component header/footer  -->
-    <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script type="module" src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
 
     <script>
         window.onload = () => {
@@ -184,7 +186,7 @@ while ($row = $result->fetch_assoc()) {
         };
     </script>
 
-    <script type="module" src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
+    
 </body>
 
 </html>

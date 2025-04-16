@@ -65,7 +65,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             <div class="header__logo">
 
                 <a href="../index.php" class="header__logo-link">
-                    <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
+                    <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-c600-5230-ab7e-417edaa36d6a/raw?se=2025-04-16T15%3A45%3A33Z&sp=r&sv=2024-08-04&sr=b&scid=498bd152-a697-516f-9d2b-c2d7eaab1e6b&skoid=3f3a9132-9530-48ef-96b7-fee5a811733f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-16T05%3A10%3A02Z&ske=2025-04-17T05%3A10%3A02Z&sks=b&skv=2024-08-04&sig=RAW0gdA6bWlh/fmBu3W2M80S1tBZsiSiOCo/CcAf2OY%3D" alt="">
                 </a>
             </div>
 

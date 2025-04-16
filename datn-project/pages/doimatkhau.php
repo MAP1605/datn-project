@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 });
     </script>
     <script src="/datn-project/datn-project/js/components/Giaodiennguoidung.js"></script>
-    <script type="module" src="../js/utils/components-loader-pages.js"></script>
+    <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
  
 </body>
 
