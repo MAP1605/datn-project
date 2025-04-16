@@ -714,43 +714,68 @@ $result = $stmt->get_result();
                     <th>Ngày</th>
                     <th>Loại giao dịch</th>
                     <th>Mã đơn hàng</th>
-                    <th>Số tiền</th>
+                    <th>Số tiền nhận được</th>
                     <th>Trạng thái</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>500.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  <?php
+                  $conn = new mysqli("localhost", "root", "", "DATN");
+                  if ($conn->connect_error) {
+                    die("Lỗi kết nối CSDL");
+                  }
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>11111</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  session_start();
+                  $idNguoiMua = $_SESSION['ID_Nguoi_Mua'] ?? 0;
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>60.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
+                  // Lấy ID người bán từ người mua
+                  $sqlGetSeller = "SELECT ID_Nguoi_Ban FROM Nguoi_Ban WHERE ID_Nguoi_Mua = ?";
+                  $stmt = $conn->prepare($sqlGetSeller);
+                  $stmt->bind_param("i", $idNguoiMua);
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+                  $idNguoiBan = $result->fetch_assoc()['ID_Nguoi_Ban'] ?? 0;
 
-                  <tr>
-                    <td>21/12/2025</td>
-                    <td>#21122007</td>
-                    <td>#21122007</td>
-                    <td>500.000đ</td>
-                    <td>Hoàn thành</td>
-                  </tr>
-                  <!-- Có thể thêm nhiều dòng giao dịch -->
+                  // Truy vấn lấy giao dịch hoàn thành
+                  $sql = "
+SELECT 
+  tts.Ngay_Thanh_Toan,
+  dhs.ID_Don_Hang_Seller,
+  dhs.So_Tien_Nhan_Duoc,
+  tts.Trang_Thai_Thanh_Toan
+FROM Don_Hang_Seller dhs
+JOIN Thanh_Toan_Seller tts ON dhs.ID_Don_Hang_Seller = tts.ID_Don_Hang_Seller
+WHERE dhs.ID_Nguoi_Ban = ?
+ORDER BY tts.Ngay_Thanh_Toan DESC
+";
+
+                  $stmt = $conn->prepare($sql);
+                  $stmt->bind_param("i", $idNguoiBan);
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+
+                  if ($result->num_rows > 0):
+                    while ($row = $result->fetch_assoc()):
+                      $ngay = date("d/m/Y", strtotime($row['Ngay_Thanh_Toan']));
+                      $maDon = "#" . $row['ID_Don_Hang_Seller'];
+                      $soTien = number_format($row['So_Tien_Nhan_Duoc'], 0, ',', '.') . "đ";
+                      $trangThai = $row['Trang_Thai_Thanh_Toan'];
+                  ?>
+                      <tr>
+                        <td><?= $ngay ?></td>
+                        <td>Doanh thu từ đơn hàng <?= $maDon ?></td>
+                        <td><?= $maDon ?></td>
+                        <td><?= $soTien ?></td>
+                        <td><?= $trangThai ?></td>
+                      </tr>
+                    <?php
+                    endwhile;
+                  else:
+                    ?>
+                    <tr>
+                      <td colspan="5">Không có giao dịch nào</td>
+                    </tr>
+                  <?php endif; ?>
                 </tbody>
               </table>
 
