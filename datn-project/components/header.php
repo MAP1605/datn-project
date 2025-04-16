@@ -48,9 +48,7 @@
 
 
                 <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="/datn-project/assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
-
-
+                    <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-c600-5230-ab7e-417edaa36d6a/raw?se=2025-04-15T23%3A05%3A59Z&sp=r&sv=2024-08-04&sr=b&scid=b7a32e39-f5c7-5297-9358-00ff5af425d0&skoid=51916beb-8d6a-49b8-8b29-ca48ed86557e&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-15T19%3A18%3A26Z&ske=2025-04-16T19%3A18%3A26Z&sks=b&skv=2024-08-04&sig=rq13CJp6jQq/2eLyxkHkg%2BcUz6YyYnZUTNBkMLmO5RE%3D" alt="Logo PEARNK"  class="header__logo-img">
                 </a>
             </div>
 
