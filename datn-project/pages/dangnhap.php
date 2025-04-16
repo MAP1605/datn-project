@@ -31,41 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('sss', $input, $input, $input);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($user = $result->fetch_assoc()) {
       $matkhauTrongDB = $user['Mat_Khau'];
 
-      // Nếu mật khẩu đã mã hóa bằng password_hash
-      if (password_verify($matkhau, $matkhauTrongDB)) {
+      // ✅ Kiểm tra password hash hoặc plain text
+      if (password_verify($matkhau, $matkhauTrongDB) || $matkhau === $matkhauTrongDB) {
         $_SESSION['ID_Nguoi_Mua'] = $user['ID_Nguoi_Mua'];
-        // lấy tên người dúng đang sai 
-        $_SESSION['Ten_Dang_Nhap'] = $row['Ten_Dang_Nhap']; // hoặc Ho_Va_Ten
+        $_SESSION['Ten_Dang_Nhap'] = $user['Ten_Dang_Nhap'];
 
-        
-        header('Location: ../index.php');
-        exit;
-      }
-
-      // Nếu là plain-text (tạm thời hỗ trợ khi chưa mã hóa)
-      if ($matkhau === $matkhauTrongDB) {
-        $_SESSION['ID_Nguoi_Mua'] = $user['ID_Nguoi_Mua'];
-        // lấy tên người dúng đang sai 
-        $_SESSION['Ten_Dang_Nhap'] = $row['Ten_Dang_Nhap']; // hoặc Ho_Va_Ten     
-
+        // ✅ Thêm ảnh người mua dạng base64 (nếu có)
+        if (!empty($user['Anh_Nguoi_Mua'])) {
+          $_SESSION['Anh_Nguoi_Mua'] = base64_encode($user['Anh_Nguoi_Mua']);
+        } else {
+          $_SESSION['Anh_Nguoi_Mua'] = null; // Có thể dùng ảnh mặc định
+        }
 
         header('Location: ../index.php');
         exit;
+      } else {
+        $thongbao = 'Mật khẩu không chính xác.';
       }
-
-      $thongbao = 'Mật khẩu không chính xác.';
     } else {
       $thongbao = 'Tài khoản không tồn tại.';
     }
   }
-  
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -79,50 +72,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-<header class="header">
-      <div class="container">
-  
-          <!-- Header top -->
-          <div class="header__top">
+  <header class="header">
+    <div class="container">
 
-            <div class="header__top-left">
-                <a href="../pages/Dangkykenh.php" class="header__link">
-                    Đăng ký người bán
-                </a>
-            </div>
-            <div class="header__top-right">
-                <a href="../pages/dangnhap.php" class="header__link">
-                    Đăng nhập
-                </a>
-                <a href="../pages/dangky.php" class="header__link">
-                    Đăng ký
-                </a>
-            
-            </div>
+      <!-- Header top -->
+      <div class="header__top">
+
+        <div class="header__top-left">
+          <a href="../pages/Dangkykenh.php" class="header__link">
+            Đăng ký người bán
+          </a>
+        </div>
+        <div class="header__top-right">
+          <a href="../pages/dangnhap.php" class="header__link">
+            Đăng nhập
+          </a>
+          <a href="../pages/dangky.php" class="header__link">
+            Đăng ký
+          </a>
 
         </div>
-          <!-- Header main -->
-          <div class="header__main">
-              <div class="header__logo">
-  
-              <a href="/datn-project/datn-project/index.php" class="header__logo-link">
-                    <img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
+
+      </div>
+      <!-- Header main -->
+      <div class="header__main">
+        <div class="header__logo">
+
+          <a href="/datn-project/datn-project/index.php" class="header__logo-link">
+            <img src="../assets/images/logo/CuongDao__Logo-PEARNK.png" alt="">
 
 
-                </a>
-              </div>
-              <div class="header__search">
-                  <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
-                  <button class="header__search-btn">
-                      <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
-                  </button>
-              </div>
-  
-              <!-- Giỏ hàng -->
-              <div class="header__cart">
-                  
-  
-          </div>
+          </a>
+        </div>
+        <div class="header__search">
+          <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
+          <button class="header__search-btn">
+            <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
+          </button>
+        </div>
+
+        <!-- Giỏ hàng -->
+        <div class="header__cart">
+
+
+        </div>
       </div>
   </header>
 
@@ -141,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input type="text" name="email" placeholder="Email/SĐT/Tên đăng nhập" class="login__input login__input--email" />
               <input type="password" name="password" placeholder="Nhập mật khẩu" class="login__input login__input--password" />
               <button type="submit" class="login__button login__button--submit">ĐĂNG NHẬP</button>
-         
+
               <p class="login__terms">
                 Bằng việc đăng nhập, bạn đã đồng ý với Shopee về
                 <a href="#" class="login__link">Điều khoản dịch vụ</a> &
