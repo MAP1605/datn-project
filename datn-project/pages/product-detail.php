@@ -1,10 +1,13 @@
 <?php
+// khởi động session kiểm tra ng dùng 
 session_start();
 
+// in session ra màn hình - ko nên dùng khi deloy
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
 
+// hiển thị đầy đủ lỗi củ php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -203,6 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
+<<<<<<< HEAD
+=======
         <!-- Header top -->
         <div class="header__top">
 
@@ -235,6 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                 </button>
             </div>
 
+>>>>>>> backend-feature/Seller_Channel_3
             <!-- Giỏ hàng -->
             <div class="header__cart">
                 <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
@@ -244,12 +250,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     <ul class="header__cart-list"></ul>
                     <div class="header__cart-total">Tổng: <b>₫0</b></div>
                     <div class="header__cart-footer">
+<<<<<<< HEAD
+                        <a href="/datn-project/datn-project/pages/cart.php" class="header__cart-btn">Xem giỏ hàng</a>
+=======
                         <a href="/datn-project/pages/cart.html" class="header__cart-btn">Xem giỏ hàng</a>
+>>>>>>> backend-feature/Seller_Channel_3
                     </div>
                 </div>
             </div>
-
-        </div>
     </header>
     <!-- End header -->
 
@@ -316,13 +324,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                                 data-url="add-to-cart.php">
                                 <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                             </button>
-
-                            <!-- Popup -->
-                            <div class="popup-cart" id="popupCart">
-                                <i class="fa-solid fa-check"></i>
-                                <span>Sản phẩm đã được thêm vào Giỏ hàng</span>
-                            </div>
-
                             <button type="button" class="product-detail__btn detail__btn--buy">Mua ngay</button>
                         </div>
                     </div>
@@ -370,9 +371,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                             </div>
                         </div>
 
-                        <div class="shop__actions">
-                            <button class="shop__btn">Xem Shop</button>
-                            <button class="shop__btn">Chat ngay</button>
+                        <div class="product-detail__shop-action">
+                            <button class="shop-btn shop-btn--view">Xem shop</button>
+                            <button class="shop-btn shop-btn--chat">Chat ngay</button>
                         </div>
                     </div>
                 </div>
@@ -546,20 +547,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <footer id="footer"></footer>
     <!-- End footer -->
 
-    <!-- JS: load component header/footer -->
-    <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
-
-    <!-- Thông báo -->
     <div id="toast" class="toast"></div>
 
+    <!-- JS: load component header/footer -->
+    <script  src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
+    <script src="/datn-project/datn-project/js/utils/showToast.js"></script>
+
     <script>
-        let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
+    let cartItems = <?= json_encode($items ?? [], JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <!-- js cho product-detail -->
-    <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
 
-    <script type="module" src="/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
+    <!-- js cho product-detail -->
+    <script  src="/datn-project/datn-project/js/pages/product-detail.js"></script>
+    <script  src="/datn-project/datn-project/js/pages/cart.js?v=<?= time() ?>"></script>
 </body>
 
 </html>
