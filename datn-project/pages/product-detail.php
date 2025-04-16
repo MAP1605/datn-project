@@ -1,10 +1,13 @@
 <?php
+// khởi động session kiểm tra ng dùng 
 session_start();
 
+// in session ra màn hình - ko nên dùng khi deloy
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
 
+// hiển thị đầy đủ lỗi củ php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -203,38 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
 <body>
     <!-- Start header -->
     <header id="header">
-        <!-- Header top -->
-        <div class="header__top">
-
-            <div class="header__top-left">
-                <a href="#" class="header__link">
-                    Đăng ký người bán
-                </a>
-            </div>
-            <div class="header__top-right">
-                <a href="" class="header__link">
-                    Đăng nhập
-                </a>
-                <a href="" class="header__link">
-                    Đăng ký
-                </a>
-            </div>
-
-        </div>
-        <!-- Header main -->
-        <div class="header__main">
-            <div class="header__logo">
-                <a href="/datn-project/datn-project/index.html" class="header__logo-link">
-                    <img src="/datn-project/datn-project/assets/images/CuongDao__Logo-PEARNK.png" alt="">
-                </a>
-            </div>
-            <div class="header__search">
-                <input type="text" placeholder="Tìm sản phẩm..." class="header__search-input">
-                <button class="header__search-btn">
-                    <i class="fa-solid fa-magnifying-glass header__search-icon"></i>
-                </button>
-            </div>
-
             <!-- Giỏ hàng -->
             <div class="header__cart">
                 <i class="fa-solid fa-cart-shopping header__cart-icon"></i>
@@ -248,8 +219,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
                     </div>
                 </div>
             </div>
-
-        </div>
     </header>
     <!-- End header -->
 
@@ -552,13 +521,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['them_vao_gio'])) {
     <!-- JS: load component header/footer -->
     <script type="module" src="/datn-project/datn-project/js/utils/components-loader-pages.js"></script>
 
-    <!-- Thông báo -->
-    <div id="toast" class="toast"></div>
-
     <script>
         let cartItems = <?= json_encode($items, JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
+    <script type="module" src="/datn-project/datn-project/js/utils/showToast.js"></script>
     <!-- js cho product-detail -->
     <script type="module" src="/datn-project/datn-project/js/pages/product-detail.js"></script>
 

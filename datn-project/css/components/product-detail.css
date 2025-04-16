@@ -162,36 +162,6 @@
 /* thông báo giỏ hàng */
 /* .popup-cart {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    opacity: 0;
-    transition: 0.9s ease;
-    pointer-events: none;
-}
-
-.popup-cart.active {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: auto;
-}
-
-.popup-cart i {
-    color: green;
-    font-size: 20px;
-} */
-
-.popup-cart {
-    position: fixed;
     top: 80px;
     right: 30px;
     background-color: #4caf50;
@@ -213,7 +183,7 @@
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
-}
+} */
 
 .detail__btn--wishlist {
     background: var(--white-color);
@@ -849,48 +819,4 @@
 .popup__btn:focus {
     outline: none;
     box-shadow: none;
-}
-
-
-/* thông báo chung */
-.toast {
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1.4rem;
-    display: none;
-    z-index: 999999;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.toast.show {
-    display: block;
-    animation: fadeInOut 2.5s ease;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-    }
-
-    10% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-
-    90% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-    }
 }

@@ -9,19 +9,48 @@
 @import url(./components/product.css);
 @import url(./components/footer.css);
 @import url(./components/product-detail.css);
+@import url(./components/search.css);
+@import url(./components/cart.css);
+@import url(./components/checkout.css);
 
 /* Seller channel */
 @import url(./components/dangky.css);
 @import url(./components/KenhNguoiBan.css);
 
-@import url(./components/cart.css);
-@import url(./components/checkout.css);
+/* Dũng */
 @import url(./components/DiachiUse.css);
 @import url(./components/doimatkhau.css);
 @import url(./components/donmua.css);
 @import url(./components/giaodiennguoidung.css);
-@import url(./components/search.css);
 
 /* Seller channel */
 @import url(./components/dangky.css);
 @import url(./components/KenhNguoiBan.css);
+
+
+/* toast dùng chung cho mọi trang web */
+.custom-toast {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    transform: translateY(-20px);
+}
+
+.custom-toast.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.custom-toast.error {
+    background-color: #e53935;
+}
